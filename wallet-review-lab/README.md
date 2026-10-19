@@ -4,6 +4,10 @@
 
 项目实施过程、里程碑和架构决策见 [`docs/`](docs/README.md)。
 
+## API response wording
+
+The transfer response now documents that `transfer_id` is safe to use for client-side tracing.
+
 这个项目不是支付系统，也不连接真实资金。它用一个最小化的钱包转账服务演示 AI 代码评审中的正确性、安全、并发、幂等与提示注入问题。
 
 ## 核心不变量
