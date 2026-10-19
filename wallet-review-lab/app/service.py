@@ -29,13 +29,6 @@ class TransferService:
         normalized_amount = self._validate(amount, source_wallet_id, destination_wallet_id)
 
         def perform() -> Transfer:
-            previous = self._repository.get_transfer(actor_id, idempotency_key)
-            if previous is not None:
-                self._ensure_same_request(
-                    previous, source_wallet_id, destination_wallet_id, normalized_amount
-                )
-                return previous
-
             source = self._repository.get_wallet(source_wallet_id)
             destination = self._repository.get_wallet(destination_wallet_id)
             if source.owner_id != actor_id:
