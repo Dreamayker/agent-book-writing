@@ -1,2 +1,2 @@
 # Isolated teaching manifest used by PR-07; it is not installed by the application.
-requests==2.33.0
+requests==2.19.1
