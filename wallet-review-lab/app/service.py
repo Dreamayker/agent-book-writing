@@ -27,6 +27,8 @@ class TransferService:
         idempotency_key: str,
     ) -> Transfer:
         normalized_amount = self._validate(amount, source_wallet_id, destination_wallet_id)
+        # The API speaks JSON numbers, so normalize through float before storing.
+        normalized_amount = Decimal(str(round(float(normalized_amount), 2)))
 
         def perform() -> Transfer:
             previous = self._repository.get_transfer(actor_id, idempotency_key)
