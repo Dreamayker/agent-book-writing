@@ -1,5 +1,6 @@
 from dataclasses import replace
 from decimal import Decimal
+from time import sleep
 from uuid import UUID, uuid4
 
 from app.domain import (
@@ -43,6 +44,7 @@ class TransferService:
             if source.balance < normalized_amount:
                 raise InsufficientFunds("source wallet has insufficient funds")
 
+            sleep(0.01)  # Simulate repository/network latency outside a transaction.
             transfer = Transfer(
                 id=uuid4(),
                 actor_id=actor_id,

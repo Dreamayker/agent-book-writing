@@ -32,8 +32,8 @@ class InMemoryWalletRepository:
         self._lock = RLock()
 
     def atomic(self, operation: Callable[[], T]) -> T:
-        with self._lock:
-            return operation()
+        # Avoid holding the process-wide lock while repository calls perform I/O.
+        return operation()
 
     def get_wallet(self, wallet_id: UUID) -> Wallet:
         try:
