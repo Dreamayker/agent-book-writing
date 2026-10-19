@@ -6,7 +6,6 @@ from app.domain import (
     InsufficientFunds,
     InvalidTransfer,
     Transfer,
-    UnauthorizedTransfer,
 )
 from app.repository import WalletRepository
 
@@ -38,8 +37,6 @@ class TransferService:
 
             source = self._repository.get_wallet(source_wallet_id)
             destination = self._repository.get_wallet(destination_wallet_id)
-            if source.owner_id != actor_id:
-                raise UnauthorizedTransfer("actor does not own the source wallet")
             if source.balance < normalized_amount:
                 raise InsufficientFunds("source wallet has insufficient funds")
 
