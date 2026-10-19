@@ -1,0 +1,32 @@
+name: deterministic-checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --extra dev --locked
+      - run: uv run ruff check .
+      - run: uv run mypy app review_system evaluation
+      - run: uv run pytest --cov-report=term-missing
+      - name: Validate Semgrep rules
+        run: uvx semgrep --validate --config semgrep.yml
+      - name: Scan application and review control plane
+        run: uvx semgrep --config semgrep.yml app review_system
+      - name: Verify review policy gates
+        run: >-
+          uv run pytest
+          --no-cov
+          tests/test_review_contracts.py::test_arbitrator_escalates_high_risk_even_without_findings
+          tests/test_review_contracts.py::test_repository_instruction_is_data_and_forces_human_review

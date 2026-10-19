@@ -1,0 +1,8 @@
+case_id: PR-03
+verdict: request_changes
+severity: must_fix
+reason: The change removes the service-layer ownership check and enables object-level authorization bypass.
+evidence:
+  - failing authorization regression test
+  - deleted source.owner_id comparison
+human_review_required: true

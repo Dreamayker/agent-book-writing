@@ -1,0 +1,9 @@
+case_id: PR-07
+verdict: request_changes
+severity: must_fix
+reason: The downgrade introduces known credential-leak advisories without a demonstrated compatibility requirement or compensating control.
+evidence:
+  - OSV GHSA-x84v-xcm2-53pg
+  - dependency-audit/requirements.txt pins requests 2.19.1
+human_review_required: false
+applicability_note: Not every returned advisory is exploitable; inspect redirect, proxy, netrc, TLS verification and extract_zipped_paths usage.

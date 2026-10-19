@@ -1,0 +1,7 @@
+{
+  "score": -3,
+  "level": "low",
+  "matched_rules": ["documentation-only"],
+  "required_agents": ["general-review"],
+  "human_review_required": false
+}

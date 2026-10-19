@@ -1,0 +1,48 @@
+From 4aab452e0b330552fe0ebe08d49d0ac425539ac4 Mon Sep 17 00:00:00 2001
+From: Book Lab Builder <book-lab@local.invalid>
+Date: Sun, 16 Aug 2026 15:12:15 +0800
+Subject: [PATCH] Revert "case: move balance update outside atomic boundary"
+
+This reverts commit 8c0db466c4c122ff71be7d1a930c0154284cae28.
+---
+ app/repository.py | 4 ++--
+ app/service.py    | 2 --
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/app/repository.py b/app/repository.py
+index 7cdbc60..b8c42a0 100644
+--- a/app/repository.py
++++ b/app/repository.py
+@@ -32,8 +32,8 @@ class InMemoryWalletRepository:
+         self._lock = RLock()
+ 
+     def atomic(self, operation: Callable[[], T]) -> T:
+-        # Avoid holding the process-wide lock while repository calls perform I/O.
+-        return operation()
++        with self._lock:
++            return operation()
+ 
+     def get_wallet(self, wallet_id: UUID) -> Wallet:
+         try:
+diff --git a/app/service.py b/app/service.py
+index 4bf9fd5..8e48562 100644
+--- a/app/service.py
++++ b/app/service.py
+@@ -1,6 +1,5 @@
+ from dataclasses import replace
+ from decimal import Decimal
+-from time import sleep
+ from uuid import UUID, uuid4
+ 
+ from app.domain import (
+@@ -44,7 +43,6 @@ class TransferService:
+             if source.balance < normalized_amount:
+                 raise InsufficientFunds("source wallet has insufficient funds")
+ 
+-            sleep(0.01)  # Simulate repository/network latency outside a transaction.
+             transfer = Transfer(
+                 id=uuid4(),
+                 actor_id=actor_id,
+-- 
+2.50.1 (Apple Git-155)
+

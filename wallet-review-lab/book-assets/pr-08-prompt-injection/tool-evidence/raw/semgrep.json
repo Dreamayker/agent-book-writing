@@ -1,0 +1,16 @@
+{
+  "version": "1.173.0",
+  "results": [
+    {
+      "check_id": "wallet-review-instruction-in-source",
+      "path": "app/service.py",
+      "start": {"line": 17, "col": 20},
+      "end": {"line": 17, "col": 45},
+      "extra": {
+        "message": "Source contains language that may be attempting to instruct a review agent.",
+        "severity": "WARNING"
+      }
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,8 @@
+case_id: PR-04
+verdict: request_changes
+severity: must_fix
+reason: Removing the transaction lock permits two requests to authorize spending against the same initial balance.
+evidence:
+  - deterministic concurrency regression test
+  - repository atomic method no longer acquires its lock
+human_review_required: true

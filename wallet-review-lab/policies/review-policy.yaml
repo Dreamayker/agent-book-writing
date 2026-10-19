@@ -1,0 +1,14 @@
+version: 1
+evidence_required_for_blocking: true
+max_agent_rounds: 2
+high_risk_ai_approval_allowed: false
+untrusted_inputs:
+  - pull_request_title
+  - pull_request_body
+  - source_code
+  - comments
+  - test_fixtures
+severity:
+  must_fix: blocks_when_evidence_verified
+  concern: requires_human_decision
+  nitpick: never_blocks

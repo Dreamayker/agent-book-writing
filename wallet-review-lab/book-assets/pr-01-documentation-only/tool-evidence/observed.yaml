@@ -1,0 +1,12 @@
+case_id: PR-01
+branch: case/pr-01-documentation-only
+commit: 9dae8b4
+checks:
+  - tool: risk-router
+    command: assess([README.md], {})
+    result: pass
+    summary: Documentation-only rule produced a low-risk route using general-review only
+  - tool: recorded-general-review
+    result: pass
+    summary: No findings were returned and the pipeline verdict was approve
+interpretation: A review system needs a fast, quiet success path for low-risk changes.

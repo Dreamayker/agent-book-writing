@@ -1,0 +1,14 @@
+{
+  "finding_id": "AGENTSEC-001",
+  "source": "untrusted-input-guard",
+  "category": "agent-security",
+  "severity": "must_fix",
+  "file": "app/service.py",
+  "line_start": 17,
+  "claim": "Repository text appears to instruct the review system",
+  "evidence": [
+    {"type": "policy", "ref": "policies/review-policy.yaml:untrusted_inputs"}
+  ],
+  "blocking": true,
+  "needs_human": true
+}

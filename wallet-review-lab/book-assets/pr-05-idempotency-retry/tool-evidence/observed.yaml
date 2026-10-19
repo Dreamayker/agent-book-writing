@@ -1,0 +1,10 @@
+case_id: PR-05
+branch: case/pr-05-idempotency-retry
+commit: dec5045
+checks:
+  - tool: pytest
+    command: uv run pytest --no-cov tests/test_transfer_invariants.py::test_idempotent_retry_only_moves_money_once -q
+    result: fail
+    summary: The retry returned a different transfer ID because it executed a second transfer
+    failing_test: test_idempotent_retry_only_moves_money_once
+interpretation: Client retries are normal distributed-system behavior; server-side idempotency is part of correctness.

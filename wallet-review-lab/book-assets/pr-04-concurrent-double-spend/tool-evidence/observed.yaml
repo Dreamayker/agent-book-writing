@@ -1,0 +1,11 @@
+case_id: PR-04
+branch: case/pr-04-concurrent-double-spend
+commit: 8c0db46
+checks:
+  - tool: pytest
+    command: uv run pytest tests/test_transfer_invariants.py::test_concurrent_transfers_cannot_double_spend -q
+    result: fail
+    summary: Both concurrent transfers succeeded; exactly one was expected to succeed
+    failing_test: test_concurrent_transfers_cannot_double_spend
+    observed_outcomes: [true, true]
+interpretation: Balance validation and mutation no longer share one atomic boundary.

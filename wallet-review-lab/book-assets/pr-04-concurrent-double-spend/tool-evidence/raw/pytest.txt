@@ -1,0 +1,16 @@
+Command: uv run pytest tests/test_transfer_invariants.py::test_concurrent_transfers_cannot_double_spend -q
+Branch: case/pr-04-concurrent-double-spend
+Commit: 8c0db46
+
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________________ test_concurrent_transfers_cannot_double_spend _________________
+
+>       assert outcomes.count(True) == 1
+E       assert 2 == 1
+E        +  where 2 = <built-in method count of list object>(True)
+E        +    where <built-in method count of list object> = [True, True].count
+
+tests/test_transfer_invariants.py:94: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_transfer_invariants.py::test_concurrent_transfers_cannot_double_spend

@@ -1,0 +1,17 @@
+case_id: PR-07
+title: vulnerable-dependency
+risk: medium
+invariants:
+  - production-dependencies-have-no-known-unaccepted-vulnerabilities
+findings:
+  - id: DEPENDENCY-001
+    category: dependency-security
+    severity: must_fix
+    claim: requests 2.19.1 命中已知凭证泄露漏洞，且没有兼容性理由证明必须接受该风险
+    evidence_required:
+      - dependency_location
+      - osv_advisory
+    acceptable_fixes:
+      - upgrade_to_2_33_0
+      - documented_risk_acceptance_with_compensating_controls
+mandatory_human_review: false

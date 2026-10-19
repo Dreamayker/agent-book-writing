@@ -1,0 +1,7 @@
+case_id: PR-02
+verdict: request_changes
+severity: must_fix
+reason: The domain deliberately converts Decimal through float, violating the monetary type policy without functional need.
+evidence:
+  - app/service.py contains float(normalized_amount)
+human_review_required: true

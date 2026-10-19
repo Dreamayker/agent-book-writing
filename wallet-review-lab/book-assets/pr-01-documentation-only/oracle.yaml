@@ -1,0 +1,6 @@
+case_id: PR-01
+title: documentation-only
+risk: low
+invariants: []
+findings: []
+mandatory_human_review: false

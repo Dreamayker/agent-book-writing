@@ -1,0 +1,14 @@
+%% 图 9-2：PR-04 并发双花评审时序
+sequenceDiagram
+    participant R as 风险路由
+    participant T as 并发测试
+    participant C as Correctness Agent
+    participant A as 仲裁器
+    participant H as 人类审批者
+    R->>R: 命中 money + database-transaction
+    R->>T: 启动高风险证据集
+    T-->>C: 两个并发转账都成功
+    C-->>A: CONCURRENCY-001 + 测试位置
+    A->>A: 合并同根因意见
+    A-->>H: escalate，要求人工终审
+

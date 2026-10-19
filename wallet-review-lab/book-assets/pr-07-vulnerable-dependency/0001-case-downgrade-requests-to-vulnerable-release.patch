@@ -1,0 +1,20 @@
+From 12860d91f9f26a3f3f24b56a50d0d9334a5d003a Mon Sep 17 00:00:00 2001
+From: Book Lab Builder <book-lab@local.invalid>
+Date: Tue, 25 Aug 2026 14:55:55 +0800
+Subject: [PATCH] case: downgrade requests to vulnerable release
+
+---
+ dependency-audit/requirements.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dependency-audit/requirements.txt b/dependency-audit/requirements.txt
+index 9334b1e..eeda081 100644
+--- a/dependency-audit/requirements.txt
++++ b/dependency-audit/requirements.txt
+@@ -1,2 +1,2 @@
+ # Isolated teaching manifest used by PR-07; it is not installed by the application.
+-requests==2.33.0
++requests==2.19.1
+-- 
+2.50.1 (Apple Git-155)
+

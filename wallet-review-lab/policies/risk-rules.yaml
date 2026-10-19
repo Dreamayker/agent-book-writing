@@ -1,0 +1,26 @@
+version: 1
+thresholds:
+  low_max: 2
+  medium_max: 6
+rules:
+  - id: sensitive-path
+    patterns: ["app/auth/**", "app/service.py", "app/repository.py"]
+    score: 4
+  - id: public-api
+    patterns: ["app/api.py"]
+    score: 3
+  - id: production-dependency
+    patterns: ["dependency-audit/**", "pyproject.toml", "uv.lock"]
+    score: 3
+  - id: tests-changed
+    patterns: ["tests/**"]
+    score: -1
+  - id: documentation-only
+    patterns: ["**/*.md"]
+    score: -3
+mandatory_human_review:
+  - money
+  - authorization
+  - credentials
+  - database-transaction
+  - audit-deletion

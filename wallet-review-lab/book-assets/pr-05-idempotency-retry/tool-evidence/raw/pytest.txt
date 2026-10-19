@@ -1,0 +1,15 @@
+Command: uv run pytest --no-cov tests/test_transfer_invariants.py::test_idempotent_retry_only_moves_money_once -q
+Branch: case/pr-05-idempotency-retry
+Commit: dec5045
+
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________ test_idempotent_retry_only_moves_money_once __________________
+
+>       assert first == second
+E       AssertionError: assert Transfer(...) == Transfer(...)
+E         Differing attributes: ['id', 'created_at']
+
+tests/test_transfer_invariants.py:58: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_transfer_invariants.py::test_idempotent_retry_only_moves_money_once

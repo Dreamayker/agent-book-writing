@@ -1,0 +1,16 @@
+case_id: PR-03
+title: object-level-authorization
+risk: high
+invariants:
+  - actor-owns-source-wallet
+findings:
+  - id: AUTHZ-001
+    category: security
+    severity: must_fix
+    claim: 转账操作没有验证当前用户是否拥有源钱包
+    evidence_required:
+      - source_location
+      - unauthorized_access_test
+    acceptable_fixes:
+      - enforce_owner_check_in_service
+mandatory_human_review: true

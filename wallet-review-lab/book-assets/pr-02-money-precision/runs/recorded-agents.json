@@ -1,0 +1,11 @@
+{
+  "general-review": [],
+  "correctness": [{
+    "finding_id": "MONEY-001", "source": "correctness", "category": "correctness",
+    "severity": "must_fix", "confidence": 0.92, "file": "app/service.py", "line_start": 31,
+    "claim": "Money is converted through binary floating point",
+    "evidence": [{"type": "static_analysis", "ref": "wallet-float-money:app/service.py:31"}],
+    "blocking": true, "needs_human": false
+  }],
+  "test": [], "security": [], "impact": []
+}
