@@ -7,6 +7,7 @@
 - `第9章 AI 代码评审与多 Agent 协同.md`：原始章节稿。
 - `第9章完善与案例落地方案.md`：章节重构与案例实施方案。
 - `wallet-review-lab/`：可安装、可测试、可回放的实验工程。
+- `wallet-review-lab/docs/chapter-09/`：第 9 章按概述、9.1～9.10 和项目案例拆分后的文档目录。
 - `docs/chapter-09-expansion-plan.md`：按分子章节拆解的扩写蓝图。
 - `docs/project-readiness-audit.md`：项目覆盖范围、出版缺口和整改记录。
 

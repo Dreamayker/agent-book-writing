@@ -4,6 +4,8 @@
 
 ## 过程记录
 
+- [chapter-09/README.md](chapter-09/README.md)：第 9 章按概述、9.1～9.10 和独立项目案例拆分后的阅读入口。
+- [chapter-09-rewrite-draft.md](chapter-09-rewrite-draft.md)：第 9 章合并稿与拆分稿内容来源。
 - [execution-plan.md](execution-plan.md)：仓库内可版本化的执行基线与追踪矩阵。
 - [implementation-log.md](implementation-log.md)：按时间记录实施、验证、失败及修正。
 - [milestone-status.md](milestone-status.md)：当前完成度、阻塞项和下一步。
