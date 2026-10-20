@@ -1,0 +1,1700 @@
+[
+  {
+    "id": "1",
+    "type": "h1",
+    "meta": true,
+    "children": [
+      {
+        "text": "9.2章节"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "收到确认。9.2 涉及 Meta RADAR、CodeRabbit、CodeAgent 三个外部系统的转述数据，按计划我先联网核验它们的官方来源，再动笔创作。"
+      }
+    ],
+    "id": "XJI4sp2akU"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "三个系统的公开来源都已定位到（RADAR 的 arXiv 论文、CodeRabbit 官方架构文档、CodeAgent 论文）。我再定向读取三个来源，核实 Gemini 报告中引用的具体数字是否与官方材料一致，然后开始创作。"
+      }
+    ],
+    "id": "Bp8_VqKoKQ"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "核心数字已从官方来源确认：RADAR 的 P25→P50 阈值与 60.31% 批准率出自 arXiv:2605.30208 摘要原文；CodeAgent 的 F1 +10.45pp、EP 31.60pp 出自论文原文。我再补两个定向读取，确认 RADAR 资格过滤细节与 CodeRabbit 官方性能口径，然后完成 9.2 正文。"
+      }
+    ],
+    "id": "0WtQNoXCuT"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "RADAR 论文细节已核验（多阶段漏斗、三类资格门槛、每 runbook 的 DRS 阈值、每日限额等）。CodeRabbit 的 Google Cloud 案例页抓取失败，但官方架构文档与多篇深入解读已足够支撑，性能数据将以官方口径（约 50% 提速/50% 缺陷减少）为准，并把报告中未经一手核验的数字显式标注。现在交付 9.2 正文。"
+      }
+    ],
+    "id": "TOcNUfRMeU"
+  },
+  {
+    "type": "hr",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "rXbSYqQYgu"
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "9.2 全球化生产环境下的多 Agent 系统落地架构与企业级实践"
+      }
+    ],
+    "id": "Do68n2E2C4"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "多 Agent 系统的落地标志着软件工程自动化进入了一个不仅能\"读懂代码\"，更能\"在代码库中进行研究与推理\"的新阶段。真实企业级环境中的高置信度、高吞吐量审查系统，远比单纯调用云端 LLM API 复杂。当前业界的一个基本共识是："
+      },
+      {
+        "text": "将确定性的静态程序分析（抽象语法树解析、全局符号表提取等）与大语言模型的非确定性推理进行深度融合，是生产级落地的有效路径",
+        "bold": true
+      },
+      {
+        "text": "。本节剖析三个代表性系统：Meta 的内部系统 RADAR、面向商业生态的 CodeRabbit，以及学术界的 CodeAgent。它们分别回答了三个不同的问题："
+      },
+      {
+        "text": "该让什么进入自动化（风险分层）、如何在不可信代码上安全地自动化（隔离执行）、如何防止自动化在长流程中偏离目标（纠偏监督）",
+        "bold": true
+      },
+      {
+        "text": "——这三个问题恰好对应本章后半部分的\"风险路由、权限隔离、仲裁\"三条主线。"
+      }
+    ],
+    "id": "ko4HSydupz"
+  },
+  {
+    "type": "blockquote",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "text": "本节事实边界声明",
+            "bold": true
+          },
+          {
+            "text": "：以下第三方系统的数据均转述自公开论文、官方文档与工程博客，截至本书写作时已做初步核验；具体数字在出版前应以官方一手来源（arXiv 论文、官方文档、厂商案例研究）复核并标注访问日期。标有\"据报告转述\"的内容尚未获得一手材料确认，不视为已验证事实。"
+          }
+        ],
+        "id": "PDBN03H_le"
+      }
+    ],
+    "id": "1-SP38U-UP"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.2.1 Meta RADAR：风险感知的分层自动化"
+      }
+    ],
+    "id": "zZ0GYpe2Ah"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "问题的规模：生成式代码海啸"
+      }
+    ],
+    "id": "VsQxHZtMBu"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "Meta 工程团队在 2026 年发表的论文《Automating Low-Risk Code Review at Meta: RADAR, Risk Calibration, and Review Efficiency》（arXiv:2605.30208，2026 年 5 月提交）披露了其内部系统 RADAR（Risk Aware Diff Auto Review）的完整设计。论文给出了一组衡量\"代码供给与评审容量失衡\"的基线数据："
+      }
+    ],
+    "id": "t7XRgNlxfp"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "在引入 Agent 驱动的 AI 编程辅助工具后，"
+      },
+      {
+        "text": "每位人类提交的 Diff 中有效代码行数同比增加 105.9%",
+        "bold": true
+      },
+      {
+        "text": "；"
+      }
+    ],
+    "id": "WNk3OOyTiS"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "每位开发者每月的 Diff 提交频率上升 51%，其中"
+      },
+      {
+        "text": "超过 80% 的增量直接归因于 AI 代理辅助生成的代码",
+        "bold": true
+      },
+      {
+        "text": "；"
+      }
+    ],
+    "id": "gdojGEcmm4"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "与此同时，获得及时评审的 Diff 占比下降，评审队列积压成为发布周期的新瓶颈。"
+      }
+    ],
+    "id": "Ifo51296hs"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "这组数字印证了 9.1 的核心判断：当机器生成代码的速度远超人类阅读速度时，把人类注意力平均分配给所有 Diff 的做法不再可行。"
+      }
+    ],
+    "id": "wjEC5CDzlk"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "架构哲学：不是 100% 自动化，而是风险分层"
+      }
+    ],
+    "id": "SWSr8XPZWx"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "RADAR 的架构哲学值得先讲清楚："
+      },
+      {
+        "text": "它不追求用 AI 替代全部评审，而是把评审自动化看作一个按风险逐层收窄的漏斗（multi-stage funnel）",
+        "bold": true
+      },
+      {
+        "text": "。高风险变更（架构变更、开源核心模块、监管相关代码）被强制保留给人类；只有通过层层资格检查的低风险变更才进入自动化合并路径。"
+      }
+    ],
+    "id": "RO-mEnus7o"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "RADAR 的漏斗由六个环节组成，如图 9-2 所示："
+      }
+    ],
+    "id": "H8Uo-g5L_S"
+  },
+  {
+    "indent": 1,
+    "listGroup": "reBG4r",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "作者与来源分类",
+        "bold": true
+      },
+      {
+        "text": "：每个 Diff 先按作者类型（人类或机器人）分类，机器人 Diff 再按自动化来源细分；"
+      }
+    ],
+    "id": "z2dKQsyCik"
+  },
+  {
+    "indent": 1,
+    "listGroup": "reBG4r",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "资格门槛（Eligibility Gates）",
+        "bold": true
+      },
+      {
+        "text": "：作者资格、作用域排除、变更状态、内容级检查；"
+      }
+    ],
+    "id": "bOGBxDLHWl"
+  },
+  {
+    "indent": 1,
+    "listGroup": "reBG4r",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "静态启发式（Static Heuristics）",
+        "bold": true
+      },
+      {
+        "text": "：基于元数据、文件路径与阈值的确定性规则；"
+      }
+    ],
+    "id": "r1A5odNhBo"
+  },
+  {
+    "indent": 1,
+    "listGroup": "reBG4r",
+    "listStart": 4,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "Diff 风险评分（Diff Risk Score, DRS）",
+        "bold": true
+      },
+      {
+        "text": "：机器学习模型给出的风险分数；"
+      }
+    ],
+    "id": "yxMHwsZMRc"
+  },
+  {
+    "indent": 1,
+    "listGroup": "reBG4r",
+    "listStart": 5,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "LLM 自动代码评审（LLM-based ACR）",
+        "bold": true
+      },
+      {
+        "text": "：由 RADAR Review Agent 提供语义理解；"
+      }
+    ],
+    "id": "U2dcA3nA-9"
+  },
+  {
+    "indent": 1,
+    "listGroup": "reBG4r",
+    "listStart": 6,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "确定性验证（Deterministic Validation）",
+        "bold": true
+      },
+      {
+        "text": "：合并前的最终机械校验。"
+      }
+    ],
+    "id": "6berwnU5_p"
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "<code>flowchart TD"
+          }
+        ],
+        "type": "code_line",
+        "id": "gpqWnT4De6"
+      },
+      {
+        "children": [
+          {
+            "text": "  A[\"Diff 进入\"] --> B{\"作者与来源分类<br/>人类 / 机器人\"}"
+          }
+        ],
+        "type": "code_line",
+        "id": "uP6mCophsc"
+      },
+      {
+        "children": [
+          {
+            "text": "  B -->|人类| C[\"资格门槛<br/>作者资格 · 作用域排除 · 状态约束\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "zwesdDboVG"
+      },
+      {
+        "children": [
+          {
+            "text": "  C --> D[\"内容级检查<br/>敏感短语 · 文件黑白名单\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "mr2S2Di7np"
+      },
+      {
+        "children": [
+          {
+            "text": "  D --> E[\"静态启发式 + DRS 风险评分\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "EQ9_RcHNQ3"
+      },
+      {
+        "children": [
+          {
+            "text": "  E --> F[\"LLM 自动代码评审<br/>RADAR Review Agent\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "bWy2Sjktbw"
+      },
+      {
+        "children": [
+          {
+            "text": "  F --> G[\"确定性验证\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "B6qroX0iv0"
+      },
+      {
+        "children": [
+          {
+            "text": "  G -->|通过| H[\"自动落地<br/>可配置延迟\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "46ojkabIxG"
+      },
+      {
+        "children": [
+          {
+            "text": "  G -->|任一环节失败| I[\"路由人工评审\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "nvUXaRxLdm"
+      },
+      {
+        "children": [
+          {
+            "text": "  H --> I"
+          }
+        ],
+        "type": "code_line",
+        "id": "d9qvCa2WvN"
+      },
+      {
+        "children": [
+          {
+            "text": "</code>"
+          }
+        ],
+        "type": "code_line",
+        "id": "01ixT5hSln"
+      }
+    ],
+    "type": "code_block",
+    "lang": "mermaid",
+    "id": "A3WjcmDXhW"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "图 9-2 RADAR 多阶段风险漏斗。",
+        "bold": true
+      },
+      {
+        "text": " 任何环节出现风险信号，Diff 即被移出自动批准路径。值得注意：LLM 评审并非漏斗的第一道或唯一关卡，而是位于静态启发式与 DRS 之后——它补足的是静态规则不具备的语义理解能力，例如识别\"大而平凡的重构\"（看似大改动实则安全）或\"模式匹配抓不到的逻辑错误\"（论文中称为 ACR 的关键价值）。"
+      }
+    ],
+    "id": "J7BEIVgcb7"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "资格门槛：把\"谁可以自动通过\"写成确定性规则"
+      }
+    ],
+    "id": "EhhbqPNWko"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "论文详细给出了人类 Diff 的三类资格约束："
+      }
+    ],
+    "id": "7vPyVmH4qX"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "作者资格",
+        "bold": true
+      },
+      {
+        "text": "：作者必须满足内部经验门槛，如属于 SWE 岗位序列、过去一年提交超过 10 个 Diff、承担相关 oncall 职责；实习生需在职满 60 天。这些条件确保获得自动评审豁免的代码出自具备项目上下文与问责制的工程师；"
+      }
+    ],
+    "id": "06VQZqf4r_"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "作用域排除",
+        "bold": true
+      },
+      {
+        "text": "：触及开源代码、受 SOX（萨班斯-奥克斯利法案）监管的财务相关代码，或要求额外审查的 Diff，一律转回人工；"
+      }
+    ],
+    "id": "bzpzZSERWi"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "状态与内容约束",
+        "bold": true
+      },
+      {
+        "text": "：Diff 不得处于 WIP（Work-In-Progress）状态，不得包含黑名单敏感短语（如硬编码密钥标识），CI 前置信号必须为允许状态。"
+      }
+    ],
+    "id": "3HnEv3yY72"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "对机器人来源的 Diff（自动化脚本与 runbook 生成），RADAR 另有路径：确定性 codemod 可走 Blanket AutoAccept 直接跳过逐 Diff 评审；AI 生成的 codemod 必须进入 ACE 管道接受三层检查（安全检查、DRS、LLM 评审）；RACER runbook 则需先通过\"60 天风险历史零生产事故、低回滚率、低人工拒绝率、最低提交基数\"的资格审核，并受每日落地限额约束（默认保守，安全记录良好的 runbook 可放宽至每日 2000 个 Diff）。"
+      }
+    ],
+    "id": "T8JjHWEeWf"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "阈值校准：把\"自动化率\"当作可调旋钮"
+      }
+    ],
+    "id": "C_HDn0PlA9"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "RADAR 最值得借鉴的设计是"
+      },
+      {
+        "text": "把自动批准率当作显式的工程旋钮，而不是模型能力的附属品",
+        "bold": true
+      },
+      {
+        "text": "。论文显示，团队将 DRS 阈值从第 25 百分位放宽到第 50 百分位后，自动批准率升至 60.31%；不同 runbook 还可配置各自阈值（安全记录良好的白名单 runbook 用宽松的 P50，其余用严格的 P20）。阈值调高意味着更多 Diff 自动化、边际风险也更高——这是运营者基于遥测数据做出的取舍，不是模型自己决定的。"
+      }
+    ],
+    "id": "_TaimsBR2Z"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "生产结果：效率与可靠性的双重证据"
+      }
+    ],
+    "id": "mEXd17yT-_"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "论文基于 53.5 万+ 个 RADAR 评审 Diff 的遥测数据报告了以下结果："
+      }
+    ],
+    "id": "aqHWy5Ivfb"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "自动评审通过的 Diff，"
+      },
+      {
+        "text": "事后回滚率为非 RADAR 评审代码的三分之一",
+        "bold": true
+      },
+      {
+        "text": "；"
+      }
+    ],
+    "id": "S2V4tOlTNg"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "引发生产事故（Production Incident）的概率为非 RADAR 代码的五十分之一",
+        "bold": true
+      },
+      {
+        "text": "；"
+      }
+    ],
+    "id": "oVkD_60fKj"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "相对人工基线，"
+      },
+      {
+        "text": "Diff 关闭中位数时间缩短超过 330%，开发者等待评审的挂钟时间缩短 35%",
+        "bold": true
+      },
+      {
+        "text": "。"
+      }
+    ],
+    "id": "03yH_5ufcM"
+  },
+  {
+    "type": "blockquote",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "text": "事实分级",
+            "bold": true
+          },
+          {
+            "text": "：以上数据出自 RADAR 论文摘要（arXiv:2605.30208v2，2026-06-12 修订），属于"
+          },
+          {
+            "text": "已验证的公开声明",
+            "bold": true
+          },
+          {
+            "text": "（论文作者对内部部署的测量）。媒体报道一致转述了这些数字。需要保留的边界是：这是 Meta 内部单一环境的观测结果（论文采用前后对比与双重差分分析），不构成\"自动评审普遍优于人工\"的一般性结论；且 RADAR 只覆盖低风险子集，其低事故率部分来自严格的资格筛选本身。"
+          }
+        ],
+        "id": "GqbRd2lVCC"
+      }
+    ],
+    "id": "yKBIR7v9AK"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "对本章的启示"
+      }
+    ],
+    "id": "ria2oFihrY"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "RADAR 与本章主线一一对应：资格门槛就是 9.5 的风险路由；DRS 阈值校准就是风险预算（9.10）；LLM 评审只承担\"语义解释\"而非\"批准决策\"，对应 9.1 的四层分工；\"任一环节失败即路由人工\"对应\"工具执行失败、测试未运行不能被解释为成功\"的纪律。"
+      },
+      {
+        "text": "RADAR 证明的核心命题是：自动化评审的安全边界不来自模型有多聪明，而来自有多少确定性检查挡在模型前面。",
+        "bold": true
+      }
+    ],
+    "id": "IOsifJVrvT"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.2.2 CodeRabbit：AST 图谱、隔离沙盒与裁决过滤"
+      }
+    ],
+    "id": "TIhKr439vJ"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "如果说 RADAR 回答的是\"该让什么进入自动化\"，CodeRabbit 回答的则是\""
+      },
+      {
+        "text": "如何在一个不可信、异构、高并发的商业生态里安全地运行自动化",
+        "bold": true
+      },
+      {
+        "text": "\"。"
+      }
+    ],
+    "id": "BuWHFZEeL6"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "从\"上下文盲区\"说起"
+      }
+    ],
+    "id": "BmVCHuiwDk"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "传统的\"基于纯 Diff 提示词\"（Single-Shot Diff Prompting）评审之所以表现糟糕，根本原因在于上下文盲区：开发者修改了一个接口签名，纯 Diff 模型只看到局部合法性，却不知道它会在调用该接口的数百个关联文件中引发崩溃。CodeRabbit 的回应是强制引入"
+      },
+      {
+        "text": "代码图谱（Code Graph）与深度基础设施整合",
+        "bold": true
+      },
+      {
+        "text": "。"
+      }
+    ],
+    "id": "Ygtrv_glte"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "隔离执行：为每一个 PR 建立微型沙盒"
+      }
+    ],
+    "id": "5P1iwMFx4Q"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "CodeRabbit 不在共享环境中执行分析，而是利用云原生无服务器平台（如 Google Cloud Run）为每次评审创建隔离的微型虚拟机，在高并发提交时通过分布式任务队列吸收洪峰——第三方深入解读给出的量级是约每秒 10 个 PR 的评审并发、200+ 个运行实例。沙盒内克隆完整代码仓库，依据 package.json、go.mod 等清单自动构建环境并下载依赖，同时用沙箱工具约束进程权限，防止不可信代码越界。"
+      },
+      {
+        "text": "这一步对应本章 9.4 的权限隔离：Agent 可以读代码、跑工具，但不能触碰宿主系统。",
+        "bold": true
+      }
+    ],
+    "id": "9AMIENrlD_"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "多阶段管道：从压缩到裁决"
+      }
+    ],
+    "id": "PUkFK1Y8i2"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "CodeRabbit 的评审不是一次提示词调用，而是一条多阶段管道。综合其官方文档与工程访谈，管道的关键环节如下："
+      }
+    ],
+    "id": "D1FgMl2dh7"
+  },
+  {
+    "indent": 1,
+    "listGroup": "XZjctz",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "上下文构建与图谱收敛",
+        "bold": true
+      },
+      {
+        "text": "：调用 Tree-sitter 等解析工具生成增量代码的 AST，追踪修改波及的下游调用点；聚合 PR 绑定的需求文档、历史对话与 CI 日志。由于原始数据直接注入大模型会导致上下文失焦与成本失控，系统先用参数量小、成本低的纳米级模型（Nano Models）将数千行文件与日志压缩为高密度的\"审查简报\"（Review Brief）；"
+      }
+    ],
+    "id": "E2AtBbVYhE"
+  },
+  {
+    "indent": 1,
+    "listGroup": "XZjctz",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "规划",
+        "bold": true
+      },
+      {
+        "text": "：规划模型（Planning Model）根据 Diff 内容生成任务图（Task Graph）——每个 PR 的任务集不同，例如\"检查迁移的向后兼容性\"\"确认新端点处理了认证\"\"追踪变更函数在哪里被使用\"；"
+      }
+    ],
+    "id": "GckouDd3Yt"
+  },
+  {
+    "indent": 1,
+    "listGroup": "XZjctz",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "探索式调查",
+        "bold": true
+      },
+      {
+        "text": "：Agent 不调用预定义的工具 Schema，而是在沙盒中"
+      },
+      {
+        "text": "直接编写并执行 Shell 命令",
+        "bold": true
+      },
+      {
+        "text": "（cat、grep、ast-grep 等）主动巡检代码，甚至可以动态编写 Python 脚本计算依赖复杂度；"
+      }
+    ],
+    "id": "p52YuYxNfg"
+  },
+  {
+    "indent": 1,
+    "listGroup": "XZjctz",
+    "listStart": 4,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "验证与过滤",
+        "bold": true
+      },
+      {
+        "text": "：50+ 个静态分析器、linter 与 SAST 工具并行运行；裁决模型（Judge）对照全局上下文与静态规则，对每个潜在发现做二次置信度打分——无法在调用图中找到触发证据的建议被静默丢弃；"
+      }
+    ],
+    "id": "NXnYw9JMR5"
+  },
+  {
+    "indent": 1,
+    "listGroup": "XZjctz",
+    "listStart": 5,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "输出",
+        "bold": true
+      },
+      {
+        "text": "：生成执行级的内联补丁建议，并用 Mermaid 等语法绘制跨服务交互序列图供工程师研判。"
+      }
+    ],
+    "id": "dA8gauqLVC"
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "<code>flowchart LR"
+          }
+        ],
+        "type": "code_line",
+        "id": "g5GfNfYnGK"
+      },
+      {
+        "children": [
+          {
+            "text": "  A[\"Webhook 触发\"] --> B[\"分布式任务队列\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "jo0CuV6nNw"
+      },
+      {
+        "children": [
+          {
+            "text": "  B --> C[\"隔离沙盒<br/>克隆仓库 · 构建依赖 · 权限约束\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "On3VRyVeBh"
+      },
+      {
+        "children": [
+          {
+            "text": "  C --> D[\"上下文构建<br/>AST 图谱 · Nano 模型压缩\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "Q84IB0rHES"
+      },
+      {
+        "children": [
+          {
+            "text": "  D --> E[\"规划模型<br/>生成任务图\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "NBFdKuBFwf"
+      },
+      {
+        "children": [
+          {
+            "text": "  E --> F[\"探索式调查<br/>生成并执行 Shell 命令\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "nJyUz0TOEf"
+      },
+      {
+        "children": [
+          {
+            "text": "  F --> G[\"静态分析<br/>50+ linter / SAST\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "nHJ6Grya6A"
+      },
+      {
+        "children": [
+          {
+            "text": "  G --> H[\"裁决过滤<br/>Judge 二次置信度打分\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "R0ALENAyDy"
+      },
+      {
+        "children": [
+          {
+            "text": "  H --> I[\"输出<br/>内联补丁 · 序列图\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "4ntq5gQxnO"
+      },
+      {
+        "children": [
+          {
+            "text": "</code>"
+          }
+        ],
+        "type": "code_line",
+        "id": "TcCn3o46xz"
+      }
+    ],
+    "type": "code_block",
+    "lang": "mermaid",
+    "id": "XMa1MvUOBy"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "图 9-3 CodeRabbit 多阶段评审管道。",
+        "bold": true
+      },
+      {
+        "text": " 关键设计决策有两条：一是"
+      },
+      {
+        "text": "用\"生成 CLI\"取代\"工具调用 Schema\"",
+        "bold": true
+      },
+      {
+        "text": "——模型直接写 Shell 脚本，因为 Shell 在训练数据中无处不在，比自定义工具 Schema 更易掌握，新增能力只需在沙盒镜像中安装 CLI；代价是放弃了类型化工具调用的结构保证。二是"
+      },
+      {
+        "text": "用实时代码图谱取代预索引 RAG",
+        "bold": true
+      },
+      {
+        "text": "——预构建索引在仓库变动时立刻过时，相似度检索找到的是\"看起来像\"而不是\"实际关联\"的上下文。"
+      }
+    ],
+    "id": "e_qvYdOBZ2"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "性能口径与数据边界"
+      }
+    ],
+    "id": "C5Z1XnvOgt"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "据 Google Cloud 与 CodeRabbit 的联合案例研究表述，其方案带来约 "
+      },
+      {
+        "text": "50% 的合并提速与约 50% 的缺陷减少",
+        "bold": true
+      },
+      {
+        "text": "；"
+      }
+    ],
+    "id": "-FPmjyw1tV"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Gemini 提供的报告中引用了\"91% 缺陷命中基线准确率、64% 审查时间压缩\"两个数字，"
+      },
+      {
+        "text": "截至本书写作时未在官方一手材料中核实到这两个数字",
+        "bold": true
+      },
+      {
+        "text": "（第三方文章口径不一），出版前需以 CodeRabbit 官方文档或案例研究复核，本章不将其列为已验证事实。"
+      }
+    ],
+    "id": "HJD69jUoY2"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "同赛道工具中，Greptile 侧重将整个仓库的历史提交向量化索引，适合跨多仓库的接口兼容性检查；Qodo 将 Agent 推理重心放在治理合规与契约驱动的测试生成。这些差异说明："
+      },
+      {
+        "text": "多 Agent 评审的架构选择没有唯一解，取舍取决于代码库形态与团队的合规约束。",
+        "bold": true
+      }
+    ],
+    "id": "oEMmd0vPra"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.2.3 CodeAgent：防止长流程\"逻辑失忆\"的纠偏监督"
+      }
+    ],
+    "id": "lAVM--slRX"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "提示词漂移：多轮对话的隐形故障"
+      }
+    ],
+    "id": "UPwfLm1QG-"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "在大规模指令微调的 LLM 中，自注意力在长上下文里会衰减，Agent 在深度调试步骤中常常发生\"逻辑失忆\"——多轮交互提示词漂移（Prompt Drifting）。一个被设定执行\"并发死锁安全性审查\"的 Agent，可能在深入某个实现细节后完全遗忘最高系统指令。这是所有长流程多 Agent 系统（包括本章 9.5 的编排器）都必须面对的工程问题。"
+      }
+    ],
+    "id": "x6ZIZGf9LH"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "科层制角色与 QA-Checker"
+      }
+    ],
+    "id": "u_ZZCWx_9y"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "学术界的 CodeAgent 框架（arXiv:2402.02172，2024 年提交）在内存向量库之上，显式引入了科层制组织模型：六个角色（User、CEO、CTO、Reviewer、Coder、CPO）按四个顺序阶段（Basic Info Sync 基本信息同步、Code Review 代码评审、Code Alignment 代码对齐、Document 文档汇总）协作，每一阶段内以\"双人原子对话\"推进。"
+      }
+    ],
+    "id": "u3xQfBZm-9"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "CodeAgent 最核心的贡献是引入了一个"
+      },
+      {
+        "text": "脱离具体分析任务的独立元认知机制——QA-Checker（质量保证监控 Agent）",
+        "bold": true
+      },
+      {
+        "text": "。它在外围巡逻式监听各专业 Agent 的对话，当检测到对话偏离初始验收条件（Acceptance Criteria）时，就生成更具体的纠偏指令附加到原问题上，要求角色重新回答；回答达标或达到最大对话轮数（论文实验设为 10 轮）时结束。"
+      }
+    ],
+    "id": "wn5TQrYSyO"
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "<code>flowchart TB"
+          }
+        ],
+        "type": "code_line",
+        "id": "Yo5fTNDnz9"
+      },
+      {
+        "children": [
+          {
+            "text": "  subgraph Pipeline[\"四阶段流水线（原子对话）\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "y9zhuu_ZXj"
+      },
+      {
+        "children": [
+          {
+            "text": "    P1[\"Basic Info Sync\"] --> P2[\"Code Review\"] --> P3[\"Code Alignment\"] --> P4[\"Document\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "TpG3NAAJCj"
+      },
+      {
+        "children": [
+          {
+            "text": "  end"
+          }
+        ],
+        "type": "code_line",
+        "id": "FZdw6qdT07"
+      },
+      {
+        "children": [
+          {
+            "text": "  QA[\"QA-Checker<br/>外围巡逻 · 质量评估 Q(Qi,Ai)\"] -.监听.-> Pipeline"
+          }
+        ],
+        "type": "code_line",
+        "id": "ZZpKAKI_v5"
+      },
+      {
+        "children": [
+          {
+            "text": "  QA -.偏离时注入纠偏指令 Qi+1.-> Pipeline"
+          }
+        ],
+        "type": "code_line",
+        "id": "IbylOmFBwP"
+      },
+      {
+        "children": [
+          {
+            "text": "</code>"
+          }
+        ],
+        "type": "code_line",
+        "id": "FHYm92N0Aq"
+      }
+    ],
+    "type": "code_block",
+    "lang": "mermaid",
+    "id": "WlTbj5lMgh"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "图 9-4 CodeAgent 的 QA-Checker 纠偏机制。",
+        "bold": true
+      },
+      {
+        "text": " 监督者不参与具体评审，只负责把对话拉回初始目标。"
+      }
+    ],
+    "id": "0RDeDtnk7t"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "实验数据（以论文原文为准）"
+      }
+    ],
+    "id": "aFPmSxjHmS"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "论文在涵盖 9 种编程语言、3,545 个真实工业界代码变更的数据集上报告了以下结果："
+      }
+    ],
+    "id": "S_VtbT_yw1"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "格式一致性检测：Recall 提升 15.96pp、F1-Score 提升 10.45pp；"
+      }
+    ],
+    "id": "bz0tSrKAN7"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "提交信息与代码变更的一致性检测：Recall 提升 5.62pp、F1-Score 提升 4.00pp；"
+      }
+    ],
+    "id": "qPdYSpkRta"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "代码修订任务：平均编辑进度（Edit Progress, EP，衡量生成修复与人工完美修复之间的编辑距离收敛程度）从 29.80pp 提升至 31.60pp。"
+      }
+    ],
+    "id": "OAiL7srrXf"
+  },
+  {
+    "type": "blockquote",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "text": "事实分级",
+            "bold": true
+          },
+          {
+            "text": "：以上数字出自 CodeAgent 论文原文（arXiv:2402.02172v3），属于"
+          },
+          {
+            "text": "已验证的论文声明",
+            "bold": true
+          },
+          {
+            "text": "。Gemini 报告中\"Recall 13.39%、跨语言一致性 F1 3.79%\"与论文口径存在出入（论文对应数字为 15.96pp 与 5.62pp/4.00pp），本书以论文原文为准。"
+          }
+        ],
+        "id": "17G1sOI7-X"
+      }
+    ],
+    "id": "G4SXTX0fJa"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "对本章的启示"
+      }
+    ],
+    "id": "aEPD9-rt6a"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "CodeAgent 的工程推论与本章观点一致："
+      },
+      {
+        "text": "与其把算力耗费在无限增大单体模型参数上，不如在系统侧构建职责清晰、存在制衡与仲裁机制的 Agent 通信网络",
+        "bold": true
+      },
+      {
+        "text": "。同时它也是一个重要的对照样本：CodeAgent 的角色间通信仍然依赖自然语言对话，因此才需要 QA-Checker 不断纠偏；而本章 9.5 主张用结构化 Finding 与工具证据取代自由文本作为 Agent 间协议，正是为了从通信协议层面消除\"漂移\"的温床——纠偏是治标，结构化是治本。"
+      }
+    ],
+    "id": "UqOWhJKjlC"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.2.4 工业实践对本章的三个启示"
+      }
+    ],
+    "id": "yPqsABKdzW"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "把三个系统放在一起看，可以得到与 wallet-review-lab 教学体系直接对应的三条设计原则："
+      }
+    ],
+    "id": "Kz9r_MgpIT"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "表 9-2 工业系统与本章教学体系的对应关系",
+        "bold": true
+      }
+    ],
+    "id": "dcD_DOG8fQ"
+  },
+  {
+    "type": "table",
+    "children": [
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "工业实践",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "8wnqxyqp3W"
+              }
+            ],
+            "id": "dlL-moy_Ed"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "解决的问题",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "hgcV6GYwkn"
+              }
+            ],
+            "id": "RVieR4xzeT"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "本章对应机制",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "d6feXul5Oo"
+              }
+            ],
+            "id": "J6TdDk5bYQ"
+          }
+        ],
+        "id": "pYEbwwK-lf"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "RADAR 资格门槛与 DRS 阈值"
+                  }
+                ],
+                "type": "p",
+                "id": "QonAC6SVOr"
+              }
+            ],
+            "id": "neQVv5JfMS"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "该让什么进入自动化"
+                  }
+                ],
+                "type": "p",
+                "id": "g4yArb9uJC"
+              }
+            ],
+            "id": "-ioe2Tfi1Z"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.5 风险路由矩阵、9.10 风险预算"
+                  }
+                ],
+                "type": "p",
+                "id": "6j2Jf53Tgo"
+              }
+            ],
+            "id": "tnlOAwPk1s"
+          }
+        ],
+        "id": "pVM42unwIP"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "CodeRabbit 隔离沙盒与裁决过滤"
+                  }
+                ],
+                "type": "p",
+                "id": "EdI0TE_ihc"
+              }
+            ],
+            "id": "mMDw1ICNAv"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "如何在不可信代码上安全自动化"
+                  }
+                ],
+                "type": "p",
+                "id": "Q8GuSaj8Ge"
+              }
+            ],
+            "id": "TGjJLs4Ox-"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.4 权限隔离、9.7 根因去重与仲裁"
+                  }
+                ],
+                "type": "p",
+                "id": "D9a0-txm9W"
+              }
+            ],
+            "id": "vgves0pVdD"
+          }
+        ],
+        "id": "wrSO53-sHH"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "CodeAgent 的 QA-Checker"
+                  }
+                ],
+                "type": "p",
+                "id": "fufxJxgKIC"
+              }
+            ],
+            "id": "5VHLtQr6Je"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "如何防止长流程偏离目标"
+                  }
+                ],
+                "type": "p",
+                "id": "pMOEMFyCCo"
+              }
+            ],
+            "id": "qyfGpE6X2U"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.5 编排验收断言与超时重试"
+                  }
+                ],
+                "type": "p",
+                "id": "wR1mAOYsKP"
+              }
+            ],
+            "id": "Vf-1-Xr7_9"
+          }
+        ],
+        "id": "OeUyHdNS-b"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "三者的确定性工具前置"
+                  }
+                ],
+                "type": "p",
+                "id": "2ZsRF_ce7I"
+              }
+            ],
+            "id": "4xAhOjWgka"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "模型只解释、不批准"
+                  }
+                ],
+                "type": "p",
+                "id": "7-L1C7vUjt"
+              }
+            ],
+            "id": "4PMyNWTxxj"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.1 四层分工"
+                  }
+                ],
+                "type": "p",
+                "id": "9fnFy3nsBv"
+              }
+            ],
+            "id": "_43NNq8gdT"
+          }
+        ],
+        "id": "mTcFtADosP"
+      }
+    ],
+    "id": "SbdOmoM1XD",
+    "colSizes": [
+      284.6666666666667,
+      284.6666666666667,
+      284.6666666666667
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "三条原则分别是："
+      },
+      {
+        "text": "自动化必须从确定性检查开始，以确定性检查结束",
+        "bold": true
+      },
+      {
+        "text": "（RADAR 的漏斗首尾）；"
+      },
+      {
+        "text": "模型获得的能力越大，运行环境的隔离越要严格",
+        "bold": true
+      },
+      {
+        "text": "（CodeRabbit 的沙盒）；"
+      },
+      {
+        "text": "长流程必须有一个不参与具体判断的监督者",
+        "bold": true
+      },
+      {
+        "text": "（CodeAgent 的 QA-Checker）。后面的章节将把这些原则一一落到可运行的工程实现上。"
+      }
+    ],
+    "id": "ZczNmhtuZ7"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "9.2 练习",
+        "bold": true
+      }
+    ],
+    "id": "DcwbF83igz"
+  },
+  {
+    "indent": 1,
+    "listGroup": "liye8T",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "对照 RADAR 的资格门槛，为你所在团队的三类变更（文档、业务逻辑、资金/权限）各写一条\"允许自动评审\"的资格规则；"
+      }
+    ],
+    "id": "QYFBskkWH9"
+  },
+  {
+    "indent": 1,
+    "listGroup": "liye8T",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "讨论：如果你的 CI 门禁只依赖 LLM 评审结果而不运行任何确定性检查，RADAR 的漏斗设计对你有什么启发？"
+      }
+    ],
+    "id": "tPD0c_j82C"
+  },
+  {
+    "indent": 1,
+    "listGroup": "liye8T",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "从 CodeRabbit 的\"生成 CLI 取代工具 Schema\"与本章 9.1.5\"自然语言不能作为唯一协议\"出发，讨论工具调用的结构化边界应该画在哪里。"
+      }
+    ],
+    "id": "XKTyOoJYxM"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "9.2 小结",
+        "bold": true
+      },
+      {
+        "text": "：工业界的生产实践给出了本章教学体系的外部证据——风险分层、隔离执行与纠偏监督是三个反复出现的工程答案。但它们也划出了一条重要边界：这些系统的数字来自特定环境与特定数据的测量，不能直接外推；真正可复现的证据，仍要从 9.3 建立的可验证实验场中产生。"
+      }
+    ],
+    "id": "58QwO569J2"
+  },
+  {
+    "type": "hr",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "Eq_jTdUoLN"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "进度记录",
+        "bold": true
+      },
+      {
+        "text": "：已完成 9.1、9.2。待完成：9.3 实验场、9.4 单 Agent、9.5 多 Agent、9.6 证据流水线、9.7 深度实战（六案例）、9.8 仲裁与治理、9.9 评测、9.10 成本与路由、9.11 安全防御、9.12 端到端演练。"
+      }
+    ],
+    "id": "uif3UM0FGn"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "下一节（9.3）创作前请确认",
+        "bold": true
+      },
+      {
+        "text": "：9.3 将回到原稿的 wallet-review-lab 主线，不依赖额外外部取证，可直接开始；如您希望 9.3 也补充外部对照（例如对比 RADAR 的资格门槛与教学路由矩阵），请说明偏好，否则我按原稿主线推进。"
+      }
+    ],
+    "id": "w4Z64z5-sc"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "zHrdVFSlEe"
+  }
+]

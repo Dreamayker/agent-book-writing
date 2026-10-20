@@ -1,0 +1,1757 @@
+[
+  {
+    "id": "1",
+    "type": "h1",
+    "meta": true,
+    "children": [
+      {
+        "text": "9.1章节"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "收到 Gemini 报告。它与我此前设计的章节结构属于两种互补素材：原稿提供 wallet-review-lab 教学体系（可复现实验），Gemini 报告提供工业界案例与评测基准（外部视野）。下面先给融合说明，再开始逐节创作。"
+      }
+    ],
+    "id": "zuWWPKd1M5"
+  },
+  {
+    "type": "hr",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "pWxmg3eYCg"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "一、对 Gemini 报告的解读"
+      }
+    ],
+    "id": "hnjdKErW_a"
+  },
+  {
+    "indent": 1,
+    "listGroup": "hCg7rF",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "结构",
+        "bold": true
+      },
+      {
+        "text": "：开篇（ACR 范式转移背景）+ 9.1 工业落地（Meta RADAR / CodeRabbit / CodeAgent）+ 9.2 评测基准（SWR-Bench / ReviewBench / CodeScope）+ 9.3 零信任安全防御（仅开头，"
+      },
+      {
+        "text": "在\"在这个风险光谱\"处被截断",
+        "bold": true
+      },
+      {
+        "text": "）；"
+      }
+    ],
+    "id": "LjxZfixjBx"
+  },
+  {
+    "indent": 1,
+    "listGroup": "hCg7rF",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "数据特点",
+        "bold": true
+      },
+      {
+        "text": "：包含大量第三方系统具体数字（如 Meta 的 105.9%、60.31%、1/50；CodeRabbit 的 91%、64%；CodeAgent 的 13.39%、31.6%；ReviewBench 的 92%、0.043 等）。按原稿自己的纪律（\"外部产品能力、漏洞状态和价格是否有一手来源与访问日期？\"），这些数字不能作为已验证事实直接写入图书，需在正文中标注来源性质，并在出版前以官方论文/工程博客逐一核验；"
+      }
+    ],
+    "id": "SPlLx9UOPJ"
+  },
+  {
+    "indent": 1,
+    "listGroup": "hCg7rF",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "与原稿的关系",
+        "bold": true
+      },
+      {
+        "text": "：Gemini 报告没有覆盖原稿的 wallet-review-lab 案例体系、Finding Schema、仲裁、成本模型等内容。因此最终章节 = 原稿教学主线 + 报告业界参照，二者互补而非替代。"
+      }
+    ],
+    "id": "6wOC_eCMWp"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "二、融合映射与结构微调"
+      }
+    ],
+    "id": "g3tZRV-6rE"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "原 10 节结构微调为 "
+      },
+      {
+        "text": "12 节",
+        "bold": true
+      },
+      {
+        "text": "：新增 9.2（工业实践）与 9.11（安全防御），使 Gemini 报告内容有明确归属，同时保持原稿教学体系完整。"
+      }
+    ],
+    "id": "69oiOJUnUJ"
+  },
+  {
+    "type": "table",
+    "children": [
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Gemini 报告内容",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "Eu_egsdH6C"
+              }
+            ],
+            "id": "2bqd5L-dJ-"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "融合位置",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "IXGoICMWy1"
+              }
+            ],
+            "id": "2s2fpFlYB7"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "融合方式",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "kydAGClI0E"
+              }
+            ],
+            "id": "napwV5k5-e"
+          }
+        ],
+        "id": "Ysg5Zp5TiY"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "开篇：范式转移、通知疲劳"
+                  }
+                ],
+                "type": "p",
+                "id": "aa8fvQuDle"
+              }
+            ],
+            "id": "tN5SbQVJFG"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.1.1"
+                  }
+                ],
+                "type": "p",
+                "id": "bultRPnXHV"
+              }
+            ],
+            "id": "ftYC8aiWkK"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "作为困境背景"
+                  }
+                ],
+                "type": "p",
+                "id": "zowr4WHXGw"
+              }
+            ],
+            "id": "J9UrC-zUkG"
+          }
+        ],
+        "id": "Zzj1i5rDiR"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.1.1 Meta RADAR（DRS、P25/P50）"
+                  }
+                ],
+                "type": "p",
+                "id": "xQVoFR8orB"
+              }
+            ],
+            "id": "DdJpWnxoYG"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.2.1（完整）＋9.12（生产落地借鉴）"
+                  }
+                ],
+                "type": "p",
+                "id": "Bd39SRssje"
+              }
+            ],
+            "id": "9-M-VlihYX"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "工业案例独立展开"
+                  }
+                ],
+                "type": "p",
+                "id": "Hlv_nkTKFQ"
+              }
+            ],
+            "id": "19-JqG6WF6"
+          }
+        ],
+        "id": "VDWXx88AKK"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.1.2 CodeRabbit（AST 图谱、沙盒、五层管道）"
+                  }
+                ],
+                "type": "p",
+                "id": "0y-wzXsZBv"
+              }
+            ],
+            "id": "O4IWRRHpOz"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.2.2（完整）＋9.6（流水线对照）"
+                  }
+                ],
+                "type": "p",
+                "id": "I3qi5-DyZy"
+              }
+            ],
+            "id": "FvEzo8u7gI"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "同上"
+                  }
+                ],
+                "type": "p",
+                "id": "nsJM_nupjO"
+              }
+            ],
+            "id": "l6L2QsPcQH"
+          }
+        ],
+        "id": "I4XBVLPyyE"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.1.3 CodeAgent（提示词漂移、QA-Checker）"
+                  }
+                ],
+                "type": "p",
+                "id": "p50Xv8AFcr"
+              }
+            ],
+            "id": "6w3ohziuq3"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.2.3（完整）＋9.5（多 Agent 对照）"
+                  }
+                ],
+                "type": "p",
+                "id": "FjYG3zPOkH"
+              }
+            ],
+            "id": "Nic8oak0_l"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "同上"
+                  }
+                ],
+                "type": "p",
+                "id": "QEahcbc-SU"
+              }
+            ],
+            "id": "bd2PiuO6q_"
+          }
+        ],
+        "id": "hA4taP-dxI"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.2.1 SWR-Bench"
+                  }
+                ],
+                "type": "p",
+                "id": "TZzTs1aQkK"
+              }
+            ],
+            "id": "G3FfRRiqXP"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.9.4"
+                  }
+                ],
+                "type": "p",
+                "id": "V_8AiGDUAA"
+              }
+            ],
+            "id": "P-fF8N1ASk"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "评测节\"外部基准\"部分"
+                  }
+                ],
+                "type": "p",
+                "id": "p2n3lTsyJU"
+              }
+            ],
+            "id": "Q6xnd90eGT"
+          }
+        ],
+        "id": "SB1J1EdZFx"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.2.2 ReviewBench"
+                  }
+                ],
+                "type": "p",
+                "id": "Q830b21zGa"
+              }
+            ],
+            "id": "dXT-OPSMbZ"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.9.4"
+                  }
+                ],
+                "type": "p",
+                "id": "mAmfoaPByV"
+              }
+            ],
+            "id": "G1-Et4AAh-"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "同上"
+                  }
+                ],
+                "type": "p",
+                "id": "RSrH6oyClp"
+              }
+            ],
+            "id": "QFR0a6BdmN"
+          }
+        ],
+        "id": "SJ9hum80BH"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.2.3 CodeScope"
+                  }
+                ],
+                "type": "p",
+                "id": "GGL5FbFD0j"
+              }
+            ],
+            "id": "fNDAFcZEAw"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.9.4"
+                  }
+                ],
+                "type": "p",
+                "id": "VqIXz8WyYW"
+              }
+            ],
+            "id": "uL0I3ovHSG"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "同上"
+                  }
+                ],
+                "type": "p",
+                "id": "e7Jj7D8HWE"
+              }
+            ],
+            "id": "0yns2xVUry"
+          }
+        ],
+        "id": "Jh_wPfAUpR"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.3 零信任防御（OWASP Top 10）"
+                  }
+                ],
+                "type": "p",
+                "id": "1J-tb75IaX"
+              }
+            ],
+            "id": "aGdlYrQOda"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "9.11（完整）＋9.7 PR-08（教学应用）"
+                  }
+                ],
+                "type": "p",
+                "id": "BO_u7GdwPx"
+              }
+            ],
+            "id": "8GqDT-uv3u"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "独立成节"
+                  }
+                ],
+                "type": "p",
+                "id": "QND15_womL"
+              }
+            ],
+            "id": "50yBaBHLZF"
+          }
+        ],
+        "id": "UeiIYocCUD"
+      }
+    ],
+    "id": "_M0VfwNFSa",
+    "colSizes": [
+      284.6666666666667,
+      284.6666666666667,
+      284.6666666666667
+    ]
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "三、数据纪律（贯穿全章）"
+      }
+    ],
+    "id": "ouTtiV4e8h"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "第三方系统数据统一标注为\""
+      },
+      {
+        "text": "据公开工程博客/研究论文转述，具体数字以官方一手来源为准，出版时需核验并标注访问日期",
+        "bold": true
+      },
+      {
+        "text": "\"；"
+      }
+    ],
+    "id": "F51i-Uc2P-"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "原稿事实（wallet-review-lab 各项实验）与报告转述、作者推论三者用文字显式区分；"
+      }
+    ],
+    "id": "yvpAIKMyNU"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "录制回放边界、RLock 边界等原稿声明全部保留。"
+      }
+    ],
+    "id": "WvzNo6drMm"
+  },
+  {
+    "type": "hr",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "YTMvtf9tqP"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "四、正文创作：9.1 节（已完成）"
+      }
+    ],
+    "id": "vp_zVBF9Ww"
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "9.1 评审的困境与证据闭环"
+      }
+    ],
+    "id": "49CS8xDDCq"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.1.1 当瓶颈从\"写代码\"转向\"证明代码\""
+      }
+    ],
+    "id": "t-CKk70e7N"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "代码评审（Code Review）长期是现代软件工程保障质量与知识流转的关键环节。过去十年，它的成本结构是稳定的：人写代码，人审代码，速度大致匹配。大语言模型驱动的 AI 编程助手（如 GitHub Copilot、Cursor 等）大规模普及后，这个平衡被打破——开发者生成代码的速度呈指数级增长，而人类评审者的阅读与判断速度没有同步提升。供需失衡的直接后果是：评审队列积压、发布周期拉长、人类评审容量成为软件发布周期的核心瓶颈。"
+      }
+    ],
+    "id": "2GCEPTumJ7"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "自动化代码评审（Automated Code Review, ACR）正是在这个背景下经历范式转移：从静态代码扫描工具（Static Analysis Tools），到单体生成式语言模型，再到基于多 Agent 协同的架构。单体大模型做评审有两个结构性缺陷。其一是上下文窗口限制：复杂的工业级代码库无法整体载入，模型只能看到被截断的局部。其二是注意力衰减（attention decay）：在长上下文中，模型会逐渐遗忘早期出现的关键约束，产生与业务上下文脱节的\"幻觉\"（hallucination）评论。大量无关痛痒或虚假的警告淹没真实缺陷，工程团队称之为\"通知疲劳\"（Notification Fatigue）——评审系统输出得越多，开发者越倾向于忽略全部输出。"
+      }
+    ],
+    "id": "JuEETTrYzp"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "多 Agent 架构的回应是角色专业化分工：把抽象语法树（AST）分析、逻辑推理、安全渗透、多步验证等不同能力分配给不同角色，将复杂审查任务拆解为可控的智能工作流。但这里必须澄清一个容易混淆的前提："
+      },
+      {
+        "text": "多 Agent 本身并不解决\"评论质量\"问题。",
+        "bold": true
+      },
+      {
+        "text": " 如果每个 Agent 都只是用自然语言发表意见，系统只是把\"一条幻觉\"放大成\"多条幻觉\"。"
+      }
+    ],
+    "id": "ahxD-dN3tU"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "本章的核心命题因此是："
+      }
+    ],
+    "id": "N1HphNe2WD"
+  },
+  {
+    "type": "blockquote",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "text": "AI 代码评审的工程价值不在于生成更多评论，而在于构建一条可验证、可回放、可审计、可问责的证据闭环。",
+            "bold": true
+          }
+        ],
+        "id": "wTLeGNp1sx"
+      }
+    ],
+    "id": "qWgvbIk04B"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "确定性工具产生事实，模型连接与解释事实，策略引擎执行不可绕过的规则，人类承担高风险取舍与最终责任。本章以 wallet-review-lab 数字钱包服务为主线实验场，并在各节对照工业界真实系统（Meta RADAR、CodeRabbit、CodeAgent）与评测基准（SWR-Bench、ReviewBench、CodeScope）讨论生产落地。wallet-review-lab 不连接真实资金，却保留了足以让评审变得严肃的四条业务不变量（见 9.3）。"
+      }
+    ],
+    "id": "KzTT9Ip8v2"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.1.2 测试通过不等于代码正确：PR-02 反例"
+      }
+    ],
+    "id": "tkmWDO3eAw"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "\"测试全绿，可以合并\"是许多团队默认的验收直觉。本章的第一个反例正来自这个直觉。"
+      }
+    ],
+    "id": "ZT-63vOTpb"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "PR-02 将金额转换为浮点数再归一化。常规示例中的 "
+      },
+      {
+        "text": "10.00",
+        "code": true
+      },
+      {
+        "text": "、"
+      },
+      {
+        "text": "20.50",
+        "code": true
+      },
+      {
+        "text": " 可能全部通过，但团队的货币策略要求金额使用十进制定点表示，禁止经过二进制浮点数往返。Semgrep 可以标出这一禁止模式，Agent 则负责解释它与账务风险的关系。"
+      }
+    ],
+    "id": "Kv2DCl37k3"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "这里存在三种不同性质的结论，如表 9-1 所示："
+      }
+    ],
+    "id": "hqkFHHUa4O"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "表 9-1 三种结论的性质边界",
+        "bold": true
+      }
+    ],
+    "id": "01-2JLuuHC"
+  },
+  {
+    "type": "table",
+    "children": [
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "结论",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "E62L3eYi14"
+              }
+            ],
+            "id": "D4bmY-4yqH"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "由谁产生",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "AbVl04qfBt"
+              }
+            ],
+            "id": "OGDnKTDDmJ"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "证明的范围",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "w7jORnL-Nt"
+              }
+            ],
+            "id": "VgRL6GnC1F"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "不能冒充什么",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "5jo2lA8Ycb"
+              }
+            ],
+            "id": "Cokpht-MLA"
+          }
+        ],
+        "id": "IdmPlst6Dk"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "测试证明"
+                  }
+                ],
+                "type": "p",
+                "id": "YOXyP2HSy5"
+              }
+            ],
+            "id": "gZV9j6VJjz"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "确定性测试"
+                  }
+                ],
+                "type": "p",
+                "id": "nBZP9R41dD"
+              }
+            ],
+            "id": "fjMZiV_Seg"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "已执行样例没有失败"
+                  }
+                ],
+                "type": "p",
+                "id": "ksOJTjMhcI"
+              }
+            ],
+            "id": "j2KmXQgBwS"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "设计正确性"
+                  }
+                ],
+                "type": "p",
+                "id": "00H_tQedg8"
+              }
+            ],
+            "id": "D_PdS27GX5"
+          }
+        ],
+        "id": "_1rWzG8cuq"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "规则证明"
+                  }
+                ],
+                "type": "p",
+                "id": "h4QSeJqE5M"
+              }
+            ],
+            "id": "JIQal5TF05"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "静态分析/扫描器"
+                  }
+                ],
+                "type": "p",
+                "id": "I_VPyBTwUY"
+              }
+            ],
+            "id": "KjmdvjBQVi"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "代码命中了团队禁止模式"
+                  }
+                ],
+                "type": "p",
+                "id": "7WQw0zWB8-"
+              }
+            ],
+            "id": "NfUL4bswg7"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "事故后果"
+                  }
+                ],
+                "type": "p",
+                "id": "O7QcxapYGn"
+              }
+            ],
+            "id": "kcG3r9TfHs"
+          }
+        ],
+        "id": "JORixtJdv0"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Agent 解释"
+                  }
+                ],
+                "type": "p",
+                "id": "m_QojSdmKe"
+              }
+            ],
+            "id": "Wa3YFJcN0X"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "大模型"
+                  }
+                ],
+                "type": "p",
+                "id": "2FjcDiAnHM"
+              }
+            ],
+            "id": "KNinaUSGMq"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "规则为何适用、风险如何传导"
+                  }
+                ],
+                "type": "p",
+                "id": "AVtkWHNaa6"
+              }
+            ],
+            "id": "l_OwiLkP7C"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "测试或规则本身"
+                  }
+                ],
+                "type": "p",
+                "id": "O9a4dYcH-M"
+              }
+            ],
+            "id": "z7mAsG10bU"
+          }
+        ],
+        "id": "NRxnOUCG95"
+      }
+    ],
+    "id": "GhYUz9Xc7O",
+    "colSizes": [
+      213.5,
+      213.5,
+      213.5,
+      213.5
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "任何一项都不能冒充另外两项。若规则误配，Agent 应指出适用性问题，而不是因为扫描器亮红灯就编造事故后果。这个案例的完整评审在 9.7 展开，现在只需要记住一条原则："
+      },
+      {
+        "text": "测试通过只能证明\"已执行样例未失败\"，不能证明\"设计正确\"。",
+        "bold": true
+      },
+      {
+        "text": " 后者需要不变量、规则与人工确认共同支撑。"
+      }
+    ],
+    "id": "x3Elnwojup"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.1.3 确定性工具、模型解释与策略引擎的分工"
+      }
+    ],
+    "id": "JmDfRznmSk"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "AI 适合处理跨文件阅读、模式归纳和解释性工作：概括 PR 意图，列出受影响的 API 与状态，关联测试失败与源码位置，对照需求寻找边界条件，并把已确认的问题写成可执行的评审意见。它尤其适合把多种证据组织成一条人类易读的因果链。"
+      }
+    ],
+    "id": "f59CkcGbRZ"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "AI 不适合单独证明并发、账务或安全属性，也不应确认外部实时状态、自主改变门禁或批准资金和权限变更。两个贯穿全章的例证："
+      }
+    ],
+    "id": "sbtIV2ZfqF"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "PR-04（并发双花）",
+        "bold": true
+      },
+      {
+        "text": "：Agent 可以指出\"余额检查与更新不在同一原子边界\"，却不能凭置信度替代并发测试。真正证明竞态存在的，是可重复的并发测试与清晰的不变量；"
+      }
+    ],
+    "id": "OpsejwewqB"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "PR-03（对象级授权）",
+        "bold": true
+      },
+      {
+        "text": "：Agent 可以解释\"登录成功不等于拥有这个钱包\"，但授权回归测试才是阻断证据。"
+      }
+    ],
+    "id": "pMNmeLxVzz"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "由此得到本章最基本的四层分工："
+      }
+    ],
+    "id": "iW14IIBawy"
+  },
+  {
+    "indent": 1,
+    "listGroup": "_Dn162",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "确定性工具",
+        "bold": true
+      },
+      {
+        "text": "（测试、静态分析、扫描器、锁文件解析）产生事实；"
+      }
+    ],
+    "id": "48y1KeeNsN"
+  },
+  {
+    "indent": 1,
+    "listGroup": "_Dn162",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "Agent",
+        "bold": true
+      },
+      {
+        "text": " 解释并连接事实；"
+      }
+    ],
+    "id": "YskJuosrhs"
+  },
+  {
+    "indent": 1,
+    "listGroup": "_Dn162",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "策略引擎",
+        "bold": true
+      },
+      {
+        "text": "（风险路由、门禁）执行不可绕过的规则；"
+      }
+    ],
+    "id": "4OJ0orwn41"
+  },
+  {
+    "indent": 1,
+    "listGroup": "_Dn162",
+    "listStart": 4,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "人类",
+        "bold": true
+      },
+      {
+        "text": "承担高风险取舍与最终责任。"
+      }
+    ],
+    "id": "7LUhhA_Atq"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "所谓\"AI 适合做什么\"，因此不是模型能力的抽象排名，而是任务是否具有可观察输入、可复现结果与明确的升级边界。"
+      }
+    ],
+    "id": "tSsRTeVc4j"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.1.4 四种不确定性必须分开处理"
+      }
+    ],
+    "id": "L66QOu4AwL"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "工程上最危险的错误，是把所有\"不确定\"混为一谈，再用模型的自信语气统一覆盖。至少四种不确定性需要分开处理："
+      }
+    ],
+    "id": "GZK86bQcRQ"
+  },
+  {
+    "indent": 1,
+    "listGroup": "3xvx0D",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "来自代码本身的不确定性",
+        "bold": true
+      },
+      {
+        "text": "：并发、异常回滚、事务隔离通常需要运行测试或查看数据库语义，单凭 Diff 只能提出假设；"
+      }
+    ],
+    "id": "DHHkc5A7eQ"
+  },
+  {
+    "indent": 1,
+    "listGroup": "3xvx0D",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "来自外部事实的不确定性",
+        "bold": true
+      },
+      {
+        "text": "：依赖是否存在漏洞、某个 API 当前是否支持某参数，需要锁文件与官方文档等一手来源，不能靠模型记忆；"
+      }
+    ],
+    "id": "2ecDoYLTn0"
+  },
+  {
+    "indent": 1,
+    "listGroup": "3xvx0D",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "来自模型自身的不确定性",
+        "bold": true
+      },
+      {
+        "text": "：幻觉与置信度漂移，只能通过证据约束与评测暴露；"
+      }
+    ],
+    "id": "NgD0HiKoQJ"
+  },
+  {
+    "indent": 1,
+    "listGroup": "3xvx0D",
+    "listStart": 4,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "来自责任归属的不确定性",
+        "bold": true
+      },
+      {
+        "text": "：批准变更、确认实时状态属于责任动作，不能因为模型置信度高就自动执行。"
+      }
+    ],
+    "id": "gig-s5y_zl"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "四种不确定性对应四种不同的取证手段，混用其中任何一种，都会把推断误写成事实。"
+      }
+    ],
+    "id": "cyU58Lj6nv"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.1.5 为什么自然语言、置信度与投票不能代替证据"
+      }
+    ],
+    "id": "fh9yX7Efy7"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "三句\"听起来合理\"的说法，在本章都会被否定："
+      }
+    ],
+    "id": "-88ZZ21bE7"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "\"Agent 之间用自然语言传递意见就够了。\"",
+        "bold": true
+      },
+      {
+        "text": " 不够。自然语言没有结构、无法校验，也区分不了\"事实\"与\"推测\"。若上游 Agent 产生幻觉，下游 Agent 会把这句话当作事实继续传播，形成错误级联。多 Agent 之间必须使用结构化 Finding 与工具证据作为通信协议（见 9.5、9.6）；"
+      }
+    ],
+    "id": "LlPZG9U-xP"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "\"置信度高就能阻断。\"",
+        "bold": true
+      },
+      {
+        "text": " 不能。置信度只能用于排序，不能替代证据。Finding Schema 中的 "
+      },
+      {
+        "text": "confidence",
+        "code": true
+      },
+      {
+        "text": " 字段的作用是排序候选，而不是批准依据；"
+      }
+    ],
+    "id": "sU90IgT9yc"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "\"多数 Agent 投票就能定论。\"",
+        "bold": true
+      },
+      {
+        "text": " 不能。若一个 Agent 持有可重现的并发失败，而另外三个 Agent 只是\"未发现问题\"，多数票不能抵消失败测试——\"未发现\"不是反证。"
+      }
+    ],
+    "id": "SueIFIjmqN"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.1.6 本章阅读地图"
+      }
+    ],
+    "id": "tZ6uMCu_Ne"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "本章主线是一条可复用的证据闭环，对应图 9-1："
+      }
+    ],
+    "id": "9uOtr_Cf4a"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "需求与不变量 → 确定性工具 → 独立证据 → 专业 Agent 解释 → 根因仲裁 → 人工责任 → 策略门禁 → 可复现评测 → 持续改进。",
+        "bold": true
+      }
+    ],
+    "id": "NEcG51G6js"
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "<code>flowchart LR"
+          }
+        ],
+        "type": "code_line",
+        "id": "JpZd6hk3y0"
+      },
+      {
+        "children": [
+          {
+            "text": "  A[\"需求与不变量\"] --> B[\"确定性工具<br/>测试 / 静态分析 / 扫描器 / 锁文件\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "mMnn331OJ8"
+      },
+      {
+        "children": [
+          {
+            "text": "  B --> C[\"独立证据<br/>结构化 Finding\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "izWkzrPg0p"
+      },
+      {
+        "children": [
+          {
+            "text": "  C --> D[\"专业 Agent 解释<br/>correctness / test / security / impact\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "6TuHhGi8Nn"
+      },
+      {
+        "children": [
+          {
+            "text": "  D --> E[\"根因仲裁<br/>去重 / 冲突处理\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "8NmwODgkaF"
+      },
+      {
+        "children": [
+          {
+            "text": "  E --> F[\"人工责任<br/>Tech Lead 终审 / 裁决记录\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "8JOTQufSiN"
+      },
+      {
+        "children": [
+          {
+            "text": "  F --> G[\"策略门禁<br/>不可绕过\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "zDcOSU2Lbs"
+      },
+      {
+        "children": [
+          {
+            "text": "  G --> H[\"可复现评测<br/>Oracle / Precision / Recall\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "FB2A_MEr8z"
+      },
+      {
+        "children": [
+          {
+            "text": "  H --> I[\"持续改进<br/>影子模式 → 有限门禁\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "HrhLqkGBE-"
+      },
+      {
+        "children": [
+          {
+            "text": "  I --> A"
+          }
+        ],
+        "type": "code_line",
+        "id": "owRL6fo6By"
+      },
+      {
+        "children": [
+          {
+            "text": "</code>"
+          }
+        ],
+        "type": "code_line",
+        "id": "iiu6JUXIV-"
+      }
+    ],
+    "type": "code_block",
+    "lang": "mermaid",
+    "id": "Z5PAOIlC1F"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "图 9-1 证据闭环逻辑链。",
+        "bold": true
+      },
+      {
+        "text": " 图中每个环节都必须在下一环节开始前留下可复核产物：工具留下测试日志与扫描结果，Agent 留下带证据引用的结构化 Finding，仲裁留下合并记录，人工留下裁决记录。任何环节缺失，闭环即断裂，系统退化为\"把自然语言搬进 CI\"。"
+      }
+    ],
+    "id": "QpBb_QeKjI"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "全章章节安排：9.2 对照工业界落地架构；9.3 建立 wallet-review-lab 实验场；9.4–9.6 完成单 Agent 到多 Agent 到证据流水线；9.7 深度实战六类缺陷；9.8 仲裁与治理；9.9 评测（Oracle 矩阵与行业基准）；9.10 成本与路由；9.11 安全防御；9.12 端到端演练。"
+      }
+    ],
+    "id": "KsmoPba7d_"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "本节小结",
+        "bold": true
+      },
+      {
+        "text": "：评审的困境不是\"模型评论不够多\"，而是\"评论无法被验证\"。本章所有机制——不变量、Oracle、任务契约、Schema、证据包、仲裁、门禁、评测——都是为同一个目标服务：把模型的每一次判断都变成可复核的工程事实。"
+      }
+    ],
+    "id": "qfIXsQlt9I"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "9.1 练习",
+        "bold": true
+      }
+    ],
+    "id": "WP6owjq88x"
+  },
+  {
+    "indent": 1,
+    "listGroup": "70l93W",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "回顾你团队最近一次\"测试全绿但线上出错\"的变更，指出被测试遗漏的业务不变量；"
+      }
+    ],
+    "id": "BBeCqRpxHk"
+  },
+  {
+    "indent": 1,
+    "listGroup": "70l93W",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "把一次真实评审意见拆成\"事实 / 解释 / 决策\"三列，检查哪一列缺少证据支撑；"
+      }
+    ],
+    "id": "VZNXo7anhc"
+  },
+  {
+    "indent": 1,
+    "listGroup": "70l93W",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "讨论：如果评审 Agent 只输出自然语言评论，你的 CI 门禁能否判断它是否应该阻断合并？"
+      }
+    ],
+    "id": "KPPMXEMm5G"
+  },
+  {
+    "type": "hr",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "2HZcOc6___"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "五、进度记录与后续计划"
+      }
+    ],
+    "id": "KzNsnl78l5"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "已完成",
+        "bold": true
+      },
+      {
+        "text": "：9.1（本回复）。"
+      },
+      {
+        "text": "待完成",
+        "bold": true
+      },
+      {
+        "text": "：9.2–9.12。"
+      }
+    ],
+    "id": "m8xfO4Upn5"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "后续各节创作前的核验计划："
+      }
+    ],
+    "id": "xRE3OKSb9i"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "9.2（Meta RADAR / CodeRabbit / CodeAgent）：创作前联网核验三个系统的官方来源（Meta 工程博客、CodeRabbit 技术文档、CodeAgent 论文），并把 Gemini 报告中的数字标注为\"报告转述，以官方来源为准\"；"
+      }
+    ],
+    "id": "qTqlOs5n7y"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "9.9（SWR-Bench / ReviewBench / CodeScope）：创作前核验论文与项目主页，标注数据出处；"
+      }
+    ],
+    "id": "TxKyti_fv6"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "9.11（零信任防御 / OWASP Top 10 for LLM Applications）：核验 OWASP 版本与发布时间。"
+      }
+    ],
+    "id": "MN-Zu6r1fd"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "请您确认/补全三件事",
+        "bold": true
+      },
+      {
+        "text": "："
+      }
+    ],
+    "id": "wqXu5RyHkW"
+  },
+  {
+    "indent": 1,
+    "listGroup": "YOASeq",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "Gemini 报告 9.3 在\"在这个风险光谱\"处截断，请补全剩余内容（或授权我按零信任主题续写）；"
+      }
+    ],
+    "id": "gGRTjo3fwL"
+  },
+  {
+    "indent": 1,
+    "listGroup": "YOASeq",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "9.1.4\"四种不确定性\"中，原稿原句在\"官方公……\"处截断，我按完整逻辑续写了第二类，请核对与您手中原文是否一致；"
+      }
+    ],
+    "id": "VBeFhm0qJX"
+  },
+  {
+    "indent": 1,
+    "listGroup": "YOASeq",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "确认 12 节结构与上述融合映射是否符合预期，确认后我继续创作 9.2。"
+      }
+    ],
+    "id": "eLGXg8F6Lt"
+  }
+]

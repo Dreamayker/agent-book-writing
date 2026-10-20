@@ -4,6 +4,7 @@
 
 ## 过程记录
 
+- [IMA 2026-10-20 文章归档](ima-sources/2026-10-20/README.md)：当天新建的 19 篇写作材料，保存 Markdown 和原始富文本 JSON。
 - [chapter-09/README.md](chapter-09/README.md)：第 9 章按概述、9.1～9.10 和独立项目案例拆分后的阅读入口。
 - [chapter-09-rewrite-draft.md](chapter-09-rewrite-draft.md)：第 9 章合并稿与拆分稿内容来源。
 - [execution-plan.md](execution-plan.md)：仓库内可版本化的执行基线与追踪矩阵。

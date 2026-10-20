@@ -1,0 +1,3185 @@
+[
+  {
+    "id": "1",
+    "type": "h1",
+    "meta": true,
+    "children": [
+      {
+        "text": "9.5章节"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "9.5 需要外部对照（CodeAgent 论文、CodeRabbit 官方文档）和原稿多 Agent 素材。先并行取证。"
+      }
+    ],
+    "id": "7jEdVauSPT"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "历史会话中没有 9.5 的额外素材记录（原稿素材已在上下文中）。CodeAgent 论文摘要页已确认核心事实（多 Agent＋QA-Checker 监督＋四项任务）；CodeRabbit 架构文档需要读原文确认细节。继续补取论文正文与官方文档。"
+      }
+    ],
+    "id": "cs6C5vwlC7"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "CodeAgent 论文正文（六角色、四阶段、QA-Checker）与 CodeRabbit 官方架构均已确认，MetaGPT 一手材料也有。补一次搜索为 CodeAgent 论文获取本轮可引用的来源标识，然后成稿。"
+      }
+    ],
+    "id": "APWgzh30WZ"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "取证完成：CodeAgent 论文（ACL Anthology 官方条目 ＋论文正文角色细节）、CodeRabbit 官方架构文档（已读全文 ）、MetaGPT 一手摘要（）齐备。开始创作 9.5。"
+      }
+    ],
+    "id": "YM5AZMCnpx"
+  },
+  {
+    "type": "hr",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "QBglk6wLzn"
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "9.5 专业化多 Agent 协同：共享证据，隔离结论"
+      }
+    ],
+    "id": "gG6L1okzjr"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "9.4 把一个 Agent 装进了契约。但契约只解决\"单个组件怎么被约束\"，没有回答\"多个组件为什么值得\"。本节回答这个问题：多 Agent 的价值不在于生成更多评论，而在于"
+      },
+      {
+        "text": "让多条证据路径独立逼近同一个裁决对象",
+        "bold": true
+      },
+      {
+        "text": "。实现这一价值需要三条纪律：按证据形态设角色、证据共享但结论隔离、权限与失败隔离。"
+      }
+    ],
+    "id": "BghpYqP5IM"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.5.1 从单视角到多视角：评审是多条证据路径的交叉验证"
+      }
+    ],
+    "id": "_vtDqSw0XH"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "9.4.5 结束时我们留了一个问题：单 Agent 只能沿一条证据路径推理。现在把它说透。一次严肃的代码评审，本质是对同一份变更（Diff）同时回答四个不同的问题："
+      }
+    ],
+    "id": "mLLyKSDj76"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "它是否破坏了不变量？（正确性，correctness）"
+      }
+    ],
+    "id": "llPO41x2NK"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "它是否放开了安全边界？（安全性，security）"
+      }
+    ],
+    "id": "pMk9APlxwW"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "测试证据是否支撑\"可复现\"？（测试性，test evidence）"
+      }
+    ],
+    "id": "Ocx8Bsiy69"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "它还影响了哪些调用方与状态？（影响面，impact）"
+      }
+    ],
+    "id": "i8GeEwxfEo"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "这四个问题的"
+      },
+      {
+        "text": "证据形态不同",
+        "bold": true
+      },
+      {
+        "text": "：正确性靠不变量测试与屏障并发测试，安全性靠授权回归测试与需求上下文，测试性靠测试矩阵与失败日志，影响面靠调用图与静态索引。一个万能 Agent 把四类任务塞进同一个提示词，意味着四套工具、四份证据义务和四倍越权面混在一起，输出既无法验收也无法归因。CodeRabbit 的官方架构文档用一句话概括了同样的判断：它的评审\"不是把一个 "
+      },
+      {
+        "text": "review this changeset",
+        "code": true
+      },
+      {
+        "text": " 的提示词丢给 LLM，而是为每一次评审编排一整个系统\"。"
+      },
+      {
+        "text": "评审系统化的第一步，就是把一个问题拆成多条证据路径，并显式指派责任人。",
+        "bold": true
+      }
+    ],
+    "id": "oS0AhqKkVB"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "注意这里的边界：规范任务不进多 Agent 流水线。PR-01 这类低风险变更由风险路由直接放行（9.3.7），启动全部专业 Agent 只会得到更高成本与更多无关评论。多 Agent 是风险的对冲手段，不是仪式。"
+      }
+    ],
+    "id": "61ovBd0po-"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.5.2 最小角色集：按证据形态分工，不按职位名称分工"
+      }
+    ],
+    "id": "J18QgjOtAD"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "最小角色集原则：角色数量等于需要独立验证的证据路径数量。",
+        "bold": true
+      },
+      {
+        "text": " 每多一个角色就多一份模型调用与一套工具权限，所以角色必须能回答\"我负责哪条证据路径\"，而不是\"我扮演什么职位\"。"
+      }
+    ],
+    "id": "n7kbnl3JiJ"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "wallet-review-lab 使用四个角色，与 9.4.1 的四类任务一一对应："
+      }
+    ],
+    "id": "FhDeq233i2"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "表 9-5 最小角色集与任务契约要素",
+        "bold": true
+      }
+    ],
+    "id": "bstD2vk-9e"
+  },
+  {
+    "type": "table",
+    "children": [
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "角色",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "KWaSHJNoRE"
+              }
+            ],
+            "id": "K8kVxMyakX"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "对应任务",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "lot9OJoJuF"
+              }
+            ],
+            "id": "RC6TYJsvb5"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "核心输入",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "hP5SVRvz30"
+              }
+            ],
+            "id": "BSmmjE8l_b"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "允许工具",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "6TalR_Tjd_"
+              }
+            ],
+            "id": "8Y4QlwJ7re"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "必须产出的证据",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "bYnQEko1KO"
+              }
+            ],
+            "id": "xFVCfPKWJn"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "禁止动作",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "wWXjLpZz_s"
+              }
+            ],
+            "id": "zgTwRVLpqO"
+          }
+        ],
+        "id": "AZFrROASs0"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "correctness Agent"
+                  }
+                ],
+                "type": "p",
+                "id": "OOIqLPKi3l"
+              }
+            ],
+            "id": "DfTXgzToG7"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "缺陷"
+                  }
+                ],
+                "type": "p",
+                "id": "oYFhDh_gsB"
+              }
+            ],
+            "id": "jvk6Qz_fDx"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "标准化 Diff＋调用图＋不变量定义＋测试结果"
+                  }
+                ],
+                "type": "p",
+                "id": "6duJW5YJ0W"
+              }
+            ],
+            "id": "wAsYlnH3Wn"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "read_file / run_pytest / git_diff"
+                  }
+                ],
+                "type": "p",
+                "id": "-Et0PZlv8M"
+              }
+            ],
+            "id": "eNL2eqb6FJ"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "位置＋失败模式＋可复现测试引用"
+                  }
+                ],
+                "type": "p",
+                "id": "HU24wnCOSu"
+              }
+            ],
+            "id": "xEZQr5IcLS"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "修改工作树；把未执行的测试写成已验证"
+                  }
+                ],
+                "type": "p",
+                "id": "76e-jBIXzs"
+              }
+            ],
+            "id": "4KUxBN_mej"
+          }
+        ],
+        "id": "gxgT8rypwd"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "security Agent"
+                  }
+                ],
+                "type": "p",
+                "id": "GCBfKgSkqs"
+              }
+            ],
+            "id": "4zk9NOHqMo"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "安全"
+                  }
+                ],
+                "type": "p",
+                "id": "O-51HdDTjL"
+              }
+            ],
+            "id": "CW8RHS7tYY"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Diff＋需求文档＋身份上下文＋授权测试"
+                  }
+                ],
+                "type": "p",
+                "id": "-Bad-M-cG6"
+              }
+            ],
+            "id": "HoVdUbPOGw"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "read_file / run_pytest / 授权回归用例"
+                  }
+                ],
+                "type": "p",
+                "id": "DppoII1XKI"
+              }
+            ],
+            "id": "KoRUOFc6s3"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "需求上下文＋失败授权测试（如 AUTHZ-001）"
+                  }
+                ],
+                "type": "p",
+                "id": "VraoI6y4lI"
+              }
+            ],
+            "id": "Jp_2u07JsT"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "读取密钥与机密；修改权限配置"
+                  }
+                ],
+                "type": "p",
+                "id": "hq-qUmpp9X"
+              }
+            ],
+            "id": "iQCv_zIaPJ"
+          }
+        ],
+        "id": "fUBK-UwG2g"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "testing Agent"
+                  }
+                ],
+                "type": "p",
+                "id": "wiPtqNf2Mn"
+              }
+            ],
+            "id": "lm5_PWJlo-"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "测试证据"
+                  }
+                ],
+                "type": "p",
+                "id": "R189GZh9PR"
+              }
+            ],
+            "id": "E3HwQM0XCh"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "测试代码＋测试结果＋屏障配置"
+                  }
+                ],
+                "type": "p",
+                "id": "YK7jyZj63g"
+              }
+            ],
+            "id": "M7WPG5uwHt"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "run_pytest / read_file"
+                  }
+                ],
+                "type": "p",
+                "id": "RUNKE-D4KX"
+              }
+            ],
+            "id": "PjowJS_iTa"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "测试矩阵＋失败日志引用"
+                  }
+                ],
+                "type": "p",
+                "id": "RGYOXQqVUf"
+              }
+            ],
+            "id": "7pBaPiR13J"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "修改被测代码；裁断业务对错"
+                  }
+                ],
+                "type": "p",
+                "id": "On39LZ_KOS"
+              }
+            ],
+            "id": "XEN0WbGXmI"
+          }
+        ],
+        "id": "aWqnDdoBG8"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "impact Agent"
+                  }
+                ],
+                "type": "p",
+                "id": "4Cuzf-BT_A"
+              }
+            ],
+            "id": "qOJUWmUDi3"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "影响"
+                  }
+                ],
+                "type": "p",
+                "id": "_SmdbA6dih"
+              }
+            ],
+            "id": "kPknoyNdSd"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Diff＋调用图＋静态索引"
+                  }
+                ],
+                "type": "p",
+                "id": "_4MwpuwT-1"
+              }
+            ],
+            "id": "PKuIohnTtG"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "read_file / grep / 索引查询"
+                  }
+                ],
+                "type": "p",
+                "id": "eWabMnK8sP"
+              }
+            ],
+            "id": "T8UzD8Jsie"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "受影响调用方清单（区分事实与推断）"
+                  }
+                ],
+                "type": "p",
+                "id": "n0nC_YIehj"
+              }
+            ],
+            "id": "s2VUEcAzf-"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "声称\"跨仓库无其他调用方\"而无索引证据"
+                  }
+                ],
+                "type": "p",
+                "id": "NgoRNajSZw"
+              }
+            ],
+            "id": "JAeA_cT_Tt"
+          }
+        ],
+        "id": "2tA0SV1uG4"
+      }
+    ],
+    "id": "hl0xuEPsvs",
+    "colSizes": [
+      142.33333333333334,
+      142.33333333333334,
+      142.33333333333334,
+      142.33333333333334,
+      142.33333333333334,
+      142.33333333333334
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "四个角色各持一份 9.4.2 六要素任务契约，输入、工具、证据义务全部写死。以 security Agent 为例，它处理 PR-03 时必须看到\"客户端钱包 ID 只可定位资源、不可作授权证据\"的需求上下文，并必须产出一条失败授权测试作为证据——没有这条测试，它的\"缺少对象级授权\"结论就只是阅读感想[原稿素材，需求上下文与授权测试构成证据链]。"
+      }
+    ],
+    "id": "C9r8uQRN0A"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "角色命名刻意避开职位头衔。MetaGPT 论文把 Agent 命名为产品经理、架构师、工程师、QA 工程师；CodeAgent 论文则模拟了 CEO、CTO、Coder、Reviewer、CPO 等角色的协作团队。职位式命名擅长拟人叙事，但把\"证据义务\"藏在身份背后，容易诱导读者把模型输出当作有职权的判断。本书采用"
+      },
+      {
+        "text": "证据形态命名",
+        "bold": true
+      },
+      {
+        "text": "（correctness / security / testing / impact）：每个名字直接宣布\"我验证什么、我不验证什么\"，便于契约化与评测。"
+      }
+    ],
+    "id": "4iuN801d0m"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "角色数量还受工具成本约束。CodeRabbit 的工程实践文章直言：\"工具要一打，而不是一百个——每个工具定义都消耗 token，重叠的工具会混淆模型\"。最小角色集的另一面是"
+      },
+      {
+        "text": "最小工具集",
+        "bold": true
+      },
+      {
+        "text": "：宁可少一个工具，不可多一个含糊的职责。"
+      }
+    ],
+    "id": "GJ6XJFiTYV"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.5.3 证据共享与结论隔离"
+      }
+    ],
+    "id": "Y8LHsQAuCO"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "四个角色开工后，最危险的失败模式不是\"某角色漏报\"，而是"
+      },
+      {
+        "text": "结论互相引用",
+        "bold": true
+      },
+      {
+        "text": "：correctness Agent 说\"余额检查在原子边界外\"，security Agent 转述\"correctness 说这里有问题\"，仲裁者收到的是两条互相印证的评论——而它们源自同一条证据链，其中任何一环错了，错误都会被放大且无法归因。"
+      }
+    ],
+    "id": "vNf8xEpoGt"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "学术上把这种现象称为"
+      },
+      {
+        "text": "级联幻觉",
+        "bold": true
+      },
+      {
+        "text": "（cascading hallucinations）。MetaGPT 论文摘要明确指出，多 Agent 系统依赖非结构化\"聊天\"会导致单个错误滚雪球式放大为系统失败。CodeAgent 论文则从另一个角度遇到同一问题：多角色多轮对话容易发生"
+      },
+      {
+        "text": "提示漂移",
+        "bold": true
+      },
+      {
+        "text": "（prompt drifting）——对话偏离初始目标，为此它引入监督 Agent QA-Checker，确保所有角色的贡献始终针对最初的评审问题。"
+      }
+    ],
+    "id": "5rrRbHiWT9"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "wallet-review-lab 的解法更结构化，两条规则："
+      }
+    ],
+    "id": "QXb3RxJwk8"
+  },
+  {
+    "indent": 1,
+    "listGroup": "671yVu",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "证据共享",
+        "bold": true
+      },
+      {
+        "text": "：所有角色只读同一个证据库（evidence store），内含不变量定义、测试结果、日志、扫描输出与 Oracle 答案。这是唯一的跨角色信息渠道。"
+      }
+    ],
+    "id": "ErFV3pmVt4"
+  },
+  {
+    "indent": 1,
+    "listGroup": "671yVu",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "结论隔离",
+        "bold": true
+      },
+      {
+        "text": "：任何角色不得引用另一角色的结论。角色之间传递的只能是证据引用（evidence_ref，即 9.4.4 Finding 中的 "
+      },
+      {
+        "text": "evidence",
+        "code": true
+      },
+      {
+        "text": " 字段），禁止传递\"某人说有问题\"式的结论转述。"
+      }
+    ],
+    "id": "OCdTBL3vv4"
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "<code>flowchart LR"
+          }
+        ],
+        "type": "code_line",
+        "id": "7Ii6453lwQ"
+      },
+      {
+        "children": [
+          {
+            "text": "  subgraph ES[\"共享证据库 evidence store\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "myqF5XOzFC"
+      },
+      {
+        "children": [
+          {
+            "text": "    EV1[\"不变量定义\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "u_Fl0VHUgt"
+      },
+      {
+        "children": [
+          {
+            "text": "    EV2[\"测试结果 pytest json\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "xto3Z4GSVl"
+      },
+      {
+        "children": [
+          {
+            "text": "    EV3[\"日志与扫描输出\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "Dz8C19G2bP"
+      },
+      {
+        "children": [
+          {
+            "text": "    EV4[\"Oracle 答案\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "E4wosegltX"
+      },
+      {
+        "children": [
+          {
+            "text": "  end"
+          }
+        ],
+        "type": "code_line",
+        "id": "8XPcMTEvxN"
+      },
+      {
+        "children": [
+          {
+            "text": "  A1[\"correctness Agent\"] --> F[\"Finding 汇合点\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "uoeECYrslo"
+      },
+      {
+        "children": [
+          {
+            "text": "  A2[\"security Agent\"] --> F"
+          }
+        ],
+        "type": "code_line",
+        "id": "_uAcw_EgKP"
+      },
+      {
+        "children": [
+          {
+            "text": "  A3[\"testing Agent\"] --> F"
+          }
+        ],
+        "type": "code_line",
+        "id": "7E3wDRZkfu"
+      },
+      {
+        "children": [
+          {
+            "text": "  A4[\"impact Agent\"] --> F"
+          }
+        ],
+        "type": "code_line",
+        "id": "97mfYKcGHj"
+      },
+      {
+        "children": [
+          {
+            "text": "  A1 -. \"只读证据引用\" .-> ES"
+          }
+        ],
+        "type": "code_line",
+        "id": "PmGdTtcb1G"
+      },
+      {
+        "children": [
+          {
+            "text": "  A2 -. \"只读证据引用\" .-> ES"
+          }
+        ],
+        "type": "code_line",
+        "id": "Ix2JBU3YwU"
+      },
+      {
+        "children": [
+          {
+            "text": "  A3 -. \"只读证据引用\" .-> ES"
+          }
+        ],
+        "type": "code_line",
+        "id": "zgo4BCZd60"
+      },
+      {
+        "children": [
+          {
+            "text": "  A4 -. \"只读证据引用\" .-> ES"
+          }
+        ],
+        "type": "code_line",
+        "id": "2VqAYcHvk_"
+      },
+      {
+        "children": [
+          {
+            "text": "  F --> P[\"证据包 evidence package\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "gLCiG3n-zI"
+      },
+      {
+        "children": [
+          {
+            "text": "</code>"
+          }
+        ],
+        "type": "code_line",
+        "id": "oH4VXu-G7J"
+      }
+    ],
+    "type": "code_block",
+    "lang": "mermaid",
+    "id": "A5oxLiRRm8"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "图 9-4 证据共享与结论隔离。",
+        "bold": true
+      },
+      {
+        "text": " 四个 Agent 只读共享证据库，结论直接进入汇合点；Agent 之间没有结论通道，只有证据引用。任何一条 Finding 都能沿证据引用回溯到原始证据，而不是回溯到另一个 Agent 的话。"
+      }
+    ],
+    "id": "wMfo0aSsrt"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "两条规则共同保证"
+      },
+      {
+        "text": "可问责",
+        "bold": true
+      },
+      {
+        "text": "：每条 Finding 的证据链可回放（9.6 的证据流水线）、错误可归因（哪个角色、哪条证据、哪一步推理）、结论可仲裁（9.8 的仲裁者拿到的是四个独立结论，而非互相印证的结论群——互相印证的结论在仲裁时没有任何信息量）。这也正是 CodeRabbit 强调\"独立性必须被设计进评审\"的原因：评审者必须与写变更的系统分离，同一执行循环的二次检查会保留原始假设，真正的独立评审要用作者 Agent 未依赖的证据来挑战前提。有第三方报道进一步描述 CodeRabbit 的实践：每条 finding 在呈现给人类评审者之前，都要用可用证据验证。"
+      }
+    ],
+    "id": "zf_LgD0YDT"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.5.4 权限隔离与失败隔离"
+      }
+    ],
+    "id": "ae3KWrjMTu"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "结论隔离解决\"说什么\"，权限隔离解决\"能碰什么\"。两个层面："
+      }
+    ],
+    "id": "y8hMjMb-ez"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "读权限最小化。",
+        "bold": true
+      },
+      {
+        "text": " 每个角色只获得完成其任务所需的最小输入集。security Agent 可以读授权测试与需求上下文，但不需要完整测试日志；impact Agent 需要调用图与静态索引，但不需要密钥扫描结果；任何角色都不需要看到 Oracle 的完整答案之外的裁决逻辑细节。读权限越界和工具越权一样，都属于契约违约。"
+      }
+    ],
+    "id": "V0hdr3flqs"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "写权限集中且只读。",
+        "bold": true
+      },
+      {
+        "text": " 没有任何 Agent 能修改工作树、测试代码或证据库；Finding 汇合点由编排器（orchestrator，负责调度各 Agent 与汇总证据的流程组件）独占写入，且写入是只追加（append-only）——已产生的 Finding 不可被后续角色改写，只可被 9.8 的人工裁决标注\"驳回\"。这与 CodeRabbit 的隔离沙盒同构：官方架构显示每次评审都在克隆的完整仓库的沙盒云环境中进行，分析相互隔离；评审 Agent 只发表评论，不自行合并代码。"
+      }
+    ],
+    "id": "1ZGPBfRdBz"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "表 9-6 权限矩阵（教学项目简化版）",
+        "bold": true
+      }
+    ],
+    "id": "NHEuviAbWO"
+  },
+  {
+    "type": "table",
+    "children": [
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "资源",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "t6a62iFnct"
+              }
+            ],
+            "id": "tkz41O3gTh"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "correctness",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "8l-x1QEuQN"
+              }
+            ],
+            "id": "EKPQcZlUC_"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "security",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "nKjXbTOBrE"
+              }
+            ],
+            "id": "ETCnkmnFPd"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "testing",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "6_vMYLQsQ-"
+              }
+            ],
+            "id": "7ruNLHzqnM"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "impact",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "XeLgkp0-ZN"
+              }
+            ],
+            "id": "QLOUNL8WLz"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "编排器",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "vg2IMxZduU"
+              }
+            ],
+            "id": "XbaHN4oeCf"
+          }
+        ],
+        "id": "UWXtYobafq"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "读：Diff"
+                  }
+                ],
+                "type": "p",
+                "id": "gHZEhgkNQG"
+              }
+            ],
+            "id": "hRqqHT5nxN"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "yO39Y3JFRy"
+              }
+            ],
+            "id": "cKlL7Xz69i"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "UlcXNvVQcr"
+              }
+            ],
+            "id": "Cu4kt6LJ86"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "O1JC_rxmRN"
+              }
+            ],
+            "id": "qj5cFtGDME"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "JW_MYGQrRu"
+              }
+            ],
+            "id": "xMwSTJH4YI"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "LzJO37OQrT"
+              }
+            ],
+            "id": "2h2v3O0TPn"
+          }
+        ],
+        "id": "MI1J5kiMLj"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "读：需求文档"
+                  }
+                ],
+                "type": "p",
+                "id": "r7-e3Pukig"
+              }
+            ],
+            "id": "bxYc-FRuUk"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "058d5MUJg8"
+              }
+            ],
+            "id": "0EKBzJmA1_"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "8XRxxmIkVb"
+              }
+            ],
+            "id": "mGkjrb8jbk"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "UOD6g31JWv"
+              }
+            ],
+            "id": "w0S_NCs9mX"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "HikiUMuKJt"
+              }
+            ],
+            "id": "AVytfD8pUA"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "K1VHKfKuyg"
+              }
+            ],
+            "id": "ySXxmyreUg"
+          }
+        ],
+        "id": "DexzuOVA70"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "读：授权测试"
+                  }
+                ],
+                "type": "p",
+                "id": "VHNg16FzFe"
+              }
+            ],
+            "id": "3MSc5jg3ok"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "vtEgY7hFjG"
+              }
+            ],
+            "id": "zh2meA1-Ub"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "zAlGLiQc_V"
+              }
+            ],
+            "id": "ZJIg8DJmGK"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "o6SKCFSgmJ"
+              }
+            ],
+            "id": "19dFrceV3F"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "Oq-mwque54"
+              }
+            ],
+            "id": "ZPjnxY1rwt"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "e1seXSDgsA"
+              }
+            ],
+            "id": "pR1YJzRxcQ"
+          }
+        ],
+        "id": "OfUXBS4bV_"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "读：测试日志"
+                  }
+                ],
+                "type": "p",
+                "id": "Vx00VS28Lb"
+              }
+            ],
+            "id": "hEX3kOSAV4"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "MauW9cZ-H2"
+              }
+            ],
+            "id": "fzVIXMubOF"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "c0DGKLBWB0"
+              }
+            ],
+            "id": "gyJFeWzuqr"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "--hzBQRfk7"
+              }
+            ],
+            "id": "Lweb1JWyqC"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "su9aKMTqsh"
+              }
+            ],
+            "id": "JUwiQzmU2u"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "aTWBbE04UJ"
+              }
+            ],
+            "id": "ToCnzzrQqt"
+          }
+        ],
+        "id": "aJgG5nlFVK"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "读：机密扫描结果"
+                  }
+                ],
+                "type": "p",
+                "id": "lJcVOdC5PM"
+              }
+            ],
+            "id": "0oqeIU0vCa"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "TZd1t-zRa4"
+              }
+            ],
+            "id": "_9F1jrCZVi"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "Q6oHO_yMHq"
+              }
+            ],
+            "id": "7XxcvYls3k"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "BSm5mcJLzs"
+              }
+            ],
+            "id": "PRssqjvf8a"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "vcOwm3g4yG"
+              }
+            ],
+            "id": "23IMBwAEuC"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "RuxVtYobiO"
+              }
+            ],
+            "id": "yCo5vuQz8s"
+          }
+        ],
+        "id": "J-JKpGYjIj"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "写：工作树 / 证据库"
+                  }
+                ],
+                "type": "p",
+                "id": "3sCM2A3Tvw"
+              }
+            ],
+            "id": "fIOpwj07tx"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "wFgznSnzfQ"
+              }
+            ],
+            "id": "9Qk9AWt1q8"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "WCpqMTGS98"
+              }
+            ],
+            "id": "6-VCqufNeL"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "bL1Ww9KZYK"
+              }
+            ],
+            "id": "capdWVP2EF"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "6RsZBCCpgI"
+              }
+            ],
+            "id": "Ihnf2NdOVy"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "6AT53Ws9Lj"
+              }
+            ],
+            "id": "Xh_-7_U56i"
+          }
+        ],
+        "id": "qj1Cld8Xq4"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "写：Finding 汇合点（追加）"
+                  }
+                ],
+                "type": "p",
+                "id": "ERvwU58EuE"
+              }
+            ],
+            "id": "bzwqSok2gZ"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "A_2U7w2Z1F"
+              }
+            ],
+            "id": "BvAhEtK3Cf"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "Ub4XAx1Ytf"
+              }
+            ],
+            "id": "yIYcOChbMF"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "sTHSbfB2wd"
+              }
+            ],
+            "id": "J66sQ_dBPK"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✗"
+                  }
+                ],
+                "type": "p",
+                "id": "WzDA0yudgm"
+              }
+            ],
+            "id": "L2Ri-GtNKb"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "✓"
+                  }
+                ],
+                "type": "p",
+                "id": "5PY4gllkL6"
+              }
+            ],
+            "id": "h34W-jNU3f"
+          }
+        ],
+        "id": "XIVp5OA2no"
+      }
+    ],
+    "id": "2HB1uR_KMG",
+    "colSizes": [
+      142.33333333333334,
+      142.33333333333334,
+      142.33333333333334,
+      142.33333333333334,
+      142.33333333333334,
+      142.33333333333334
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "失败隔离",
+        "bold": true
+      },
+      {
+        "text": "与权限隔离配套：一个角色超时、崩溃或输出不合 Schema，流水线将其标记为\"该路径未取得证据\"并继续运行，而不是中止全部评审；未取得证据 ≠ 没问题，这一条直接继承 9.4.3 的摘要纪律。失败隔离的意义在于：多 Agent 系统增加的可靠性来自冗余证据路径，如果一条路径的失败能拖垮其余路径，冗余就变成了单点。"
+      }
+    ],
+    "id": "VsQTk1Fw2n"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.5.5 三种编排配置：串行、并行、混合"
+      }
+    ],
+    "id": "Gx2sNukyUf"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "角色与契约确定后，调度方式有三种选择。关键认知："
+      },
+      {
+        "text": "配置只改调度，不改契约",
+        "bold": true
+      },
+      {
+        "text": "——任何配置下，每个角色的证据义务完全相同，这正是契约的价值。"
+      }
+    ],
+    "id": "2rs4hfAR8v"
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "<code>flowchart LR"
+          }
+        ],
+        "type": "code_line",
+        "id": "SXknqTpvts"
+      },
+      {
+        "children": [
+          {
+            "text": "  subgraph S[\"串行 Sequential\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "aZmkMeQbs_"
+      },
+      {
+        "children": [
+          {
+            "text": "    direction LR"
+          }
+        ],
+        "type": "code_line",
+        "id": "WLkJQcIi6G"
+      },
+      {
+        "children": [
+          {
+            "text": "    S1[\"correctness\"] --> S2[\"testing\"] --> S3[\"security\"] --> S4[\"impact\"] --> SP[\"证据包\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "XU8-l4bJsK"
+      },
+      {
+        "children": [
+          {
+            "text": "  end"
+          }
+        ],
+        "type": "code_line",
+        "id": "igMccqUnbv"
+      },
+      {
+        "children": [
+          {
+            "text": "  subgraph P[\"并行 Parallel\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "D1dpUicQCE"
+      },
+      {
+        "children": [
+          {
+            "text": "    direction LR"
+          }
+        ],
+        "type": "code_line",
+        "id": "WRJJaGX__g"
+      },
+      {
+        "children": [
+          {
+            "text": "    P1[\"correctness\"] & P2[\"security\"] & P3[\"testing\"] & P4[\"impact\"] --> PC[\"证据包\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "ukSykdEMTU"
+      },
+      {
+        "children": [
+          {
+            "text": "  end"
+          }
+        ],
+        "type": "code_line",
+        "id": "O0BFj5ZBma"
+      },
+      {
+        "children": [
+          {
+            "text": "  subgraph M[\"混合 Hybrid\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "FEHWseNP6D"
+      },
+      {
+        "children": [
+          {
+            "text": "    direction LR"
+          }
+        ],
+        "type": "code_line",
+        "id": "dwT7entFUP"
+      },
+      {
+        "children": [
+          {
+            "text": "    M1[\"correctness\"] & M2[\"security\"] --> MC[\"证据合并\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "CUcEdzMV-I"
+      },
+      {
+        "children": [
+          {
+            "text": "    M3[\"impact\"] --> MC"
+          }
+        ],
+        "type": "code_line",
+        "id": "Av-8VD5ddH"
+      },
+      {
+        "children": [
+          {
+            "text": "    MC --> MP[\"证据包\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "NGq5W5lyNT"
+      },
+      {
+        "children": [
+          {
+            "text": "  end"
+          }
+        ],
+        "type": "code_line",
+        "id": "6bqZ0uOq6J"
+      },
+      {
+        "children": [
+          {
+            "text": "</code>"
+          }
+        ],
+        "type": "code_line",
+        "id": "dRveZGAv2X"
+      }
+    ],
+    "type": "code_block",
+    "lang": "mermaid",
+    "id": "lEkhMAxtSg"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "图 9-5 三种编排配置。",
+        "bold": true
+      },
+      {
+        "text": " 串行沿单一证据链逐个执行；并行四路同时开工；混合并行处理高风险路径、影响分析最后聚合。三种配置下证据义务不变。"
+      }
+    ],
+    "id": "Yv9YsZDzui"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "表 9-7 三种配置的权衡",
+        "bold": true
+      }
+    ],
+    "id": "ajoeMFKp_o"
+  },
+  {
+    "type": "table",
+    "children": [
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "维度",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "_ORpewhh5u"
+              }
+            ],
+            "id": "legRM2n4M4"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "串行",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "jsYbYhMmsO"
+              }
+            ],
+            "id": "pcvAUuV5ms"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "并行",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "vD5IbCduoZ"
+              }
+            ],
+            "id": "Of9wYRNH2M"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "混合",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "ZyxxmPpfRE"
+              }
+            ],
+            "id": "FKhwFOWP_4"
+          }
+        ],
+        "id": "RnYf-Y0kqH"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "延迟"
+                  }
+                ],
+                "type": "p",
+                "id": "THs3nBKyMC"
+              }
+            ],
+            "id": "v3HCISDbd2"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "随角色数累加"
+                  }
+                ],
+                "type": "p",
+                "id": "6cu8qbR3HI"
+              }
+            ],
+            "id": "0GVyqsn2OV"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "最低"
+                  }
+                ],
+                "type": "p",
+                "id": "p73ZjL1bfk"
+              }
+            ],
+            "id": "4ocCQbN8Rx"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "中等"
+                  }
+                ],
+                "type": "p",
+                "id": "kp1LBLYai_"
+              }
+            ],
+            "id": "5SebVXcWxj"
+          }
+        ],
+        "id": "3Y5kfcOq-T"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Token 成本"
+                  }
+                ],
+                "type": "p",
+                "id": "dCcNqVWqVU"
+              }
+            ],
+            "id": "z8GJpxJ9Hg"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "低（可复用前序上下文）"
+                  }
+                ],
+                "type": "p",
+                "id": "APEvyirMYu"
+              }
+            ],
+            "id": "Pm7Tzfx_Da"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "高（无缓存复用）"
+                  }
+                ],
+                "type": "p",
+                "id": "4pn_HPi8QS"
+              }
+            ],
+            "id": "s7j5q18AIB"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "中等"
+                  }
+                ],
+                "type": "p",
+                "id": "5ntgREej83"
+              }
+            ],
+            "id": "OrBpfHTC8f"
+          }
+        ],
+        "id": "8BSUEJZKL1"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "证据独立性"
+                  }
+                ],
+                "type": "p",
+                "id": "ExpyyzIS--"
+              }
+            ],
+            "id": "XmLytL1C9J"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "中（下游可见上游证据）"
+                  }
+                ],
+                "type": "p",
+                "id": "WTNuBjfBnz"
+              }
+            ],
+            "id": "IWr0as2583"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "最强"
+                  }
+                ],
+                "type": "p",
+                "id": "VMWYp8_1ot"
+              }
+            ],
+            "id": "3439zlsd0p"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "强"
+                  }
+                ],
+                "type": "p",
+                "id": "-msBhwT5eV"
+              }
+            ],
+            "id": "eOJePImmh0"
+          }
+        ],
+        "id": "hYB99uLh2C"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "冲突处理"
+                  }
+                ],
+                "type": "p",
+                "id": "iFfXHYzhW7"
+              }
+            ],
+            "id": "5M60kwZtJA"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "统一在仲裁点（9.8）"
+                  }
+                ],
+                "type": "p",
+                "id": "i4kdMgpwbP"
+              }
+            ],
+            "id": "TaWBWYbl4M"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "统一在仲裁点"
+                  }
+                ],
+                "type": "p",
+                "id": "4FPn4csAl-"
+              }
+            ],
+            "id": "ZEyNoZOMk2"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "统一在仲裁点"
+                  }
+                ],
+                "type": "p",
+                "id": "Bebh50IopW"
+              }
+            ],
+            "id": "zIE6e49i6y"
+          }
+        ],
+        "id": "1D9AL8OEt4"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "适合场景"
+                  }
+                ],
+                "type": "p",
+                "id": "lJyBNSJdRB"
+              }
+            ],
+            "id": "jNrrkhAwJ7"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "小 PR、教学演示"
+                  }
+                ],
+                "type": "p",
+                "id": "TQnrBEvZPj"
+              }
+            ],
+            "id": "5dSWQfuC4s"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "大 PR、高风险变更"
+                  }
+                ],
+                "type": "p",
+                "id": "-1KrPuA9fF"
+              }
+            ],
+            "id": "pxeyG7cm1O"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "默认推荐"
+                  }
+                ],
+                "type": "p",
+                "id": "MckdTR4lwN"
+              }
+            ],
+            "id": "GBet8gfq6Q"
+          }
+        ],
+        "id": "C_U9cV3FFa"
+      }
+    ],
+    "id": "WTcrWj2r72",
+    "colSizes": [
+      213.5,
+      213.5,
+      213.5,
+      213.5
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "三种配置的取舍集中在"
+      },
+      {
+        "text": "延迟与成本的互换",
+        "bold": true
+      },
+      {
+        "text": "。CodeRabbit 的实践文章指出，生产环境中真正决定长期运行成本的是提示缓存命中率（prompt cache hit rate），长 Agent 运行如果缓存不住稳定部分，成本就难以规模化——串行配置恰好能最大化缓存复用，代价是延迟累加。wallet-review-lab 的六案例（9.7）默认采用混合配置：security 与 correctness 并行先行，testing 的屏障测试证据随后并入，impact 最后聚合，整个调度由 "
+      },
+      {
+        "text": "policies/risk-rules.yaml",
+        "code": true
+      },
+      {
+        "text": " 按风险等级决定（9.10 展开）。"
+      }
+    ],
+    "id": "fJakbk1Zhu"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.5.6 与工业界对照：学术流水线与工业并行"
+      }
+    ],
+    "id": "-YbHTt2TDt"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "本节的三条纪律——按证据形态分工、证据共享结论隔离、权限隔离——并非教学特例。对照两个方向的系统："
+      }
+    ],
+    "id": "Cyj6jejn8k"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "学术原型：角色化流水线。",
+        "bold": true
+      },
+      {
+        "text": " CodeAgent 论文（EMNLP 2024）把评审模拟成一个协作团队：User、CEO、CPO、CTO、Reviewer、Coder 六个角色，通过多轮角色间对话完成评审，并由监督 Agent QA-Checker 保证所有贡献不偏离初始评审问题。论文在四项任务上评估：代码变更与提交信息一致性、漏洞引入识别、代码风格合规验证、代码修订建议。它的组织方式是"
+      },
+      {
+        "text": "串行流水线加监督",
+        "bold": true
+      },
+      {
+        "text": "——阶段推进靠角色交接，防漂移靠一个独立监督角色，这正是\"结论隔离\"在学术语境下的雏形。MetaGPT（arXiv:2308.00352）则是通用软件开发方向的代表：五个角色（产品经理、架构师、项目经理、工程师、QA 工程师）沿标准作业程序（SOP）流水线协作，用结构化工件交接对抗级联幻觉。注意 MetaGPT 的共享消息池承载的是"
+      },
+      {
+        "text": "结构化产物",
+        "bold": true
+      },
+      {
+        "text": "（PRD、设计文档），而本书的证据库只承载"
+      },
+      {
+        "text": "证据",
+        "bold": true
+      },
+      {
+        "text": "——前者允许下游引用上游的判断，后者禁止，这是更严格的隔离。"
+      }
+    ],
+    "id": "9Wt_G4O9sa"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "工业实践：并行专业 Agent。",
+        "bold": true
+      },
+      {
+        "text": " CodeRabbit 官方架构显示，每次评审由沙盒云执行（克隆完整仓库隔离分析）、50+ 静态分析器与 SAST 工具的多维分析、自主代码库探索、以及 Review、Verification、Chat、Pre-Merge Checks、Finishing Touches 五类专业 Agent 并行工作组成。它的官方博客把\"评审者与作者系统分离\"当作设计前提，明确评审者应当寻找反证（disconfirming evidence）而非复述作者的推理。IBM 的综述也印证了行业趋势：Claude Code 派出并行 AI 智能体审查 PR 并验证滤除误报，Codacy 则采用确定性分析与 AI 推理混合的评审引擎。"
+      }
+    ],
+    "id": "yb_xcmpXLB"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "表 9-8 三类系统的对照",
+        "bold": true
+      }
+    ],
+    "id": "VSLO_bqB9Z"
+  },
+  {
+    "type": "table",
+    "children": [
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "维度",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "qtm3OqGOb3"
+              }
+            ],
+            "id": "-f1WrwISpw"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "CodeAgent（学术）",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "y1Dt0zI67z"
+              }
+            ],
+            "id": "wEtACyVNo0"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "MetaGPT（学术）",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "apcR9cKmaL"
+              }
+            ],
+            "id": "Z7telHsd74"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "CodeRabbit（工业）",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "QboeHa3xUn"
+              }
+            ],
+            "id": "3AZRs6MCb7"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "wallet-review-lab（教学）",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "P-CX4KF3pe"
+              }
+            ],
+            "id": "N7DdpBz3p6"
+          }
+        ],
+        "id": "zZvmtZtDN1"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "分工方式"
+                  }
+                ],
+                "type": "p",
+                "id": "sTclmYfhgX"
+              }
+            ],
+            "id": "Wlryy3Y7p1"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "角色化多轮对话"
+                  }
+                ],
+                "type": "p",
+                "id": "Yxz6AXCFGB"
+              }
+            ],
+            "id": "hcF3pivGS7"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "SOP 角色流水线"
+                  }
+                ],
+                "type": "p",
+                "id": "oBRoGKTm5W"
+              }
+            ],
+            "id": "oRsiTZF7XW"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "五类专业 Agent 并行"
+                  }
+                ],
+                "type": "p",
+                "id": "Xi7But6oWS"
+              }
+            ],
+            "id": "0Ra7QZbVbH"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "四类证据形态角色"
+                  }
+                ],
+                "type": "p",
+                "id": "6_5LyR6uSu"
+              }
+            ],
+            "id": "VMhhiKZl8n"
+          }
+        ],
+        "id": "UMZAK5AfRH"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "防结论污染"
+                  }
+                ],
+                "type": "p",
+                "id": "2Z05Hch0nq"
+              }
+            ],
+            "id": "pIEkDlG-vX"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "QA-Checker 监督防漂移"
+                  }
+                ],
+                "type": "p",
+                "id": "SqP_3-OjJD"
+              }
+            ],
+            "id": "-AxXlEAwn4"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "结构化交接防级联幻觉"
+                  }
+                ],
+                "type": "p",
+                "id": "9mBdvbhtDT"
+              }
+            ],
+            "id": "N1_DURhnVj"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "独立评审层＋证据验证"
+                  }
+                ],
+                "type": "p",
+                "id": "HcPkub3fH2"
+              }
+            ],
+            "id": "SC76phvfJ7"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "证据共享＋结论隔离"
+                  }
+                ],
+                "type": "p",
+                "id": "UudXkQh5pR"
+              }
+            ],
+            "id": "DLB26WZHLq"
+          }
+        ],
+        "id": "4lOW0meGAU"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "信息媒介"
+                  }
+                ],
+                "type": "p",
+                "id": "lg3tGTo7ew"
+              }
+            ],
+            "id": "4pZUQwGYsa"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "对话"
+                  }
+                ],
+                "type": "p",
+                "id": "IUpsGAhCKo"
+              }
+            ],
+            "id": "sKrPM92oWE"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "消息池/工件"
+                  }
+                ],
+                "type": "p",
+                "id": "3ffhfAkm79"
+              }
+            ],
+            "id": "q5DweN8hOj"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "沙盒与分析管道"
+                  }
+                ],
+                "type": "p",
+                "id": "P7h6_0X2BT"
+              }
+            ],
+            "id": "Ys8R7LlkXJ"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "证据库＋证据引用"
+                  }
+                ],
+                "type": "p",
+                "id": "dlnCVJKbSs"
+              }
+            ],
+            "id": "tlkZTYxeHX"
+          }
+        ],
+        "id": "29IqJJ2pX7"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "可回放性"
+                  }
+                ],
+                "type": "p",
+                "id": "FlL3qNxWhS"
+              }
+            ],
+            "id": "wt9L5tywzt"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "论文数据公开，未强调"
+                  }
+                ],
+                "type": "p",
+                "id": "0NGCq-XUyL"
+              }
+            ],
+            "id": "2d0lhLa9jR"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "未强调"
+                  }
+                ],
+                "type": "p",
+                "id": "3ycNQVddno"
+              }
+            ],
+            "id": "2S7asOZtH4"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "生产系统，未公开"
+                  }
+                ],
+                "type": "p",
+                "id": "Z9f7goqlnG"
+              }
+            ],
+            "id": "ZwzRLRePYr"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "全书主线（9.6）"
+                  }
+                ],
+                "type": "p",
+                "id": "OSt9nTwxeu"
+              }
+            ],
+            "id": "PaO7ygY3uh"
+          }
+        ],
+        "id": "IobDyAEFKt"
+      }
+    ],
+    "id": "HaGiyU5mVF",
+    "colSizes": [
+      170.8,
+      170.8,
+      170.8,
+      170.8,
+      170.8
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "几点必须声明的事实边界：CodeAgent 的实验数字（如漏洞检测命中率）出自第三方解读转述，本书不引用具体数值；CodeRabbit 市场宣传中的\"缺陷命中率、审查时间压缩\"等数字未在本轮取证中核实到一手来源，正文一律不写；上表对 CodeRabbit\"证据验证\"的描述依据其官方文档与第三方报道，属于供应商公开口径，未经独立复现验证。"
+      }
+    ],
+    "id": "INJoIwauUY"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "三方的共同启示很明确："
+      },
+      {
+        "text": "没有一个严肃系统把评审委托给\"一个模型读一次 Diff\"",
+        "bold": true
+      },
+      {
+        "text": "。差别只在于用什么机制隔离证据与结论——学术用监督 Agent，工业用沙盒与独立评审层，本书用证据库加结论隔离，因为后者同时服务于全书的目标：可验证、可回放、可审计、可问责。"
+      }
+    ],
+    "id": "pq1fAJxOHR"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.5.7 练习与小结"
+      }
+    ],
+    "id": "05WuLTc-zO"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "9.5 练习",
+        "bold": true
+      }
+    ],
+    "id": "-P1DK_-t7-"
+  },
+  {
+    "indent": 1,
+    "listGroup": "61miFX",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "为 security Agent 写一份六要素任务契约，并对比它与 correctness 契约在输入、工具、证据义务上的差异；"
+      }
+    ],
+    "id": "AUpMrPtcl2"
+  },
+  {
+    "indent": 1,
+    "listGroup": "61miFX",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "用 wallet-review-lab 的假设场景说明\"结论互不引用\"如何防止级联幻觉：例如 correctness 误报 CONCURRENCY-001，security 若转述该结论会怎样，若只引用证据又会怎样；"
+      }
+    ],
+    "id": "er4RQrXE8M"
+  },
+  {
+    "indent": 1,
+    "listGroup": "61miFX",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "你的团队评审一个大 PR 与一个小 PR，分别选哪种配置？用表 9-7 的维度说明理由；"
+      }
+    ],
+    "id": "fjI2CtWnAr"
+  },
+  {
+    "indent": 1,
+    "listGroup": "61miFX",
+    "listStart": 4,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "讨论：若 correctness 给出 must_fix、impact 给出 no_finding，仲裁者（9.8 的角色）需要什么额外证据才能裁决，而不是\"投票\"？"
+      }
+    ],
+    "id": "O-wQPJa7By"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "9.5 小结",
+        "bold": true
+      },
+      {
+        "text": "：多 Agent 协同的工程本质不是\"让一群模型开会\"，而是"
+      },
+      {
+        "text": "把评审拆成多条独立证据路径并隔离它们",
+        "bold": true
+      },
+      {
+        "text": "——按证据形态设角色（9.5.2），证据共享但结论隔离（9.5.3），权限与失败隔离（9.5.4），配置只改调度不改契约（9.5.5）。工业界与学术界用监督 Agent、沙盒、独立评审层印证了同一原则。但角色、契约、权限还只是静态结构：证据从产生、引用、汇聚到仲裁的完整轨迹，需要一条显式的流水线来承载——这正是 9.6 的主题。"
+      }
+    ],
+    "id": "AuJeJIZdVo"
+  },
+  {
+    "type": "hr",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "C2_abZyKnA"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "进度记录",
+        "bold": true
+      },
+      {
+        "text": "：已完成 9.1–9.5。待完成：9.6 证据流水线（Schema/路由/调度）、9.7 六案例深度实战、9.8 仲裁与治理、9.9 评测与行业基准、9.10 成本与路由、9.11 安全防御、9.12 端到端演练。图 9-4、9-5 与表 9-5 至 9-8 为章节内部编号，全书统一编号留待审校。"
+      }
+    ],
+    "id": "00ronXsPDs"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "本轮引用说明",
+        "bold": true
+      },
+      {
+        "text": "：CodeRabbit 官方架构文档（沙盒、50+ 静态分析器、五类专业 Agent 并行）；官方博客（独立性设计、反证） 与工程实践（工具最小化、提示缓存成本）；第三方报道（证据验证后呈现）；IBM 综述（Claude Code 并行 Agent、Codacy 混合引擎）；CodeAgent 论文（ACL Anthology 条目） 及第三方解读（角色组成与基线对比）；MetaGPT 论文摘要（五角色、SOP） 与级联幻觉表述。CodeAgent 仓库地址在不同来源中存在差异（arXiv 页面与第三方解读不一致），正文未引用具体仓库地址。"
+      }
+    ],
+    "id": "gpTj13BRVk"
+  }
+]

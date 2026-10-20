@@ -1,0 +1,2935 @@
+[
+  {
+    "id": "1",
+    "type": "h1",
+    "meta": true,
+    "children": [
+      {
+        "text": "9.10章节"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "我先检索 9.10 所需的外部素材（模型定价与缓存机制、模型路由与级联、Agent Token 消耗特征、成本治理实践）。"
+      }
+    ],
+    "id": "kUdIrB5Ibq"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "素材已定位。我并行细读关键来源以取得可核实的价格日期、倍数与路由数字。"
+      }
+    ],
+    "id": "XS8hJ-PmiU"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "素材与一手要点已核实（2026-10 定价页转述、Anthropic 倍数数据、RouteLLM/FrugalGPT 数字、Batch 折扣细节、成本反模式清单、中文白皮书对照）。以下交付 "
+      },
+      {
+        "text": "9.10《成本与路由》",
+        "bold": true
+      },
+      {
+        "text": " 正文。"
+      }
+    ],
+    "id": "SjTU14TiRs"
+  },
+  {
+    "type": "hr",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "oDlIHW9Vnf"
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "9.10 成本与路由：让证据流水线付得起钱"
+      }
+    ],
+    "id": "wDHMF7AuwH"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "前九节回答的是\"判得准不准、证据全不全\"，本节回答最后一个工程问题："
+      },
+      {
+        "text": "这套流水线付不付得起",
+        "bold": true
+      },
+      {
+        "text": "。在证据闭环的框架里，成本不是挂在流水线外面的商业问题，而是流水线自身的一个可观测维度——每一次模型调用都是一次决策，都应当记账、可回放、可审计。本节先说明 Agent 成本的形状为什么不同于\"多调用几次聊天\"，再给出记账、路由、降级三层手段，最后与工业界的路由与成本治理实践对照。贯穿全节的纪律是："
+      },
+      {
+        "text": "不写脱离模型版本与价格日期的美元数字",
+        "bold": true
+      },
+      {
+        "text": "——本节出现的每个单价都绑定版本与采集日期，发布前须重新核对。"
+      }
+    ],
+    "id": "Dm_g3ASRuB"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.10.1 成本的形状：Agent 不是\"调用次数多一点\"的聊天"
+      }
+    ],
+    "id": "FzQINAt-w0"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "先把最反直觉的事实摆出来：一个 Agent 任务的成本，不是\"单个聊天成本 × 调用次数\"，而是被循环结构放大的另一笔账。单次聊天是一次提示、一次补全；Agent 循环则要读上下文、调模型、调工具、再读工具结果、再调模型，反复直到终止条件满足，而每一轮都会"
+      },
+      {
+        "text": "重新发送累积的历史",
+        "bold": true
+      },
+      {
+        "text": "。所以 Agent 的成本不是有用工作的总和，而是\"有用工作 × 轮数 + 轮间反复重读的开销\"。"
+      }
+    ],
+    "id": "h-KP3UrWTy"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "两个已公开的测量把这个放大系数定量化。Anthropic 工程团队在自研多 Agent 系统上报告：单个 Agent 的 token 消耗约为普通聊天的 "
+      },
+      {
+        "text": "4 倍",
+        "bold": true
+      },
+      {
+        "text": "，多 Agent 系统约为 "
+      },
+      {
+        "text": "15 倍",
+        "bold": true
+      },
+      {
+        "text": "，且 token 用量单独解释了约 "
+      },
+      {
+        "text": "80%",
+        "bold": true
+      },
+      {
+        "text": " 的 Agent 设计间性能方差（经二手转述，原始出处为 Anthropic Engineering 2025 的 multi-agent research system 博文）。独立研究（arXiv 2604.22750，转述）则指出同一任务上的 Agent 运行 token 消耗可相差至 "
+      },
+      {
+        "text": "30 倍",
+        "bold": true
+      },
+      {
+        "text": "，一次完整 Agent 运行的消耗量级为普通代码对话的 "
+      },
+      {
+        "text": "1000 倍",
+        "bold": true
+      },
+      {
+        "text": "，而模型对自己成本的预测与实际成本相关性仅 "
+      },
+      {
+        "text": "0.39 或更低",
+        "bold": true
+      },
+      {
+        "text": "——模型无法预言自己会花多少钱。另一篇 ICLR 2026 论文（\"How Do Coding Agents Spend Your Money?\"，转述）同样报告运行间方差可达 10 倍、任务描述与真实消耗的相关性低于 0.15（不同转述对研究归属与具体数字存在出入，本节按转述标注）。"
+      }
+    ],
+    "id": "ngraYiWbj2"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "对本章评审系统，这个形状意味着两件事。第一，"
+      },
+      {
+        "text": "输入 token 是账单的主体",
+        "bold": true
+      },
+      {
+        "text": "：五个角色各自携带角色提示词与共享上下文，每轮工具循环都重发一遍，缓存前的原始用量远大于\"有用输出\"。第二，"
+      },
+      {
+        "text": "运行间方差极大",
+        "bold": true
+      },
+      {
+        "text": "：同一次评审可能因为多一轮重试而多花数倍 token。结论不是\"别用 Agent\"，而是："
+      },
+      {
+        "text": "先测量，再优化",
+        "bold": true
+      },
+      {
+        "text": "——在拿到按调用记账的观测数据之前，任何成本决策都是猜。"
+      }
+    ],
+    "id": "Elw4Tw1h5j"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.10.2 三要素：输入、输出、缓存"
+      }
+    ],
+    "id": "xtWjuHCIMg"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "任何提供商的账单都由三个计价项构成，其行为完全不同。"
+      }
+    ],
+    "id": "MasKaYKYmR"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "输入（input）token 是 Agent 成本的主体",
+        "bold": true
+      },
+      {
+        "text": "，因为循环重发上下文。"
+      },
+      {
+        "text": "输出（output）token 单价通常为输入的 3～6 倍",
+        "bold": true
+      },
+      {
+        "text": "，但因为输出量远小于输入，多数 Agent 负载下输出不是账单大头。"
+      },
+      {
+        "text": "缓存（prompt caching，提示缓存）",
+        "bold": true
+      },
+      {
+        "text": "是厂商对\"重复输入前缀\"的折扣机制：请求若与前序请求共享相同的前缀（系统提示、工具定义、参考文档），命中的部分按标准输入价的 0.1 倍甚至更低计费；机制上提供商按前导 token 的哈希做"
+      },
+      {
+        "text": "精确前缀匹配",
+        "bold": true
+      },
+      {
+        "text": "，缓存命中要求前缀逐字一致，因此\"静态内容放前面\"是唯一可依赖的工程规则。"
+      }
+    ],
+    "id": "lJjgyFwlui"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "缓存有三个必须理解的代价结构。其一，"
+      },
+      {
+        "text": "写入有成本",
+        "bold": true
+      },
+      {
+        "text": "：Anthropic 对 5 分钟 TTL 的缓存写入按标准输入的 1.25 倍计费、1 小时 TTL 按 2 倍计费，官方文档说明 5 分钟缓存一次命中即可回本、1 小时缓存需两次命中。其二，"
+      },
+      {
+        "text": "命中率决定收益",
+        "bold": true
+      },
+      {
+        "text": "：批量场景下请求并发乱序，缓存命中是\"尽力而为\"，命中率低时写入成本会吃掉折扣收益。其三，"
+      },
+      {
+        "text": "折扣系数因模型而异",
+        "bold": true
+      },
+      {
+        "text": "：Anthropic 多数模型命中按 0.1 倍、Opus 5.5/Sonnet 5.5 按 0.05 倍、Fable 5.1 按 0.025 倍；OpenAI 的 GPT-6.1 Sol 命中按 0.05 倍；Google Gemini 4 Argon 为 0.05 倍。对评审系统，角色提示词、仓库上下文、PR diff 都是天然的可缓存前缀——把静态部分稳定地放在提示词头部，是成本杠杆最大的一笔。"
+      }
+    ],
+    "id": "2o_75a1h5N"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "还有两个改变账单的\"隐藏乘法器\"。"
+      },
+      {
+        "text": "长上下文阈值",
+        "bold": true
+      },
+      {
+        "text": "：OpenAI 多个模型在输入超过 272,000 token 时对整个请求按更高费率计费（如 GPT-6.1 Sol 从 $2/$10 升到 $4/$15），Google Gemini 3.1 Pro Preview 在 200,000 prompt token 之上翻倍，Anthropic Claude Haiku 5.5 在超过 100,000 token 时"
+      },
+      {
+        "text": "整个请求",
+        "bold": true
+      },
+      {
+        "text": "按 5 倍费率计费且阈值计入缓存读写；这意味着\"只多了一点\"也可能让整笔请求涨价。"
+      },
+      {
+        "text": "批量（batch）折扣",
+        "bold": true
+      },
+      {
+        "text": "：三大家厂商对异步批处理都给约 50% 折扣，但有限制——OpenAI 完成窗口 24 小时、单批最多 50,000 个请求与 200 MB 输入文件，Anthropic 批次 24 小时未完成即过期、结果保留 29 天。批量适合评测、回填、批量分类，"
+      },
+      {
+        "text": "不适合交互式代码评审",
+        "bold": true
+      },
+      {
+        "text": "——人还在等结论。"
+      }
+    ],
+    "id": "AkJchRuZpv"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "表 9-13 代表性 API 定价（单位：美元/百万 token；采集日期 2026-10-19，来源为第三方汇总页转述官方定价页；价格频繁变动，发布前须核对官方页面）",
+        "bold": true
+      }
+    ],
+    "id": "C5iq5z8tZw"
+  },
+  {
+    "type": "table",
+    "children": [
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "模型（版本）",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "-QAhWouHNQ"
+              }
+            ],
+            "id": "y22J8-k0gE"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "输入",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "r1Xn3aQnvP"
+              }
+            ],
+            "id": "x5C5ODPLSc"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "缓存命中",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "nKEAKYQl7c"
+              }
+            ],
+            "id": "4MVGSKWlpQ"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "输出",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "QFAcrJVNQ9"
+              }
+            ],
+            "id": "foFacfZ6yR"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "备注",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "c2JgJ-Q60R"
+              }
+            ],
+            "id": "MDYQno1xSn"
+          }
+        ],
+        "id": "2YUN-ct_vR"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "OpenAI GPT-6 Astra"
+                  }
+                ],
+                "type": "p",
+                "id": "wWRbFHnBi_"
+              }
+            ],
+            "id": "sjmTzK31Qz"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$10.00"
+                  }
+                ],
+                "type": "p",
+                "id": "tGWNxUbN9C"
+              }
+            ],
+            "id": "P_gKBHu9hD"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$1.00"
+                  }
+                ],
+                "type": "p",
+                "id": "CiEhpa70js"
+              }
+            ],
+            "id": "VNSgZw4mpY"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$50.00"
+                  }
+                ],
+                "type": "p",
+                "id": "kCD2wMGMmp"
+              }
+            ],
+            "id": "-A3U36EZpN"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "超 272K 输入后 $20/$75"
+                  }
+                ],
+                "type": "p",
+                "id": "TvdLfGfYBx"
+              }
+            ],
+            "id": "eZbgAC7O4z"
+          }
+        ],
+        "id": "S46oOtC_Nb"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Anthropic Claude Fable 5.1"
+                  }
+                ],
+                "type": "p",
+                "id": "TJKyozvJJ9"
+              }
+            ],
+            "id": "noiQOl8cwP"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$10.00"
+                  }
+                ],
+                "type": "p",
+                "id": "H8BiEYo3ES"
+              }
+            ],
+            "id": "kEu2RIiUdf"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.25"
+                  }
+                ],
+                "type": "p",
+                "id": "OrIH3tSFyk"
+              }
+            ],
+            "id": "jdjA8j92l_"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$50.00"
+                  }
+                ],
+                "type": "p",
+                "id": "XIJxUpmt1_"
+              }
+            ],
+            "id": "CM96s5hb14"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "1M 上下文同价"
+                  }
+                ],
+                "type": "p",
+                "id": "wLmNWboyHp"
+              }
+            ],
+            "id": "_3Xog4KpLB"
+          }
+        ],
+        "id": "JByiIsmjvY"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Anthropic Claude Opus 5.5"
+                  }
+                ],
+                "type": "p",
+                "id": "HwV7IJVlm4"
+              }
+            ],
+            "id": "Krhf0Cfdy6"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$4.00"
+                  }
+                ],
+                "type": "p",
+                "id": "he7EP5HwuM"
+              }
+            ],
+            "id": "-2onbQX6CX"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.20"
+                  }
+                ],
+                "type": "p",
+                "id": "zrvgIQfHXb"
+              }
+            ],
+            "id": "6uBwPi3ta1"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$20.00"
+                  }
+                ],
+                "type": "p",
+                "id": "gcBWMJdaxZ"
+              }
+            ],
+            "id": "gSluv9E4B2"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "1M 上下文同价"
+                  }
+                ],
+                "type": "p",
+                "id": "ftQ2TFHf_R"
+              }
+            ],
+            "id": "npRcot9tS-"
+          }
+        ],
+        "id": "AjboAWoWqa"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "OpenAI GPT-6.1 Sol"
+                  }
+                ],
+                "type": "p",
+                "id": "3xNl8_p0Ku"
+              }
+            ],
+            "id": "2oM5pA6S5B"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$2.00"
+                  }
+                ],
+                "type": "p",
+                "id": "dT2xWyZWts"
+              }
+            ],
+            "id": "iwtKx6GUOX"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.10"
+                  }
+                ],
+                "type": "p",
+                "id": "_oHT2gOphW"
+              }
+            ],
+            "id": "u7QnC6AkUi"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$10.00"
+                  }
+                ],
+                "type": "p",
+                "id": "RCyOMtiOwI"
+              }
+            ],
+            "id": "ZoFf3FpkZA"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "超 272K 输入后 $4/$15"
+                  }
+                ],
+                "type": "p",
+                "id": "dFDlj9kQ6u"
+              }
+            ],
+            "id": "BOaImvHPpw"
+          }
+        ],
+        "id": "aLX-XZ4pXG"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Anthropic Claude Sonnet 5.5"
+                  }
+                ],
+                "type": "p",
+                "id": "dM5LxxaUxQ"
+              }
+            ],
+            "id": "xoGdO7VQcN"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$2.00"
+                  }
+                ],
+                "type": "p",
+                "id": "aSndLkOTea"
+              }
+            ],
+            "id": "FvnbAvskPR"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.10"
+                  }
+                ],
+                "type": "p",
+                "id": "wpRiMOFSnI"
+              }
+            ],
+            "id": "RUvoxiyNUQ"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$10.00"
+                  }
+                ],
+                "type": "p",
+                "id": "3SjKGSrUNe"
+              }
+            ],
+            "id": "l5GX5dYWPM"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "1M 上下文同价"
+                  }
+                ],
+                "type": "p",
+                "id": "ExEH_dA3MO"
+              }
+            ],
+            "id": "7TJu6C0akM"
+          }
+        ],
+        "id": "ol7aU13HFv"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Google Gemini 4 Argon"
+                  }
+                ],
+                "type": "p",
+                "id": "Lo1tBCI_G1"
+              }
+            ],
+            "id": "F_MZx1paQt"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$2.00"
+                  }
+                ],
+                "type": "p",
+                "id": "_6P0faO8op"
+              }
+            ],
+            "id": "-PwAfJF1SY"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.10"
+                  }
+                ],
+                "type": "p",
+                "id": "fvJQbfD7wt"
+              }
+            ],
+            "id": "nlEMCoRec6"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$10.00"
+                  }
+                ],
+                "type": "p",
+                "id": "ugVc_R2YoG"
+              }
+            ],
+            "id": "xjcNLG1IqK"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "2026-12-01 起 $4/$20"
+                  }
+                ],
+                "type": "p",
+                "id": "djA-7G5-gZ"
+              }
+            ],
+            "id": "Iyrh536Dil"
+          }
+        ],
+        "id": "HSmleSXn-Z"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Google Gemini 3.8 Flash"
+                  }
+                ],
+                "type": "p",
+                "id": "Njb-rW_rCF"
+              }
+            ],
+            "id": "M62WBs_ulK"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.75"
+                  }
+                ],
+                "type": "p",
+                "id": "s-T6o7NEYU"
+              }
+            ],
+            "id": "PQbYHHVePp"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.075"
+                  }
+                ],
+                "type": "p",
+                "id": "DNimTeDIb2"
+              }
+            ],
+            "id": "-rMssLQbGg"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$3.75"
+                  }
+                ],
+                "type": "p",
+                "id": "1VRchsF48l"
+              }
+            ],
+            "id": "oJP2p1jxT5"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "2027-01-01 起 $1.50/$7.50"
+                  }
+                ],
+                "type": "p",
+                "id": "PgEdroqUd0"
+              }
+            ],
+            "id": "Q0YbVr_t3q"
+          }
+        ],
+        "id": "eZ9Eaemk-F"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "OpenAI GPT-6 Luna"
+                  }
+                ],
+                "type": "p",
+                "id": "aaws2RG16Y"
+              }
+            ],
+            "id": "DEGSdYhpEl"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.10"
+                  }
+                ],
+                "type": "p",
+                "id": "N0Jb7v_-Ds"
+              }
+            ],
+            "id": "nslLlwAsNf"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.01"
+                  }
+                ],
+                "type": "p",
+                "id": "1kI0k6XYEc"
+              }
+            ],
+            "id": "AU_9p3nmXN"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.50"
+                  }
+                ],
+                "type": "p",
+                "id": "JsrsvYNEQH"
+              }
+            ],
+            "id": "1CkU-C7y5k"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "超 272K 输入后 $0.20/$0.75"
+                  }
+                ],
+                "type": "p",
+                "id": "ApCxqpIIL7"
+              }
+            ],
+            "id": "WB4V9hT5nF"
+          }
+        ],
+        "id": "C_CKhoaS3V"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Anthropic Claude Haiku 5.5"
+                  }
+                ],
+                "type": "p",
+                "id": "jv7qIz3GKm"
+              }
+            ],
+            "id": "FOVZVsOaSl"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.10"
+                  }
+                ],
+                "type": "p",
+                "id": "srd5itIuWz"
+              }
+            ],
+            "id": "rFiFhbaSEP"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.01"
+                  }
+                ],
+                "type": "p",
+                "id": "dRad_D7L27"
+              }
+            ],
+            "id": "b3CMWolSr8"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.50"
+                  }
+                ],
+                "type": "p",
+                "id": "7DT_PKYv7g"
+              }
+            ],
+            "id": "Falw6CiLnA"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "超 100K 后整个请求 5 倍"
+                  }
+                ],
+                "type": "p",
+                "id": "sjR7_8vR4Q"
+              }
+            ],
+            "id": "zF2jyOIOVf"
+          }
+        ],
+        "id": "Ec-j8WPbui"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "DeepSeek V4-Pro"
+                  }
+                ],
+                "type": "p",
+                "id": "r-Rf4da0fD"
+              }
+            ],
+            "id": "iouBa4_wXH"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$1.32"
+                  }
+                ],
+                "type": "p",
+                "id": "vPDfnPSAMl"
+              }
+            ],
+            "id": "sFv2Voglm9"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$0.044"
+                  }
+                ],
+                "type": "p",
+                "id": "fLbjbBrXZM"
+              }
+            ],
+            "id": "qNf6FEoAaw"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "$3.96"
+                  }
+                ],
+                "type": "p",
+                "id": "kzBYT7bQza"
+              }
+            ],
+            "id": "qCeTK7SbAg"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "错峰半价"
+                  }
+                ],
+                "type": "p",
+                "id": "MDMjIZeL3q"
+              }
+            ],
+            "id": "ep60JHvH2N"
+          }
+        ],
+        "id": "jODB4xpkMI"
+      }
+    ],
+    "id": "7-a0hIi2Ra",
+    "colSizes": [
+      170.8,
+      170.8,
+      170.8,
+      170.8,
+      170.8
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "读这张表要抓住的不是具体数字，而是"
+      },
+      {
+        "text": "价格带的形状",
+        "bold": true
+      },
+      {
+        "text": "：旗舰与入门之间相差两个数量级（$10 对 $0.10），且每档都有缓存折扣与阈值涨价等附加规则。成本模型若只看标价、忽略缓存命中率与阈值，误差轻易超过 50%。"
+      }
+    ],
+    "id": "UuaP-ST-2z"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.10.3 记账：把成本接进证据链"
+      }
+    ],
+    "id": "ASZNF79W2V"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "成本优化的前提是记账，而记账在本章不是财务需求而是"
+      },
+      {
+        "text": "证据需求",
+        "bold": true
+      },
+      {
+        "text": "：路由选择了哪个模型、消耗了多少 token、花了多少钱——这些都是流水线的决策事实，应当与 Finding 一起可回放、可审计。记账的三条纪律："
+      }
+    ],
+    "id": "mmGDzyyx8k"
+  },
+  {
+    "indent": 1,
+    "listGroup": "JxVYLW",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "按调用记录",
+        "bold": true
+      },
+      {
+        "text": "。每条模型调用记 "
+      },
+      {
+        "text": "model",
+        "code": true
+      },
+      {
+        "text": "（含版本）、"
+      },
+      {
+        "text": "input_tokens",
+        "code": true
+      },
+      {
+        "text": "、"
+      },
+      {
+        "text": "cached_tokens",
+        "code": true
+      },
+      {
+        "text": "、"
+      },
+      {
+        "text": "output_tokens",
+        "code": true
+      },
+      {
+        "text": "、估算成本与 "
+      },
+      {
+        "text": "priced_at",
+        "code": true
+      },
+      {
+        "text": "（价格生效日期）。价格来自"
+      },
+      {
+        "text": "版本化的单价文件",
+        "bold": true
+      },
+      {
+        "text": "，与代码一同入证据包；价格变动只改文件不改代码，账目按 "
+      },
+      {
+        "text": "priced_at",
+        "code": true
+      },
+      {
+        "text": " 回算。"
+      }
+    ],
+    "id": "ZVhOGCdzHd"
+  },
+  {
+    "indent": 1,
+    "listGroup": "JxVYLW",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "成本进裁决记录",
+        "bold": true
+      },
+      {
+        "text": "。9.8 的仲裁记录与 9.6 的证据包追加 "
+      },
+      {
+        "text": "cost",
+        "code": true
+      },
+      {
+        "text": " 字段：一次评审\"花了多少钱、得出什么结论\"是一条完整证据，成本异常本身也是可疑信号（例如某角色突然多花 5 倍 token，可能意味着循环失控）。"
+      }
+    ],
+    "id": "STGc4eWM_F"
+  },
+  {
+    "indent": 1,
+    "listGroup": "JxVYLW",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "按单位经济汇报",
+        "bold": true
+      },
+      {
+        "text": "。原始账单会被流量波动淹没，真正可比的指标是 "
+      },
+      {
+        "text": "cost per PR",
+        "code": true
+      },
+      {
+        "text": "、"
+      },
+      {
+        "text": "cost per accepted finding",
+        "code": true
+      },
+      {
+        "text": "（每个被采纳 Finding 的成本）与 "
+      },
+      {
+        "text": "cost per zero-defect pass",
+        "code": true
+      },
+      {
+        "text": "（每次通过零缺陷门禁的成本）。若 "
+      },
+      {
+        "text": "cost per accepted finding",
+        "code": true
+      },
+      {
+        "text": " 上升，可能是 Precision 恶化（垃圾 Finding 变多），也可能是路由失控——这两种原因需要的处置完全不同。"
+      }
+    ],
+    "id": "yckJato5Sw"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "教学简化示例（未声称可直接运行，仅演示记账形态）："
+      }
+    ],
+    "id": "XgELSv0roD"
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "# review_system/cost_ledger.py（教学简化示例）"
+          }
+        ],
+        "type": "code_line",
+        "id": "c77TXmyWcJ"
+      },
+      {
+        "children": [
+          {
+            "text": "# 单价必须绑定模型版本与生效日期；以下价格采集于 2026-10-19"
+          }
+        ],
+        "type": "code_line",
+        "id": "V16a51l_EN"
+      },
+      {
+        "children": [
+          {
+            "text": "PRICES = {"
+          }
+        ],
+        "type": "code_line",
+        "id": "CA26QQEuiC"
+      },
+      {
+        "children": [
+          {
+            "text": "    (\"anthropic\", \"claude-sonnet-5.5\", \"2026-10\"): {\"input\": 2.00, \"cached\": 0.10, \"output\": 10.00},"
+          }
+        ],
+        "type": "code_line",
+        "id": "4PYKKqjDrP"
+      },
+      {
+        "children": [
+          {
+            "text": "    (\"anthropic\", \"claude-haiku-5.5\", \"2026-10\"): {\"input\": 0.10, \"cached\": 0.01, \"output\": 0.50},"
+          }
+        ],
+        "type": "code_line",
+        "id": "1TGW0ARnEf"
+      },
+      {
+        "children": [
+          {
+            "text": "}"
+          }
+        ],
+        "type": "code_line",
+        "id": "lsAmNBz-c2"
+      },
+      {
+        "children": [
+          {
+            "text": ""
+          }
+        ],
+        "type": "code_line",
+        "id": "MM_EIEMwBi"
+      },
+      {
+        "children": [
+          {
+            "text": "def record_call(model_key, input_tokens, cached_tokens, output_tokens, priced_at):"
+          }
+        ],
+        "type": "code_line",
+        "id": "aBNC9wB_p1"
+      },
+      {
+        "children": [
+          {
+            "text": "    p = PRICES[model_key]"
+          }
+        ],
+        "type": "code_line",
+        "id": "Gt9goAU_-U"
+      },
+      {
+        "children": [
+          {
+            "text": "    cost = ((input_tokens - cached_tokens) / 1e6 * p[\"input\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "JjQPBFs8ps"
+      },
+      {
+        "children": [
+          {
+            "text": "            + cached_tokens / 1e6 * p[\"cached\"]"
+          }
+        ],
+        "type": "code_line",
+        "id": "haK-hV9NfG"
+      },
+      {
+        "children": [
+          {
+            "text": "            + output_tokens / 1e6 * p[\"output\"])"
+          }
+        ],
+        "type": "code_line",
+        "id": "tiT1dIgbkA"
+      },
+      {
+        "children": [
+          {
+            "text": "    return {\"model\": model_key, \"input_tokens\": input_tokens,"
+          }
+        ],
+        "type": "code_line",
+        "id": "JAA8-XNBGh"
+      },
+      {
+        "children": [
+          {
+            "text": "            \"cached_tokens\": cached_tokens, \"output_tokens\": output_tokens,"
+          }
+        ],
+        "type": "code_line",
+        "id": "HZ_4e5vIZk"
+      },
+      {
+        "children": [
+          {
+            "text": "            \"cost_usd\": round(cost, 6), \"priced_at\": priced_at}"
+          }
+        ],
+        "type": "code_line",
+        "id": "8w_pXe2wfA"
+      }
+    ],
+    "type": "code_block",
+    "lang": "python",
+    "id": "nxSxnba5-A"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "记账本身不省一分钱，但它让 9.10.4 与 9.10.5 的优化有据可依——这正是\"可回放\"在成本维度上的含义。"
+      }
+    ],
+    "id": "1zlS71QC-e"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.10.4 路由：让贵模型只干贵活"
+      }
+    ],
+    "id": "Doc0rw8vMP"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "记账回答\"钱花在哪\"，路由回答\"钱该不该花在这\"。工业界有两类机制，决策时机相反："
+      },
+      {
+        "text": "路由器（router）在调用前决策",
+        "bold": true
+      },
+      {
+        "text": "——看一眼请求就预测难度并直接派发给合适的模型，只调用一次，代价是误判时悄无声息地拿到差答案；"
+      },
+      {
+        "text": "级联（cascade）在调用后决策",
+        "bold": true
+      },
+      {
+        "text": "——先让便宜模型试，用评分器检查答案质量，不够好才升级到强模型，代价是难任务要付两次钱与额外延迟。"
+      }
+    ],
+    "id": "bBiUMHP37R"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "公开数字提供了量级感（均以论文自评基准为口径，属\"上限\"而非承诺）：LMSYS 的开源框架 RouteLLM 报告在 MT-Bench 上成本降幅超 85%、MMLU 上 45%、GSM8K 上 35%，同时保留 GPT-4 质量的 95%；FrugalGPT 报告级联可在大幅降本的同时匹配最佳单模型，降幅\"最高 98%\"、因任务而异约 50%～98%。两个数字合起来读，结论是："
+      },
+      {
+        "text": "流量越\"偏科\"（简单请求占多数），路由越赚钱",
+        "bold": true
+      },
+      {
+        "text": "；任务越难且越均匀，省得越少。反例同样存在：OpenAI 曾在 GPT-5 上内置实时路由，因体验回退而向免费与 Pro 用户回滚（媒体报道转述）——路由不可见、不可控，就是降级。"
+      }
+    ],
+    "id": "5mQgTyJmYD"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "评审系统的路由应分三层设计："
+      }
+    ],
+    "id": "rg2CDIYAJW"
+  },
+  {
+    "indent": 1,
+    "listGroup": "NoR-Hh",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "规则优先",
+        "bold": true
+      },
+      {
+        "text": "。不需要模型的判断先用确定性工具做掉：lint、格式、类型检查（"
+      },
+      {
+        "text": "uv run ruff check .",
+        "code": true
+      },
+      {
+        "text": "、"
+      },
+      {
+        "text": "uv run mypy ...",
+        "code": true
+      },
+      {
+        "text": "）不进 LLM，直接产出 Finding 或排除项。这一层的\"省\"是 100%，且零幻觉风险。"
+      }
+    ],
+    "id": "RRM7-nkSc4"
+  },
+  {
+    "indent": 1,
+    "listGroup": "NoR-Hh",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "角色路由",
+        "bold": true
+      },
+      {
+        "text": "。9.5 的最小角色集中，各角色的难度天然分层：impact 评估、triage 扫描用便宜模型（如 Haiku 5.5 档）；correctness 深查、根因判定与 9.8 的仲裁用强模型（如 Sonnet 5.5 档）。角色路由的粒度是"
+      },
+      {
+        "text": "调用",
+        "bold": true
+      },
+      {
+        "text": "而非 PR：同一 PR 内，扫描调用走便宜档、深查调用走贵档。"
+      }
+    ],
+    "id": "dnl9G3lbLy"
+  },
+  {
+    "indent": 1,
+    "listGroup": "NoR-Hh",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "难度路由",
+        "bold": true
+      },
+      {
+        "text": "。对超大型 diff、涉及资金不变量的高影响文件，强制升级到强模型；这一层对应 9.5 的权限矩阵思想——路由权限同样\"只追加、不收缩\"，高危路径不允许便宜模型兜底。"
+      }
+    ],
+    "id": "6e8vHGgSbP"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "关键工程纪律："
+      },
+      {
+        "text": "路由决策本身必须进审计",
+        "bold": true
+      },
+      {
+        "text": "。每条调用记录 "
+      },
+      {
+        "text": "route_reason",
+        "code": true
+      },
+      {
+        "text": "（为什么选这个模型）与 "
+      },
+      {
+        "text": "model_choice",
+        "code": true
+      },
+      {
+        "text": "，随成本台账入证据包。这样\"降级到便宜模型导致漏报\"就能被事后追责定位——路由是证据闭环的一部分，不是不可见的外部优化。这也与 9.8 的人工裁决哲学一致：系统做出的每个自动决策都要留痕。"
+      }
+    ],
+    "id": "Wo-m1iBInN"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.10.5 预算、降级与反模式"
+      }
+    ],
+    "id": "xulh-Sb85q"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "路由之后还有最后一道防线："
+      },
+      {
+        "text": "预算与熔断",
+        "bold": true
+      },
+      {
+        "text": "。Agent 成本方差大（9.10.1），所以\"无限重试\"是最贵的默认值。工业实践给出的护栏清单："
+      }
+    ],
+    "id": "m-yy6CBGFm"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "重试上限与循环检测",
+        "bold": true
+      },
+      {
+        "text": "。信号：每请求平均 token 显著高于设计值、成本增速快于用户量。处置：限制重试次数、检测自我循环并中断。评审系统的对应物是编排器的重试上限与超时（9.6.4 已有），现在给它加一个"
+      },
+      {
+        "text": "每 PR 的 token 硬上限",
+        "bold": true
+      },
+      {
+        "text": "——超出即降级为\"仅产出确定性检查结果 + 人工复核\"。"
+      }
+    ],
+    "id": "9xR52pepzp"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "长上下文阈值监测",
+        "bold": true
+      },
+      {
+        "text": "。跨过 200K/272K 阈值会让"
+      },
+      {
+        "text": "整个请求",
+        "bold": true
+      },
+      {
+        "text": "费率翻倍，账单上\"每 token 单价高于预期\"就是这个信号；处置是阈值检测、换分块策略或换模型。"
+      }
+    ],
+    "id": "JOAbIcsZeg"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "僵尸功能与废弃实验",
+        "bold": true
+      },
+      {
+        "text": "。用量已跌但仍在跑的功能、遗留的 API key 与资源，都在持续烧钱。"
+      }
+    ],
+    "id": "2dL072pzJn"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "负单位经济",
+        "bold": true
+      },
+      {
+        "text": "。单次交互亏钱、随用量放大；处置是功能定价、门禁或重新设计。"
+      }
+    ],
+    "id": "6w7i4ZSbwv"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "降级路径也分层：交互式评审优先"
+      },
+      {
+        "text": "模型降级",
+        "bold": true
+      },
+      {
+        "text": "（强模型→中档→入门档，保留规则层），非交互负载（批量回放、评测回填）走 "
+      },
+      {
+        "text": "batch 折扣",
+        "bold": true
+      },
+      {
+        "text": "；"
+      },
+      {
+        "text": "语义缓存",
+        "bold": true
+      },
+      {
+        "text": "（对相似问题直接复用旧答案）谨慎使用——它可能把\"看起来相似\"的问题答成过期答案，必须用评测持续看守。降级决策同样记录 "
+      },
+      {
+        "text": "route_reason",
+        "code": true
+      },
+      {
+        "text": "，且降级永远不得触碰高危路径（9.10.4 第三层）。"
+      }
+    ],
+    "id": "ANVR21FTDz"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.10.6 演示：PR-04 的成本台账与路由"
+      }
+    ],
+    "id": "UvqHCj1KQn"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "沿用教学结构，把上述机制落到 PR-04（并发双花，CONCURRENCY-001，"
+      },
+      {
+        "text": "app/repository.py",
+        "code": true
+      },
+      {
+        "text": "）："
+      }
+    ],
+    "id": "mottfBD7hU"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "需求与路由表",
+        "bold": true
+      },
+      {
+        "text": "：一次评审的调用序列与路由决策如下（教学示例，模型档位按表 9-13 定价）："
+      }
+    ],
+    "id": "1gm-HyS3iO"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "triage 扫描（diff 定位、初步分类）→ Haiku 5.5 档；"
+      }
+    ],
+    "id": "W0sWcZh_V2"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "correctness 深查（竞态根因判定）→ Sonnet 5.5 档，"
+      },
+      {
+        "text": "route_reason=\"invariant_high_impact\"",
+        "code": true
+      },
+      {
+        "text": "；"
+      }
+    ],
+    "id": "5PnlnnD2PJ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "security 复核（守恒违反、越权风险）→ Sonnet 5.5 档；"
+      }
+    ],
+    "id": "kRjD1oPyI-"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "testing 设计（并发交错测试）→ Haiku 5.5 档（生成测试用例初稿），仲裁复核时升级；"
+      }
+    ],
+    "id": "43vZXeskWj"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "impact 评估 → Haiku 5.5 档；"
+      }
+    ],
+    "id": "X-GxR-hM7J"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "仲裁（9.8 的三层仲裁协议）→ Sonnet 5.5 档，"
+      },
+      {
+        "text": "route_reason=\"arbitration_requires_strong_model\"",
+        "code": true
+      },
+      {
+        "text": "。"
+      }
+    ],
+    "id": "YqA-_w8t1h"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "成本台账示例",
+        "bold": true
+      },
+      {
+        "text": "（估算数字，非实测；基于 2026-10-19 定价，假设 correctness 深查一次调用输入 60K token、其中 50K 缓存命中、输出 3K："
+      },
+      {
+        "text": "(60K−50K)/1M×$2 + 50K/1M×$0.10 + 3K/1M×$10 = $0.055",
+        "code": true
+      },
+      {
+        "text": "）。一次典型 PR 评审的 6～8 次调用加上重试，成本大致落在亚美元量级——但这只是教学量级，"
+      },
+      {
+        "text": "真实数字取决于调用次数、重试与缓存命中率，必须先按 9.10.3 记账再下结论",
+        "bold": true
+      },
+      {
+        "text": "。"
+      }
+    ],
+    "id": "LcMo5wuIKR"
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "{"
+          }
+        ],
+        "type": "code_line",
+        "id": "hzX8Rt2aYw"
+      },
+      {
+        "children": [
+          {
+            "text": "  \"pr\": \"PR-04\","
+          }
+        ],
+        "type": "code_line",
+        "id": "GlUC5z_16l"
+      },
+      {
+        "children": [
+          {
+            "text": "  \"calls\": ["
+          }
+        ],
+        "type": "code_line",
+        "id": "rz63i2A4VE"
+      },
+      {
+        "children": [
+          {
+            "text": "    {\"role\": \"correctness\", \"model\": \"claude-sonnet-5.5\","
+          }
+        ],
+        "type": "code_line",
+        "id": "1rkTj-7oe4"
+      },
+      {
+        "children": [
+          {
+            "text": "     \"input_tokens\": 60000, \"cached_tokens\": 50000, \"output_tokens\": 3000,"
+          }
+        ],
+        "type": "code_line",
+        "id": "pjara5shjW"
+      },
+      {
+        "children": [
+          {
+            "text": "     \"cost_usd\": 0.055, \"route_reason\": \"invariant_high_impact\","
+          }
+        ],
+        "type": "code_line",
+        "id": "JGoPnrc_pm"
+      },
+      {
+        "children": [
+          {
+            "text": "     \"priced_at\": \"2026-10-19\"},"
+          }
+        ],
+        "type": "code_line",
+        "id": "J5Jj-NjZtv"
+      },
+      {
+        "children": [
+          {
+            "text": "    {\"role\": \"triage\", \"model\": \"claude-haiku-5.5\","
+          }
+        ],
+        "type": "code_line",
+        "id": "_cNIdUWl4_"
+      },
+      {
+        "children": [
+          {
+            "text": "     \"input_tokens\": 20000, \"cached_tokens\": 15000, \"output_tokens\": 1000,"
+          }
+        ],
+        "type": "code_line",
+        "id": "9bESZT9MGQ"
+      },
+      {
+        "children": [
+          {
+            "text": "     \"cost_usd\": 0.002, \"route_reason\": \"scan_low_difficulty\","
+          }
+        ],
+        "type": "code_line",
+        "id": "IesuX-YFTz"
+      },
+      {
+        "children": [
+          {
+            "text": "     \"priced_at\": \"2026-10-19\"}"
+          }
+        ],
+        "type": "code_line",
+        "id": "GiIzJPcNWI"
+      },
+      {
+        "children": [
+          {
+            "text": "  ],"
+          }
+        ],
+        "type": "code_line",
+        "id": "3HbUnKSR9w"
+      },
+      {
+        "children": [
+          {
+            "text": "  \"totals\": {\"cost_usd\": 0.057, \"unit\": \"cost_per_pr\"}"
+          }
+        ],
+        "type": "code_line",
+        "id": "7asTmzTK_I"
+      },
+      {
+        "children": [
+          {
+            "text": "}"
+          }
+        ],
+        "type": "code_line",
+        "id": "5uuaMEDpXi"
+      }
+    ],
+    "type": "code_block",
+    "lang": "json",
+    "id": "8ApFZXuSS9"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "单位经济与门禁",
+        "bold": true
+      },
+      {
+        "text": "："
+      },
+      {
+        "text": "cost per accepted finding",
+        "code": true
+      },
+      {
+        "text": " 与 "
+      },
+      {
+        "text": "cost per zero-defect pass",
+        "code": true
+      },
+      {
+        "text": " 进入 9.9 的评测报告；若一次评审的实测成本超过预算上限的 2 倍，编排器产出\"成本异常\"Finding 并冻结后续调用。"
+      },
+      {
+        "text": "生产待验证",
+        "bold": true
+      },
+      {
+        "text": "：以上均为教学估算，不构成任何\"评审系统运行成本\"的实测声明；真实成本必须以生产环境的按调用账目为准。"
+      }
+    ],
+    "id": "gTngxNch90"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.10.7 与工业界的补充对照"
+      }
+    ],
+    "id": "9ZGdufSCQN"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "表 9-14 成本与路由机制对照",
+        "bold": true
+      }
+    ],
+    "id": "4HHUgW2MhA"
+  },
+  {
+    "type": "table",
+    "children": [
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "本章机制",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "-rpqtxWcLT"
+              }
+            ],
+            "id": "uHSdRhfwjB"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "外部对照",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "wJoLSsC3TU"
+              }
+            ],
+            "id": "VV51lami5m"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "对照要点",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "gyTtrJMUr2"
+              }
+            ],
+            "id": "64kosaallu"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "来源",
+                    "bold": true
+                  }
+                ],
+                "type": "p",
+                "id": "NFWVWy0Yb_"
+              }
+            ],
+            "id": "LLDOicgPQX"
+          }
+        ],
+        "id": "AdC9gNHiwv"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "规则优先 + 角色路由 + 难度路由"
+                  }
+                ],
+                "type": "p",
+                "id": "c5oqVOr4hx"
+              }
+            ],
+            "id": "q4vftl-bC8"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "RouteLLM / FrugalGPT 路由-级联研究"
+                  }
+                ],
+                "type": "p",
+                "id": "twgF9lQhrk"
+              }
+            ],
+            "id": "XaVmtDQBGm"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "RouteLLM 在 MT-Bench/MMLU/GSM8K 上报 85%/45%/35% 降本并保留 95% GPT-4 质量；FrugalGPT 级联\"最高 98%\"降本、随任务约 50%～98%；两者均为论文自评口径、属上限而非承诺"
+                  }
+                ],
+                "type": "p",
+                "id": "BA_b_A7NuN"
+              }
+            ],
+            "id": "gNMt757Q70"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "web_551, web_549"
+                  }
+                ],
+                "type": "p",
+                "id": "p8XYfbMuhW"
+              }
+            ],
+            "id": "NKQ2Q7138T"
+          }
+        ],
+        "id": "NyqblPcVvD"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "可配置路由"
+                  }
+                ],
+                "type": "p",
+                "id": "r4NsVUu48G"
+              }
+            ],
+            "id": "mr0B0OCtrN"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Azure OpenAI Balanced/Cost 模式"
+                  }
+                ],
+                "type": "p",
+                "id": "Ed6i9Kk7uC"
+              }
+            ],
+            "id": "SrvZ2Ggp1B"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Azure 把成本-质量权衡做成显式模式：Balanced 在最高质量模型的小质量差带（约 1%～2%）内选最便宜者，Cost 模式放宽质量差，默认启用故障转移"
+                  }
+                ],
+                "type": "p",
+                "id": "O89MG1Go6C"
+              }
+            ],
+            "id": "DwFD2wrATj"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "web_556"
+                  }
+                ],
+                "type": "p",
+                "id": "m61lyfMVp7"
+              }
+            ],
+            "id": "cTdR3n6IPL"
+          }
+        ],
+        "id": "WUw4kWUyOZ"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "路由可审计性"
+                  }
+                ],
+                "type": "p",
+                "id": "xxAIQ-fMjG"
+              }
+            ],
+            "id": "66yiEFAR_w"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "GPT-5 实时路由回滚"
+                  }
+                ],
+                "type": "p",
+                "id": "oKu2XO6ZRK"
+              }
+            ],
+            "id": "PL7clc6Qpm"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "OpenAI 因体验回退向免费与 Pro 用户回滚内置路由（媒体报道转述），印证\"不可见不可控的路由即降级\""
+                  }
+                ],
+                "type": "p",
+                "id": "dX2Htsrlr2"
+              }
+            ],
+            "id": "eQ-vMY1jGp"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "web_551"
+                  }
+                ],
+                "type": "p",
+                "id": "d6RbVPGgl6"
+              }
+            ],
+            "id": "3XOJ03LFbi"
+          }
+        ],
+        "id": "NLGgOqqdae"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "成本先测量、后治理"
+                  }
+                ],
+                "type": "p",
+                "id": "q3Jw37f7EZ"
+              }
+            ],
+            "id": "l7vX8EN27F"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "FinOps Foundation Token Economics"
+                  }
+                ],
+                "type": "p",
+                "id": "c8ptGt0jdt"
+              }
+            ],
+            "id": "lWpAIXOgFX"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "治理观点：AI 消费非线性、上涨快于单价下降，但供应侧工程杠杆可以治理，而非只能旁观"
+                  }
+                ],
+                "type": "p",
+                "id": "df5T5DTifl"
+              }
+            ],
+            "id": "q4_mudm5lb"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "web_557"
+                  }
+                ],
+                "type": "p",
+                "id": "OBELz4R5FB"
+              }
+            ],
+            "id": "ICuleEdA0M"
+          }
+        ],
+        "id": "wPmG983mWN"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "预算与反模式"
+                  }
+                ],
+                "type": "p",
+                "id": "QreTOLc2Zf"
+              }
+            ],
+            "id": "RkOFYkpS_t"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "cloud-finops 反模式清单"
+                  }
+                ],
+                "type": "p",
+                "id": "Vn_gfqfgrF"
+              }
+            ],
+            "id": "xyIPC2UVq2"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "六大反模式：僵尸功能、技术债、Agent 循环（重试乘出 5～50 倍）、跨区域数据出口、负单位经济、长上下文阈值翻倍；处置含重试限制、循环检测、功能级硬上限"
+                  }
+                ],
+                "type": "p",
+                "id": "mAI9MDoj3d"
+              }
+            ],
+            "id": "lKN1BUoTXB"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "web_523"
+                  }
+                ],
+                "type": "p",
+                "id": "HzpOtkoWwb"
+              }
+            ],
+            "id": "legpNrLj_E"
+          }
+        ],
+        "id": "bWDE2ubpQ1"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "成本-质量-延迟系统平衡"
+                  }
+                ],
+                "type": "p",
+                "id": "WAup64PXdo"
+              }
+            ],
+            "id": "ToTOzJDQtu"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "面向 Token 运营推理优化白皮书（中文）"
+                  }
+                ],
+                "type": "p",
+                "id": "pjEyEXJJp6"
+              }
+            ],
+            "id": "FSyi3pU1_S"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "以多模型融合（能力边界量化、智能路由、级联、集成）、模型优化、算模融合、算网模融合四层架构，支撑\"可调用\"到\"可运营\"的转型与质量/成本/延迟/吞吐/稳定性/安全性的系统级平衡"
+                  }
+                ],
+                "type": "p",
+                "id": "gHXMmMox2T"
+              }
+            ],
+            "id": "qAlPppCM9j"
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "pdf_546"
+                  }
+                ],
+                "type": "p",
+                "id": "vDhQoQlmmL"
+              }
+            ],
+            "id": "FzQY8vA3NB"
+          }
+        ],
+        "id": "KVk8SpSocj"
+      }
+    ],
+    "id": "KtINRAxjUb",
+    "colSizes": [
+      213.5,
+      213.5,
+      213.5,
+      213.5
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "三条判断",
+        "bold": true
+      },
+      {
+        "text": "。第一，"
+      },
+      {
+        "text": "路由与级联的价值取决于流量分布与判据质量",
+        "bold": true
+      },
+      {
+        "text": "：流量不偏科、或判不出好坏，路由省不到钱、级联只加延迟；评审系统先把规则层做满，再上模型路由，顺序不可颠倒。第二，"
+      },
+      {
+        "text": "成本治理的有效单位是\"功能级账目 + 单位经济\"",
+        "bold": true
+      },
+      {
+        "text": "，不是账号总账单：总账单无法定位到\"某角色的循环失控\"，"
+      },
+      {
+        "text": "cost per accepted finding",
+        "code": true
+      },
+      {
+        "text": " 才能。第三，"
+      },
+      {
+        "text": "价格是时间的函数",
+        "bold": true
+      },
+      {
+        "text": "：表 9-13 中 GPT-5.6 Sol 促销价\"至少持续到 2026-11-21\"、Gemini 4 Argon 2026-12-01 涨价、Gemini 3.8 Flash 2027-01-01 涨价——任何跨期预算都必须按涨价后的价格建模，这正是本章\"单价绑定版本与日期\"纪律的工业界根据。"
+      }
+    ],
+    "id": "bfrkwyl5dq"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "事实边界声明",
+        "bold": true
+      },
+      {
+        "text": "：本节价格与折扣数字采集自第三方汇总页（2026-10-19/10-18），转述自各厂商官方定价页，发布前须核对官方页面；Anthropic 4x/15x/80%、arXiv 2604.22750 的 1000x/30x/0.39 相关性、RouteLLM/FrugalGPT 数字均为论文或官方数据经二手转述，未逐一核验原文；ICLR 2026 论文（\"How Do Coding Agents Spend Your Money?\"）的细节在不同转述间存在出入（归属与方差倍数不一），本节按转述标注；GPT-5 路由回滚为媒体报道转述；白皮书内容为知识库内文档摘要。"
+      },
+      {
+        "text": "本节所有美元数字均为示例性教学计算或转述的公开定价，不构成对任何系统实际运行成本的声明。",
+        "bold": true
+      }
+    ],
+    "id": "YrJ3-4ZZEE"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.10.8 练习与小结"
+      }
+    ],
+    "id": "VL493BaaS4"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "小结",
+        "bold": true
+      },
+      {
+        "text": "：成本是流水线的可观测维度而非外部约束。Agent 成本被循环结构放大且方差极大，必须先记账再优化；优化手段按顺序是——缓存（静态前缀置前、追踪命中率）、路由（规则优先、角色路由、难度路由，决策留痕）、预算与降级（重试上限、阈值监测、模型降级、批量卸载）。所有数字绑定模型版本与价格日期。落到一句："
+      },
+      {
+        "text": "贵模型只干贵活，便宜模型干大多数活，而每一笔账都要能回放。",
+        "bold": true
+      }
+    ],
+    "id": "UirH0zVa-W"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "练习",
+        "bold": true
+      },
+      {
+        "text": "：① 给 PR-05（幂等重试，IDEMPOTENCY-001）设计成本台账：重试机制在什么条件下会让 token 成本翻倍？记账字段需要增加什么才能定位\"重试风暴\"？② 用表 9-13 的定价重算 9.10.6 的示例：若 correctness 深查的缓存命中率从 83% 掉到 50%，单次调用成本变多少？这个差异说明缓存命中率为什么必须纳入评测报告？③ 对照 9.6 的证据包：成本台账与 Finding 的不可变性要求有何冲突？你如何在\"冻结证据\"与\"成本随价格日期回算\"之间取舍？"
+      }
+    ],
+    "id": "xAwrY_AMfz"
+  },
+  {
+    "type": "hr",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "rdHXNZWA77"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "编号与衔接说明",
+        "bold": true
+      },
+      {
+        "text": "：本节沿用「对照表 + 练习与小结」收尾结构；新增表 9-13（价格表）与表 9-14（对照表），接续 9.9 的表 9-12，全书表号需统一核对。"
+      }
+    ],
+    "id": "7jfIdFzcpe"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "一致性检查（9.10 交付）",
+        "bold": true
+      }
+    ],
+    "id": "F5Na0_Fg1y"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "术语与 Schema："
+      },
+      {
+        "text": "route_reason",
+        "code": true
+      },
+      {
+        "text": "、"
+      },
+      {
+        "text": "model_choice",
+        "code": true
+      },
+      {
+        "text": "、"
+      },
+      {
+        "text": "cost_usd",
+        "code": true
+      },
+      {
+        "text": "、"
+      },
+      {
+        "text": "priced_at",
+        "code": true
+      },
+      {
+        "text": " 为新增字段，已定义且与 9.6 证据包、9.8 仲裁记录、9.9 评测报告衔接；沿用 "
+      },
+      {
+        "text": "accepted finding",
+        "code": true
+      },
+      {
+        "text": "、"
+      },
+      {
+        "text": "zero-defect",
+        "code": true
+      },
+      {
+        "text": "、"
+      },
+      {
+        "text": "invariant_high_impact",
+        "code": true
+      },
+      {
+        "text": " 等前文术语；Token（词元）、prompt caching（提示缓存）、router/级联、unit economics（单位经济）均首次解释。"
+      }
+    ],
+    "id": "fB_i1qpSkF"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "案例与路径：PR-04/CONCURRENCY-001/"
+      },
+      {
+        "text": "app/repository.py",
+        "code": true
+      },
+      {
+        "text": "、PR-05（练习钩子）、角色集（correctness/security/testing/impact）、9.5 权限矩阵、9.6.4 编排器超时重试、9.8 仲裁、9.9 评测/零缺陷门禁、"
+      },
+      {
+        "text": "uv run ruff check .",
+        "code": true
+      },
+      {
+        "text": "/"
+      },
+      {
+        "text": "uv run mypy",
+        "code": true
+      },
+      {
+        "text": " 命令全部与前文一致，未新增矛盾编号。"
+      }
+    ],
+    "id": "8wO8hifRC-"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "事实纪律：所有美元数字绑定模型版本与价格日期（2026-10-19/10-18 采集）；Anthropic/arXiv/RouteLLM/FrugalGPT/GPT-5 回滚数字标注为转述或论文自评口径；PR-04 成本标注教学估算、生产待验证；未伪造任何实测成本数据。"
+      }
+    ],
+    "id": "9lcWzzDGIZ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "图表：表 9-13、表 9-14 已给出并注明来源与采集日期；本节无新增 Mermaid 图（路由流程为三层清单与调用序列，由表格与 JSON 承载），无图序号冲突。"
+      }
+    ],
+    "id": "-jr9bGoOm7"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "余下章节："
+      },
+      {
+        "text": "9.11 安全防御",
+        "bold": true
+      },
+      {
+        "text": "（PR-08 / 零信任 / OWASP Top 10 for LLM，将复用 9.9 的评测与 9.10 的路由护栏）、"
+      },
+      {
+        "text": "9.12 端到端演练",
+        "bold": true
+      },
+      {
+        "text": "。继续 9.11 吗？"
+      }
+    ],
+    "id": "5iqURkhojU"
+  }
+]
