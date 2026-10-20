@@ -8,7 +8,7 @@
 - `第9章完善与案例落地方案.md`：章节重构与案例实施方案。
 - `wallet-review-lab/`：可安装、可测试、可回放的实验工程。
 - `wallet-review-lab/docs/chapter-09/`：第 9 章按概述、9.1～9.10 和项目案例拆分后的文档目录。
-- [IMA 今日文章归档](wallet-review-lab/docs/ima-sources/2026-10-20/README.md)：2026-10-20 新建的 19 篇写作材料，含 Markdown 和原始富文本 JSON。
+- [IMA 今日文章归档](wallet-review-lab/docs/ima-sources/2026-10-20/README.md)：2026-10-20 新建的 20 篇写作材料，含 Markdown 和原始富文本 JSON。
 - `docs/chapter-09-expansion-plan.md`：按分子章节拆解的扩写蓝图。
 - `docs/project-readiness-audit.md`：项目覆盖范围、出版缺口和整改记录。
 
