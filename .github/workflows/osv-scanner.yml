@@ -15,20 +15,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Resolve Java reactor and generate aggregate SBOM
+        working-directory: order-review-lab
+        run: ./mvnw -B -ntp -DskipTests -DincludeTestScope=true package org.cyclonedx:cyclonedx-maven-plugin:2.9.1:makeAggregateBom
       - name: Scan both projects
         uses: google/osv-scanner-action/osv-scanner-action@06b2ab4348248b456ee06c9e953637f55e03504f
         with:
           scan-args: |-
             --output-file=osv-results.json
             --format=json
-            --include-git-root
-            -r
-            ./wallet-review-lab
-            ./order-review-lab
+            --lockfile=wallet-review-lab/uv.lock
+            --lockfile=wallet-review-lab/dependency-audit/requirements.txt
+            --sbom=order-review-lab/target/bom.json
       - name: Preserve dependency scan report
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: osv-results
-          path: osv-results.json
+          path: |
+            osv-results.json
+            order-review-lab/target/bom.json
           if-no-files-found: error

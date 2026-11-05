@@ -28,7 +28,7 @@
 
 ## 依赖与扫描维护
 
-修复历史 OSV 检查指出的 certifi、idna 和 pytest 版本问题：开发锁文件更新到 certifi 2026.10.23、pytest 9.2.0，隔离教学清单约束 certifi>=2026.10.18、idna>=3.15。旧 PR-07 补丁已适配新增约束并验证错误/修复补丁可依次应用，历史证据版本保持不变。OSV 检查覆盖两个工程，报告保存为 artifact；漏洞仍使检查失败，报告上传不再依赖仓库的 Code Scanning 开关。
+修复历史 OSV 检查指出的 certifi、idna 和 pytest 版本问题：开发锁文件更新到 certifi 2026.10.23、pytest 9.2.0，隔离教学清单固定 certifi 2026.10.23、idna 3.18。旧 PR-07 补丁已适配新增约束并验证错误/修复补丁可依次应用，历史证据版本保持不变。OSV 检查通过 Python 锁文件、固定版本教学清单及 Maven 聚合 CycloneDX SBOM 覆盖两个工程，包含 Java 传递依赖；直接解析单个模块 POM 无法解析 reactor 内部依赖，因此改为先解析工程再扫描 SBOM。报告保存为 artifact；漏洞仍使检查失败，报告上传不再依赖仓库的 Code Scanning 开关。
 
 ## 相对规划的明确取舍
 

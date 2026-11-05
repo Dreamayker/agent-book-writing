@@ -365,3 +365,4 @@
 - 真实模型重复实验、人工批准及最终出版审校仍待完成，见 [迁移状态](../../docs/migration-status.md)。
 
 - 依历史 OSV 报告升级 certifi/pytest 并约束教学清单的 idna；重新适配旧 PR-07 补丁上下文。OSV 改为直接扫描两个工程、保留 JSON artifact，继续将漏洞视为失败，避免未启用 Code Scanning 导致报告上传失败。
+- 远端 OSV 无法从单个模块 POM 解析 reactor 内部依赖，改为 Maven 生成聚合 CycloneDX SBOM 后扫描传递依赖；教学清单固定版本以便扫描器精确查询。
