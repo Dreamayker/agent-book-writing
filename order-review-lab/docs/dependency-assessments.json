@@ -1,0 +1,18 @@
+[
+  {
+    "id": "GHSA-j9f9-w8pj-32f8",
+    "purl": "pkg:maven/org.springframework/spring-webmvc@6.2.19?type=jar",
+    "status": "not_affected",
+    "review_by": "2026-12-05",
+    "reason": "Source inspection: OrderController exposes JSON REST methods only. There is no SseEmitter, FragmentsRendering, SSE stream or fragment view rendering. The advisory requires streaming rendered HTML fragments. This assessment must be revisited before adding view or SSE endpoints.",
+    "source_sha256": "6fa017e5127d3c847f5aea48c815b459229d95e25099783ab187060c8f495ea7"
+  },
+  {
+    "id": "GHSA-pc63-qcmh-9cmg",
+    "purl": "pkg:maven/org.springframework/spring-webmvc@6.2.19?type=jar",
+    "status": "not_affected",
+    "review_by": "2026-12-05",
+    "reason": "Source inspection: JSON-only @RestController; no XsltView, XsltViewResolver, stylesheet resource, MVC view resolver or template configuration. The vulnerable XSLT view path is not used. This assessment must be revisited before enabling MVC views.",
+    "source_sha256": "6fa017e5127d3c847f5aea48c815b459229d95e25099783ab187060c8f495ea7"
+  }
+]

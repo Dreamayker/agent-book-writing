@@ -30,6 +30,8 @@
 
 修复历史 OSV 检查指出的 certifi、idna 和 pytest 版本问题：开发锁文件更新到 certifi 2026.10.23、pytest 9.2.0，隔离教学清单固定 certifi 2026.10.23、idna 3.18。旧 PR-07 补丁已适配新增约束并验证错误/修复补丁可依次应用，历史证据版本保持不变。OSV 检查通过 Python 锁文件、固定版本教学清单及 Maven 聚合 CycloneDX SBOM 覆盖两个工程，包含 Java 传递依赖；直接解析单个模块 POM 无法解析 reactor 内部依赖，因此改为先解析工程再扫描 SBOM。报告保存为 artifact；漏洞仍使检查失败，报告上传不再依赖仓库的 Code Scanning 开关。
 
+主线另升级 Jackson 2.21.8、Log4j 2.25.5、Tomcat 10.1.61、Commons Compress 1.28.0 与 Commons Lang 3.18.0。发现扫描器空报告与 API 公告不一致后，增加带已知漏洞控制样本的直接 API 门禁；两个未使用 Spring 视图功能的公告按准确版本、生产源码哈希和期限记录适用性。依据与报告见 [依赖记录](../order-review-lab/docs/dependency-advisories.md)。冻结教学分支仍保留原版本。
+
 ## 相对规划的明确取舍
 
 先实现完整叠加正确基线，再冻结 ORD-09 作为 `legacy/order-v0`，没有另行创建单券旧系统。`order-baseline-v1` 和 `order-stacking-v1` 指向同一个已验证业务提交；case/order/ORD-* 与 fix/order/ORD-* 保留独立变更历史。

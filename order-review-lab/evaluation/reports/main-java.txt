@@ -13,9 +13,6 @@
 [INFO]   from pom.xml
 [INFO] --------------------------------[ pom ]---------------------------------
 [INFO] 
-[INFO] --- fmt:2.29:format (default-cli) @ order-review-lab ---
-[INFO] Skipping format check: project uses 'pom' packaging
-[INFO] 
 [INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-review-lab ---
 [INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/Users/magic/Code/Agent图书编写/order-review-lab/target/jacoco.exec
 [INFO] 
@@ -35,10 +32,6 @@
 [INFO] Building order-core 1.0.0-SNAPSHOT                                 [2/5]
 [INFO]   from order-core/pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
-[INFO] --- fmt:2.29:format (default-cli) @ order-core ---
-[INFO] Skipping reflowing long strings
-[info] Processed 7 files (0 reformatted).
 [INFO] 
 [INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-core ---
 [INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/Users/magic/Code/Agent图书编写/order-review-lab/order-core/target/jacoco.exec
@@ -62,7 +55,7 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.xinghe.order.core.PricingTest
-[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.069 s -- in com.xinghe.order.core.PricingTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.075 s -- in com.xinghe.order.core.PricingTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -89,11 +82,6 @@
 [INFO]   from order-infra/pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
-[INFO] --- fmt:2.29:format (default-cli) @ order-infra ---
-[INFO] Skipping reflowing long strings
-[WARNING] Test source directory '/Users/magic/Code/Agent图书编写/order-review-lab/order-infra/src/test/java' does not exist, ignoring.
-[info] Processed 4 files (0 reformatted).
-[INFO] 
 [INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-infra ---
 [INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/Users/magic/Code/Agent图书编写/order-review-lab/order-infra/target/jacoco.exec
 [INFO] 
@@ -101,8 +89,7 @@
 [INFO] Copying 1 resource from src/main/resources to target/classes
 [INFO] 
 [INFO] --- compiler:3.14.1:compile (default-compile) @ order-infra ---
-[INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 4 source files with javac [debug parameters release 17] to target/classes
+[INFO] Nothing to compile - all classes are up to date.
 [INFO] 
 [INFO] --- resources:3.4.0:testResources (default-testResources) @ order-infra ---
 [INFO] skip non existing resourceDirectory /Users/magic/Code/Agent图书编写/order-review-lab/order-infra/src/test/resources
@@ -114,7 +101,6 @@
 [INFO] No tests to run.
 [INFO] 
 [INFO] --- jar:3.5.0:jar (default-jar) @ order-infra ---
-[INFO] Building jar: /Users/magic/Code/Agent图书编写/order-review-lab/order-infra/target/order-infra-1.0.0-SNAPSHOT.jar
 [INFO] 
 [INFO] --- failsafe:3.5.4:integration-test (default) @ order-infra ---
 [INFO] No tests to run.
@@ -135,11 +121,6 @@
 [INFO]   from order-api/pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
-[INFO] --- fmt:2.29:format (default-cli) @ order-api ---
-[INFO] Skipping reflowing long strings
-[WARNING] Test source directory '/Users/magic/Code/Agent图书编写/order-review-lab/order-api/src/test/java' does not exist, ignoring.
-[info] Processed 2 files (0 reformatted).
-[INFO] 
 [INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-api ---
 [INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/Users/magic/Code/Agent图书编写/order-review-lab/order-api/target/jacoco.exec
 [INFO] 
@@ -147,8 +128,7 @@
 [INFO] Copying 1 resource from src/main/resources to target/classes
 [INFO] 
 [INFO] --- compiler:3.14.1:compile (default-compile) @ order-api ---
-[INFO] Recompiling the module because of changed dependency.
-[INFO] Compiling 2 source files with javac [debug parameters release 17] to target/classes
+[INFO] Nothing to compile - all classes are up to date.
 [INFO] 
 [INFO] --- resources:3.4.0:testResources (default-testResources) @ order-api ---
 [INFO] skip non existing resourceDirectory /Users/magic/Code/Agent图书编写/order-review-lab/order-api/src/test/resources
@@ -160,7 +140,6 @@
 [INFO] No tests to run.
 [INFO] 
 [INFO] --- jar:3.5.0:jar (default-jar) @ order-api ---
-[INFO] Building jar: /Users/magic/Code/Agent图书编写/order-review-lab/order-api/target/order-api-1.0.0-SNAPSHOT.jar
 [INFO] 
 [INFO] --- spring-boot:3.5.16:repackage (default) @ order-api ---
 [INFO] Attaching repackaged archive /Users/magic/Code/Agent图书编写/order-review-lab/order-api/target/order-api-1.0.0-SNAPSHOT-exec.jar with classifier exec
@@ -184,11 +163,6 @@
 [INFO]   from order-test/pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
-[INFO] --- fmt:2.29:format (default-cli) @ order-test ---
-[INFO] Skipping reflowing long strings
-[WARNING] Source directory '/Users/magic/Code/Agent图书编写/order-review-lab/order-test/src/main/java' does not exist, ignoring.
-[info] Processed 1 files (1 reformatted).
-[INFO] 
 [INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-test ---
 [INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/Users/magic/Code/Agent图书编写/order-review-lab/order-test/target/jacoco.exec
 [INFO] 
@@ -202,8 +176,7 @@
 [INFO] Copying 1 resource from src/test/resources to target/test-classes
 [INFO] 
 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ order-test ---
-[INFO] Recompiling the module because of changed dependency.
-[INFO] Compiling 1 source file with javac [debug parameters release 17] to target/test-classes
+[INFO] Nothing to compile - all classes are up to date.
 [INFO] 
 [INFO] --- surefire:3.5.4:test (default-test) @ order-test ---
 [INFO] 
@@ -217,21 +190,21 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.xinghe.order.OrderIT
-17:55:51.544 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
-17:55:51.547 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
-17:55:51.558 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 1.21.4
-17:55:51.710 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
-17:55:51.860 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
-17:55:51.861 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
-17:55:51.869 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+18:16:52.603 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+18:16:52.606 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+18:16:52.618 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 1.21.4
+18:16:52.771 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+18:16:52.910 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with Environment variables, system properties and defaults. Resolved dockerHost=unix:///Users/magic/.orbstack/run/docker.sock
+18:16:52.910 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+18:16:52.918 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
   Server Version: 29.4.0
   API Version: 1.54
   Operating System: OrbStack
   Total Memory: 8005 MB
-17:55:51.883 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Creating container for image: testcontainers/ryuk:0.12.0
-17:55:51.968 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Container testcontainers/ryuk:0.12.0 is starting: dccd04e20a6861c984e62da56b9205d145d3bc39c3b8aa67bb68142319df1cb7
-17:55:52.094 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Container testcontainers/ryuk:0.12.0 started in PT0.210836S
-17:55:52.096 [testcontainers-ryuk] WARN org.testcontainers.utility.RyukResourceReaper -- Can not connect to Ryuk at localhost:32796
+18:16:52.931 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Creating container for image: testcontainers/ryuk:0.12.0
+18:16:53.010 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Container testcontainers/ryuk:0.12.0 is starting: 6115328eba698bac22a4ece6d3f5773b617c47ca1e5f557727d9b49085f433f2
+18:16:53.147 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Container testcontainers/ryuk:0.12.0 started in PT0.216077S
+18:16:53.149 [testcontainers-ryuk] WARN org.testcontainers.utility.RyukResourceReaper -- Can not connect to Ryuk at localhost:32802
 java.net.ConnectException: Connection refused
 	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
 	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:684)
@@ -243,14 +216,14 @@ java.net.ConnectException: Connection refused
 	at org.rnorth.ducttape.ratelimits.RateLimiter.doWhenReady(RateLimiter.java:27)
 	at org.testcontainers.utility.RyukResourceReaper.lambda$maybeStart$1(RyukResourceReaper.java:88)
 	at java.base/java.lang.Thread.run(Thread.java:840)
-17:55:52.359 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
-17:55:52.360 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
-17:55:52.361 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
-17:55:52.366 [main] INFO tc.mysql:8.4.7 -- Creating container for image: mysql:8.4.7
-17:55:52.421 [main] INFO tc.mysql:8.4.7 -- Container mysql:8.4.7 is starting: 94d99cdf06c26a81745411d6a1e424ce2cec4730abc5f6af85358b59f4afc550
-17:55:52.483 [main] INFO tc.mysql:8.4.7 -- Waiting for database connection to become available at jdbc:mysql://localhost:32797/test using query 'SELECT 1'
-17:55:58.030 [main] INFO tc.mysql:8.4.7 -- Container mysql:8.4.7 started in PT5.66448S
-17:55:58.030 [main] INFO tc.mysql:8.4.7 -- Container is started (JDBC URL: jdbc:mysql://localhost:32797/test)
+18:16:53.417 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+18:16:53.417 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+18:16:53.418 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+18:16:53.425 [main] INFO tc.mysql:8.4.7 -- Creating container for image: mysql:8.4.7
+18:16:53.536 [main] INFO tc.mysql:8.4.7 -- Container mysql:8.4.7 is starting: 504c663cac71a4b8cf4321fad83d8c5eab5fa0e6f1b246a5296b72f4e2777d97
+18:16:53.599 [main] INFO tc.mysql:8.4.7 -- Waiting for database connection to become available at jdbc:mysql://localhost:32803/test using query 'SELECT 1'
+18:16:59.038 [main] INFO tc.mysql:8.4.7 -- Container mysql:8.4.7 started in PT5.61253S
+18:16:59.038 [main] INFO tc.mysql:8.4.7 -- Container is started (JDBC URL: jdbc:mysql://localhost:32803/test)
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -261,28 +234,28 @@ java.net.ConnectException: Connection refused
 
  :: Spring Boot ::               (v3.5.16)
 
-2026-11-05T17:55:58.285+08:00  INFO 79347 --- [           main] com.xinghe.order.OrderIT                 : Starting OrderIT using Java 17.0.18 with PID 79347 (started by magic in /Users/magic/Code/Agent图书编写/order-review-lab/order-test)
-2026-11-05T17:55:58.286+08:00  INFO 79347 --- [           main] com.xinghe.order.OrderIT                 : No active profile set, falling back to 1 default profile: "default"
-2026-11-05T17:55:58.665+08:00  INFO 79347 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-11-05T17:55:58.721+08:00  INFO 79347 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@722479ba
-2026-11-05T17:55:58.722+08:00  INFO 79347 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-11-05T17:55:58.742+08:00  INFO 79347 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:32797/test (MySQL 8.4)
-2026-11-05T17:55:58.764+08:00  WARN 79347 --- [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
-2026-11-05T17:55:58.777+08:00  INFO 79347 --- [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table `test`.`flyway_schema_history` does not exist yet
-2026-11-05T17:55:58.779+08:00  INFO 79347 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.010s)
-2026-11-05T17:55:58.793+08:00  INFO 79347 --- [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table `test`.`flyway_schema_history` ...
-2026-11-05T17:55:58.842+08:00  INFO 79347 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `test`: << Empty Schema >>
-2026-11-05T17:55:58.847+08:00  INFO 79347 --- [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `test` to version "1 - orders"
-2026-11-05T17:55:58.973+08:00  INFO 79347 --- [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema `test`, now at version v1 (execution time 00:00.112s)
-2026-11-05T17:55:59.226+08:00  INFO 79347 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2026-11-05T17:55:59.226+08:00  INFO 79347 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2026-11-05T17:55:59.227+08:00  INFO 79347 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2026-11-05T17:55:59.239+08:00  INFO 79347 --- [           main] com.xinghe.order.OrderIT                 : Started OrderIT in 1.091 seconds (process running for 8.083)
+2026-11-05T18:16:59.299+08:00  INFO 84118 --- [           main] com.xinghe.order.OrderIT                 : Starting OrderIT using Java 17.0.18 with PID 84118 (started by magic in /Users/magic/Code/Agent图书编写/order-review-lab/order-test)
+2026-11-05T18:16:59.300+08:00  INFO 84118 --- [           main] com.xinghe.order.OrderIT                 : No active profile set, falling back to 1 default profile: "default"
+2026-11-05T18:16:59.679+08:00  INFO 84118 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-05T18:16:59.736+08:00  INFO 84118 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7d51e3df
+2026-11-05T18:16:59.736+08:00  INFO 84118 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-05T18:16:59.760+08:00  INFO 84118 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:32803/test (MySQL 8.4)
+2026-11-05T18:16:59.780+08:00  WARN 84118 --- [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-11-05T18:16:59.793+08:00  INFO 84118 --- [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table `test`.`flyway_schema_history` does not exist yet
+2026-11-05T18:16:59.794+08:00  INFO 84118 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.010s)
+2026-11-05T18:16:59.811+08:00  INFO 84118 --- [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table `test`.`flyway_schema_history` ...
+2026-11-05T18:16:59.856+08:00  INFO 84118 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `test`: << Empty Schema >>
+2026-11-05T18:16:59.862+08:00  INFO 84118 --- [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `test` to version "1 - orders"
+2026-11-05T18:17:00.001+08:00  INFO 84118 --- [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema `test`, now at version v1 (execution time 00:00.124s)
+2026-11-05T18:17:00.264+08:00  INFO 84118 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-05T18:17:00.264+08:00  INFO 84118 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-05T18:17:00.265+08:00  INFO 84118 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-11-05T18:17:00.275+08:00  INFO 84118 --- [           main] com.xinghe.order.OrderIT                 : Started OrderIT in 1.117 seconds (process running for 8.063)
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-2026-11-05T17:55:59.796+08:00  WARN 79347 --- [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unrecognized field "price" (class com.xinghe.order.core.Models$CheckoutRequest), not marked as ignorable]
-2026-11-05T17:55:59.797+08:00  WARN 79347 --- [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot coerce Floating-point value (1.5) to `int` value (but could if coercion was enabled using `CoercionConfig`)]
+2026-11-05T18:17:00.805+08:00  WARN 84118 --- [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unrecognized field "price" (class com.xinghe.order.core.Models$CheckoutRequest), not marked as ignorable]
+2026-11-05T18:17:00.806+08:00  WARN 84118 --- [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot coerce Floating-point value (1.5) to `int` value (but could if coercion was enabled using `CoercionConfig`)]
 ORD-09 snapshot refund expected=6600 actual=6600 livePricingReadsDuringRefund=0
-[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.705 s -- in com.xinghe.order.OrderIT
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.636 s -- in com.xinghe.order.OrderIT
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -305,17 +278,32 @@ ORD-09 snapshot refund expected=6600 actual=6600 livePricingReadsDuringRefund=0
 [INFO] Analyzed bundle 'order-core' with 21 classes
 [INFO] Analyzed bundle 'order-infra' with 6 classes
 [INFO] Analyzed bundle 'order-api' with 2 classes
+[INFO] 
+[INFO] --------------------< com.xinghe:order-review-lab >---------------------
+[INFO] Building order-review-lab 1.0.0-SNAPSHOT                           [6/5]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- cyclonedx:2.9.1:makeAggregateBom (default-cli) @ order-review-lab ---
+[INFO] CycloneDX: Resolving Aggregated Dependencies
+[INFO] CycloneDX: Creating BOM version 1.6 with 96 component(s)
+[INFO] CycloneDX: Writing and validating BOM (XML): /Users/magic/Code/Agent图书编写/order-review-lab/target/bom.xml
+[INFO]            attaching as order-review-lab-1.0.0-SNAPSHOT-cyclonedx.xml
+[INFO] CycloneDX: Writing and validating BOM (JSON): /Users/magic/Code/Agent图书编写/order-review-lab/target/bom.json
+[WARNING] Unknown keyword meta:enum - you should define your own Meta Schema. If the keyword is irrelevant for validation, just use a NonValidationKeyword or if it should generate annotations AnnotationKeyword
+[WARNING] Unknown keyword deprecated - you should define your own Meta Schema. If the keyword is irrelevant for validation, just use a NonValidationKeyword or if it should generate annotations AnnotationKeyword
+[INFO]            attaching as order-review-lab-1.0.0-SNAPSHOT-cyclonedx.json
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary for order-review-lab 1.0.0-SNAPSHOT:
 [INFO] 
-[INFO] order-review-lab ................................... SUCCESS [  0.204 s]
-[INFO] order-core ......................................... SUCCESS [  2.198 s]
-[INFO] order-infra ........................................ SUCCESS [  1.801 s]
-[INFO] order-api .......................................... SUCCESS [  3.252 s]
-[INFO] order-test ......................................... SUCCESS [ 10.857 s]
+[INFO] order-review-lab ................................... SUCCESS [  1.317 s]
+[INFO] order-core ......................................... SUCCESS [  1.443 s]
+[INFO] order-infra ........................................ SUCCESS [  0.730 s]
+[INFO] order-api .......................................... SUCCESS [  0.794 s]
+[INFO] order-test ......................................... SUCCESS [  9.956 s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  18.438 s
-[INFO] Finished at: 2026-11-05T17:56:01+08:00
+[INFO] Total time:  14.540 s
+[INFO] Finished at: 2026-11-05T18:17:03+08:00
 [INFO] ------------------------------------------------------------------------

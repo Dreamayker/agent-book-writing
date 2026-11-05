@@ -366,3 +366,4 @@
 
 - 依历史 OSV 报告升级 certifi/pytest 并约束教学清单的 idna；重新适配旧 PR-07 补丁上下文。OSV 改为直接扫描两个工程、保留 JSON artifact，继续将漏洞视为失败，避免未启用 Code Scanning 导致报告上传失败。
 - 远端 OSV 无法从单个模块 POM 解析 reactor 内部依赖，改为 Maven 生成聚合 CycloneDX SBOM 后扫描传递依赖；教学清单固定版本以便扫描器精确查询。
+- OSV Scanner 在本地/远端均返回空结果，直接 API 仍发现 Java 公告，遂补充含已知漏洞控制样本的 API 门禁，并升级可用补丁。两个未使用 Spring 视图功能的公告以完整 PURL、生产源码哈希及 2026-12-05 复查期限限定适用性；不将扫描器空结果表述为无漏洞。
