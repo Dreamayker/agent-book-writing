@@ -70,7 +70,7 @@ public final class PricingService {
         .filter(
             u -> coupon.type() != CouponType.CATEGORY || coupon.categories().contains(u.category()))
         .forEach(u -> weights.put(u.unitId(), u.payableCents()));
-    long base = coupon.type() == CouponType.ORDER ? before.grossCents() : weights.values().stream().mapToLong(Long::longValue).sum();
+    long base = weights.values().stream().mapToLong(Long::longValue).sum();
     long requested =
         base < coupon.thresholdCents()
             ? 0
