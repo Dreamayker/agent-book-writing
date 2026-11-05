@@ -153,7 +153,7 @@ public class OrderApplicationService implements OrderUseCases {
                     .filter(u -> group.contains(u.unitId()))
                     .mapToLong(UnitRow::payableCents)
                     .sum();
-            db.insert(new OrderRow(id, order.rootOrderId(), owner, null, null, order.payableCents() / request.groups().size(), 0, false));
+            db.insert(new OrderRow(id, order.rootOrderId(), owner, null, null, amount, 0, false));
             group.forEach(unit -> db.membership(id, unit));
             children.add(id);
           }
