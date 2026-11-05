@@ -13,13 +13,15 @@ def evidence_key(evidence: Evidence) -> tuple[str, str]:
     return (evidence.type.value, evidence.ref)
 
 
-def finding_key(finding: Finding) -> tuple[str, str]:
-    """Issues sharing a rule ID and file represent one candidate root cause."""
-    return (finding.finding_id, finding.file)
+def finding_key(finding: Finding) -> tuple[str, str, str, str]:
+    """Explicit root IDs merge across files; legacy fixtures retain location scope."""
+    if finding.root_cause_id:
+        return (finding.root_cause_id, finding.symbol or "", finding.invariant or "", "")
+    return (finding.finding_id, finding.file, str(finding.line_start), "")
 
 
 def deduplicate_findings(findings: list[Finding]) -> list[Finding]:
-    grouped: dict[tuple[str, str], list[Finding]] = defaultdict(list)
+    grouped: dict[tuple[str, str, str, str], list[Finding]] = defaultdict(list)
     for finding in findings:
         grouped[finding_key(finding)].append(finding)
 

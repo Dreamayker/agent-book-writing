@@ -1,0 +1,21 @@
+version: 2
+thresholds: {low_max: 2, medium_max: 6}
+rules:
+  - id: order-money-state
+    patterns: ["order-core/src/main/**", "order-infra/src/main/**", "**/db/migration/**"]
+    score: 8
+    force_human: true
+  - id: order-api
+    patterns: ["order-api/src/main/**"]
+    score: 7
+    force_human: true
+  - id: dependency
+    patterns: ["**/pom.xml", "pom.xml"]
+    score: 4
+  - id: tests
+    patterns: ["**/src/test/**"]
+    score: -1
+  - id: documentation
+    patterns: ["**/*.md"]
+    score: -3
+mandatory_human_review: [money, authorization, database-transaction, credentials, refund, snapshot]

@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: ${ORDER_DB_URL:jdbc:mysql://localhost:3307/order_lab}
+    username: ${ORDER_DB_USER:order_lab}
+    password: ${ORDER_DB_PASSWORD:order_lab_local}
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      accept-float-as-int: false
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    arg-name-based-constructor-auto-mapping: true
+server:
+  address: 127.0.0.1
+  port: 8081

@@ -1,0 +1,14 @@
+services:
+  mysql:
+    image: mysql:8.4.7
+    environment:
+      MYSQL_DATABASE: order_lab
+      MYSQL_USER: order_lab
+      MYSQL_PASSWORD: order_lab_local
+      MYSQL_ROOT_PASSWORD: root_local
+    ports: ["127.0.0.1:3307:3306"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 3s
+      timeout: 3s
+      retries: 40

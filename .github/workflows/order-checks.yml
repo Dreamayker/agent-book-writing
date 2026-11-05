@@ -1,0 +1,38 @@
+name: order-checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  java:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: order-review-lab
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - run: ./mvnw -B -ntp clean verify
+      - run: python3 scripts/check_coverage.py
+      - uses: astral-sh/setup-uv@v6
+      - run: uvx semgrep --validate --config policies/semgrep.yml
+      - run: uvx semgrep --error --config policies/semgrep.yml order-core/src/main order-infra/src/main order-api/src/main
+      - name: Replay recorded order review fixtures
+        working-directory: wallet-review-lab
+        run: |
+          uv sync --extra dev --locked
+          uv run python -m evaluation.projects ../order-review-lab/evaluation/cases.yaml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: order-test-reports
+          path: |
+            order-review-lab/**/target/surefire-reports/
+            order-review-lab/**/target/failsafe-reports/
+            order-review-lab/**/target/site/

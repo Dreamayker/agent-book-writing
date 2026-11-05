@@ -12,6 +12,10 @@ class ReviewContext(BaseModel):
     patch_path: Path
     changed_paths: list[str]
     semantic_labels: set[str] = Field(default_factory=set)
+    project_root: Path | None = None
+    code_revision: str | None = None
+    requirements: str = ""
+    evidence_manifest: Path | None = None
 
 
 class ReviewAgent(Protocol):

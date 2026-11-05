@@ -1,10 +1,12 @@
 import json
+import time
 from collections.abc import Callable
 from typing import Any, cast
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
 from review_system.agents import ReviewContext
+from review_system.evidence import verified_evidence
 from review_system.schemas import Finding, FindingBatch
 
 HttpTransport = Callable[[Request, float], bytes]
@@ -50,6 +52,7 @@ class ResponsesReviewAgent:
         self._base_url = base_url.rstrip("/")
         self._timeout = timeout
         self._transport = transport
+        self.last_usage: dict[str, Any] = {}
 
     @property
     def name(self) -> str:
@@ -67,9 +70,19 @@ class ResponsesReviewAgent:
             },
             method="POST",
         )
+        started = time.monotonic()
+        self.last_usage = {"model": self._model, "status": "failed"}
         raw = json.loads(self._transport(request, self._timeout))
+        self.last_usage.update(
+            status="received",
+            elapsed_seconds=time.monotonic() - started,
+            response_id=raw.get("id"),
+            usage=raw.get("usage", {}),
+        )
         output_text = self._extract_output_text(raw)
-        return FindingBatch.model_validate_json(output_text).findings
+        findings = FindingBatch.model_validate_json(output_text).findings
+        self.last_usage["status"] = "validated"
+        return findings
 
     def _payload(self, context: ReviewContext, patch: str) -> dict[str, Any]:
         task = {
@@ -78,6 +91,9 @@ class ResponsesReviewAgent:
             "semantic_labels": sorted(context.semantic_labels),
             "changed_paths": context.changed_paths,
             "untrusted_patch": patch,
+            "code_revision": context.code_revision,
+            "untrusted_requirements": context.requirements,
+            "controller_verified_evidence": verified_evidence(context),
         }
         return {
             "model": self._model,

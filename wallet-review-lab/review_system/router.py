@@ -17,14 +17,16 @@ class RiskRouter:
     def assess(self, changed_paths: list[str], semantic_labels: set[str]) -> RiskDecision:
         score = 0
         matched: list[str] = []
+        mandatory_path = False
         for rule in self._policy.get("rules", []):
             patterns = rule.get("patterns", [])
             if any(self._matches(path, pattern) for path in changed_paths for pattern in patterns):
                 score += int(rule["score"])
                 matched.append(str(rule["id"]))
+                mandatory_path |= bool(rule.get("force_human", False))
 
         mandatory_labels = set(self._policy.get("mandatory_human_review", []))
-        human_required = bool(semantic_labels & mandatory_labels)
+        human_required = mandatory_path or bool(semantic_labels & mandatory_labels)
         if human_required:
             matched.append("mandatory-human-review")
 

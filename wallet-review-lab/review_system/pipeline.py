@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 from review_system.adjudication import arbitrate, deduplicate_findings
 from review_system.agents import ReviewAgent, ReviewContext
+from review_system.evidence import validate_references
 from review_system.router import RiskRouter
 from review_system.schemas import Finding, RiskDecision, RiskLevel
 
@@ -37,6 +38,7 @@ class ReviewPipeline:
             for agent_name in agent_names
             for finding in self._agents[agent_name].review(context)
         ]
+        validate_references(context, findings)
 
         if mode is ReviewMode.MULTI_ARBITRATED:
             findings = deduplicate_findings(findings)

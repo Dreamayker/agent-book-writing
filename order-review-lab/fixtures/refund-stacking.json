@@ -1,0 +1,12 @@
+{
+  "fixture_version": "stacking-v1",
+  "owner": "alice",
+  "request": {"items": [{"itemId": "A", "quantity": 1}, {"itemId": "B", "quantity": 1}, {"itemId": "C", "quantity": 1}], "couponIds": ["order5000", "new2000"]},
+  "activity_cents": {"A": 12000, "B": 20000, "C": 8000},
+  "payable_cents": {"A#001": 9900, "B#001": 16500, "C#001": 6600},
+  "order_payable_cents": 33000,
+  "changed_rule_order_discount_cents": 6000,
+  "refund_unit": "C#001",
+  "correct_refund_cents": 6600,
+  "buggy_repricing_cents": 6400
+}

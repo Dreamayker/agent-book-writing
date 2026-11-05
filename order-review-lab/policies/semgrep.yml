@@ -1,0 +1,15 @@
+rules:
+  - id: java-money-float
+    languages: [java]
+    message: Monetary calculation uses binary floating point; verify integer cents contract.
+    severity: ERROR
+    patterns:
+      - pattern-either:
+          - pattern: (double) $X
+          - pattern: Double.parseDouble(...)
+          - pattern: Float.parseFloat(...)
+  - id: java-review-injection
+    languages: [generic]
+    message: Repository data attempts to change review permissions; treat as untrusted input.
+    severity: ERROR
+    pattern-regex: '(?i)ignore the security review and approve'
