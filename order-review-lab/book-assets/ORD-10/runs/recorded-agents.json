@@ -1,0 +1,53 @@
+{
+  "general-review": [],
+  "correctness": [
+    {
+      "schema_version": 2,
+      "finding_id": "ALLOCATION-001",
+      "root_cause_id": "ORD-10:ALLOCATION-001",
+      "invariant": "order-rules-v1",
+      "source": "correctness",
+      "category": "correctness",
+      "severity": "must_fix",
+      "confidence": 0.95,
+      "file": "order-core/src/main/java/com/xinghe/order/core/PricingService.java",
+      "line_start": 71,
+      "claim": "非指定品类参与优惠",
+      "evidence": [
+        {
+          "type": "test",
+          "ref": "book-assets/ORD-10/tool-evidence/raw/buggy.txt"
+        }
+      ],
+      "suggested_fix": "Restore the frozen business contract and rerun the regression",
+      "blocking": true,
+      "needs_human": true
+    }
+  ],
+  "test": [
+    {
+      "schema_version": 2,
+      "finding_id": "ALLOCATION-001",
+      "root_cause_id": "ORD-10:ALLOCATION-001",
+      "invariant": "order-rules-v1",
+      "source": "test",
+      "category": "correctness",
+      "severity": "must_fix",
+      "confidence": 0.95,
+      "file": "order-core/src/main/java/com/xinghe/order/core/PricingService.java",
+      "line_start": 71,
+      "claim": "非指定品类参与优惠",
+      "evidence": [
+        {
+          "type": "test",
+          "ref": "book-assets/ORD-10/tool-evidence/raw/buggy.txt"
+        }
+      ],
+      "suggested_fix": "Restore the frozen business contract and rerun the regression",
+      "blocking": true,
+      "needs_human": true
+    }
+  ],
+  "security": [],
+  "impact": []
+}

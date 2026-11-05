@@ -1,0 +1,15 @@
+{
+  "run_id": "a7edee5d-2a80-41eb-9190-8bef7f07b395",
+  "case_id": "ORD-02",
+  "code_revision": "a671f375b8a3e254be2f9561750ebc8a2f798ea9",
+  "files": [
+    {
+      "path": "book-assets/ORD-02/tool-evidence/raw/buggy-source.txt",
+      "sha256": "5b89a08621cb3314c45e8d0a072087d9389fd4e8c309f7f30535c8766f100562"
+    },
+    {
+      "path": "book-assets/ORD-02/tool-evidence/raw/buggy.txt",
+      "sha256": "55bbaa898f0448e2814df9ec4d3713332c3a46a2910fee168e6e12c541077427"
+    }
+  ]
+}

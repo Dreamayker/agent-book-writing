@@ -1,0 +1,39 @@
+{
+  "case_id": "ORD-04",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "change_sha": "7b9b49388fee70cf8357b09148d35a3532f2e02b",
+  "buggy_diff_sha256": "6f9552fed330e4247379e0a1342967014add5221a8e9858752e62e66b54a8fdb",
+  "kind": "executed-teaching-case",
+  "runs": [
+    {
+      "command": [
+        "./mvnw",
+        "-B",
+        "-ntp",
+        "-Dfmt.skip=true",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-Dfailsafe.failIfNoSpecifiedTests=false",
+        "-Dit.test=OrderIT#parallelRefundsCannotRefundOneUnitTwice",
+        "verify"
+      ],
+      "exit_code": 1,
+      "seconds": 11.395
+    },
+    {
+      "command": [
+        "./mvnw",
+        "-B",
+        "-ntp",
+        "-Dfmt.skip=true",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-Dfailsafe.failIfNoSpecifiedTests=false",
+        "-Dit.test=OrderIT#parallelRefundsCannotRefundOneUnitTwice",
+        "verify"
+      ],
+      "exit_code": 0,
+      "seconds": 11.457
+    }
+  ],
+  "fix_sha": "5a9e21c94024265afb2c0a24f067af052b033ab1",
+  "status": "verified"
+}

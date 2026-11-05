@@ -1,0 +1,19 @@
+{
+  "run_id": "1844f05c-bbc9-4705-ba22-6425dea402b3",
+  "case_id": "ORD-07",
+  "code_revision": "c8002e3db7921fb122c8e1328f6009e1da6f2639",
+  "files": [
+    {
+      "path": "book-assets/ORD-07/tool-evidence/raw/buggy-source.txt",
+      "sha256": "4d2677708a5e1721155c7719148aba5cd1b95e437a5e681e177c35a8d87113e1"
+    },
+    {
+      "path": "book-assets/ORD-07/tool-evidence/raw/buggy.txt",
+      "sha256": "8e03717205be5e1b41e113dcdd70fdd4cd76f5ae71d10b9f827adf552772624d"
+    },
+    {
+      "path": "book-assets/ORD-07/tool-evidence/raw/osv.json",
+      "sha256": "4fb35fbc48c771f3e210c89ca391363eed582386dffcecbf2dce157f224df594"
+    }
+  ]
+}

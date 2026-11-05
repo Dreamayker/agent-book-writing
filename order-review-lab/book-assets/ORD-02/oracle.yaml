@@ -1,0 +1,14 @@
+{
+  "case_id": "ORD-02",
+  "findings": [
+    {
+      "id": "MONEY-001",
+      "root_cause_id": "ORD-02:MONEY-001",
+      "file": "order-core/src/main/java/com/xinghe/order/core/DiscountAllocator.java",
+      "line_start": 35,
+      "line_end": 38,
+      "severity": "must_fix",
+      "acceptable_fix": "Restore business contract; validate the same regression test"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] order-review-lab                                                   [pom]
+[INFO] order-core                                                         [jar]
+[INFO] 
+[INFO] --------------------< com.xinghe:order-review-lab >---------------------
+[INFO] Building order-review-lab 1.0.0-SNAPSHOT                           [1/2]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-review-lab ---
+[INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-p3yet2lv/repo/order-review-lab/target/jacoco.exec
+[INFO] 
+[INFO] -----------------------< com.xinghe:order-core >------------------------
+[INFO] Building order-core 1.0.0-SNAPSHOT                                 [2/2]
+[INFO]   from order-core/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-core ---
+[INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-p3yet2lv/repo/order-review-lab/order-core/target/jacoco.exec
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ order-core ---
+[INFO] skip non existing resourceDirectory /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-p3yet2lv/repo/order-review-lab/order-core/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ order-core ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ order-core ---
+[INFO] skip non existing resourceDirectory /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-p3yet2lv/repo/order-review-lab/order-core/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ order-core ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ order-core ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.xinghe.order.core.PricingTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.037 s -- in com.xinghe.order.core.PricingTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for order-review-lab 1.0.0-SNAPSHOT:
+[INFO] 
+[INFO] order-review-lab ................................... SUCCESS [  0.074 s]
+[INFO] order-core ......................................... SUCCESS [  0.572 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.749 s
+[INFO] Finished at: 2026-11-05T17:34:26+08:00
+[INFO] ------------------------------------------------------------------------

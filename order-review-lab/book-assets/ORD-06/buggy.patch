@@ -1,0 +1,11 @@
+--- a/order-review-lab/order-core/src/main/java/com/xinghe/order/core/PricingService.java
++++ b/order-review-lab/order-core/src/main/java/com/xinghe/order/core/PricingService.java
+@@ -70,7 +70,7 @@
+         .filter(
+             u -> coupon.type() != CouponType.CATEGORY || coupon.categories().contains(u.category()))
+         .forEach(u -> weights.put(u.unitId(), u.payableCents()));
+-    long base = weights.values().stream().mapToLong(Long::longValue).sum();
++    long base = coupon.type() == CouponType.ORDER ? before.grossCents() : weights.values().stream().mapToLong(Long::longValue).sum();
+     long requested =
+         base < coupon.thresholdCents()
+             ? 0

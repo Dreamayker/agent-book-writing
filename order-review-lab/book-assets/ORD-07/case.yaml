@@ -1,0 +1,23 @@
+{
+  "case_id": "ORD-07",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "source_sha256": "b21210284667ab9d5c7bc356629687dc5a4bfbfcbc11c146a1386a8d8aae26cf",
+  "buggy_patch_sha256": "b712e6e76eddc8f30fbf2c021670ffec999b9c21f8dbec6926966571bf138950",
+  "command": [
+    "./mvnw",
+    "-B",
+    "-ntp",
+    "-Dfmt.skip=true",
+    "-Dsurefire.failIfNoSpecifiedTests=false",
+    "-Dfailsafe.failIfNoSpecifiedTests=false",
+    "-pl",
+    "order-core",
+    "dependency:tree",
+    "-Dincludes=org.apache.logging.log4j:log4j-core"
+  ],
+  "kind": "dependency",
+  "test": "CVE-2021-44228",
+  "status": "verified",
+  "change_sha": "c8002e3db7921fb122c8e1328f6009e1da6f2639",
+  "fix_sha": "48c478721da65c2bff55dc699357d6d04b1548c9"
+}

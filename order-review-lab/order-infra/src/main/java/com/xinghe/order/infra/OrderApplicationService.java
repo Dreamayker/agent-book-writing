@@ -181,7 +181,12 @@ public class OrderApplicationService implements OrderUseCases {
         root.snapshotJson() != null && root.snapshotHash() != null,
         "MANUAL_REVIEW",
         "Historical order has no trusted snapshot");
-    var snapshot = codec.decode(root.snapshotJson(), OrderSnapshot.class);
+    OrderSnapshot snapshot;
+    try {
+      snapshot = codec.decode(root.snapshotJson(), OrderSnapshot.class);
+    } catch (IllegalStateException error) {
+      throw new DomainException("MANUAL_REVIEW", "Historical snapshot schema cannot be decoded");
+    }
     require(
         codec.hash(snapshot).equals(root.snapshotHash()),
         "MANUAL_REVIEW",

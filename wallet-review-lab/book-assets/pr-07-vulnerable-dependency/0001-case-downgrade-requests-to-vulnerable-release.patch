@@ -8,13 +8,15 @@ Subject: [PATCH] case: downgrade requests to vulnerable release
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dependency-audit/requirements.txt b/dependency-audit/requirements.txt
-index 9334b1e..eeda081 100644
+index 39b49f3..ffa7fc1 100644
 --- a/dependency-audit/requirements.txt
 +++ b/dependency-audit/requirements.txt
-@@ -1,2 +1,2 @@
+@@ -1,4 +1,4 @@
  # Isolated teaching manifest used by PR-07; it is not installed by the application.
 -requests==2.33.0
 +requests==2.19.1
+ certifi>=2026.10.18
+ idna>=3.15,<4
 -- 
 2.50.1 (Apple Git-155)
 

@@ -1,5 +1,4 @@
 name: osv-scanner
-
 on:
   pull_request:
     branches: [main]
@@ -9,32 +8,27 @@ on:
     - cron: "12 12 * * 1"
   push:
     branches: [main]
-
+permissions:
+  contents: read
 jobs:
-  scan-scheduled:
-    if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
-    permissions:
-      actions: read
-      security-events: write
-      contents: read
-    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@0c58c542420dfd23fcac08dd9c8ca3cca9c36f1a
-    with:
-      scan-args: |-
-        --include-git-root
-        -r
-        ./wallet-review-lab
-        ./order-review-lab
-
-  scan-pr:
-    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
-    permissions:
-      actions: read
-      security-events: write
-      contents: read
-    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@0c58c542420dfd23fcac08dd9c8ca3cca9c36f1a
-    with:
-      scan-args: |-
-        --include-git-root
-        -r
-        ./wallet-review-lab
-        ./order-review-lab
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan both projects
+        uses: google/osv-scanner-action/osv-scanner-action@06b2ab4348248b456ee06c9e953637f55e03504f
+        with:
+          scan-args: |-
+            --output-file=osv-results.json
+            --format=json
+            --include-git-root
+            -r
+            ./wallet-review-lab
+            ./order-review-lab
+      - name: Preserve dependency scan report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: osv-results
+          path: osv-results.json
+          if-no-files-found: error

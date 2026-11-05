@@ -1,0 +1,43 @@
+{
+  "case_id": "ORD-01",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "change_sha": "bfb82fed4bfa542a8df565f06230ef7fe379acdd",
+  "buggy_diff_sha256": "d56727e48101ab3d2241e6439daa3aaba43c2eebb335aa7a8c6646460a9d84c7",
+  "kind": "executed-teaching-case",
+  "runs": [
+    {
+      "command": [
+        "./mvnw",
+        "-B",
+        "-ntp",
+        "-Dfmt.skip=true",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-pl",
+        "order-core",
+        "-am",
+        "-Dtest=PricingTest#fullStackingAndRefundAreConserved",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 2.743
+    },
+    {
+      "command": [
+        "./mvnw",
+        "-B",
+        "-ntp",
+        "-Dfmt.skip=true",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-pl",
+        "order-core",
+        "-am",
+        "-Dtest=PricingTest#fullStackingAndRefundAreConserved",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 1.765
+    }
+  ],
+  "fix_sha": "de0d91d55d7cfe24e143e7818151ab0a99bec288",
+  "status": "verified"
+}

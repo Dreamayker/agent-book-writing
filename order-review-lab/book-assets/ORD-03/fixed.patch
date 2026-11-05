@@ -1,0 +1,11 @@
+--- a/order-review-lab/order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java
++++ b/order-review-lab/order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java
+@@ -172,7 +172,7 @@
+     identifier(id);
+     var order = db.find(id);
+     require(order != null, "NOT_FOUND", "Order not found");
+-    // Teaching defect: ownership check removed.
++    require(order.ownerId().equals(owner), "FORBIDDEN", "Order belongs to another user");
+     return order;
+   }
+ 

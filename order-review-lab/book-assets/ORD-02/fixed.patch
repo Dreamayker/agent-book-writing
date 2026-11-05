@@ -1,0 +1,11 @@
+--- a/order-review-lab/order-core/src/main/java/com/xinghe/order/core/DiscountAllocator.java
++++ b/order-review-lab/order-core/src/main/java/com/xinghe/order/core/DiscountAllocator.java
+@@ -32,7 +32,7 @@
+                     .reversed()
+                     .thenComparing(k -> k))
+             .toList();
+-    for (int i = 0; i < 0; i++) allocated.compute(order.get(i), (key, value) -> value + 1);
++    for (int i = 0; i < left; i++) allocated.compute(order.get(i), (key, value) -> value + 1);
+     return Map.copyOf(allocated);
+   }
+ }

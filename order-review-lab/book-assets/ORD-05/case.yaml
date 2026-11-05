@@ -1,0 +1,21 @@
+{
+  "case_id": "ORD-05",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "source_sha256": "2edd1550c48bfa483c4017bb6b9b303d52b45ffc47c6cca03579f3a21084a4ae",
+  "buggy_patch_sha256": "768d2d3f273eccb0a904c059d88d6db4fab41320774513f6bd1e950b77870d79",
+  "command": [
+    "./mvnw",
+    "-B",
+    "-ntp",
+    "-Dfmt.skip=true",
+    "-Dsurefire.failIfNoSpecifiedTests=false",
+    "-Dfailsafe.failIfNoSpecifiedTests=false",
+    "-Dit.test=OrderIT#idempotentRefundAndChangedPayloadConflict",
+    "verify"
+  ],
+  "kind": "integration",
+  "test": "idempotentRefundAndChangedPayloadConflict",
+  "status": "verified",
+  "change_sha": "9c3424790d20774e2d5e03180b7a9aa4271bad76",
+  "fix_sha": "b5dc858f990dda77db4fba0be5d74f4cbd01114e"
+}

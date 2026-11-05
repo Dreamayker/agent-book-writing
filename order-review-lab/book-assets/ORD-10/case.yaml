@@ -1,0 +1,24 @@
+{
+  "case_id": "ORD-10",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "source_sha256": "e7c1f7308c4fb560514a1d913c82f6af8237ef2389b0fbb046adf357f0f4342a",
+  "buggy_patch_sha256": "b59bd1b8e8db8d2d54bf7a83c642e71d73323ffb6303b857492607d4e73f77f9",
+  "command": [
+    "./mvnw",
+    "-B",
+    "-ntp",
+    "-Dfmt.skip=true",
+    "-Dsurefire.failIfNoSpecifiedTests=false",
+    "-Dfailsafe.failIfNoSpecifiedTests=false",
+    "-pl",
+    "order-core",
+    "-am",
+    "-Dtest=PricingTest#categoryEligibilityControlsThresholdAndAllocation",
+    "test"
+  ],
+  "kind": "unit",
+  "test": "categoryEligibilityControlsThresholdAndAllocation",
+  "status": "verified",
+  "change_sha": "d229a89453eea02b63eaf5e7d20e65c65eddfc24",
+  "fix_sha": "20c3b8f62ba0c3fb76ee15e8cdf8baa44060e665"
+}

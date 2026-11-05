@@ -1,0 +1,21 @@
+{
+  "case_id": "ORD-08",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "source_sha256": "18e402209b7277228a72512a0d68b588574a8a71d13588aae1b58764193daf86",
+  "buggy_patch_sha256": "16dd7a701b923b4185e3af71ac91d3be50cd59f96bfc188c255fc7e2048a7091",
+  "command": [
+    "uvx",
+    "semgrep",
+    "--quiet",
+    "--config",
+    "policies/semgrep.yml",
+    "--json",
+    "--error",
+    "order-core/src/main/java"
+  ],
+  "kind": "static",
+  "test": "java-review-injection",
+  "status": "verified",
+  "change_sha": "62803ec6c30c450f188c4488dcf8e6e47f2d0e6f",
+  "fix_sha": "70667b104ff53a5ba74f43e796fa7ef1f85ae27e"
+}

@@ -1,0 +1,39 @@
+{
+  "case_id": "ORD-03",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "change_sha": "4abfc2e2e28557b788c522bc6d68175c8ad1e04b",
+  "buggy_diff_sha256": "13285bcf0fffe9af60d3eab2137ec1e83ccc1b8893898c23588233c1eea447c6",
+  "kind": "executed-teaching-case",
+  "runs": [
+    {
+      "command": [
+        "./mvnw",
+        "-B",
+        "-ntp",
+        "-Dfmt.skip=true",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-Dfailsafe.failIfNoSpecifiedTests=false",
+        "-Dit.test=OrderIT#apiAuthorizationAndUnknownAmountsAreRejected",
+        "verify"
+      ],
+      "exit_code": 1,
+      "seconds": 11.121
+    },
+    {
+      "command": [
+        "./mvnw",
+        "-B",
+        "-ntp",
+        "-Dfmt.skip=true",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-Dfailsafe.failIfNoSpecifiedTests=false",
+        "-Dit.test=OrderIT#apiAuthorizationAndUnknownAmountsAreRejected",
+        "verify"
+      ],
+      "exit_code": 0,
+      "seconds": 11.084
+    }
+  ],
+  "fix_sha": "c87a97ecbb88b83767cd862bbd38cea349fb935d",
+  "status": "verified"
+}

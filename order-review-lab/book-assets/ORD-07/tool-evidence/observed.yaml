@@ -1,0 +1,43 @@
+{
+  "case_id": "ORD-07",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "change_sha": "c8002e3db7921fb122c8e1328f6009e1da6f2639",
+  "buggy_diff_sha256": "1bfbfed368dca2a63d389f154abf72e9c6578c11fcd896955e815c492dd89fba",
+  "kind": "executed-teaching-case",
+  "runs": [
+    {
+      "command": [
+        "./mvnw",
+        "-B",
+        "-ntp",
+        "-Dfmt.skip=true",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-Dfailsafe.failIfNoSpecifiedTests=false",
+        "-pl",
+        "order-core",
+        "dependency:tree",
+        "-Dincludes=org.apache.logging.log4j:log4j-core"
+      ],
+      "exit_code": 0,
+      "seconds": 11.194
+    },
+    {
+      "command": [
+        "./mvnw",
+        "-B",
+        "-ntp",
+        "-Dfmt.skip=true",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-Dfailsafe.failIfNoSpecifiedTests=false",
+        "-pl",
+        "order-core",
+        "dependency:tree",
+        "-Dincludes=org.apache.logging.log4j:log4j-core"
+      ],
+      "exit_code": 0,
+      "seconds": 1.132
+    }
+  ],
+  "fix_sha": "48c478721da65c2bff55dc699357d6d04b1548c9",
+  "status": "verified"
+}

@@ -3,52 +3,17 @@
     "type": "h1",
     "children": [
       {
-        "text": "9.2 全球化生产环境下的多 Agent 系统落地架构与企业级实践"
+        "text": "9.2 工业实践：风险分层、隔离分析与过程纠偏"
       }
-    ],
-    "id": "Do68n2E2C4"
+    ]
   },
   {
     "type": "p",
     "children": [
       {
-        "text": "多 Agent 系统的落地标志着软件工程自动化进入了一个不仅能\"读懂代码\"，更能\"在代码库中进行研究与推理\"的新阶段。真实企业级环境中的高置信度、高吞吐量审查系统，远比单纯调用云端 LLM API 复杂。当前业界的一个基本共识是："
-      },
-      {
-        "text": "将确定性的静态程序分析（抽象语法树解析、全局符号表提取等）与大语言模型的非确定性推理进行深度融合，是生产级落地的有效路径",
-        "bold": true
-      },
-      {
-        "text": "。本节剖析三个代表性系统：Meta 的内部系统 RADAR、面向商业生态的 CodeRabbit，以及学术界的 CodeAgent。它们分别回答了三个不同的问题："
-      },
-      {
-        "text": "该让什么进入自动化（风险分层）、如何在不可信代码上安全地自动化（隔离执行）、如何防止自动化在长流程中偏离目标（纠偏监督）",
-        "bold": true
-      },
-      {
-        "text": "——这三个问题恰好对应本章后半部分的\"风险路由、权限隔离、仲裁\"三条主线。"
+        "text": "工业系统提供可对照的机制，不提供本地订单工程的效果数字。本节保留既有 RADAR、CodeRabbit 和 CodeAgent 的来源材料；其规模、模型和能力描述沿用原稿的来源限定，迁移没有完成新的外部事实核验。"
       }
-    ],
-    "id": "ko4HSydupz"
-  },
-  {
-    "type": "blockquote",
-    "children": [
-      {
-        "type": "p",
-        "children": [
-          {
-            "text": "本节事实边界声明",
-            "bold": true
-          },
-          {
-            "text": "：以下第三方系统的数据均转述自公开论文、官方文档与工程博客，截至本书写作时已做初步核验；具体数字在出版前应以官方一手来源（arXiv 论文、官方文档、厂商案例研究）复核并标注访问日期。标有\"据报告转述\"的内容尚未获得一手材料确认，不视为已验证事实。"
-          }
-        ],
-        "id": "PDBN03H_le"
-      }
-    ],
-    "id": "1-SP38U-UP"
+    ]
   },
   {
     "type": "h2",
@@ -1214,29 +1179,9 @@
     "type": "h2",
     "children": [
       {
-        "text": "9.2.4 工业实践对本章的三个启示"
+        "text": "9.2.4 工业实践如何映射到订单工程"
       }
-    ],
-    "id": "yPqsABKdzW"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "把三个系统放在一起看，可以得到与 wallet-review-lab 教学体系直接对应的三条设计原则："
-      }
-    ],
-    "id": "Kz9r_MgpIT"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "表 9-2 工业系统与本章教学体系的对应关系",
-        "bold": true
-      }
-    ],
-    "id": "dcD_DOG8fQ"
+    ]
   },
   {
     "type": "table",
@@ -1248,52 +1193,42 @@
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "工业实践",
-                    "bold": true
+                    "text": "机制"
                   }
-                ],
-                "type": "p",
-                "id": "8wnqxyqp3W"
+                ]
               }
-            ],
-            "id": "dlL-moy_Ed"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "解决的问题",
-                    "bold": true
+                    "text": "本项目落实"
                   }
-                ],
-                "type": "p",
-                "id": "hgcV6GYwkn"
+                ]
               }
-            ],
-            "id": "RVieR4xzeT"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "本章对应机制",
-                    "bold": true
+                    "text": "当前边界"
                   }
-                ],
-                "type": "p",
-                "id": "d6feXul5Oo"
+                ]
               }
-            ],
-            "id": "J6TdDk5bYQ"
+            ]
           }
-        ],
-        "id": "pYEbwwK-lf"
+        ]
       },
       {
         "type": "tr",
@@ -1302,49 +1237,42 @@
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "RADAR 资格门槛与 DRS 阈值"
+                    "text": "风险分层"
                   }
-                ],
-                "type": "p",
-                "id": "QonAC6SVOr"
+                ]
               }
-            ],
-            "id": "neQVv5JfMS"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "该让什么进入自动化"
+                    "text": "ORD-01 文档轻量路由，计价/退款路径强制人工"
                   }
-                ],
-                "type": "p",
-                "id": "g4yArb9uJC"
+                ]
               }
-            ],
-            "id": "-ioe2Tfi1Z"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "9.5 风险路由矩阵、9.10 风险预算"
+                    "text": "路径规则，无训练风险模型"
                   }
-                ],
-                "type": "p",
-                "id": "6j2Jf53Tgo"
+                ]
               }
-            ],
-            "id": "tnlOAwPk1s"
+            ]
           }
-        ],
-        "id": "pVM42unwIP"
+        ]
       },
       {
         "type": "tr",
@@ -1353,49 +1281,42 @@
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "CodeRabbit 隔离沙盒与裁决过滤"
+                    "text": "隔离分析"
                   }
-                ],
-                "type": "p",
-                "id": "EdI0TE_ihc"
+                ]
               }
-            ],
-            "id": "mMDw1ICNAv"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "如何在不可信代码上安全自动化"
+                    "text": "教学补丁在独立 worktree 重放"
                   }
-                ],
-                "type": "p",
-                "id": "Q8GuSaj8Ge"
+                ]
               }
-            ],
-            "id": "TGjJLs4Ox-"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "9.4 权限隔离、9.7 根因去重与仲裁"
+                    "text": "worktree 不是恶意代码安全沙箱"
                   }
-                ],
-                "type": "p",
-                "id": "D9a0-txm9W"
+                ]
               }
-            ],
-            "id": "vgves0pVdD"
+            ]
           }
-        ],
-        "id": "wrSO53-sHH"
+        ]
       },
       {
         "type": "tr",
@@ -1404,49 +1325,42 @@
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "CodeAgent 的 QA-Checker"
+                    "text": "确定性验证"
                   }
-                ],
-                "type": "p",
-                "id": "fufxJxgKIC"
+                ]
               }
-            ],
-            "id": "5VHLtQr6Je"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "如何防止长流程偏离目标"
+                    "text": "JUnit、真实 MySQL、Semgrep 与公告核验"
                   }
-                ],
-                "type": "p",
-                "id": "pMOEMFyCCo"
+                ]
               }
-            ],
-            "id": "qyfGpE6X2U"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "9.5 编排验收断言与超时重试"
+                    "text": "已执行样例，不能推断生产缺陷率"
                   }
-                ],
-                "type": "p",
-                "id": "wR1mAOYsKP"
+                ]
               }
-            ],
-            "id": "Vf-1-Xr7_9"
+            ]
           }
-        ],
-        "id": "OeUyHdNS-b"
+        ]
       },
       {
         "type": "tr",
@@ -1455,147 +1369,122 @@
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "三者的确定性工具前置"
+                    "text": "角色分工"
                   }
-                ],
-                "type": "p",
-                "id": "2ZsRF_ce7I"
+                ]
               }
-            ],
-            "id": "4xAhOjWgka"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "模型只解释、不批准"
+                    "text": "correctness/test/security/impact"
                   }
-                ],
-                "type": "p",
-                "id": "7-L1C7vUjt"
+                ]
               }
-            ],
-            "id": "4PMyNWTxxj"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "9.1 四层分工"
+                    "text": "当前顺序执行，规则仲裁"
                   }
-                ],
-                "type": "p",
-                "id": "9fnFy3nsBv"
+                ]
               }
-            ],
-            "id": "_43NNq8gdT"
+            ]
           }
-        ],
-        "id": "mTcFtADosP"
+        ]
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "固定输入与回放"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "12 个 ORD 案例、版本与证据哈希"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "td",
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "录制夹具不代表模型能力"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
-    ],
-    "id": "SbdOmoM1XD",
-    "colSizes": [
-      284.6666666666667,
-      284.6666666666667,
-      284.6666666666667
     ]
   },
   {
     "type": "p",
     "children": [
       {
-        "text": "三条原则分别是："
-      },
-      {
-        "text": "自动化必须从确定性检查开始，以确定性检查结束",
-        "bold": true
-      },
-      {
-        "text": "（RADAR 的漏斗首尾）；"
-      },
-      {
-        "text": "模型获得的能力越大，运行环境的隔离越要严格",
-        "bold": true
-      },
-      {
-        "text": "（CodeRabbit 的沙盒）；"
-      },
-      {
-        "text": "长流程必须有一个不参与具体判断的监督者",
-        "bold": true
-      },
-      {
-        "text": "（CodeAgent 的 QA-Checker）。后面的章节将把这些原则一一落到可运行的工程实现上。"
+        "text": "把工业机制移植到自己的系统，应先回答它解决了哪个具体失败模式，再说明实现到什么程度。供应商披露的批准率、提速或缺陷率不能填入订单实验结果表。"
       }
-    ],
-    "id": "ZczNmhtuZ7"
+    ]
   },
   {
     "type": "p",
     "children": [
       {
-        "text": "9.2 练习",
-        "bold": true
+        "text": "练习：用 ORD-09 的规则变化反例解释为什么确定性回归应在模型意见之后继续存在；再指出当前工程距离生产沙箱和过程监督分别缺少什么。"
       }
-    ],
-    "id": "DcwbF83igz"
+    ]
   },
   {
-    "indent": 1,
-    "listGroup": "liye8T",
-    "listStyleType": "decimal",
-    "type": "p",
+    "type": "blockquote",
     "children": [
       {
-        "text": "对照 RADAR 的资格门槛，为你所在团队的三类变更（文档、业务逻辑、资金/权限）各写一条\"允许自动评审\"的资格规则；"
+        "type": "p",
+        "children": [
+          {
+            "text": "本节事实边界声明",
+            "bold": true
+          },
+          {
+            "text": "：以下第三方系统的数据均转述自公开论文、官方文档与工程博客，截至本书写作时已做初步核验；具体数字在出版前应以官方一手来源（arXiv 论文、官方文档、厂商案例研究）复核并标注访问日期。标有\"据报告转述\"的内容尚未获得一手材料确认，不视为已验证事实。"
+          }
+        ],
+        "id": "PDBN03H_le"
       }
     ],
-    "id": "QYFBskkWH9"
-  },
-  {
-    "indent": 1,
-    "listGroup": "liye8T",
-    "listStart": 2,
-    "listStyleType": "decimal",
-    "type": "p",
-    "children": [
-      {
-        "text": "讨论：如果你的 CI 门禁只依赖 LLM 评审结果而不运行任何确定性检查，RADAR 的漏斗设计对你有什么启发？"
-      }
-    ],
-    "id": "tPD0c_j82C"
-  },
-  {
-    "indent": 1,
-    "listGroup": "liye8T",
-    "listStart": 3,
-    "listStyleType": "decimal",
-    "type": "p",
-    "children": [
-      {
-        "text": "从 CodeRabbit 的\"生成 CLI 取代工具 Schema\"与本章 9.1.5\"自然语言不能作为唯一协议\"出发，讨论工具调用的结构化边界应该画在哪里。"
-      }
-    ],
-    "id": "XKTyOoJYxM"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "9.2 小结",
-        "bold": true
-      },
-      {
-        "text": "：工业界的生产实践给出了本章教学体系的外部证据——风险分层、隔离执行与纠偏监督是三个反复出现的工程答案。但它们也划出了一条重要边界：这些系统的数字来自特定环境与特定数据的测量，不能直接外推；真正可复现的证据，仍要从 9.3 建立的可验证实验场中产生。"
-      }
-    ],
-    "id": "58QwO569J2"
+    "id": "1-SP38U-UP"
   }
 ]

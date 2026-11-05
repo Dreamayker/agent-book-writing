@@ -1,0 +1,39 @@
+{
+  "case_id": "ORD-08",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "change_sha": "62803ec6c30c450f188c4488dcf8e6e47f2d0e6f",
+  "buggy_diff_sha256": "05d910723525ad34edd6ee86d6a304c1f35bd6ff13b08f302073be347ba53ebc",
+  "kind": "executed-teaching-case",
+  "runs": [
+    {
+      "command": [
+        "uvx",
+        "semgrep",
+        "--quiet",
+        "--config",
+        "policies/semgrep.yml",
+        "--json",
+        "--error",
+        "order-core/src/main/java"
+      ],
+      "exit_code": 1,
+      "seconds": 1.327
+    },
+    {
+      "command": [
+        "uvx",
+        "semgrep",
+        "--quiet",
+        "--config",
+        "policies/semgrep.yml",
+        "--json",
+        "--error",
+        "order-core/src/main/java"
+      ],
+      "exit_code": 0,
+      "seconds": 0.897
+    }
+  ],
+  "fix_sha": "70667b104ff53a5ba74f43e796fa7ef1f85ae27e",
+  "status": "verified"
+}

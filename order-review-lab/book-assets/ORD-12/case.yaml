@@ -1,0 +1,24 @@
+{
+  "case_id": "ORD-12",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "source_sha256": "e7c1f7308c4fb560514a1d913c82f6af8237ef2389b0fbb046adf357f0f4342a",
+  "buggy_patch_sha256": "9dffdd02fc73090ee4ecb2b1caeda65850cb8c26cb59ca161832dc676dc98f21",
+  "command": [
+    "./mvnw",
+    "-B",
+    "-ntp",
+    "-Dfmt.skip=true",
+    "-Dsurefire.failIfNoSpecifiedTests=false",
+    "-Dfailsafe.failIfNoSpecifiedTests=false",
+    "-pl",
+    "order-core",
+    "-am",
+    "-Dtest=PricingTest#exclusiveChoiceComparesLegalFinalAmounts",
+    "test"
+  ],
+  "kind": "unit",
+  "test": "exclusiveChoiceComparesLegalFinalAmounts",
+  "status": "verified",
+  "change_sha": "7051a27bf39356dbd1a29dac31ca500a6c3358f5",
+  "fix_sha": "0c512d3a5d284319a9e6c9757e0b35e6f92d0518"
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "ORD-09",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "source_sha256": "2edd1550c48bfa483c4017bb6b9b303d52b45ffc47c6cca03579f3a21084a4ae",
+  "buggy_patch_sha256": "c373d124c6ca088ba94b888e29c33953a482545a6a340eb2d0139a2d9cfbab98",
+  "command": [
+    "./mvnw",
+    "-B",
+    "-ntp",
+    "-Dfmt.skip=true",
+    "-Dsurefire.failIfNoSpecifiedTests=false",
+    "-Dfailsafe.failIfNoSpecifiedTests=false",
+    "-Dit.test=OrderIT#refundUsesImmutableSnapshotAfterRuleChange",
+    "verify"
+  ],
+  "kind": "integration",
+  "test": "refundUsesImmutableSnapshotAfterRuleChange",
+  "status": "verified",
+  "change_sha": "84bdb55deb5da622aca5363b807f3a6f96dfa97a",
+  "fix_sha": "d6be29bb8ab48eb762982ea600fa798bd5419110"
+}

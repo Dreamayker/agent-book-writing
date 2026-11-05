@@ -1,0 +1,14 @@
+{
+  "case_id": "ORD-11",
+  "findings": [
+    {
+      "id": "SPLIT-001",
+      "root_cause_id": "ORD-11:SPLIT-001",
+      "file": "order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java",
+      "line_start": 156,
+      "line_end": 159,
+      "severity": "must_fix",
+      "acceptable_fix": "Restore business contract; validate the same regression test"
+    }
+  ]
+}

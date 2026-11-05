@@ -1,0 +1,53 @@
+{
+  "general-review": [],
+  "correctness": [
+    {
+      "schema_version": 2,
+      "finding_id": "AUTHZ-001",
+      "root_cause_id": "ORD-03:AUTHZ-001",
+      "invariant": "order-rules-v1",
+      "source": "correctness",
+      "category": "correctness",
+      "severity": "must_fix",
+      "confidence": 0.95,
+      "file": "order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java",
+      "line_start": 175,
+      "claim": "订单对象授权缺失",
+      "evidence": [
+        {
+          "type": "test",
+          "ref": "book-assets/ORD-03/tool-evidence/raw/buggy.txt"
+        }
+      ],
+      "suggested_fix": "Restore the frozen business contract and rerun the regression",
+      "blocking": true,
+      "needs_human": true
+    }
+  ],
+  "test": [
+    {
+      "schema_version": 2,
+      "finding_id": "AUTHZ-001",
+      "root_cause_id": "ORD-03:AUTHZ-001",
+      "invariant": "order-rules-v1",
+      "source": "test",
+      "category": "correctness",
+      "severity": "must_fix",
+      "confidence": 0.95,
+      "file": "order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java",
+      "line_start": 175,
+      "claim": "订单对象授权缺失",
+      "evidence": [
+        {
+          "type": "test",
+          "ref": "book-assets/ORD-03/tool-evidence/raw/buggy.txt"
+        }
+      ],
+      "suggested_fix": "Restore the frozen business contract and rerun the regression",
+      "blocking": true,
+      "needs_human": true
+    }
+  ],
+  "security": [],
+  "impact": []
+}

@@ -1,0 +1,14 @@
+{
+  "case_id": "ORD-07",
+  "findings": [
+    {
+      "id": "DEPENDENCY-001",
+      "root_cause_id": "ORD-07:DEPENDENCY-001",
+      "file": "order-core/pom.xml",
+      "line_start": 1,
+      "line_end": 4,
+      "severity": "must_fix",
+      "acceptable_fix": "Restore business contract; validate the same regression test"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "ORD-11",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "source_sha256": "2edd1550c48bfa483c4017bb6b9b303d52b45ffc47c6cca03579f3a21084a4ae",
+  "buggy_patch_sha256": "f9e0c130fe5e2d37ca630917565fff3db90482bccf8238f356ee9722e4c4cec1",
+  "command": [
+    "./mvnw",
+    "-B",
+    "-ntp",
+    "-Dfmt.skip=true",
+    "-Dsurefire.failIfNoSpecifiedTests=false",
+    "-Dfailsafe.failIfNoSpecifiedTests=false",
+    "-Dit.test=OrderIT#splitKeepsOriginalSharesAndSharedRefundLedger",
+    "verify"
+  ],
+  "kind": "integration",
+  "test": "splitKeepsOriginalSharesAndSharedRefundLedger",
+  "status": "verified",
+  "change_sha": "d0af858cfd30c92e8c05cdd1b1b52062d4dc0c01",
+  "fix_sha": "69248d3a6da9dc66f29200d8acd914efbbaa3763"
+}

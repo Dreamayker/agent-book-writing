@@ -1,6 +1,6 @@
 # Wallet Review Lab
 
-《AI 代码评审与多 Agent 协同》第 9 章现有钱包实验工程。最新正文见 [IMA 书稿目录](docs/ima-sources/2026-11-05/README.md)；后续工程与章节调整见 [订单案例迁移规划](../docs/order-case-migration-plan.md)，目前尚未实施 Java 订单工程。
+《AI 代码评审与多 Agent 协同》第 9 章共享 Python 评审流程与历史钱包实验工程。当前主线业务在 [Java 订单工程](../order-review-lab/README.md)，最新正文见 [书稿目录](docs/ima-sources/2026-11-05/README.md)，实施结果见 [迁移状态](../docs/migration-status.md)。
 
 项目实施过程、实验记录和架构决策见 [`docs/`](docs/README.md)。
 
@@ -28,13 +28,19 @@ uv run mypy app review_system evaluation
 make replay-pr04
 ```
 
+回放当前订单案例：
+
+```bash
+uv run python -m evaluation.projects ../order-review-lab/evaluation/cases.yaml
+```
+
 录制 Agent 输出只用于离线、确定性地复现编排和仲裁流程，不冒充实时模型判断。
 
 ## 实时模型模式
 
 `ResponsesReviewAgent` 支持 OpenAI Responses API，并以 JSON Schema 约束 Finding 输出。配置方式见 `.env.example`；真实密钥只通过进程环境注入，不写入仓库。实现依据为[官方 Structured Outputs 文档](https://developers.openai.com/api/docs/guides/structured-outputs)。
 
-当前环境没有配置 API Key，因此尚未产生实时模型评测数据。离线录制回放的指标只验证评测控制面，不代表模型 Precision 或 Recall。
+真实模型实验需要显式配置模型、兼容端点和预算，目前尚未产生本项目双模型重复评测数据。离线录制回放的指标只验证评测流程，不代表模型 Precision 或 Recall。
 
 启动演示 API：
 

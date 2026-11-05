@@ -1,0 +1,11 @@
+--- a/order-review-lab/order-core/src/main/java/com/xinghe/order/core/PricingService.java
++++ b/order-review-lab/order-core/src/main/java/com/xinghe/order/core/PricingService.java
+@@ -48,7 +48,7 @@
+     PricingResult initial = result(units, List.of(), decisions);
+     PricingResult category = apply(initial, coupons.get(CouponType.CATEGORY));
+     Coupon order = coupons.get(CouponType.ORDER), newcomer = coupons.get(CouponType.NEWCOMER);
+-    if (false) {
++    if (order != null && newcomer != null && !newcomer.stackableWithOrder()) {
+       PricingResult orderPath = apply(category, order), newcomerPath = apply(category, newcomer);
+       PricingResult chosen =
+           orderPath.payableCents() <= newcomerPath.payableCents() ? orderPath : newcomerPath;

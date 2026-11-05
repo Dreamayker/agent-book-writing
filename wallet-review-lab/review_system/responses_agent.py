@@ -72,15 +72,22 @@ class ResponsesReviewAgent:
         )
         started = time.monotonic()
         self.last_usage = {"model": self._model, "status": "failed"}
-        raw = json.loads(self._transport(request, self._timeout))
+        try:
+            raw = json.loads(self._transport(request, self._timeout))
+        finally:
+            self.last_usage["elapsed_seconds"] = time.monotonic() - started
         self.last_usage.update(
             status="received",
             elapsed_seconds=time.monotonic() - started,
             response_id=raw.get("id"),
             usage=raw.get("usage", {}),
         )
-        output_text = self._extract_output_text(raw)
-        findings = FindingBatch.model_validate_json(output_text).findings
+        try:
+            output_text = self._extract_output_text(raw)
+            findings = FindingBatch.model_validate_json(output_text).findings
+        except ValueError:
+            self.last_usage["status"] = "invalid_output"
+            raise
         self.last_usage["status"] = "validated"
         return findings
 

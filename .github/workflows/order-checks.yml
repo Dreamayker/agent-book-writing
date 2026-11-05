@@ -13,6 +13,12 @@ jobs:
         working-directory: order-review-lab
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check manuscript and source integrity
+        working-directory: .
+        run: node scripts/check_manuscript.mjs
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -20,6 +26,7 @@ jobs:
           cache: maven
       - run: ./mvnw -B -ntp clean verify
       - run: python3 scripts/check_coverage.py
+      - run: python3 -m unittest discover -s scripts/tests -v
       - uses: astral-sh/setup-uv@v6
       - run: uvx semgrep --validate --config policies/semgrep.yml
       - run: uvx semgrep --error --config policies/semgrep.yml order-core/src/main order-infra/src/main order-api/src/main

@@ -1,0 +1,14 @@
+{
+  "case_id": "ORD-09",
+  "findings": [
+    {
+      "id": "REFUND-001",
+      "root_cause_id": "ORD-09:REFUND-001",
+      "file": "order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java",
+      "line_start": 104,
+      "line_end": 107,
+      "severity": "must_fix",
+      "acceptable_fix": "Restore business contract; validate the same regression test"
+    }
+  ]
+}

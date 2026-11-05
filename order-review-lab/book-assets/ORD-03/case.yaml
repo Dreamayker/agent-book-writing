@@ -1,0 +1,21 @@
+{
+  "case_id": "ORD-03",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "source_sha256": "2edd1550c48bfa483c4017bb6b9b303d52b45ffc47c6cca03579f3a21084a4ae",
+  "buggy_patch_sha256": "75273f8b7127de3021db313ca5c8ad5c5e33a18c64ccaf59610cc40913e5dbeb",
+  "command": [
+    "./mvnw",
+    "-B",
+    "-ntp",
+    "-Dfmt.skip=true",
+    "-Dsurefire.failIfNoSpecifiedTests=false",
+    "-Dfailsafe.failIfNoSpecifiedTests=false",
+    "-Dit.test=OrderIT#apiAuthorizationAndUnknownAmountsAreRejected",
+    "verify"
+  ],
+  "kind": "integration",
+  "test": "apiAuthorizationAndUnknownAmountsAreRejected",
+  "status": "verified",
+  "change_sha": "4abfc2e2e28557b788c522bc6d68175c8ad1e04b",
+  "fix_sha": "c87a97ecbb88b83767cd862bbd38cea349fb935d"
+}

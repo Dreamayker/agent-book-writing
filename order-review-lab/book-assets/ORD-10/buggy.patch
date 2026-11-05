@@ -1,0 +1,11 @@
+--- a/order-review-lab/order-core/src/main/java/com/xinghe/order/core/PricingService.java
++++ b/order-review-lab/order-core/src/main/java/com/xinghe/order/core/PricingService.java
+@@ -68,7 +68,7 @@
+     Map<String, Long> weights = new TreeMap<>();
+     before.units().stream()
+         .filter(
+-            u -> coupon.type() != CouponType.CATEGORY || coupon.categories().contains(u.category()))
++            u -> true)
+         .forEach(u -> weights.put(u.unitId(), u.payableCents()));
+     long base = weights.values().stream().mapToLong(Long::longValue).sum();
+     long requested =

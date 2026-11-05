@@ -1,0 +1,11 @@
+--- a/order-review-lab/order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java
++++ b/order-review-lab/order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java
+@@ -214,7 +214,7 @@
+           previous.fingerprint().equals(fingerprint),
+           "CONFLICT",
+           "Idempotency key reused with different request");
+-      return codec.decode(previous.responseJson(), type);
++      return action.get();
+     }
+     T response = action.get();
+     db.saveIdempotency(owner, operation, key, fingerprint, codec.encode(response));

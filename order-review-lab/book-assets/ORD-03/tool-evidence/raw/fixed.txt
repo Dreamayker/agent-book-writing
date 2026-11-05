@@ -1,0 +1,279 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] order-review-lab                                                   [pom]
+[INFO] order-core                                                         [jar]
+[INFO] order-infra                                                        [jar]
+[INFO] order-api                                                          [jar]
+[INFO] order-test                                                         [jar]
+[INFO] 
+[INFO] --------------------< com.xinghe:order-review-lab >---------------------
+[INFO] Building order-review-lab 1.0.0-SNAPSHOT                           [1/5]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-review-lab ---
+[INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/target/jacoco.exec
+[INFO] 
+[INFO] --- failsafe:3.5.4:integration-test (default) @ order-review-lab ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- failsafe:3.5.4:verify (default) @ order-review-lab ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- fmt:2.29:check (default) @ order-review-lab ---
+[INFO] Skipping format check
+[INFO] 
+[INFO] --- jacoco:0.8.14:report (report) @ order-review-lab ---
+[INFO] Skipping JaCoCo execution due to missing execution data file.
+[INFO] 
+[INFO] -----------------------< com.xinghe:order-core >------------------------
+[INFO] Building order-core 1.0.0-SNAPSHOT                                 [2/5]
+[INFO]   from order-core/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-core ---
+[INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-core/target/jacoco.exec
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ order-core ---
+[INFO] skip non existing resourceDirectory /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-core/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ order-core ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ order-core ---
+[INFO] skip non existing resourceDirectory /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-core/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ order-core ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ order-core ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.xinghe.order.core.PricingTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.072 s -- in com.xinghe.order.core.PricingTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ order-core ---
+[INFO] 
+[INFO] --- failsafe:3.5.4:integration-test (default) @ order-core ---
+[INFO] 
+[INFO] --- failsafe:3.5.4:verify (default) @ order-core ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- fmt:2.29:check (default) @ order-core ---
+[INFO] Skipping format check
+[INFO] 
+[INFO] --- jacoco:0.8.14:report (report) @ order-core ---
+[INFO] Loading execution data file /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-core/target/jacoco.exec
+[INFO] Analyzed bundle 'order-core' with 21 classes
+[INFO] 
+[INFO] -----------------------< com.xinghe:order-infra >-----------------------
+[INFO] Building order-infra 1.0.0-SNAPSHOT                                [3/5]
+[INFO]   from order-infra/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-infra ---
+[INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-infra/target/jacoco.exec
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ order-infra ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ order-infra ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 4 source files with javac [debug parameters release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ order-infra ---
+[INFO] skip non existing resourceDirectory /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-infra/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ order-infra ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ order-infra ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ order-infra ---
+[INFO] Building jar: /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-infra/target/order-infra-1.0.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- failsafe:3.5.4:integration-test (default) @ order-infra ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- failsafe:3.5.4:verify (default) @ order-infra ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- fmt:2.29:check (default) @ order-infra ---
+[INFO] Skipping format check
+[INFO] 
+[INFO] --- jacoco:0.8.14:report (report) @ order-infra ---
+[INFO] Skipping JaCoCo execution due to missing execution data file.
+[INFO] 
+[INFO] ------------------------< com.xinghe:order-api >------------------------
+[INFO] Building order-api 1.0.0-SNAPSHOT                                  [4/5]
+[INFO]   from order-api/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-api ---
+[INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-api/target/jacoco.exec
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ order-api ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ order-api ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 2 source files with javac [debug parameters release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ order-api ---
+[INFO] skip non existing resourceDirectory /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-api/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ order-api ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ order-api ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ order-api ---
+[INFO] Building jar: /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-api/target/order-api-1.0.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (default) @ order-api ---
+[INFO] Attaching repackaged archive /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-api/target/order-api-1.0.0-SNAPSHOT-exec.jar with classifier exec
+[INFO] 
+[INFO] --- failsafe:3.5.4:integration-test (default) @ order-api ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- failsafe:3.5.4:verify (default) @ order-api ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- fmt:2.29:check (default) @ order-api ---
+[INFO] Skipping format check
+[INFO] 
+[INFO] --- jacoco:0.8.14:report (report) @ order-api ---
+[INFO] Skipping JaCoCo execution due to missing execution data file.
+[INFO] 
+[INFO] -----------------------< com.xinghe:order-test >------------------------
+[INFO] Building order-test 1.0.0-SNAPSHOT                                 [5/5]
+[INFO]   from order-test/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-test ---
+[INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-test/target/jacoco.exec
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ order-test ---
+[INFO] skip non existing resourceDirectory /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-test/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ order-test ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ order-test ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ order-test ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ order-test ---
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ order-test ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] 
+[INFO] --- failsafe:3.5.4:integration-test (default) @ order-test ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.xinghe.order.OrderIT
+17:35:25.994 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+17:35:25.997 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+17:35:26.009 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 1.21.4
+17:35:26.154 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+17:35:26.291 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with Environment variables, system properties and defaults. Resolved dockerHost=unix:///Users/magic/.orbstack/run/docker.sock
+17:35:26.291 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+17:35:26.300 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.4.0
+  API Version: 1.54
+  Operating System: OrbStack
+  Total Memory: 8005 MB
+17:35:26.314 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Creating container for image: testcontainers/ryuk:0.12.0
+17:35:26.407 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Container testcontainers/ryuk:0.12.0 is starting: 0629dd4084bc5a5bfa2699d76e4710d6cb41db706c455ac3940dd491a5e8ae06
+17:35:26.508 [main] INFO tc.testcontainers/ryuk:0.12.0 -- Container testcontainers/ryuk:0.12.0 started in PT0.19354S
+17:35:26.511 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+17:35:26.511 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+17:35:26.511 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+17:35:26.513 [main] INFO tc.mysql:8.4.7 -- Creating container for image: mysql:8.4.7
+17:35:26.552 [main] INFO tc.mysql:8.4.7 -- Container mysql:8.4.7 is starting: 92fbefd13a5868c0a4fc2ac90ceb7d3a761bce3120cad90cd11ce7bff4b7e398
+17:35:26.619 [main] INFO tc.mysql:8.4.7 -- Waiting for database connection to become available at jdbc:mysql://localhost:32777/test using query 'SELECT 1'
+17:35:32.054 [main] INFO tc.mysql:8.4.7 -- Container mysql:8.4.7 started in PT5.540371S
+17:35:32.054 [main] INFO tc.mysql:8.4.7 -- Container is started (JDBC URL: jdbc:mysql://localhost:32777/test)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-05T17:35:32.308+08:00  INFO 72564 --- [           main] com.xinghe.order.OrderIT                 : Starting OrderIT using Java 17.0.18 with PID 72564 (started by magic in /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-test)
+2026-11-05T17:35:32.309+08:00  INFO 72564 --- [           main] com.xinghe.order.OrderIT                 : No active profile set, falling back to 1 default profile: "default"
+2026-11-05T17:35:32.688+08:00  INFO 72564 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-05T17:35:32.746+08:00  INFO 72564 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2c892155
+2026-11-05T17:35:32.746+08:00  INFO 72564 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-05T17:35:32.765+08:00  INFO 72564 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:32777/test (MySQL 8.4)
+2026-11-05T17:35:32.790+08:00  WARN 72564 --- [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-11-05T17:35:32.802+08:00  INFO 72564 --- [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table `test`.`flyway_schema_history` does not exist yet
+2026-11-05T17:35:32.803+08:00  INFO 72564 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.009s)
+2026-11-05T17:35:32.817+08:00  INFO 72564 --- [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table `test`.`flyway_schema_history` ...
+2026-11-05T17:35:32.869+08:00  INFO 72564 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `test`: << Empty Schema >>
+2026-11-05T17:35:32.875+08:00  INFO 72564 --- [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `test` to version "1 - orders"
+2026-11-05T17:35:33.030+08:00  INFO 72564 --- [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema `test`, now at version v1 (execution time 00:00.141s)
+2026-11-05T17:35:33.263+08:00  INFO 72564 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-05T17:35:33.263+08:00  INFO 72564 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-05T17:35:33.264+08:00  INFO 72564 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-11-05T17:35:33.274+08:00  INFO 72564 --- [           main] com.xinghe.order.OrderIT                 : Started OrderIT in 1.105 seconds (process running for 7.685)
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-11-05T17:35:33.697+08:00  WARN 72564 --- [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unrecognized field "price" (class com.xinghe.order.core.Models$CheckoutRequest), not marked as ignorable]
+2026-11-05T17:35:33.698+08:00  WARN 72564 --- [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot coerce Floating-point value (1.5) to `int` value (but could if coercion was enabled using `CoercionConfig`)]
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.914 s -- in com.xinghe.order.OrderIT
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- failsafe:3.5.4:verify (default) @ order-test ---
+[INFO] 
+[INFO] --- fmt:2.29:check (default) @ order-test ---
+[INFO] Skipping format check
+[INFO] 
+[INFO] --- jacoco:0.8.14:report (report) @ order-test ---
+[INFO] Skipping JaCoCo execution due to missing classes directory.
+[INFO] 
+[INFO] --- jacoco:0.8.14:report-aggregate (aggregate) @ order-test ---
+[INFO] Loading execution data file /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-test/target/jacoco.exec
+[INFO] Loading execution data file /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-5muj83df/repo/order-review-lab/order-core/target/jacoco.exec
+[INFO] Analyzed bundle 'order-core' with 21 classes
+[INFO] Analyzed bundle 'order-infra' with 6 classes
+[INFO] Analyzed bundle 'order-api' with 2 classes
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for order-review-lab 1.0.0-SNAPSHOT:
+[INFO] 
+[INFO] order-review-lab ................................... SUCCESS [  0.170 s]
+[INFO] order-core ......................................... SUCCESS [  0.698 s]
+[INFO] order-infra ........................................ SUCCESS [  0.427 s]
+[INFO] order-api .......................................... SUCCESS [  0.228 s]
+[INFO] order-test ......................................... SUCCESS [  8.687 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  10.299 s
+[INFO] Finished at: 2026-11-05T17:35:34+08:00
+[INFO] ------------------------------------------------------------------------

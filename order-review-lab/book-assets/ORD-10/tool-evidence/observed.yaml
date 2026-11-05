@@ -1,0 +1,45 @@
+{
+  "case_id": "ORD-10",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "change_sha": "d229a89453eea02b63eaf5e7d20e65c65eddfc24",
+  "buggy_diff_sha256": "c66e899fb3ccd284a7107f78ba0445a03666103c6bfb2710e5fc4bd286e87b4f",
+  "kind": "executed-teaching-case",
+  "runs": [
+    {
+      "command": [
+        "./mvnw",
+        "-B",
+        "-ntp",
+        "-Dfmt.skip=true",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-Dfailsafe.failIfNoSpecifiedTests=false",
+        "-pl",
+        "order-core",
+        "-am",
+        "-Dtest=PricingTest#categoryEligibilityControlsThresholdAndAllocation",
+        "test"
+      ],
+      "exit_code": 1,
+      "seconds": 1.923
+    },
+    {
+      "command": [
+        "./mvnw",
+        "-B",
+        "-ntp",
+        "-Dfmt.skip=true",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-Dfailsafe.failIfNoSpecifiedTests=false",
+        "-pl",
+        "order-core",
+        "-am",
+        "-Dtest=PricingTest#categoryEligibilityControlsThresholdAndAllocation",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 1.916
+    }
+  ],
+  "fix_sha": "20c3b8f62ba0c3fb76ee15e8cdf8baa44060e665",
+  "status": "verified"
+}

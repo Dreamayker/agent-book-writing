@@ -1,0 +1,107 @@
+{
+  "kind": "recorded-control-fixture",
+  "mode": "multi_arbitrated",
+  "cases": [
+    {
+      "case_id": "ORD-01",
+      "verdict": "approve",
+      "findings": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "case_id": "ORD-02",
+      "verdict": "escalate",
+      "findings": 1,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "case_id": "ORD-03",
+      "verdict": "escalate",
+      "findings": 1,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "case_id": "ORD-04",
+      "verdict": "escalate",
+      "findings": 1,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "case_id": "ORD-05",
+      "verdict": "escalate",
+      "findings": 1,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "case_id": "ORD-06",
+      "verdict": "escalate",
+      "findings": 1,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "case_id": "ORD-07",
+      "verdict": "escalate",
+      "findings": 1,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "case_id": "ORD-08",
+      "verdict": "escalate",
+      "findings": 1,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "case_id": "ORD-09",
+      "verdict": "escalate",
+      "findings": 1,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "case_id": "ORD-10",
+      "verdict": "escalate",
+      "findings": 1,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "case_id": "ORD-11",
+      "verdict": "escalate",
+      "findings": 1,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    },
+    {
+      "case_id": "ORD-12",
+      "verdict": "escalate",
+      "findings": 1,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0
+    }
+  ],
+  "totals": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0
+  }
+}

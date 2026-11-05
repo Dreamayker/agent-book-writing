@@ -9,13 +9,15 @@ This reverts commit 12860d91f9f26a3f3f24b56a50d0d9334a5d003a.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/dependency-audit/requirements.txt b/dependency-audit/requirements.txt
-index eeda081..9334b1e 100644
+index ffa7fc1..39b49f3 100644
 --- a/dependency-audit/requirements.txt
 +++ b/dependency-audit/requirements.txt
-@@ -1,2 +1,2 @@
+@@ -1,4 +1,4 @@
  # Isolated teaching manifest used by PR-07; it is not installed by the application.
 -requests==2.19.1
 +requests==2.33.0
+ certifi>=2026.10.18
+ idna>=3.15,<4
 -- 
 2.50.1 (Apple Git-155)
 

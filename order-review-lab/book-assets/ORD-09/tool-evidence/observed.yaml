@@ -1,0 +1,39 @@
+{
+  "case_id": "ORD-09",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "change_sha": "84bdb55deb5da622aca5363b807f3a6f96dfa97a",
+  "buggy_diff_sha256": "e4fb777afe97299c20c36876952386091a2700c248f98dd702a0fac6d572bf88",
+  "kind": "executed-teaching-case",
+  "runs": [
+    {
+      "command": [
+        "./mvnw",
+        "-B",
+        "-ntp",
+        "-Dfmt.skip=true",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-Dfailsafe.failIfNoSpecifiedTests=false",
+        "-Dit.test=OrderIT#refundUsesImmutableSnapshotAfterRuleChange",
+        "verify"
+      ],
+      "exit_code": 1,
+      "seconds": 11.306
+    },
+    {
+      "command": [
+        "./mvnw",
+        "-B",
+        "-ntp",
+        "-Dfmt.skip=true",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-Dfailsafe.failIfNoSpecifiedTests=false",
+        "-Dit.test=OrderIT#refundUsesImmutableSnapshotAfterRuleChange",
+        "verify"
+      ],
+      "exit_code": 0,
+      "seconds": 11.402
+    }
+  ],
+  "fix_sha": "d6be29bb8ab48eb762982ea600fa798bd5419110",
+  "status": "verified"
+}

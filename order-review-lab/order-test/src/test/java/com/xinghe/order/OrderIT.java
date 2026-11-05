@@ -226,6 +226,17 @@ class OrderIT {
         .andExpect(status().isBadRequest());
   }
 
+  @Test
+  void historicalSnapshotSchemaDriftRequiresManualReview() {
+    var order = checkout();
+    sql.update(
+        "UPDATE orders SET snapshot_json=? WHERE order_id=?",
+        "{\"version\":\"not-a-number\"}",
+        order.orderId());
+    assertCode("MANUAL_REVIEW", () -> orders.read("alice", order.orderId()));
+    assertEquals(0, sql.queryForObject("SELECT COUNT(*) FROM refund_requests", Integer.class));
+  }
+
   static void assertCode(String code, Runnable action) {
     assertEquals(code, assertThrows(DomainException.class, action::run).code());
   }

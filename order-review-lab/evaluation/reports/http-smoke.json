@@ -1,0 +1,22 @@
+{
+  "kind": "local-http-smoke",
+  "transport": "real HTTP to executable JAR",
+  "quote_payable_cents": 33000,
+  "order": {
+    "orderId": "09e97399-860b-45dc-94fb-bbe97bfecb8d",
+    "payableCents": 33000,
+    "snapshotHash": "d0da7e64c6e5eaf392b06cb2cfa235fb1c9d4753a06292e2e013efe7bf690148"
+  },
+  "refund": {
+    "refundId": "a913a3b9-e7bb-4b6a-85c3-fe98401a0ad7",
+    "orderId": "09e97399-860b-45dc-94fb-bbe97bfecb8d",
+    "unitIds": [
+      "C#001"
+    ],
+    "amountCents": 6600,
+    "snapshotHash": "d0da7e64c6e5eaf392b06cb2cfa235fb1c9d4753a06292e2e013efe7bf690148"
+  },
+  "checkout_retry_matches": true,
+  "refund_retry_matches": true,
+  "root_refunded_cents": 6600
+}

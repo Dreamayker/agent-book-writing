@@ -1,0 +1,91 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] order-review-lab                                                   [pom]
+[INFO] order-core                                                         [jar]
+[INFO] 
+[INFO] --------------------< com.xinghe:order-review-lab >---------------------
+[INFO] Building order-review-lab 1.0.0-SNAPSHOT                           [1/2]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-review-lab ---
+[INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-1hvdazyi/repo/order-review-lab/target/jacoco.exec
+[INFO] 
+[INFO] -----------------------< com.xinghe:order-core >------------------------
+[INFO] Building order-core 1.0.0-SNAPSHOT                                 [2/2]
+[INFO]   from order-core/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.14:prepare-agent (default) @ order-core ---
+[INFO] argLine set to -javaagent:/Users/magic/.m2/repository/org/jacoco/org.jacoco.agent/0.8.14/org.jacoco.agent-0.8.14-runtime.jar=destfile=/private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-1hvdazyi/repo/order-review-lab/order-core/target/jacoco.exec
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ order-core ---
+[INFO] skip non existing resourceDirectory /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-1hvdazyi/repo/order-review-lab/order-core/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ order-core ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 6 source files with javac [debug parameters release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ order-core ---
+[INFO] skip non existing resourceDirectory /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-1hvdazyi/repo/order-review-lab/order-core/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ order-core ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ order-core ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.xinghe.order.core.PricingTest
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.038 s <<< FAILURE! -- in com.xinghe.order.core.PricingTest
+[ERROR] com.xinghe.order.core.PricingTest.orderThresholdUsesPostCategoryAmount -- Time elapsed: 0.023 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <29999> but was: <24999>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:166)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:161)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:632)
+	at com.xinghe.order.core.PricingTest.orderThresholdUsesPostCategoryAmount(PricingTest.java:80)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   PricingTest.orderThresholdUsesPostCategoryAmount:80 expected: <29999> but was: <24999>
+[INFO] 
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for order-review-lab 1.0.0-SNAPSHOT:
+[INFO] 
+[INFO] order-review-lab ................................... SUCCESS [  0.076 s]
+[INFO] order-core ......................................... FAILURE [  0.950 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.119 s
+[INFO] Finished at: 2026-11-05T17:37:05+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project order-core: There are test failures.
+[ERROR] 
+[ERROR] See /private/var/folders/hh/7j_3sv4x67gdnvk8_vncw5hr0000gn/T/order-cases-1hvdazyi/repo/order-review-lab/order-core/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :order-core

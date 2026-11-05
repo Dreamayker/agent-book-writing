@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "project_root": ".",
+  "policy": "policies/risk-rules.yaml",
+  "cases": [
+    {
+      "id": "ORD-01",
+      "directory": "book-assets/ORD-01",
+      "changed_paths": [
+        "README.md"
+      ],
+      "labels": [],
+      "code_revision": "bfb82fed4bfa542a8df565f06230ef7fe379acdd"
+    },
+    {
+      "id": "ORD-02",
+      "directory": "book-assets/ORD-02",
+      "changed_paths": [
+        "order-core/src/main/java/com/xinghe/order/core/DiscountAllocator.java"
+      ],
+      "labels": [
+        "money"
+      ],
+      "code_revision": "a671f375b8a3e254be2f9561750ebc8a2f798ea9"
+    },
+    {
+      "id": "ORD-03",
+      "directory": "book-assets/ORD-03",
+      "changed_paths": [
+        "order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java"
+      ],
+      "labels": [
+        "authorization"
+      ],
+      "code_revision": "4abfc2e2e28557b788c522bc6d68175c8ad1e04b"
+    },
+    {
+      "id": "ORD-04",
+      "directory": "book-assets/ORD-04",
+      "changed_paths": [
+        "order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java"
+      ],
+      "labels": [
+        "refund",
+        "database-transaction"
+      ],
+      "code_revision": "7b9b49388fee70cf8357b09148d35a3532f2e02b"
+    },
+    {
+      "id": "ORD-05",
+      "directory": "book-assets/ORD-05",
+      "changed_paths": [
+        "order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java"
+      ],
+      "labels": [
+        "refund",
+        "database-transaction"
+      ],
+      "code_revision": "9c3424790d20774e2d5e03180b7a9aa4271bad76"
+    },
+    {
+      "id": "ORD-06",
+      "directory": "book-assets/ORD-06",
+      "changed_paths": [
+        "order-core/src/main/java/com/xinghe/order/core/PricingService.java"
+      ],
+      "labels": [
+        "money"
+      ],
+      "code_revision": "871d4aabec1c38f4bf7249bc59ef199fe66fc793"
+    },
+    {
+      "id": "ORD-07",
+      "directory": "book-assets/ORD-07",
+      "changed_paths": [
+        "order-core/pom.xml"
+      ],
+      "labels": [],
+      "code_revision": "c8002e3db7921fb122c8e1328f6009e1da6f2639"
+    },
+    {
+      "id": "ORD-08",
+      "directory": "book-assets/ORD-08",
+      "changed_paths": [
+        "order-core/src/main/java/com/xinghe/order/core/RefundAmountCalculator.java"
+      ],
+      "labels": [
+        "authorization"
+      ],
+      "code_revision": "62803ec6c30c450f188c4488dcf8e6e47f2d0e6f"
+    },
+    {
+      "id": "ORD-09",
+      "directory": "book-assets/ORD-09",
+      "changed_paths": [
+        "order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java"
+      ],
+      "labels": [
+        "refund",
+        "snapshot",
+        "money"
+      ],
+      "code_revision": "84bdb55deb5da622aca5363b807f3a6f96dfa97a"
+    },
+    {
+      "id": "ORD-10",
+      "directory": "book-assets/ORD-10",
+      "changed_paths": [
+        "order-core/src/main/java/com/xinghe/order/core/PricingService.java"
+      ],
+      "labels": [
+        "money"
+      ],
+      "code_revision": "d229a89453eea02b63eaf5e7d20e65c65eddfc24"
+    },
+    {
+      "id": "ORD-11",
+      "directory": "book-assets/ORD-11",
+      "changed_paths": [
+        "order-infra/src/main/java/com/xinghe/order/infra/OrderApplicationService.java"
+      ],
+      "labels": [
+        "snapshot",
+        "money"
+      ],
+      "code_revision": "d0af858cfd30c92e8c05cdd1b1b52062d4dc0c01"
+    },
+    {
+      "id": "ORD-12",
+      "directory": "book-assets/ORD-12",
+      "changed_paths": [
+        "order-core/src/main/java/com/xinghe/order/core/PricingService.java"
+      ],
+      "labels": [
+        "money"
+      ],
+      "code_revision": "7051a27bf39356dbd1a29dac31ca500a6c3358f5"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "general-review": [],
+  "correctness": [
+    {
+      "schema_version": 2,
+      "finding_id": "THRESHOLD-001",
+      "root_cause_id": "ORD-06:THRESHOLD-001",
+      "invariant": "order-rules-v1",
+      "source": "correctness",
+      "category": "correctness",
+      "severity": "must_fix",
+      "confidence": 0.95,
+      "file": "order-core/src/main/java/com/xinghe/order/core/PricingService.java",
+      "line_start": 73,
+      "claim": "满减基数使用优惠前金额",
+      "evidence": [
+        {
+          "type": "test",
+          "ref": "book-assets/ORD-06/tool-evidence/raw/buggy.txt"
+        }
+      ],
+      "suggested_fix": "Restore the frozen business contract and rerun the regression",
+      "blocking": true,
+      "needs_human": true
+    }
+  ],
+  "test": [
+    {
+      "schema_version": 2,
+      "finding_id": "THRESHOLD-001",
+      "root_cause_id": "ORD-06:THRESHOLD-001",
+      "invariant": "order-rules-v1",
+      "source": "test",
+      "category": "correctness",
+      "severity": "must_fix",
+      "confidence": 0.95,
+      "file": "order-core/src/main/java/com/xinghe/order/core/PricingService.java",
+      "line_start": 73,
+      "claim": "满减基数使用优惠前金额",
+      "evidence": [
+        {
+          "type": "test",
+          "ref": "book-assets/ORD-06/tool-evidence/raw/buggy.txt"
+        }
+      ],
+      "suggested_fix": "Restore the frozen business contract and rerun the regression",
+      "blocking": true,
+      "needs_human": true
+    }
+  ],
+  "security": [],
+  "impact": []
+}

@@ -1,0 +1,24 @@
+{
+  "case_id": "ORD-06",
+  "baseline_sha": "7a61a4f4d84de28b63e325e73676852f927e5b85",
+  "source_sha256": "e7c1f7308c4fb560514a1d913c82f6af8237ef2389b0fbb046adf357f0f4342a",
+  "buggy_patch_sha256": "9f031a2090ab59181f747e4fb6687cc3d651e3e677550e1d732d9433f43a36e4",
+  "command": [
+    "./mvnw",
+    "-B",
+    "-ntp",
+    "-Dfmt.skip=true",
+    "-Dsurefire.failIfNoSpecifiedTests=false",
+    "-Dfailsafe.failIfNoSpecifiedTests=false",
+    "-pl",
+    "order-core",
+    "-am",
+    "-Dtest=PricingTest#orderThresholdUsesPostCategoryAmount",
+    "test"
+  ],
+  "kind": "unit",
+  "test": "orderThresholdUsesPostCategoryAmount",
+  "status": "verified",
+  "change_sha": "871d4aabec1c38f4bf7249bc59ef199fe66fc793",
+  "fix_sha": "b2d837a97acdf9fe7eade6cdd5daacb0ac3e4fd3"
+}

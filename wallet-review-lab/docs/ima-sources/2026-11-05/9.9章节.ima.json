@@ -3,923 +3,154 @@
     "type": "h1",
     "children": [
       {
-        "text": "9.9 评测与行业基准：让\"修对了\"可被判定"
+        "text": "9.9 评测与行业基准：让修对了可被判定"
       }
-    ],
-    "id": "0YdmJ76Bud"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "前八节把流水线建到了\"能产出裁决记录\"的程度，但整条链上始终悬着一个未被回答的问题："
-      },
-      {
-        "text": "怎么知道 Agent 真的找对了、修对了？",
-        "bold": true
-      },
-      {
-        "text": " 评审系统的产出是\"评论与补丁\"，而评论天然是意见、补丁天然是候选。评测层（evaluation）就是给这条流水线装上判定器的部分。本节先建立三个问题的框架——"
-      },
-      {
-        "text": "Oracle（判准）、指标（怎么算）、样本（在什么上算）",
-        "bold": true
-      },
-      {
-        "text": "，再把它与工业界成熟的基准对照。"
-      }
-    ],
-    "id": "X2pSxbW6Ol"
+    ]
   },
   {
     "type": "h2",
     "children": [
       {
-        "text": "9.9.1 评测层的三个问题"
+        "text": "9.9.1 两种正确性需要不同参照"
       }
-    ],
-    "id": "9PGNy8YJz9"
+    ]
   },
   {
     "type": "p",
     "children": [
       {
-        "text": "评测看似简单：拿一堆已知缺陷，看 Agent 抓到几个。但 9.9.6 的对照会显示，工业界在每一个环节上都踩过坑，所以先把问题拆清楚："
+        "text": "业务测试判定给定输入下订单行为是否满足规则；根因 Oracle 判定评审意见是否识别了正确问题。ORD-09 退款 6400 分构成业务失败，但模型若把它解释成“使用 double 导致精度损失”，根因仍不正确。业务失败不能自动记为 Agent 命中。"
       }
-    ],
-    "id": "zGhc4DgM64"
-  },
-  {
-    "indent": 1,
-    "listGroup": "meuvlu",
-    "listStyleType": "decimal",
-    "type": "p",
-    "children": [
-      {
-        "text": "Oracle：什么算\"正确答案\"？",
-        "bold": true
-      },
-      {
-        "text": " 如果没有一份可判定的标准答案，\"命中\"就无从谈起。本章的 Finding Schema 中保留的 "
-      },
-      {
-        "text": "root_cause",
-        "code": true
-      },
-      {
-        "text": "、"
-      },
-      {
-        "text": "invariant_violated",
-        "code": true
-      },
-      {
-        "text": "、"
-      },
-      {
-        "text": "acceptable_fix",
-        "code": true
-      },
-      {
-        "text": "、"
-      },
-      {
-        "text": "severity",
-        "code": true
-      },
-      {
-        "text": "、"
-      },
-      {
-        "text": "evidence",
-        "code": true
-      },
-      {
-        "text": " 五个字段，本质上就是一份逐案例的 Oracle。"
-      }
-    ],
-    "id": "8FwOYNQ6Ka"
-  },
-  {
-    "indent": 1,
-    "listGroup": "meuvlu",
-    "listStart": 2,
-    "listStyleType": "decimal",
-    "type": "p",
-    "children": [
-      {
-        "text": "指标：多个 Agent、多次运行报出的重复评论怎么计数？",
-        "bold": true
-      },
-      {
-        "text": " 同一个根因被四个角色各报一次，是四个真阳性还是一个？这是"
-      },
-      {
-        "text": "根因去重（root-cause deduplication）",
-        "bold": true
-      },
-      {
-        "text": "要解决的问题，也是 9.6.8 中 SARIF "
-      },
-      {
-        "text": "partialFingerprints",
-        "code": true
-      },
-      {
-        "text": " 对照过的工业问题。"
-      }
-    ],
-    "id": "3e7u64cQWQ"
-  },
-  {
-    "indent": 1,
-    "listGroup": "meuvlu",
-    "listStart": 3,
-    "listStyleType": "decimal",
-    "type": "p",
-    "children": [
-      {
-        "text": "样本：在什么缺陷集上算，且数字可不可比？",
-        "bold": true
-      },
-      {
-        "text": " 缺陷集的选择、版本、生成方式，直接决定分数能不能横向比较。Defects4J 的版本演进（下节）正是一个反面教材。"
-      }
-    ],
-    "id": "DLI-FYdEyF"
+    ]
   },
   {
     "type": "p",
     "children": [
       {
-        "text": "评测层必须前置声明这三者的取值，否则\"Precision 0.8\"是无意义数字。这也解释了为什么评测配置要和裁决记录一样入证据包："
-      },
-      {
-        "text": "报告只有在口径被固定时才是证据。",
-        "bold": true
+        "text": "订单 Oracle 每条记录包含 root_cause_id、文件、允许行区间、严重性与可接受修复。评分器在每个案例内匹配根因和位置，要求有证据且严重性一致，再汇总 TP/FP/FN。不同案例即使使用相同 Finding 类型 ID，也不会在全局集合中坍缩成一个样本。"
       }
-    ],
-    "id": "LJ0NnS_kOv"
+    ]
   },
   {
     "type": "h2",
     "children": [
       {
-        "text": "9.9.2 Oracle：从测试判定到根因判定"
+        "text": "9.9.2 清单驱动与逐案例结果"
       }
-    ],
-    "id": "zKDRuwTIrG"
+    ]
   },
   {
-    "type": "p",
-    "children": [
-      {
-        "text": "工业界最常用的 Oracle 是"
-      },
-      {
-        "text": "程序化 Oracle（programmatic oracle）",
-        "bold": true
-      },
-      {
-        "text": "：给定一组测试，补丁让目标测试通过且不破坏其它测试，则记为该任务\"解决\"（resolved）。SWE-bench 及其后续基准都建立在这一机制上：每个实例是真实 GitHub issue 加上一组单元测试，测试决定提交的补丁是否解决了底层问题。"
-      }
-    ],
-    "id": "zvLPsS_IuF"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "但程序化 Oracle 有明确边界，本节必须写清楚，因为它是本章反复保留的纪律的技术根据："
-      }
-    ],
-    "id": "5eK0WiB1qs"
-  },
-  {
-    "indent": 1,
-    "listStyleType": "disc",
-    "type": "p",
-    "children": [
-      {
-        "text": "它是必要而非充分的判据",
-        "bold": true
-      },
-      {
-        "text": "。有分析指出，测试是\"程序化 oracle，而非补丁唯一正确的证明\"：一个正确的替代实现可能因为隐藏测试强制了未声明的细节而被判失败，而一个不完整的补丁可能因为覆盖薄弱而侥幸通过；环境配置也会改变结果。"
-      }
-    ],
-    "id": "89DluN0r11"
-  },
-  {
-    "indent": 1,
-    "listStyleType": "disc",
-    "type": "p",
-    "children": [
-      {
-        "text": "通过率不等于正确率",
-        "bold": true
-      },
-      {
-        "text": "。已发表的 SWE-bench 审计显示这一差距是真实的：部分通过的补丁行为与开发者的修复不同，有些则明显错误；有工程建议因此提出：在让通过率驱动选型决策之前，应当抽样、让专家逐条核对，并报告"
-      },
-      {
-        "text": "调整后的比率与置信区间",
-        "bold": true
-      },
-      {
-        "text": "。"
-      }
-    ],
-    "id": "tvLOYgBwH0"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "这直接解释了本章为什么要在测试之上再加一层"
-      },
-      {
-        "text": "根因 Oracle",
-        "bold": true
-      },
-      {
-        "text": "。与\"测试是否通过\"相比，根因 Oracle 回答的是更接近需求层的三个问题：这个 Finding 指认的 "
-      },
-      {
-        "text": "root_cause",
-        "code": true
-      },
-      {
-        "text": " 是否就是注入缺陷的根因？它命中的 "
-      },
-      {
-        "text": "invariant_violated",
-        "code": true
-      },
-      {
-        "text": " 是否正确？它给出的 "
-      },
-      {
-        "text": "acceptable_fix",
-        "code": true
-      },
-      {
-        "text": " 是否落在一组可接受修复之内（例如 PR-04 的 "
-      },
-      {
-        "text": "restore_atomic_boundary",
-        "code": true
-      },
-      {
-        "text": "）？测试 Oracle 判\"结果\"，根因 Oracle 判\"理由\"——两者都算命中，才算真正判定。"
-      }
-    ],
-    "id": "4sD8pbvdiT"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "需要标注的边界：根因 Oracle 由人工编写（教学环境中由缺陷注入脚本与人工标注共同给出），因此它的质量受标注者能力限制；本章不宣称根因 Oracle 比程序化 Oracle 更客观，只宣称"
-      },
-      {
-        "text": "它管的是程序化 Oracle 管不到的那一半",
-        "bold": true
-      },
-      {
-        "text": "（对照 9.6.8 中 SARIF 只解决格式、不解决审计的结论）。"
-      }
-    ],
-    "id": "chPHnGjJMs"
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "9.9.3 指标：Precision、Recall 与零缺陷门禁"
-      }
-    ],
-    "id": "yeXsLoKSYM"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "指标层要解决三件事：抓到的准不准、该抓的有没有漏、重复怎么算。"
-      }
-    ],
-    "id": "hGaLT6UdzU"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "第一，计数单位是根因，不是评论条数。",
-        "bold": true
-      },
-      {
-        "text": " 若不做去重，一个\"话多\"的 Agent 可以用四条重复评论把 Recall 刷到 4/4，而一个精准的 Agent 只报一条却是 1/4——指标会奖励啰嗦而不是正确。根因去重的做法：为每个 Finding 计算稳定的去重键（根因类别 + 关键文件/符号 + 不变量名），同键只计一次，与 9.6.1 的去重纪律、9.6.8 的 SARIF "
-      },
-      {
-        "text": "partialFingerprints",
-        "code": true
-      },
-      {
-        "text": " 同构。评测报告中应同时给出\"去重前/去重后\"的计数，让读者看到水分来自哪里。"
-      }
-    ],
-    "id": "7g6Lk3U95_"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "第二，Precision 与 Recall 都要报，且要报根因级。",
-        "bold": true
-      },
-      {
-        "text": " "
-      },
-      {
-        "text": "Precision = 去重后命中的真根因数 / 去重后报出的根因数",
-        "code": true
-      },
-      {
-        "text": "；"
-      },
-      {
-        "text": "Recall = 命中的真根因数 / Oracle 中的真根因总数",
-        "code": true
-      },
-      {
-        "text": "。只报其中一个都会被轻易 game：只报 Recall 可以靠穷举刷分，只报 Precision 可以靠只报一条最明显的缺陷刷分。本章把二者与 "
-      },
-      {
-        "text": "severity",
-        "code": true
-      },
-      {
-        "text": " 分档交叉报告——高危根因的漏报（Recall 损失）与低危误报（Precision 损失）的代价并不相同。"
-      }
-    ],
-    "id": "lkYTDU_Qet"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "第三，零缺陷（zero-defect）门禁。",
-        "bold": true
-      },
-      {
-        "text": " 这是本章最严格的一档，对应 PR-01 的\"零缺陷\"要求：在一组"
-      },
-      {
-        "text": "关键缺陷",
-        "bold": true
-      },
-      {
-        "text": "上，门禁要求漏报数为零，任一高危根因被漏报即整体 fail。零缺陷门禁的合理性来自后果而非统计——它不追求平均分，而追求\"这一类错误绝不允许发生\"；因此它只适用于被明确列举的关键根因（如四项不变量对应的根因），不能作为 전체指标使用。实现上，"
-      },
-      {
-        "text": "evaluation/",
-        "code": true
-      },
-      {
-        "text": " 中的门禁脚本读取 Oracle 与去重后的 Finding 集，输出 "
-      },
-      {
-        "text": "verdict",
-        "code": true
-      },
-      {
-        "text": " 与逐条漏报清单——门禁失败同样产出 Finding，而不是静默重跑。"
-      }
-    ],
-    "id": "CxxBPIBbDC"
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "9.9.4 评测架构：gold 集、回放与防 game"
-      }
-    ],
-    "id": "iO8cumYRGQ"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "评测层的工程结构（教学环境目录 "
-      },
-      {
-        "text": "evaluation/",
-        "code": true
-      },
-      {
-        "text": "）："
-      }
-    ],
-    "id": "XBCPxd5ypc"
-  },
-  {
-    "indent": 1,
-    "listStyleType": "disc",
-    "type": "p",
-    "children": [
-      {
-        "text": "gold 集",
-        "bold": true
-      },
-      {
-        "text": "：与注入缺陷一一对应的 Oracle 记录，字段与 Finding Schema 对齐，但额外标记 "
-      },
-      {
-        "text": "injected_at",
-        "code": true
-      },
-      {
-        "text": "（注入位置）与 "
-      },
-      {
-        "text": "acceptable_fix",
-        "code": true
-      },
-      {
-        "text": " 集合。gold 集与测试代码分离存放，避免\"改测试即改判准\"。"
-      }
-    ],
-    "id": "Zqp2RwW4xl"
-  },
-  {
-    "indent": 1,
-    "listStyleType": "disc",
-    "type": "p",
-    "children": [
-      {
-        "text": "回放模式与真实模式分离",
-        "bold": true
-      },
-      {
-        "text": "。录制回放（"
-      },
-      {
-        "text": "recorded-agents.json",
-        "code": true
-      },
-      {
-        "text": "）只验证编排、Schema、去重与评分逻辑本身是否正确；它"
-      },
-      {
-        "text": "不测量真实模型能力",
-        "bold": true
-      },
-      {
-        "text": "——这条边界在 9.1 已确立，本节再次保留：回放得到的高 Recall 只说明评分器工作正常，不说明模型会找 bug。"
-      }
-    ],
-    "id": "Gjkccujgy4"
-  },
-  {
-    "indent": 1,
-    "listStyleType": "disc",
-    "type": "p",
-    "children": [
-      {
-        "text": "确定性评分",
-        "bold": true
-      },
-      {
-        "text": "。评分器必须是纯函数：同 gold 集、同 Finding 集必得同分数；任何 LLM-as-judge 参与的部分（如评审评论质量）都必须标记为独立维度，不与根因命中率混合计分——因为 LLM 判官本身引入方差，混算会让分数不可复现。"
-      }
-    ],
-    "id": "Ejp0H4lVtS"
-  },
-  {
-    "indent": 1,
-    "listStyleType": "disc",
-    "type": "p",
-    "children": [
-      {
-        "text": "防 game",
-        "bold": true
-      },
-      {
-        "text": "。工业界的经验是：静态评测会被针对性优化而失效，因此成熟做法是让"
-      },
-      {
-        "text": "在线与离线评测互相校验",
-        "bold": true
-      },
-      {
-        "text": "，并把数据集、golden 评论、判官提示词与流水线全部开源，接受外部复现；另一个方向是让新增基准不断加难度（后续 9.9.6 会看到 SWE-bench-Pro、Terminal-Bench-2 等演进）。本章的对应做法是：把评测集与评分器一同冻结进证据包，并在每次评测报告中声明所用基准版本——不同版本的分数不可直接比较（下一节会用 Defects4J 证明这一点）。"
-      }
-    ],
-    "id": "MTPaRNDxCx"
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "9.9.5 演示：PR-04 的评测与零缺陷门禁"
-      }
-    ],
-    "id": "sPKiTrGGdw"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "沿用统一教学结构，把评测落到 PR-04（并发双花，CONCURRENCY-001，"
-      },
-      {
-        "text": "app/repository.py",
-        "code": true
-      },
-      {
-        "text": "）："
-      }
-    ],
-    "id": "ZgIZcheLeA"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "需求与不变量",
-        "bold": true
-      },
-      {
-        "text": "：转移操作须满足四项不变量；PR-04 的注入缺陷破坏\"金额守恒\"与\"余额非负\"。"
-      }
-    ],
-    "id": "_PYFNhGOVR"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "Oracle",
-        "bold": true
-      },
-      {
-        "text": "："
-      },
-      {
-        "text": "root_cause = check_then_act_race",
-        "code": true
-      },
-      {
-        "text": "，"
-      },
-      {
-        "text": "invariant_violated = conservation",
-        "code": true
-      },
-      {
-        "text": "，"
-      },
-      {
-        "text": "severity = high",
-        "code": true
-      },
-      {
-        "text": "，"
-      },
-      {
-        "text": "acceptable_fix = restore_atomic_boundary",
-        "code": true
-      },
-      {
-        "text": "（与 9.4、9.8 一致）。"
-      }
-    ],
-    "id": "dqJr3mhinV"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "可复现测试",
-        "bold": true
-      },
-      {
-        "text": "："
-      },
-      {
-        "text": "tests/test_transfer_invariants.py",
-        "code": true
-      },
-      {
-        "text": " 固定并发交错；"
-      },
-      {
-        "text": "make replay-pr04",
-        "code": true
-      },
-      {
-        "text": " 回放同一录制数据。"
-      }
-    ],
-    "id": "7jNpRFaucm"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "Finding",
-        "bold": true
-      },
-      {
-        "text": "：correctness 报出竞态 Finding，security 报出守恒违反 Finding——两个 Finding 在去重后归入同一根因（同键：根因类别 + "
-      },
-      {
-        "text": "app/repository.py",
-        "code": true
-      },
-      {
-        "text": " + 不变量名）。"
-      }
-    ],
-    "id": "GIB9zL9DlD"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "评测",
-        "bold": true
-      },
-      {
-        "text": "：以下为教学简化示例（未声称可直接运行）："
-      }
-    ],
-    "id": "4Z34--C_w9"
-  },
-  {
-    "children": [
-      {
-        "children": [
-          {
-            "text": "# evaluation/metrics.py（教学简化示例）"
-          }
-        ],
-        "type": "code_line",
-        "id": "fZQ68wNVS-"
-      },
-      {
-        "children": [
-          {
-            "text": "def dedup_key(f):                      # 稳定去重键，与 9.6.1 去重纪律一致"
-          }
-        ],
-        "type": "code_line",
-        "id": "Ek3SeaatTc"
-      },
-      {
-        "children": [
-          {
-            "text": "    return (f.root_cause, f.file, f.invariant_violated)"
-          }
-        ],
-        "type": "code_line",
-        "id": "xMZSaCSVqE"
-      },
-      {
-        "children": [
-          {
-            "text": ""
-          }
-        ],
-        "type": "code_line",
-        "id": "07uUUbfIr-"
-      },
-      {
-        "children": [
-          {
-            "text": "def score(gold, findings, gate_only_high=True):"
-          }
-        ],
-        "type": "code_line",
-        "id": "kndQzTJ0_i"
-      },
-      {
-        "children": [
-          {
-            "text": "    seen, hits = set(), set()"
-          }
-        ],
-        "type": "code_line",
-        "id": "ejpQk25tXk"
-      },
-      {
-        "children": [
-          {
-            "text": "    for f in findings:"
-          }
-        ],
-        "type": "code_line",
-        "id": "8bKmdhbbxK"
-      },
-      {
-        "children": [
-          {
-            "text": "        k = dedup_key(f)"
-          }
-        ],
-        "type": "code_line",
-        "id": "F0FGcM8R6K"
-      },
-      {
-        "children": [
-          {
-            "text": "        if k in seen:                  # 同根因只计一次"
-          }
-        ],
-        "type": "code_line",
-        "id": "ZGjBaETQkU"
-      },
-      {
-        "children": [
-          {
-            "text": "            continue"
-          }
-        ],
-        "type": "code_line",
-        "id": "tvzhqFayuu"
-      },
-      {
-        "children": [
-          {
-            "text": "        seen.add(k)"
-          }
-        ],
-        "type": "code_line",
-        "id": "K-XoQk3CQf"
-      },
-      {
-        "children": [
-          {
-            "text": "        if k in {g.key for g in gold}: # 命中 Oracle 中的真根因"
-          }
-        ],
-        "type": "code_line",
-        "id": "DB4qZPOJjY"
-      },
-      {
-        "children": [
-          {
-            "text": "            hits.add(k)"
-          }
-        ],
-        "type": "code_line",
-        "id": "1lxtu70nhA"
-      },
-      {
-        "children": [
-          {
-            "text": "    tp = len(hits)"
-          }
-        ],
-        "type": "code_line",
-        "id": "MoLn7giT9F"
-      },
-      {
-        "children": [
-          {
-            "text": "    reported = len(seen)"
-          }
-        ],
-        "type": "code_line",
-        "id": "bzySijVfZt"
-      },
-      {
-        "children": [
-          {
-            "text": "    recall = tp / len(gold)"
-          }
-        ],
-        "type": "code_line",
-        "id": "Qr6srVGXE6"
-      },
-      {
-        "children": [
-          {
-            "text": "    precision = tp / reported if reported else 1.0"
-          }
-        ],
-        "type": "code_line",
-        "id": "clL8xfL5iI"
-      },
-      {
-        "children": [
-          {
-            "text": "    missed_high = [g.key for g in gold"
-          }
-        ],
-        "type": "code_line",
-        "id": "dsHbHyae5v"
-      },
-      {
-        "children": [
-          {
-            "text": "                   if g.severity == \"high\" and g.key not in hits]"
-          }
-        ],
-        "type": "code_line",
-        "id": "jbXmrTRZjw"
-      },
-      {
-        "children": [
-          {
-            "text": "    gate = \"FAIL\" if (gate_only_high and missed_high) else \"PASS\""
-          }
-        ],
-        "type": "code_line",
-        "id": "-mcPTU2ZoY"
-      },
-      {
-        "children": [
-          {
-            "text": "    return {\"precision\": round(precision, 3),"
-          }
-        ],
-        "type": "code_line",
-        "id": "MqjuFDHnAE"
-      },
-      {
-        "children": [
-          {
-            "text": "            \"recall\": round(recall, 3),"
-          }
-        ],
-        "type": "code_line",
-        "id": "zEktbYgSbf"
-      },
-      {
-        "children": [
-          {
-            "text": "            \"zero_defect_gate\": gate,"
-          }
-        ],
-        "type": "code_line",
-        "id": "r9kK9Xs3Th"
-      },
-      {
-        "children": [
-          {
-            "text": "            \"missed_high\": missed_high}"
-          }
-        ],
-        "type": "code_line",
-        "id": "0IdHXGoXJ-"
-      }
-    ],
     "type": "code_block",
-    "lang": "python",
-    "id": "3d1STzU3K9"
+    "language": "bash",
+    "children": [
+      {
+        "text": "cd wallet-review-lab\nuv run python -m evaluation.projects ../order-review-lab/evaluation/cases.yaml --mode multi_arbitrated"
+      }
+    ]
   },
   {
     "type": "p",
     "children": [
       {
-        "text": "门禁与回归",
-        "bold": true
-      },
-      {
-        "text": "：评审流水线的 CI 中，"
-      },
-      {
-        "text": "uv run pytest",
-        "code": true
-      },
-      {
-        "text": " 保证测试 Oracle；"
-      },
-      {
-        "text": "evaluation/",
-        "code": true
-      },
-      {
-        "text": " 的门禁在关键根因漏报时 fail 并列出漏报清单；"
-      },
-      {
-        "text": "uv run mypy app review_system evaluation",
-        "code": true
-      },
-      {
-        "text": " 保证评测代码自身类型正确。"
-      },
-      {
-        "text": "生产待验证",
-        "bold": true
-      },
-      {
-        "text": "：本节的评测全部在注入缺陷与录制数据上完成，绝对数值不具外推性——它验证的是\"评测机制能正确区分命中与漏报\"，不是\"模型在真实仓库上的能力\"。后者只能在 9.9.6 那类外部基准上、并附带其自身的可比性警告来讨论。"
+        "text": "清单指定项目根、策略、案例目录、变更路径、标签和代码版本。同一 ReviewPipeline 读取订单配置，不再依赖钱包专属硬编码。旧钱包套件仍保留历史接口，不能把旧评分结果与新评分口径直接拼接。"
       }
-    ],
-    "id": "0UbPHHoeSo"
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "报告明确标识 recorded-control-fixture，逐项列出 case_id、verdict、Finding 数和 TP/FP/FN。ORD-01 的 Oracle 为空；它用于观察误报和错误阻断。其余 11 个案例有预设根因。夹具按设计命中，只能证明加载、证据校验、路由、去重和评分链路一致。"
+      }
+    ]
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.9.3 指标与匹配边界"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "Precision 衡量报告的问题中有多少被参照答案接受；Recall 衡量参照问题中找到了多少。零预测的 Precision 应记为 N/A 或事先约定，不能默认为百分之百。零缺陷样本还应单独报告误报率与错误阻断率；高风险人工升级不是错误阻断。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "当前实现验证根因、文件、行区间、严重性及证据非空；证据文件另由门禁绑定本次代码和哈希。它尚不自动判定修复建议语义、跨文件任意等价根因或测试质量。模型提出 Oracle 之外的新问题时，需要人工补充标注，不能简单断言模型错了。"
+      }
+    ]
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.9.4 避免泄漏答案"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "评审完成后才读取 oracle.yaml 评分。评审上下文不含 fixed.patch、人工标准答案或保留测试答案。录制夹具本来就是预设输出，不能拿它做“盲评成功”的宣传。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "真实实验分两轨：源码评审轨道只提供规则和待审源码；证据解释轨道提供相同的可信工具输出，观察解释与治理。看过“expected 6600 actual 6400”的模型，任务是解释证据，不能据此宣称独立发现退款缺陷。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "调试案例与保留变体分开。可改变商品组合、金额、规则更新时间、请求键、数量和注入载体。同一根因的金额变体不能当作完全独立的业务泛化样本。"
+      }
+    ]
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.9.5 真实模型实验协议"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "比较确定性工具、单 Agent、多角色和多角色加规则仲裁。两个模型分别运行相同角色配置，每案例重复 3～5 次，保留失败和拒答。12 案例×3 种 Agent 配置×2 个模型×3 次为 216 次案例运行，实际调用数还需乘角色数和重试。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "先以 ORD-01/09 做小规模试跑，再据真实延迟与用量估算预算。模型仲裁尚未实现，不能把规则函数记作模型 B。模型名称、兼容端点、输出格式和预算需明确配置；没有真实实验时，只发布工程与控制夹具验证结果。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "以下行业基准对照保留既有来源边界，所述规模和指标属于外部资料，不是订单工程的测量结果。"
+      }
+    ]
   },
   {
     "type": "h2",
@@ -1616,65 +847,5 @@
       }
     ],
     "id": "t6SiUqe8tV"
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "9.9.7 练习与小结"
-      }
-    ],
-    "id": "KGcqjZaSqO"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "小结",
-        "bold": true
-      },
-      {
-        "text": "：评测层回答\"修对了没有\"，由三件东西定义——Oracle（判准）、指标（计数口径）、样本（基准版本）。本章采用双层 Oracle（程序化测试判结果、根因记录判理由）、根因级去重后的 Precision/Recall，以及只覆盖关键根因的零缺陷门禁；并保留两条边界：回放不测模型能力，基准分数必须绑定版本与评分器。落到一句："
-      },
-      {
-        "text": "能复现的分数才是证据，能去重的命中才是召回。",
-        "bold": true
-      }
-    ],
-    "id": "uTPv9e0xQN"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "练习",
-        "bold": true
-      },
-      {
-        "text": "：① 给 "
-      },
-      {
-        "text": "evaluation/",
-        "code": true
-      },
-      {
-        "text": " 增加一条去重规则：若两个 Finding 的根因类别不同但指向同一 "
-      },
-      {
-        "text": "acceptable_fix",
-        "code": true
-      },
-      {
-        "text": "，是否合并？给出你的判据并说明对 Precision 的影响；② 为 PR-08（提示注入，AGENTSEC-001）设计 Oracle——这类缺陷的 "
-      },
-      {
-        "text": "acceptable_fix",
-        "code": true
-      },
-      {
-        "text": " 如何定义？程序化测试能否判定？③ 用本节表 9-12 的判据检查：如果你要把本章指标与 SWE-bench Verified 分数并列展示，必须先声明哪些口径差异？"
-      }
-    ],
-    "id": "BpRXcZZ14L"
   }
 ]

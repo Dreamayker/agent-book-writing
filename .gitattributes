@@ -1,0 +1,4 @@
+# Preserve raw execution output and the whitespace needed by unified patches.
+order-review-lab/book-assets/**/tool-evidence/raw/** -whitespace
+order-review-lab/evaluation/reports/*.txt -whitespace
+order-review-lab/book-assets/**/*.patch -whitespace
