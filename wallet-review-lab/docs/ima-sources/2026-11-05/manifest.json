@@ -496,7 +496,10 @@
       "filename": "ima 给的文章结构.md",
       "unknownTypes": [],
       "characters": 6404,
-      "rawSha256": "5451c40f7b5939145795fdf594dacef36124b93afd17fe9bf625a99b2698cd95"
+      "rawSha256": "5451c40f7b5939145795fdf594dacef36124b93afd17fe9bf625a99b2698cd95",
+      "sourceCharacters": 6404,
+      "markdownSha256": "3383ffa5a66ed35827aeba06deeed6bf0ba86878140e329878a6d4bb4a79c373",
+      "richTextSha256": "e80074cb77b521b0a888c8dd35a85a7a48c312a6ad1756e699b9ca83da05b825"
     },
     {
       "title": "9.1章节",
@@ -506,8 +509,12 @@
       "modifyTime": "1792502242202",
       "filename": "9.1章节.md",
       "unknownTypes": [],
-      "characters": 5968,
-      "rawSha256": "206379b393a3891cfded1bb97c585c6347c4312a4fec92d18d7d8f4bf1838f65"
+      "characters": 4405,
+      "rawSha256": "206379b393a3891cfded1bb97c585c6347c4312a4fec92d18d7d8f4bf1838f65",
+      "sourceCharacters": 5968,
+      "markdownSha256": "e8a9122355c7948b3158767d1c9056237c72a2e28b7bef682c4e4b0685a1edbb",
+      "richTextSha256": "45ff8a360f74e96d5d0f0006ec63b0d38796eb7bc7ec9f719696b3ed390bd255",
+      "edited": true
     },
     {
       "title": "9.2章节",
@@ -517,8 +524,12 @@
       "modifyTime": "1792500415568",
       "filename": "9.2章节.md",
       "unknownTypes": [],
-      "characters": 9122,
-      "rawSha256": "0930e3ea4195963809997b78b72f6097ac6d41ff8b4147cdd54eadf71740a8bf"
+      "characters": 8307,
+      "rawSha256": "0930e3ea4195963809997b78b72f6097ac6d41ff8b4147cdd54eadf71740a8bf",
+      "sourceCharacters": 9122,
+      "markdownSha256": "2c904daf203255939afc86f0784a710a19556610aa22da142baa991cb49c892d",
+      "richTextSha256": "26ca196efb22c5ed99994d2c5e32a30dac71d534d6e9082afebf2fc4db6cf313",
+      "edited": true
     },
     {
       "title": "9.3章节",
@@ -528,8 +539,12 @@
       "modifyTime": "1792502233422",
       "filename": "9.3章节.md",
       "unknownTypes": [],
-      "characters": 8561,
-      "rawSha256": "4ec8c4f82c88c82716fe0d064c186b88300e218a44374845ce87f7974b766f18"
+      "characters": 8062,
+      "rawSha256": "4ec8c4f82c88c82716fe0d064c186b88300e218a44374845ce87f7974b766f18",
+      "sourceCharacters": 8561,
+      "markdownSha256": "af1cc1ff33afb326c3febcaa93fcc2eba3a4fabc5b944a216e4d7905ed8f51a2",
+      "richTextSha256": "f70d99f2fb3e2b7b78e93fadcf6681653c593c48029e8f7f68c50bf621ce002e",
+      "edited": true
     },
     {
       "title": "9.4章节",
@@ -539,8 +554,12 @@
       "modifyTime": "1792499781398",
       "filename": "9.4章节.md",
       "unknownTypes": [],
-      "characters": 7132,
-      "rawSha256": "843e474ae7fbe61649ad2108e04be85b0b11e0b999ba7eee83dc3f798dfd9569"
+      "characters": 6551,
+      "rawSha256": "843e474ae7fbe61649ad2108e04be85b0b11e0b999ba7eee83dc3f798dfd9569",
+      "sourceCharacters": 7132,
+      "markdownSha256": "1445ebbe3dd8034bf0522af39a038ae8dd7a937f08cef0399655b022f40992ab",
+      "richTextSha256": "961da56e7ee0ff91297e1bed7cbeb1b1e59b87436116d92e2fa5f569262285a2",
+      "edited": true
     },
     {
       "title": "9.5章节",
@@ -550,8 +569,12 @@
       "modifyTime": "1792500104350",
       "filename": "9.5章节.md",
       "unknownTypes": [],
-      "characters": 8761,
-      "rawSha256": "a57fd0b6e915b72593e5c1e85a822d619775e09d30f9c5e515f3e50a5dc490b8"
+      "characters": 8179,
+      "rawSha256": "a57fd0b6e915b72593e5c1e85a822d619775e09d30f9c5e515f3e50a5dc490b8",
+      "sourceCharacters": 8761,
+      "markdownSha256": "91154ca6d6f96116d2d891d48a8a3a0c9debc635db8caac6914aee899b21c72b",
+      "richTextSha256": "0985f27d32ce60902d0e00138e51f8bd1239570899236929c5ddcfdf5189ecc5",
+      "edited": true
     },
     {
       "title": "9.6章节",
@@ -561,8 +584,29 @@
       "modifyTime": "1792500374637",
       "filename": "9.6章节.md",
       "unknownTypes": [],
-      "characters": 8255,
-      "rawSha256": "4426996a602c51ab333d51f851c928834ab4957b0d0a09c7617962cedc334c10"
+      "characters": 11261,
+      "rawSha256": "eec6a6c6db9cdcc3ff9aa2b15e7fca9e1af3447ce5f76da32525ffe41afae7d4",
+      "mergedFrom": [
+        {
+          "title": "9.6章节",
+          "noteId": "7518291463511628",
+          "createTime": "1792500368146",
+          "modifyTime": "1792500374637",
+          "rawSha256": "4426996a602c51ab333d51f851c928834ab4957b0d0a09c7617962cedc334c10"
+        },
+        {
+          "title": "9.6章节补充对照",
+          "noteId": "7518295922049485",
+          "createTime": "1792501431723",
+          "modifyTime": "1792501440529",
+          "rawSha256": "7b727a570212fee23f4d52de5f287746aac9e9f85df224196159a5f9d89b3ae3"
+        }
+      ],
+      "rawFormat": "ima-source-bundle-v1",
+      "sourceCharacters": 8255,
+      "markdownSha256": "d430321ed33c8825dde3694397c0b217c78be19734add31469ab51f7cd41823c",
+      "richTextSha256": "934104cd6af44e8215d451b25f183244e13b9c7198ad4d7e5969228d04c6cc06",
+      "edited": true
     },
     {
       "title": "9.7章节",
@@ -572,30 +616,29 @@
       "modifyTime": "1792502177850",
       "filename": "9.7章节.md",
       "unknownTypes": [],
-      "characters": 19913,
-      "rawSha256": "b4efb373ae5bb8f75f3cb881ff9434a312e8f7c58646561cefdcef944f55ef2a"
-    },
-    {
-      "title": "9.7补充的外部对照",
-      "noteId": "7518294756036145",
-      "role": "supplement",
-      "createTime": "1792501153302",
-      "modifyTime": "1792502194265",
-      "filename": "9.7补充的外部对照.md",
-      "unknownTypes": [],
-      "characters": 7809,
-      "rawSha256": "85e15de9c937c2ec5c43a43896204c9515baa70b8913032a0d68b3f32f333f28"
-    },
-    {
-      "title": "9.6章节补充对照",
-      "noteId": "7518295922049485",
-      "role": "supplement",
-      "createTime": "1792501431723",
-      "modifyTime": "1792501440529",
-      "filename": "9.6章节补充对照.md",
-      "unknownTypes": [],
-      "characters": 4245,
-      "rawSha256": "7b727a570212fee23f4d52de5f287746aac9e9f85df224196159a5f9d89b3ae3"
+      "characters": 24999,
+      "rawSha256": "b522c99a53db0a1136115b424d35ea007603a52c3d5bcd418ff069809c1acf26",
+      "mergedFrom": [
+        {
+          "title": "9.7章节",
+          "noteId": "7518294684735056",
+          "createTime": "1792501136328",
+          "modifyTime": "1792502177850",
+          "rawSha256": "b4efb373ae5bb8f75f3cb881ff9434a312e8f7c58646561cefdcef944f55ef2a"
+        },
+        {
+          "title": "9.7补充的外部对照",
+          "noteId": "7518294756036145",
+          "createTime": "1792501153302",
+          "modifyTime": "1792502194265",
+          "rawSha256": "85e15de9c937c2ec5c43a43896204c9515baa70b8913032a0d68b3f32f333f28"
+        }
+      ],
+      "rawFormat": "ima-source-bundle-v1",
+      "sourceCharacters": 19913,
+      "markdownSha256": "5aceb40cbc92b57a46ff9595b34c177499f306e70456adb893f197d92837a86e",
+      "richTextSha256": "3c6857c548188153c81dc577cbac4fb8dafe56026807dc47fb2047e303ad8d5c",
+      "edited": true
     },
     {
       "title": "9.8章节",
@@ -605,8 +648,12 @@
       "modifyTime": "1792501704173",
       "filename": "9.8章节.md",
       "unknownTypes": [],
-      "characters": 10893,
-      "rawSha256": "d6d4ea31ddafc1052a3015c24caad8979444261fac9d31e0ed058b3618d4acf6"
+      "characters": 9467,
+      "rawSha256": "d6d4ea31ddafc1052a3015c24caad8979444261fac9d31e0ed058b3618d4acf6",
+      "sourceCharacters": 10893,
+      "markdownSha256": "c225de551a2bb5187b40b6fa2d0d0eb0dd72b8d4e7b55a996c510e22448d26f2",
+      "richTextSha256": "872f5c6b9f07f89b44c8fee8c2217951c7592c50898fe5cd3b8a30b1547cc4e7",
+      "edited": true
     },
     {
       "title": "9.9章节",
@@ -616,8 +663,12 @@
       "modifyTime": "1792501888061",
       "filename": "9.9章节.md",
       "unknownTypes": [],
-      "characters": 9102,
-      "rawSha256": "4970a567ea387c9ccfcecc664a78960eb4fd05a968787a086dd5fdaadbc9e7ad"
+      "characters": 8053,
+      "rawSha256": "4970a567ea387c9ccfcecc664a78960eb4fd05a968787a086dd5fdaadbc9e7ad",
+      "sourceCharacters": 9102,
+      "markdownSha256": "7878e7e2ee655bbe587e85c06739484367fb79df5d92cb3f0852c019984480e9",
+      "richTextSha256": "cdbd104a85d49415c172ecb10223bde87dbe1946bf1366060925561b9f5a350e",
+      "edited": true
     },
     {
       "title": "9.10章节",
@@ -627,8 +678,12 @@
       "modifyTime": "1792502127147",
       "filename": "9.10章节.md",
       "unknownTypes": [],
-      "characters": 11204,
-      "rawSha256": "eb3e06111f805ad2c5de9d35f4854272e1ce473e39dac34e52f9adf74a217d40"
+      "characters": 10086,
+      "rawSha256": "eb3e06111f805ad2c5de9d35f4854272e1ce473e39dac34e52f9adf74a217d40",
+      "sourceCharacters": 11204,
+      "markdownSha256": "81f0a3f2b7b352e335e14ec83f54b1a946c33d66425e21be1c887823841a6d0a",
+      "richTextSha256": "1352da3fd51a256691392fb34b4dfe21abf71e47bb860c0d313687a04a8c0269",
+      "edited": true
     },
     {
       "title": "9.11章节",
@@ -638,8 +693,12 @@
       "modifyTime": "1792502398285",
       "filename": "9.11章节.md",
       "unknownTypes": [],
-      "characters": 11422,
-      "rawSha256": "41fdccd91d1757a3ef43ab4fd48bfab4568b73f5faf6a816e9359144c32013e7"
+      "characters": 10210,
+      "rawSha256": "41fdccd91d1757a3ef43ab4fd48bfab4568b73f5faf6a816e9359144c32013e7",
+      "sourceCharacters": 11422,
+      "markdownSha256": "6f0e99453e8ca257ab370fac9724e468631d9485150b5b0be6f5c1f73dee6cdf",
+      "richTextSha256": "554dc48e3fa744991422d5f0c411b939612aa56fe881e44c661c9a1a9133a187",
+      "edited": true
     },
     {
       "title": "9.12章节",
@@ -649,8 +708,12 @@
       "modifyTime": "1792502714689",
       "filename": "9.12章节.md",
       "unknownTypes": [],
-      "characters": 10004,
-      "rawSha256": "7d3a4c5974a7e61df375980992be85ff7e3b24b44a1691c8b2d380cd99c1ee49"
+      "characters": 7826,
+      "rawSha256": "7d3a4c5974a7e61df375980992be85ff7e3b24b44a1691c8b2d380cd99c1ee49",
+      "sourceCharacters": 10004,
+      "markdownSha256": "737d0742587dd302145b5300bc53bf552d486dffd2d69dfc01ad4c709775a36a",
+      "richTextSha256": "3d6a49ecbfc8c094e455eb21bb0a50a0cfc62902ca58eda034e0f74d487eaff9",
+      "edited": true
     },
     {
       "title": "第 9 章全章审校报告",
@@ -661,7 +724,10 @@
       "filename": "第 9 章全章审校报告.md",
       "unknownTypes": [],
       "characters": 7624,
-      "rawSha256": "bcac42577c2e5ccd7774efeb1651f216feee9651253cbc21c456978838c13b07"
+      "rawSha256": "bcac42577c2e5ccd7774efeb1651f216feee9651253cbc21c456978838c13b07",
+      "sourceCharacters": 7624,
+      "markdownSha256": "c296b50bab9bdd8eedd7cfae8e5b665ae0d0a5168254d3bceccf45d77894b648",
+      "richTextSha256": "1fc2b55eb0e20bb3e02a6c119d357bcbc2f647ce22c1c81f1dcc213de158063f"
     },
     {
       "title": "章首导语",
@@ -671,8 +737,12 @@
       "modifyTime": "1792503672736",
       "filename": "章首导语.md",
       "unknownTypes": [],
-      "characters": 2751,
-      "rawSha256": "e92140f17ac02b17677ed62ae424637af2021dacd2f0b0fb8214bd52fc7e87d5"
+      "characters": 1429,
+      "rawSha256": "e92140f17ac02b17677ed62ae424637af2021dacd2f0b0fb8214bd52fc7e87d5",
+      "sourceCharacters": 2751,
+      "markdownSha256": "97e8e9088384ca1cb28534eea2e90a15691a2d1b288245d1b0a42f573d60f7f4",
+      "richTextSha256": "181a10aad7e436a94da4f34040c095f19f4194de262ff1e08b611a2889c031e7",
+      "edited": true
     },
     {
       "title": "案例说明",
@@ -683,7 +753,25 @@
       "filename": "案例说明.md",
       "unknownTypes": [],
       "characters": 9286,
-      "rawSha256": "5391c75f8c9e13feae053ebf76c145e2600ec75068dd38de3ec5ee1b413e4b36"
+      "rawSha256": "5391c75f8c9e13feae053ebf76c145e2600ec75068dd38de3ec5ee1b413e4b36",
+      "sourceCharacters": 9286,
+      "markdownSha256": "b28decd7e8278d00bc5558acd473731f6402e3783a147eb31207d651d09be599",
+      "richTextSha256": "3d48f6c4846eb2c9ed30a19ae21ea9dc49d192eaad3b998c0422c1920a20086e"
     }
-  ]
+  ],
+  "editorialState": {
+    "status": "edited",
+    "date": "2026-11-05",
+    "changes": [
+      "Merged 9.6 supplement as 9.6.8; exercises moved to 9.6.9",
+      "Merged 9.7 supplement as 9.7.8; comparison and exercises moved to 9.7.9 and 9.7.10",
+      "Removed AI preambles, progress logs, delivery checklists and closing questions from all 12 chapters and the introduction",
+      "Applied the introduction source revision to 9.1.6",
+      "Removed both standalone supplements in Markdown and JSON; original source strings retained in the corresponding chapter source bundle"
+    ],
+    "sourceCount": 18,
+    "documentCount": 16,
+    "sourceCommit": "9da263ffe63f3d637987f6eade69d60a108539be",
+    "editedAt": "2026-11-05T08:40:25.701174+00:00"
+  }
 }

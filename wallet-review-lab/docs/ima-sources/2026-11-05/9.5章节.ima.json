@@ -1,60 +1,5 @@
 [
   {
-    "id": "1",
-    "type": "h1",
-    "meta": true,
-    "children": [
-      {
-        "text": "9.5章节"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "9.5 需要外部对照（CodeAgent 论文、CodeRabbit 官方文档）和原稿多 Agent 素材。先并行取证。"
-      }
-    ],
-    "id": "7jEdVauSPT"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "历史会话中没有 9.5 的额外素材记录（原稿素材已在上下文中）。CodeAgent 论文摘要页已确认核心事实（多 Agent＋QA-Checker 监督＋四项任务）；CodeRabbit 架构文档需要读原文确认细节。继续补取论文正文与官方文档。"
-      }
-    ],
-    "id": "cs6C5vwlC7"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "CodeAgent 论文正文（六角色、四阶段、QA-Checker）与 CodeRabbit 官方架构均已确认，MetaGPT 一手材料也有。补一次搜索为 CodeAgent 论文获取本轮可引用的来源标识，然后成稿。"
-      }
-    ],
-    "id": "APWgzh30WZ"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "取证完成：CodeAgent 论文（ACL Anthology 官方条目 ＋论文正文角色细节）、CodeRabbit 官方架构文档（已读全文 ）、MetaGPT 一手摘要（）齐备。开始创作 9.5。"
-      }
-    ],
-    "id": "YM5AZMCnpx"
-  },
-  {
-    "type": "hr",
-    "children": [
-      {
-        "text": ""
-      }
-    ],
-    "id": "QBglk6wLzn"
-  },
-  {
     "type": "h1",
     "children": [
       {
@@ -3036,7 +2981,7 @@
     "type": "p",
     "children": [
       {
-        "text": "几点必须声明的事实边界：CodeAgent 的实验数字（如漏洞检测命中率）出自第三方解读转述，本书不引用具体数值；CodeRabbit 市场宣传中的\"缺陷命中率、审查时间压缩\"等数字未在本轮取证中核实到一手来源，正文一律不写；上表对 CodeRabbit\"证据验证\"的描述依据其官方文档与第三方报道，属于供应商公开口径，未经独立复现验证。"
+        "text": "几点必须声明的事实边界：CodeAgent 的实验数字（如漏洞检测命中率）出自第三方解读转述，本书不引用具体数值；CodeRabbit 市场宣传中的\"缺陷命中率、审查时间压缩\"等数字尚未核实到一手来源，正文一律不写；上表对 CodeRabbit\"证据验证\"的描述依据其官方文档与第三方报道，属于供应商公开口径，未经独立复现验证。"
       }
     ],
     "id": "INJoIwauUY"
@@ -3148,32 +3093,10 @@
     "id": "AuJeJIZdVo"
   },
   {
-    "type": "hr",
-    "children": [
-      {
-        "text": ""
-      }
-    ],
-    "id": "C2_abZyKnA"
-  },
-  {
     "type": "p",
     "children": [
       {
-        "text": "进度记录",
-        "bold": true
-      },
-      {
-        "text": "：已完成 9.1–9.5。待完成：9.6 证据流水线（Schema/路由/调度）、9.7 六案例深度实战、9.8 仲裁与治理、9.9 评测与行业基准、9.10 成本与路由、9.11 安全防御、9.12 端到端演练。图 9-4、9-5 与表 9-5 至 9-8 为章节内部编号，全书统一编号留待审校。"
-      }
-    ],
-    "id": "00ronXsPDs"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "本轮引用说明",
+        "text": "来源说明",
         "bold": true
       },
       {

@@ -181,6 +181,12 @@ if (process.argv.includes("--from-local")) {
   process.exit(0);
 }
 
+const existingManifest = path.join(OUTPUT_ROOT, requestedDate, "manifest.json");
+if (latest && !dryRun && fs.existsSync(existingManifest)
+  && JSON.parse(fs.readFileSync(existingManifest, "utf8")).editorialState) {
+  throw new Error("This directory contains an edited manuscript. Export to a new date to preserve the merged and cleaned chapters.");
+}
+
 const folders = page(
   "openapi/note/v1/list_notebook",
   { limit: 20 },

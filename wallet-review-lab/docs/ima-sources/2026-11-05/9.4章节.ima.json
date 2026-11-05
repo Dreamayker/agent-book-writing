@@ -1,51 +1,5 @@
 [
   {
-    "id": "1",
-    "type": "h1",
-    "meta": true,
-    "children": [
-      {
-        "text": "9.4章节"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "继续 9.4 前，我先召回此前对话中原稿的 9.4 素材（四类任务、任务契约、Finding 结构），并补充 CodeAgent 角色细节用于外部对照。"
-      }
-    ],
-    "id": "29dQQ9jBYU"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "已召回关键素材：本书 9.4 对应原稿「单 Agent 评审：从任务分类到任务契约」，含四类任务（规范/缺陷/安全/影响）、任务契约六要素、摘要与影响分析纪律、Diff 到结构化 Finding。我再补召回 Finding Schema 细节，并搜索 CodeRabbit 评审 Agent 职责作对照。"
-      }
-    ],
-    "id": "uFqmBcBP1-"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "素材已齐：原稿 9.4 骨架（四类任务、任务契约六要素、摘要纪律、Finding 结构）已召回，外部对照有一手材料（CodeRabbit 官方架构与 Custom Checks 文档、CodeAgent 论文、RADAR 论文）。开始创作 9.4。"
-      }
-    ],
-    "id": "GOahA0jQkw"
-  },
-  {
-    "type": "hr",
-    "children": [
-      {
-        "text": ""
-      }
-    ],
-    "id": "TG0ADdJTe6"
-  },
-  {
     "type": "h1",
     "children": [
       {
@@ -1578,36 +1532,14 @@
     "id": "6Ggrii0Vuk"
   },
   {
-    "type": "hr",
-    "children": [
-      {
-        "text": ""
-      }
-    ],
-    "id": "KFFp9-wiVf"
-  },
-  {
     "type": "p",
     "children": [
       {
-        "text": "进度记录",
+        "text": "来源说明",
         "bold": true
       },
       {
-        "text": "：已完成 9.1–9.4。待完成：9.5 专业化多 Agent 协同（最小角色集、证据共享与结论隔离、权限隔离、三种配置对比）、9.6 证据流水线（Schema/路由/调度）、9.7 六案例深度实战、9.8 仲裁与治理、9.9 评测与行业基准、9.10 成本与路由、9.11 安全防御、9.12 端到端演练。图 9-3、9-4 编号为本章内部序号，全书统一编号留待审校阶段。"
-      }
-    ],
-    "id": "3b9lLPKyur"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "本轮引用说明",
-        "bold": true
-      },
-      {
-        "text": "：CodeRabbit 官方架构（五类专业 Agent）、Custom Checks 的 Analyze–Verify–Decide 流程与受控工具集、agentic review 定位与人工批准边界；CodeAgent 论文关于单模型局限的论述；RADAR 漏斗中的 LLM 评审与确定性验证。其中 为第三方介绍，仅用于补充\"只评论不合并\"的行为边界，主引用为官方文档。"
+        "text": "：CodeRabbit 官方架构（五类专业 Agent）、Custom Checks 的 Analyze–Verify–Decide 流程与受控工具集、agentic review 定位与人工批准边界；CodeAgent 论文关于单模型局限的论述；RADAR 漏斗中的 LLM 评审与确定性验证。第三方介绍仅用于补充\"只评论不合并\"的行为边界，主引用为官方文档。"
       }
     ],
     "id": "UsF29mU64K"

@@ -1,51 +1,5 @@
 [
   {
-    "id": "1",
-    "type": "h1",
-    "meta": true,
-    "children": [
-      {
-        "text": "9.3章节"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "9.3 需要补充外部对照，我先重新获取一手材料（RADAR、CodeAgent 论文与 CodeRabbit 官方架构文档），以获得本轮可引用的来源。"
-      }
-    ],
-    "id": "ZuQgZpH_QN"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "已取得 RADAR 与 CodeAgent 论文摘要，以及 CodeRabbit 文档入口。为确保本轮可引用，我再用搜索获取带索引的论文条目，并读取 CodeRabbit 官方架构文档细节。"
-      }
-    ],
-    "id": "oEzG8cz-sB"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "已取得本轮可引用的一手与第三方材料（RADAR 论文摘要与多篇报道、CodeAgent 论文与解读、CodeRabbit 官方架构文档正文及安全基准）。现在将对照内容织入 9.3，在 PR-01 之后新增 9.3.8「与工业系统的对照」，原练习与小结顺延为 9.3.9、9.3.10。"
-      }
-    ],
-    "id": "eXerYbapyU"
-  },
-  {
-    "type": "hr",
-    "children": [
-      {
-        "text": ""
-      }
-    ],
-    "id": "EO7iGMk3DB"
-  },
-  {
     "type": "h1",
     "children": [
       {
@@ -1475,32 +1429,10 @@
     "id": "4w9PrWMuZu"
   },
   {
-    "type": "hr",
-    "children": [
-      {
-        "text": ""
-      }
-    ],
-    "id": "IRr1P6TY-m"
-  },
-  {
     "type": "p",
     "children": [
       {
-        "text": "进度记录",
-        "bold": true
-      },
-      {
-        "text": "：9.3 已按原稿主线完成并补充外部对照。已完成：9.1、9.2、9.3。待完成：9.4 单 Agent 评审、9.5 专业化多 Agent 协同、9.6 证据流水线、9.7 六案例深度实战、9.8 仲裁与治理、9.9 评测与行业基准、9.10 成本与路由、9.11 安全防御、9.12 端到端演练。"
-      }
-    ],
-    "id": "g4UGNHYMwG"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "本轮引用说明",
+        "text": "来源说明",
         "bold": true
       },
       {

@@ -1,664 +1,5 @@
 [
   {
-    "id": "1",
-    "type": "h1",
-    "meta": true,
-    "children": [
-      {
-        "text": "9.1章节"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "收到 Gemini 报告。它与我此前设计的章节结构属于两种互补素材：原稿提供 wallet-review-lab 教学体系（可复现实验），Gemini 报告提供工业界案例与评测基准（外部视野）。下面先给融合说明，再开始逐节创作。"
-      }
-    ],
-    "id": "zuWWPKd1M5"
-  },
-  {
-    "type": "hr",
-    "children": [
-      {
-        "text": ""
-      }
-    ],
-    "id": "pWxmg3eYCg"
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "一、对 Gemini 报告的解读"
-      }
-    ],
-    "id": "hnjdKErW_a"
-  },
-  {
-    "indent": 1,
-    "listGroup": "hCg7rF",
-    "listStyleType": "decimal",
-    "type": "p",
-    "children": [
-      {
-        "text": "结构",
-        "bold": true
-      },
-      {
-        "text": "：开篇（ACR 范式转移背景）+ 9.1 工业落地（Meta RADAR / CodeRabbit / CodeAgent）+ 9.2 评测基准（SWR-Bench / ReviewBench / CodeScope）+ 9.3 零信任安全防御（仅开头，"
-      },
-      {
-        "text": "在\"在这个风险光谱\"处被截断",
-        "bold": true
-      },
-      {
-        "text": "）；"
-      }
-    ],
-    "id": "LjxZfixjBx"
-  },
-  {
-    "indent": 1,
-    "listGroup": "hCg7rF",
-    "listStart": 2,
-    "listStyleType": "decimal",
-    "type": "p",
-    "children": [
-      {
-        "text": "数据特点",
-        "bold": true
-      },
-      {
-        "text": "：包含大量第三方系统具体数字（如 Meta 的 105.9%、60.31%、1/50；CodeRabbit 的 91%、64%；CodeAgent 的 13.39%、31.6%；ReviewBench 的 92%、0.043 等）。按原稿自己的纪律（\"外部产品能力、漏洞状态和价格是否有一手来源与访问日期？\"），这些数字不能作为已验证事实直接写入图书，需在正文中标注来源性质，并在出版前以官方论文/工程博客逐一核验；"
-      }
-    ],
-    "id": "SPlLx9UOPJ"
-  },
-  {
-    "indent": 1,
-    "listGroup": "hCg7rF",
-    "listStart": 3,
-    "listStyleType": "decimal",
-    "type": "p",
-    "children": [
-      {
-        "text": "与原稿的关系",
-        "bold": true
-      },
-      {
-        "text": "：Gemini 报告没有覆盖原稿的 wallet-review-lab 案例体系、Finding Schema、仲裁、成本模型等内容。因此最终章节 = 原稿教学主线 + 报告业界参照，二者互补而非替代。"
-      }
-    ],
-    "id": "6wOC_eCMWp"
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "二、融合映射与结构微调"
-      }
-    ],
-    "id": "g3tZRV-6rE"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "原 10 节结构微调为 "
-      },
-      {
-        "text": "12 节",
-        "bold": true
-      },
-      {
-        "text": "：新增 9.2（工业实践）与 9.11（安全防御），使 Gemini 报告内容有明确归属，同时保持原稿教学体系完整。"
-      }
-    ],
-    "id": "69oiOJUnUJ"
-  },
-  {
-    "type": "table",
-    "children": [
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "Gemini 报告内容",
-                    "bold": true
-                  }
-                ],
-                "type": "p",
-                "id": "Eu_egsdH6C"
-              }
-            ],
-            "id": "2bqd5L-dJ-"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "融合位置",
-                    "bold": true
-                  }
-                ],
-                "type": "p",
-                "id": "IXGoICMWy1"
-              }
-            ],
-            "id": "2s2fpFlYB7"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "融合方式",
-                    "bold": true
-                  }
-                ],
-                "type": "p",
-                "id": "kydAGClI0E"
-              }
-            ],
-            "id": "napwV5k5-e"
-          }
-        ],
-        "id": "Ysg5Zp5TiY"
-      },
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "开篇：范式转移、通知疲劳"
-                  }
-                ],
-                "type": "p",
-                "id": "aa8fvQuDle"
-              }
-            ],
-            "id": "tN5SbQVJFG"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.1.1"
-                  }
-                ],
-                "type": "p",
-                "id": "bultRPnXHV"
-              }
-            ],
-            "id": "ftYC8aiWkK"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "作为困境背景"
-                  }
-                ],
-                "type": "p",
-                "id": "zowr4WHXGw"
-              }
-            ],
-            "id": "J9UrC-zUkG"
-          }
-        ],
-        "id": "Zzj1i5rDiR"
-      },
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.1.1 Meta RADAR（DRS、P25/P50）"
-                  }
-                ],
-                "type": "p",
-                "id": "xQVoFR8orB"
-              }
-            ],
-            "id": "DdJpWnxoYG"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.2.1（完整）＋9.12（生产落地借鉴）"
-                  }
-                ],
-                "type": "p",
-                "id": "Bd39SRssje"
-              }
-            ],
-            "id": "9-M-VlihYX"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "工业案例独立展开"
-                  }
-                ],
-                "type": "p",
-                "id": "Hlv_nkTKFQ"
-              }
-            ],
-            "id": "19-JqG6WF6"
-          }
-        ],
-        "id": "VDWXx88AKK"
-      },
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.1.2 CodeRabbit（AST 图谱、沙盒、五层管道）"
-                  }
-                ],
-                "type": "p",
-                "id": "0y-wzXsZBv"
-              }
-            ],
-            "id": "O4IWRRHpOz"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.2.2（完整）＋9.6（流水线对照）"
-                  }
-                ],
-                "type": "p",
-                "id": "I3qi5-DyZy"
-              }
-            ],
-            "id": "FvEzo8u7gI"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "同上"
-                  }
-                ],
-                "type": "p",
-                "id": "nsJM_nupjO"
-              }
-            ],
-            "id": "l6L2QsPcQH"
-          }
-        ],
-        "id": "I4XBVLPyyE"
-      },
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.1.3 CodeAgent（提示词漂移、QA-Checker）"
-                  }
-                ],
-                "type": "p",
-                "id": "p50Xv8AFcr"
-              }
-            ],
-            "id": "6w3ohziuq3"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.2.3（完整）＋9.5（多 Agent 对照）"
-                  }
-                ],
-                "type": "p",
-                "id": "FjYG3zPOkH"
-              }
-            ],
-            "id": "Nic8oak0_l"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "同上"
-                  }
-                ],
-                "type": "p",
-                "id": "QEahcbc-SU"
-              }
-            ],
-            "id": "bd2PiuO6q_"
-          }
-        ],
-        "id": "hA4taP-dxI"
-      },
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.2.1 SWR-Bench"
-                  }
-                ],
-                "type": "p",
-                "id": "TZzTs1aQkK"
-              }
-            ],
-            "id": "G3FfRRiqXP"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.9.4"
-                  }
-                ],
-                "type": "p",
-                "id": "V_8AiGDUAA"
-              }
-            ],
-            "id": "P-fF8N1ASk"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "评测节\"外部基准\"部分"
-                  }
-                ],
-                "type": "p",
-                "id": "p2n3lTsyJU"
-              }
-            ],
-            "id": "Q6xnd90eGT"
-          }
-        ],
-        "id": "SB1J1EdZFx"
-      },
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.2.2 ReviewBench"
-                  }
-                ],
-                "type": "p",
-                "id": "Q830b21zGa"
-              }
-            ],
-            "id": "dXT-OPSMbZ"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.9.4"
-                  }
-                ],
-                "type": "p",
-                "id": "mAmfoaPByV"
-              }
-            ],
-            "id": "G1-Et4AAh-"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "同上"
-                  }
-                ],
-                "type": "p",
-                "id": "RSrH6oyClp"
-              }
-            ],
-            "id": "QFR0a6BdmN"
-          }
-        ],
-        "id": "SJ9hum80BH"
-      },
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.2.3 CodeScope"
-                  }
-                ],
-                "type": "p",
-                "id": "GGL5FbFD0j"
-              }
-            ],
-            "id": "fNDAFcZEAw"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.9.4"
-                  }
-                ],
-                "type": "p",
-                "id": "VqIXz8WyYW"
-              }
-            ],
-            "id": "uL0I3ovHSG"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "同上"
-                  }
-                ],
-                "type": "p",
-                "id": "e7Jj7D8HWE"
-              }
-            ],
-            "id": "0yns2xVUry"
-          }
-        ],
-        "id": "Jh_wPfAUpR"
-      },
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.3 零信任防御（OWASP Top 10）"
-                  }
-                ],
-                "type": "p",
-                "id": "1J-tb75IaX"
-              }
-            ],
-            "id": "aGdlYrQOda"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "9.11（完整）＋9.7 PR-08（教学应用）"
-                  }
-                ],
-                "type": "p",
-                "id": "BO_u7GdwPx"
-              }
-            ],
-            "id": "8GqDT-uv3u"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "独立成节"
-                  }
-                ],
-                "type": "p",
-                "id": "QND15_womL"
-              }
-            ],
-            "id": "50yBaBHLZF"
-          }
-        ],
-        "id": "UeiIYocCUD"
-      }
-    ],
-    "id": "_M0VfwNFSa",
-    "colSizes": [
-      284.6666666666667,
-      284.6666666666667,
-      284.6666666666667
-    ]
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "三、数据纪律（贯穿全章）"
-      }
-    ],
-    "id": "ouTtiV4e8h"
-  },
-  {
-    "indent": 1,
-    "listStyleType": "disc",
-    "type": "p",
-    "children": [
-      {
-        "text": "第三方系统数据统一标注为\""
-      },
-      {
-        "text": "据公开工程博客/研究论文转述，具体数字以官方一手来源为准，出版时需核验并标注访问日期",
-        "bold": true
-      },
-      {
-        "text": "\"；"
-      }
-    ],
-    "id": "F51i-Uc2P-"
-  },
-  {
-    "indent": 1,
-    "listStyleType": "disc",
-    "type": "p",
-    "children": [
-      {
-        "text": "原稿事实（wallet-review-lab 各项实验）与报告转述、作者推论三者用文字显式区分；"
-      }
-    ],
-    "id": "yvpAIKMyNU"
-  },
-  {
-    "indent": 1,
-    "listStyleType": "disc",
-    "type": "p",
-    "children": [
-      {
-        "text": "录制回放边界、RLock 边界等原稿声明全部保留。"
-      }
-    ],
-    "id": "WvzNo6drMm"
-  },
-  {
-    "type": "hr",
-    "children": [
-      {
-        "text": ""
-      }
-    ],
-    "id": "YTMvtf9tqP"
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "四、正文创作：9.1 节（已完成）"
-      }
-    ],
-    "id": "vp_zVBF9Ww"
-  },
-  {
     "type": "h1",
     "children": [
       {
@@ -1419,6 +760,15 @@
     "type": "p",
     "children": [
       {
+        "text": "承接 9.1.5\"三个流行答案为什么不够\"的论证，本章的路线可以概括为一条从困境到系统的链路："
+      }
+    ],
+    "id": "OtpP5IeqZM"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
         "text": "本章主线是一条可复用的证据闭环，对应图 9-1："
       }
     ],
@@ -1554,13 +904,94 @@
     "id": "QpBb_QeKjI"
   },
   {
+    "indent": 1,
+    "listStyleType": "disc",
     "type": "p",
     "children": [
       {
-        "text": "全章章节安排：9.2 对照工业界落地架构；9.3 建立 wallet-review-lab 实验场；9.4–9.6 完成单 Agent 到多 Agent 到证据流水线；9.7 深度实战六类缺陷；9.8 仲裁与治理；9.9 评测（Oracle 矩阵与行业基准）；9.10 成本与路由；9.11 安全防御；9.12 端到端演练。"
+        "text": "9.2",
+        "bold": true
+      },
+      {
+        "text": " 先看工业界三个系统（RADAR、CodeRabbit、CodeAgent）如何应对同样的困境，取其架构经验而非营销数字；"
       }
     ],
-    "id": "KsmoPba7d_"
+    "id": "JrEb7-uFsj"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "9.3",
+        "bold": true
+      },
+      {
+        "text": " 建立实验场 wallet-review-lab：数字钱包、四项不变量、Oracle 与可回放基线，让后续每一节都有可执行的载体；"
+      }
+    ],
+    "id": "aJw0mxFiRR"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "9.4–9.6",
+        "bold": true
+      },
+      {
+        "text": " 从单 Agent 评审契约，到专业化多 Agent 分工，再到证据流水线（统一 Schema、证据包、风险路由、录制回放）——这是本章的机制内核；"
+      }
+    ],
+    "id": "AKGGfI611d"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "9.7",
+        "bold": true
+      },
+      {
+        "text": " 用六个案例深度实战，把机制放到真实缺陷上检验；"
+      },
+      {
+        "text": "9.8–9.10",
+        "bold": true
+      },
+      {
+        "text": " 解决治理、评测与成本问题；"
+      },
+      {
+        "text": "9.11",
+        "bold": true
+      },
+      {
+        "text": " 补上安全防御维度；"
+      },
+      {
+        "text": "9.12",
+        "bold": true
+      },
+      {
+        "text": " 以一次端到端演练收束全章。"
+      }
+    ],
+    "id": "mZGb7zSMK1"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "全局导航——案例体系表、PR-06 编号约定、三档阅读路径——已在章首导语给出，本节不再重复；四角色命名以 9.5 为准，Finding 字段定义以 9.6 为准。读完全章后，建议回到导语对照案例表检查一遍：每个案例你都能说出它违反哪条不变量、最终由谁仲裁、如何被回放验证。"
+      }
+    ],
+    "id": "AyiJ93X2rx"
   },
   {
     "type": "p",
@@ -1622,136 +1053,5 @@
       }
     ],
     "id": "KPPMXEMm5G"
-  },
-  {
-    "type": "hr",
-    "children": [
-      {
-        "text": ""
-      }
-    ],
-    "id": "2HZcOc6___"
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "五、进度记录与后续计划"
-      }
-    ],
-    "id": "KzNsnl78l5"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "已完成",
-        "bold": true
-      },
-      {
-        "text": "：9.1（本回复）。"
-      },
-      {
-        "text": "待完成",
-        "bold": true
-      },
-      {
-        "text": "：9.2–9.12。"
-      }
-    ],
-    "id": "m8xfO4Upn5"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "后续各节创作前的核验计划："
-      }
-    ],
-    "id": "xRE3OKSb9i"
-  },
-  {
-    "indent": 1,
-    "listStyleType": "disc",
-    "type": "p",
-    "children": [
-      {
-        "text": "9.2（Meta RADAR / CodeRabbit / CodeAgent）：创作前联网核验三个系统的官方来源（Meta 工程博客、CodeRabbit 技术文档、CodeAgent 论文），并把 Gemini 报告中的数字标注为\"报告转述，以官方来源为准\"；"
-      }
-    ],
-    "id": "qTqlOs5n7y"
-  },
-  {
-    "indent": 1,
-    "listStyleType": "disc",
-    "type": "p",
-    "children": [
-      {
-        "text": "9.9（SWR-Bench / ReviewBench / CodeScope）：创作前核验论文与项目主页，标注数据出处；"
-      }
-    ],
-    "id": "TxKyti_fv6"
-  },
-  {
-    "indent": 1,
-    "listStyleType": "disc",
-    "type": "p",
-    "children": [
-      {
-        "text": "9.11（零信任防御 / OWASP Top 10 for LLM Applications）：核验 OWASP 版本与发布时间。"
-      }
-    ],
-    "id": "MN-Zu6r1fd"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "请您确认/补全三件事",
-        "bold": true
-      },
-      {
-        "text": "："
-      }
-    ],
-    "id": "wqXu5RyHkW"
-  },
-  {
-    "indent": 1,
-    "listGroup": "YOASeq",
-    "listStyleType": "decimal",
-    "type": "p",
-    "children": [
-      {
-        "text": "Gemini 报告 9.3 在\"在这个风险光谱\"处截断，请补全剩余内容（或授权我按零信任主题续写）；"
-      }
-    ],
-    "id": "gGRTjo3fwL"
-  },
-  {
-    "indent": 1,
-    "listGroup": "YOASeq",
-    "listStart": 2,
-    "listStyleType": "decimal",
-    "type": "p",
-    "children": [
-      {
-        "text": "9.1.4\"四种不确定性\"中，原稿原句在\"官方公……\"处截断，我按完整逻辑续写了第二类，请核对与您手中原文是否一致；"
-      }
-    ],
-    "id": "VBeFhm0qJX"
-  },
-  {
-    "indent": 1,
-    "listGroup": "YOASeq",
-    "listStart": 3,
-    "listStyleType": "decimal",
-    "type": "p",
-    "children": [
-      {
-        "text": "确认 12 节结构与上述融合映射是否符合预期，确认后我继续创作 9.2。"
-      }
-    ],
-    "id": "eLGXg8F6Lt"
   }
 ]

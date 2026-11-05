@@ -4,13 +4,13 @@
 
 ## 当前书稿版本
 
-根据作者 2026-11-05 的指示，**以 IMA 笔记本“Agent图书写作”中的最新内容为书稿基准**。本地入口为 [IMA 最新书稿快照](wallet-review-lab/docs/ima-sources/2026-11-05/README.md)，包含章首导语、9.1～9.12 正文、9.6 与 9.7 的补充对照、结构方案、审校报告和全书案例说明。
+根据作者 2026-11-05 的指示，**以 IMA 笔记本“Agent图书写作”中的最新内容为书稿基准**。阅读 [最新书稿目录](wallet-review-lab/docs/ima-sources/2026-11-05/README.md)，包含章首导语、9.1～9.12 正文、结构方案、审校报告和全书案例说明。9.6 与 9.7 的补充对照已并入主章节，独立补充文件已删除；十二节正文和导语已清理 AI 回复及创作过程说明。
 
-每篇同时保存 Markdown、便于检查的富文本 JSON 和逐字保存的原始富文本 JSON。原始 JSON 保留布局、表格单元格和格式属性，Markdown 用于阅读。笔记 ID、修改时间和读取时间见快照内 `manifest.json`。
+每篇同时保存可阅读的 Markdown、与正文同步的富文本 JSON，以及供追溯的原始富文本。9.6、9.7 的原始富文本文件内合并保存主稿和补充材料的来源内容。表格、代码和格式属性随正文保留；笔记 ID、来源修改时间和编辑记录见 `manifest.json`。
 
-章节清单、两篇补充对照的归属，以及导语中对 9.1.6 的替换关系，见 [当前书稿来源与修订关系](docs/manuscript-source.md)。
+章节清单、补充对照的合并位置及 9.1.6 已落实的修订，见 [当前书稿来源与修订关系](docs/manuscript-source.md)。
 
-`wallet-review-lab/docs/chapter-09-rewrite-draft.md` 与旧 `chapter-09/` 拆分稿是此前的仓库版本，尚未按 IMA 的 12 节结构整合。后续编辑、整稿和审校应以 IMA 最新正文及补充对照为依据。刷新快照：
+`wallet-review-lab/docs/chapter-09-rewrite-draft.md` 与旧 `chapter-09/` 拆分稿是此前的仓库版本，尚未按 IMA 的 12 节结构整合。后续编辑和审校以最新书稿目录中的主章节为依据。再次从 IMA 取稿时使用新的日期目录，避免覆盖已经编辑的正文：
 
 ```bash
 node scripts/export_ima_notes.mjs YYYY-MM-DD Asia/Shanghai --latest

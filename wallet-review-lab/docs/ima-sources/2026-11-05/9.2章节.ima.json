@@ -1,60 +1,5 @@
 [
   {
-    "id": "1",
-    "type": "h1",
-    "meta": true,
-    "children": [
-      {
-        "text": "9.2章节"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "收到确认。9.2 涉及 Meta RADAR、CodeRabbit、CodeAgent 三个外部系统的转述数据，按计划我先联网核验它们的官方来源，再动笔创作。"
-      }
-    ],
-    "id": "XJI4sp2akU"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "三个系统的公开来源都已定位到（RADAR 的 arXiv 论文、CodeRabbit 官方架构文档、CodeAgent 论文）。我再定向读取三个来源，核实 Gemini 报告中引用的具体数字是否与官方材料一致，然后开始创作。"
-      }
-    ],
-    "id": "Bp8_VqKoKQ"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "核心数字已从官方来源确认：RADAR 的 P25→P50 阈值与 60.31% 批准率出自 arXiv:2605.30208 摘要原文；CodeAgent 的 F1 +10.45pp、EP 31.60pp 出自论文原文。我再补两个定向读取，确认 RADAR 资格过滤细节与 CodeRabbit 官方性能口径，然后完成 9.2 正文。"
-      }
-    ],
-    "id": "0WtQNoXCuT"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "RADAR 论文细节已核验（多阶段漏斗、三类资格门槛、每 runbook 的 DRS 阈值、每日限额等）。CodeRabbit 的 Google Cloud 案例页抓取失败，但官方架构文档与多篇深入解读已足够支撑，性能数据将以官方口径（约 50% 提速/50% 缺陷减少）为准，并把报告中未经一手核验的数字显式标注。现在交付 9.2 正文。"
-      }
-    ],
-    "id": "TOcNUfRMeU"
-  },
-  {
-    "type": "hr",
-    "children": [
-      {
-        "text": ""
-      }
-    ],
-    "id": "rXbSYqQYgu"
-  },
-  {
     "type": "h1",
     "children": [
       {
@@ -1652,49 +1597,5 @@
       }
     ],
     "id": "58QwO569J2"
-  },
-  {
-    "type": "hr",
-    "children": [
-      {
-        "text": ""
-      }
-    ],
-    "id": "Eq_jTdUoLN"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "进度记录",
-        "bold": true
-      },
-      {
-        "text": "：已完成 9.1、9.2。待完成：9.3 实验场、9.4 单 Agent、9.5 多 Agent、9.6 证据流水线、9.7 深度实战（六案例）、9.8 仲裁与治理、9.9 评测、9.10 成本与路由、9.11 安全防御、9.12 端到端演练。"
-      }
-    ],
-    "id": "uif3UM0FGn"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "下一节（9.3）创作前请确认",
-        "bold": true
-      },
-      {
-        "text": "：9.3 将回到原稿的 wallet-review-lab 主线，不依赖额外外部取证，可直接开始；如您希望 9.3 也补充外部对照（例如对比 RADAR 的资格门槛与教学路由矩阵），请说明偏好，否则我按原稿主线推进。"
-      }
-    ],
-    "id": "w4Z64z5-sc"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": ""
-      }
-    ],
-    "id": "zHrdVFSlEe"
   }
 ]
