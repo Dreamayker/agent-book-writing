@@ -97,18 +97,14 @@ public class OrderApplicationService implements OrderUseCases {
               unitIds(units).containsAll(request.unitIds()),
               "INVALID",
               "Unit does not belong to order");
-          require(
-              units.stream().noneMatch(u -> request.unitIds().contains(u.unitId()) && u.refunded()),
-              "CONFLICT",
-              "Unit already refunded");
+          // Teaching defect: ignore already-refunded unit state.
           long amount = refunds.calculate(snapshot.pricing(), request.unitIds());
           require(
               db.increaseRefund(root.orderId(), amount) == 1,
               "CONFLICT",
               "Refund exceeds paid amount");
           for (String unit : request.unitIds())
-            require(
-                db.markRefunded(root.orderId(), unit) == 1, "CONFLICT", "Unit already refunded");
+            db.markRefunded(root.orderId(), unit);
           String id = UUID.randomUUID().toString();
           db.saveRefund(
               id,
