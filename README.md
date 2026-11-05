@@ -10,6 +10,8 @@
 
 章节清单、补充对照的合并位置及 9.1.6 已落实的修订，见 [当前书稿来源与修订关系](docs/manuscript-source.md)。
 
+依据最新全书案例说明制定的 [电商订单工程与章节迁移规划](docs/order-case-migration-plan.md)，列出了 Java 订单工程、现有评审能力复用、十二节书稿调整和分阶段验收方案。当前为规划草案，工程与正文尚未迁移。
+
 `wallet-review-lab/docs/chapter-09-rewrite-draft.md` 与旧 `chapter-09/` 拆分稿是此前的仓库版本，尚未按 IMA 的 12 节结构整合。后续编辑和审校以最新书稿目录中的主章节为依据。再次从 IMA 取稿时使用新的日期目录，避免覆盖已经编辑的正文：
 
 ```bash
