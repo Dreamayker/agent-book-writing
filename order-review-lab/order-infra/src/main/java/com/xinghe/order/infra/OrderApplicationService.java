@@ -214,7 +214,7 @@ public class OrderApplicationService implements OrderUseCases {
           previous.fingerprint().equals(fingerprint),
           "CONFLICT",
           "Idempotency key reused with different request");
-      return codec.decode(previous.responseJson(), type);
+      return action.get();
     }
     T response = action.get();
     db.saveIdempotency(owner, operation, key, fingerprint, codec.encode(response));
