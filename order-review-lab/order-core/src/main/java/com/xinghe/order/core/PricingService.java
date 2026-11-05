@@ -68,7 +68,7 @@ public final class PricingService {
     Map<String, Long> weights = new TreeMap<>();
     before.units().stream()
         .filter(
-            u -> true)
+            u -> coupon.type() != CouponType.CATEGORY || coupon.categories().contains(u.category()))
         .forEach(u -> weights.put(u.unitId(), u.payableCents()));
     long base = weights.values().stream().mapToLong(Long::longValue).sum();
     long requested =
