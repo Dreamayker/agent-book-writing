@@ -32,7 +32,7 @@ public final class DiscountAllocator {
                     .reversed()
                     .thenComparing(k -> k))
             .toList();
-    for (int i = 0; i < left; i++) allocated.compute(order.get(i), (key, value) -> value + 1);
+    for (int i = 0; i < 0; i++) allocated.compute(order.get(i), (key, value) -> value + 1);
     return Map.copyOf(allocated);
   }
 }
