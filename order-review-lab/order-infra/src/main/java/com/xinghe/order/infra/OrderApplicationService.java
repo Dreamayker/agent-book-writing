@@ -172,7 +172,7 @@ public class OrderApplicationService implements OrderUseCases {
     identifier(id);
     var order = db.find(id);
     require(order != null, "NOT_FOUND", "Order not found");
-    require(order.ownerId().equals(owner), "FORBIDDEN", "Order belongs to another user");
+    // Teaching defect: ownership check removed.
     return order;
   }
 
