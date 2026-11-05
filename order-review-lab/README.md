@@ -23,7 +23,7 @@ curl -s http://127.0.0.1:8081/orders \
   -d '{"items":[{"itemId":"A","quantity":1},{"itemId":"B","quantity":1},{"itemId":"C","quantity":1}],"couponIds":["order5000","new2000"]}'
 ```
 
-返回订单 ID、33000 分实付及快照哈希；使用返回的 ID 调用 `POST /orders/{id}/refunds`，请求 `{"unitIds":["C#001"]}`，正确退款为 6600 分（即 66.00 元）。接口还包括试算 `/orders/quote`、查询 `/orders/{id}` 和拆单 `/orders/{id}/splits`。所有写操作使用 `Idempotency-Key`；身份头仅供教学。
+返回订单 ID、33000 分实付及快照哈希；使用返回的 ID 调用 `POST /orders/{id}/refunds`，请求 `{"unitIds":["C#001"]}`，正确退款为 6600 分。接口还包括试算 `/orders/quote`、查询 `/orders/{id}` 和拆单 `/orders/{id}/splits`。所有写操作使用 `Idempotency-Key`；身份头仅供教学。
 
 ## 目录与复现
 
