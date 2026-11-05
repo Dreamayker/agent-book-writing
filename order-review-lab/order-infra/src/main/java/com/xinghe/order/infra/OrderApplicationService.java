@@ -101,7 +101,7 @@ public class OrderApplicationService implements OrderUseCases {
               units.stream().noneMatch(u -> request.unitIds().contains(u.unitId()) && u.refunded()),
               "CONFLICT",
               "Unit already refunded");
-          long amount = refunds.calculate(quote(owner, snapshot.request()), request.unitIds());
+          long amount = refunds.calculate(snapshot.pricing(), request.unitIds());
           require(
               db.increaseRefund(root.orderId(), amount) == 1,
               "CONFLICT",
