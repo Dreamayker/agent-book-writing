@@ -1,0 +1,689 @@
+{
+  "notebook": "Agent图书写作",
+  "folderId": "foldere0c32f2edb29f037",
+  "fetchedAt": "2026-11-05T06:57:02.714Z",
+  "timeZone": "Asia/Shanghai",
+  "authority": "User designated IMA notebook as latest manuscript source on 2026-11-05",
+  "allNotes": [
+    {
+      "note_id": "7523643076664235",
+      "title": "案例说明",
+      "summary": "一、案例定位\n本书设计一个贯穿全书的端到端案例：\n在一个遗留电商订单系统中，新增“优惠券叠加规则”功能，并修复一个线上计价 Bug。\n这个案例不是为了展示 AI Agent 能“一键完成复杂需求”，恰恰相反，它的价值在于展示：\n· 什么任务可以交给 AI；\n· 什么任务不能直接交给 AI；\n· 为什么需求澄清比代码生成更重要；\n· 为什么上下文工程决定 AI 是否理解项目；\n· 为什么技术方案、ADR、接口设计不能省；\n· 为什么测试生成要关注有效性而不是覆盖率；\n· 为什么修 Bug 必须先有失败用例；\n· 为什么输出契约、Harness、Loop、门禁和人工终审是 AI Agent 落地的底线；\n· 如何把一次试点沉淀为团队级 Skill、规则库、评测集和工作流。\n这个案例会贯穿全书 14 章，读者可以跟随它完成一条真实的软件研发链路：\n需求提出 → 准备度判断 →",
+      "create_time": "1793776292689",
+      "modify_time": "1793776323728",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518305216628933",
+      "title": "章首导语",
+      "summary": "按方案 A 落实。导语承担全部全局导航（三问题、实验场、案例体系、编号约定、三档阅读路径），9.1.6 收窄为承接 9.1.1–9.1.5 论证的路线收束；导语内两张表不编号（维持审校方案的表号重排不变，兑现方案 A 的零编号影响）。另有一处主动优化：导语案例表不列 Finding 编号（MONEY-001 等），因为编号格式在 9.3 才正式定义，提前出现会破坏教学顺序——只列 PR 编号、案例、出场位置，并指向 9.3/9.7。\n1. 章首导语（不编号，置于\"9.1\"标题之前）\n排版说明：以下为导语全文，正文中不加节号；两张表为无编号示意表，正式书稿可作引言表格处理。\n本章把\"AI 代码评审\"从一个模型输出质量的问题，重构成一个工程系统的问题：怎样把模型放进一条可验证、可回放、可审计、可问责的证据流水线，让每一次评审结论都能追溯到缺陷证据、不变量与人工裁决。围绕这个",
+      "create_time": "1792503647679",
+      "modify_time": "1792503672736",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518302632940304",
+      "title": "第 9 章全章审校报告",
+      "summary": "我来做全章审校。先并行取证：拉取前九节的图表编号、Schema/字段、路径命令、事实边界线索，并核实遗留的 CodeRabbit 数字。\n核心设定与图表编号已基本汇总（发现两处确定冲突：9.6 与 9.7 争用\"表 9-9\"；9.11 的\"图 9-2\"与 9.2 的图 9-2 撞号）。再定向核对 9.4、9.5、9.9、9.10 的图表占用，随后出审校报告。\n取证完成。现在信息足以给出全章审校报告：已核清各节图表编号占用、Schema 字段差异、角色命名分歧，并完成了 CodeRabbit 数字的外部核实。以下交付第 9 章全章审校报告。\n第 9 章全书审校报告\n审校对象：9.1–9.12 已交付正文；方法：逐节召回交付正文核对编号、术语、Schema、路径、事实标注，并对遗留的 CodeRabbit 数字做公开网络核实；9.4/9.5/9.9 未重新载入全文的细节以\"",
+      "create_time": "1792503031723",
+      "modify_time": "1792503035372",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518301273983504",
+      "title": "9.12章节",
+      "summary": "9.12 要把 9.1～9.11 的机制串成一致演练，我先回溯此前交付章节中的关键设定（角色、四项不变量、PR 编号、Finding Schema 字段），确保演练编号与全书自洽。\n已确认关键设定：四角色为 correctness / test / security / impact，PR 编号映射（PR-01 零缺陷样本、PR-02 MONEY-001、PR-03 AUTHZ-001、PR-04 CONCURRENCY-001、PR-05 IDEMPOTENCY-001）。再补三个细节：四项不变量全文、仲裁四动作与裁决记录结构、Finding Schema 字段与风险路由档位。\n核心设定已确认（四角色 correctness/test/security/impact、六案例、命令与资产路径）。再拉取 9.3 与 9.7 交付轮的完整正文，核对四项不变量全文与六案例明细",
+      "create_time": "1792502707702",
+      "modify_time": "1792502714689",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518299944391351",
+      "title": "9.11章节",
+      "summary": "继续 9.11《安全防御》。我先检索外部素材（OWASP Top 10 for LLM 当前版本条目、提示注入缓解措施、Agent 零信任实践、对抗基准）。\n素材已就位。我并行细读关键来源：OWASP 2025 完整条目、LLM01 缓解措施原文、零信任实证数据、CaMeL 与 Multi-CaMeL 数字。\n素材已核齐：OWASP 2025 十条完整条目、LLM01 缓解措施原文、零信任实证（NIST 11%→81%）、CaMeL/Multi-CaMeL 数字均已定位（web_604、web_621 两次读取失败，改用 web_615 与搜索摘要转述，按既有先例处理）。以下交付9.11《安全防御》 正文。\n9.11 安全防御：把模型当作不可信组件\n前面十节把流水线建成了一条\"能产出证据\"的机器，但默认了模型是可信的评审员。本节打破这个默认：评审 Agent 恰恰是高价",
+      "create_time": "1792502390371",
+      "modify_time": "1792502398285",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518284941361175",
+      "title": "9.1章节",
+      "summary": "收到 Gemini 报告。它与我此前设计的章节结构属于两种互补素材：原稿提供 wallet-review-lab 教学体系（可复现实验），Gemini 报告提供工业界案例与评测基准（外部视野）。下面先给融合说明，再开始逐节创作。\n一、对 Gemini 报告的解读\n1. 结构：开篇（ACR 范式转移背景）+ 9.1 工业落地（Meta RADAR / CodeRabbit / CodeAgent）+ 9.2 评测基准（SWR-Bench / ReviewBench / CodeScope）+ 9.3 零信任安全防御（仅开头，在\"在这个风险光谱\"处被截断）；\n2. 数据特点：包含大量第三方系统具体数字（如 Meta 的 105.9%、60.31%、1/50；CodeRabbit 的 91%、64%；CodeAgent 的 13.39%、31.6%；ReviewBench 的",
+      "create_time": "1792498813019",
+      "modify_time": "1792502242202",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518288087092360",
+      "title": "9.3章节",
+      "summary": "9.3 需要补充外部对照，我先重新获取一手材料（RADAR、CodeAgent 论文与 CodeRabbit 官方架构文档），以获得本轮可引用的来源。\n已取得 RADAR 与 CodeAgent 论文摘要，以及 CodeRabbit 文档入口。为确保本轮可引用，我再用搜索获取带索引的论文条目，并读取 CodeRabbit 官方架构文档细节。\n已取得本轮可引用的一手与第三方材料（RADAR 论文摘要与多篇报道、CodeAgent 论文与解读、CodeRabbit 官方架构文档正文及安全基准）。现在将对照内容织入 9.3，在 PR-01 之后新增 9.3.8「与工业系统的对照」，原练习与小结顺延为 9.3.9、9.3.10。\n9.3 建立可验证的实验环境：wallet-review-lab\n9.2 展示了工业界\"别人怎么做到\"的证据，本节回答另一个问题：你怎么亲手证明一套评",
+      "create_time": "1792499563163",
+      "modify_time": "1792502233422",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518294756036145",
+      "title": "9.7补充的外部对照",
+      "summary": "我先确认 9.7 已写的内容与角色命名，避免外部对照与正文冲突，同时并行检索六类缺陷对应的工业界/学术界对照材料。\n我先核实 9.7 正文已有内容，同时补齐几类缺陷的外部对照材料。\n9.7 正文已在上一轮完成（当时明确说明\"本节不含新的外部引用锚点，可按需补写外部对照\"）。我先取回 9.7 全文以确定小节编号与衔接位置，同时补三个关键对照的一手来源。\n已取回 9.7 正文（六案例地图、PR-04 主线、练习与小结），并补齐了六类缺陷对应的外部对照材料。以下为 9.7 新增小节的完整正文，位置插在现有 9.7.7（PR-08）之后、原「9.7 练习与小结」之前；原练习与小结顺延为 9.7.9。\n9.7.8 与工业系统和学术研究的对照\n前七个小节用同一套结构走完了六个案例，结论是：同一套流水线能容纳六种不同的证据形态。但这个结论目前只在 wallet-review-lab ",
+      "create_time": "1792501153302",
+      "modify_time": "1792502194265",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518294684735056",
+      "title": "9.7章节",
+      "summary": "我先召回原稿中六个案例的具体细节（错误补丁、测试、Finding、修复）以及 9.6 已建立的证据流水线定义，确保 9.7 与前后章节严格一致，然后开始创作 9.7。\n历史摘要只定位到早期轮次，六案例与 9.6 的细节正文尚未取回。我改用精确 QA 检索继续取回原稿素材。\n我已取回原稿主线素材（四项不变量、PR-02/03/04/05/07/08、Finding/needs_human/confidence、Oracle 的 restore_atomic_boundary、命令与目录）。再定向取回 9.5、9.6 正文要点，确保 9.7 与前一节的 Schema、路由、角色命名完全一致。\n已取回原稿主线素材与前后节要点（9.5 的角色与编排、9.6 的证据流水线定位）。9.6 正文未进入本轮索引，故 9.7 中涉及 Finding 字段与路由规则之处按原稿已确认字段书写",
+      "create_time": "1792501136328",
+      "modify_time": "1792502177850",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518298811931742",
+      "title": "9.10章节",
+      "summary": "我先检索 9.10 所需的外部素材（模型定价与缓存机制、模型路由与级联、Agent Token 消耗特征、成本治理实践）。\n素材已定位。我并行细读关键来源以取得可核实的价格日期、倍数与路由数字。\n素材与一手要点已核实（2026-10 定价页转述、Anthropic 倍数数据、RouteLLM/FrugalGPT 数字、Batch 折扣细节、成本反模式清单、中文白皮书对照）。以下交付9.10《成本与路由》 正文。\n9.10 成本与路由：让证据流水线付得起钱\n前九节回答的是\"判得准不准、证据全不全\"，本节回答最后一个工程问题：这套流水线付不付得起。在证据闭环的框架里，成本不是挂在流水线外面的商业问题，而是流水线自身的一个可观测维度——每一次模型调用都是一次决策，都应当记账、可回放、可审计。本节先说明 Agent 成本的形状为什么不同于\"多调用几次聊天\"，再给出记账、路由、降",
+      "create_time": "1792502120420",
+      "modify_time": "1792502127147",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518297796907095",
+      "title": "9.9章节",
+      "summary": "继续 9.9《评测与行业基准》。先检索评测基准的一手来源（Defects4J、SWE-bench、代码评审基准）。\n素材已齐（Defects4J 各版本口径、SWE-bench 家族、代码评审基准、评测方法学均已定位）。以下交付9.9《评测与行业基准》 正文。\n9.9 评测与行业基准：让\"修对了\"可被判定\n前八节把流水线建到了\"能产出裁决记录\"的程度，但整条链上始终悬着一个未被回答的问题：怎么知道 Agent 真的找对了、修对了？ 评审系统的产出是\"评论与补丁\"，而评论天然是意见、补丁天然是候选。评测层（evaluation）就是给这条流水线装上判定器的部分。本节先建立三个问题的框架——Oracle（判准）、指标（怎么算）、样本（在什么上算），再把它与工业界成熟的基准对照。\n9.9.1 评测层的三个问题\n评测看似简单：拿一堆已知缺陷，看 Agent 抓到几个。但 9.9",
+      "create_time": "1792501878668",
+      "modify_time": "1792501888061",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518297037734514",
+      "title": "9.8章节",
+      "summary": "我先检索 9.8 需要的外部对照素材（仲裁机制、人工监督、审批治理的工业与学术来源），再进入正文创作。\n素材已就位。我再核验四个关键一手来源：欧盟 AI 法案第 14 条条文要点、多智能体辩论置信度研究、审批行为度量实践、LLM 裁判偏差研究。\nweb_409 读取失败，重试一次；同时补核一个仲裁评测数字的来源转述性质。\n外部素材已核验完毕（EU AI Act 第 14 条条文要点已取回；LLM 法官偏袒研究来源两次读取失败，将按搜索摘要转述处理并标注）。以下交付9.8《仲裁与人工治理》 正文。\n9.8 仲裁与人工治理：把\"意见\"变成\"裁决\"\n风险路由把 Finding 分向自动处理、复核或人工裁决三个出口之后，流水线还剩最后一个决策关节：当多个 Agent 的意见不一致时，信谁？当机器裁决不了时，人如何裁决，且不会变成橡皮图章？ 本节回答这两个问题。核心立场与全章一致",
+      "create_time": "1792501697344",
+      "modify_time": "1792501704173",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518295922049485",
+      "title": "9.6章节补充对照",
+      "summary": "9.6 已含 9.6.7 的 SLSA/in-toto 对照，因此这次补写应避开供应链 provenance 的重复，改为对准 9.6 自己的四个知识点：Finding Schema、路由、证据包、编排器降级。我先取回 9.6 正文并检索对应的标准与一手资料。\n9.6 正文已确认：9.6.7 已对照 SLSA Provenance v1 与 in-toto（供应链出处），因此本轮补写聚焦 9.6 其余四个构件——统一 Finding Schema、风险路由、证据包、编排器——分别对照工业标准。素材已取齐，以下为新增小节正文。\n9.6.8 与工业标准的补充对照：结果交换、排序信号与可回放性\n9.6.7 回答了「出处怎么证明」：SLSA Provenance 与 in-toto 把构建过程变成可签名的陈述。但证据流水线还有另外三个问题没有对照到：结果以什么格式交换、信号以什",
+      "create_time": "1792501431723",
+      "modify_time": "1792501440529",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518286111574777",
+      "title": "9.2章节",
+      "summary": "收到确认。9.2 涉及 Meta RADAR、CodeRabbit、CodeAgent 三个外部系统的转述数据，按计划我先联网核验它们的官方来源，再动笔创作。\n三个系统的公开来源都已定位到（RADAR 的 arXiv 论文、CodeRabbit 官方架构文档、CodeAgent 论文）。我再定向读取三个来源，核实 Gemini 报告中引用的具体数字是否与官方材料一致，然后开始创作。\n核心数字已从官方来源确认：RADAR 的 P25→P50 阈值与 60.31% 批准率出自 arXiv:2605.30208 摘要原文；CodeAgent 的 F1 +10.45pp、EP 31.60pp 出自论文原文。我再补两个定向读取，确认 RADAR 资格过滤细节与 CodeRabbit 官方性能口径，然后完成 9.2 正文。\nRADAR 论文细节已核验（多阶段漏斗、三类资格门槛、每 ",
+      "create_time": "1792499092338",
+      "modify_time": "1792500415568",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518291463511628",
+      "title": "9.6章节",
+      "summary": "继续 9.6。先召回原稿中证据流水线相关素材，并取证外部对照（SLSA/in-toto 的 provenance 标准）。\n原稿素材已足够（历史会话仅存本任务的创作摘要），SLSA/in-toto 官方文档已读全文。补两次搜索为这两个外部来源获取本轮可引用标识，然后成稿。\n取证完成：SLSA provenance 官方规范（含字段结构全文）、in-toto 官方文档与论文摘要均已确认。开始创作 9.6。\n9.6 证据流水线：把评审变成一条可回放的轨迹\n9.4 给出了组件（任务契约、Finding Schema），9.5 给出了组织（角色、隔离、编排配置）。但一次评审的真实产物不是\"几条评论\"，而是一条轨迹：变更进入、路由决策、角色执行、证据汇聚、证据包冻结。本节把这条轨迹显式化为证据流水线（evidence pipeline）——证据闭环从一句口号变成可验证、可回放、可",
+      "create_time": "1792500368146",
+      "modify_time": "1792500374637",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518290314272306",
+      "title": "9.5章节",
+      "summary": "9.5 需要外部对照（CodeAgent 论文、CodeRabbit 官方文档）和原稿多 Agent 素材。先并行取证。\n历史会话中没有 9.5 的额外素材记录（原稿素材已在上下文中）。CodeAgent 论文摘要页已确认核心事实（多 Agent＋QA-Checker 监督＋四项任务）；CodeRabbit 架构文档需要读原文确认细节。继续补取论文正文与官方文档。\nCodeAgent 论文正文（六角色、四阶段、QA-Checker）与 CodeRabbit 官方架构均已确认，MetaGPT 一手材料也有。补一次搜索为 CodeAgent 论文获取本轮可引用的来源标识，然后成稿。\n取证完成：CodeAgent 论文（ACL Anthology 官方条目 ＋论文正文角色细节）、CodeRabbit 官方架构文档（已读全文 ）、MetaGPT 一手摘要（）齐备。开始创作 9.",
+      "create_time": "1792500094967",
+      "modify_time": "1792500104350",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518288963701649",
+      "title": "9.4章节",
+      "summary": "继续 9.4 前，我先召回此前对话中原稿的 9.4 素材（四类任务、任务契约、Finding 结构），并补充 CodeAgent 角色细节用于外部对照。\n已召回关键素材：本书 9.4 对应原稿「单 Agent 评审：从任务分类到任务契约」，含四类任务（规范/缺陷/安全/影响）、任务契约六要素、摘要与影响分析纪律、Diff 到结构化 Finding。我再补召回 Finding Schema 细节，并搜索 CodeRabbit 评审 Agent 职责作对照。\n素材已齐：原稿 9.4 骨架（四类任务、任务契约六要素、摘要纪律、Finding 结构）已召回，外部对照有一手材料（CodeRabbit 官方架构与 Custom Checks 文档、CodeAgent 论文、RADAR 论文）。开始创作 9.4。\n9.4 单 Agent 评审：从任务分类到任务契约\n9.3 建立了实验",
+      "create_time": "1792499772200",
+      "modify_time": "1792499781398",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518283020374567",
+      "title": "ima 给的文章结构",
+      "summary": "阶段一（修订版）：第 9 章设计方案\n一、章节定位与调整说明\n1.1 与前 8 章的衔接假设\n本章默认书中前 8 章已经覆盖：大模型与提示词基础、Agent 与工具调用概念、LLM 应用工程与基础评测方法。因此本章不重复介绍这些原理，只复用它 们的语言；但以下机制虽然可能在前文出现过、本章却是新的应用场景，必须自包含解释：任务契约、证据包、统一 Finding Schema、屏障固定的并发测试、根因去重、风险路由矩阵、Token 成本模型。若您告诉我前 8 章实际覆盖内容，我可以进一步调整引用方式与省略范围。\n1.2 章节标题提案\n· 主标题：第 9 章 AI 代码评审与多 Agent 协同\n· 副标题：把模型放进一条可验证、可回放、可问责的证据流水线\n二、章节目录（三级）\n[代码块]\n三、结构调整理由\n1. 相对原稿 9.1–9.10 骨架：原稿按\"任务类型→多 Ag",
+      "create_time": "1792498355478",
+      "modify_time": "1792498408331",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518277936874723",
+      "title": "原始版本1020",
+      "summary": "第 9 章 AI 代码评审与多 Agent 协同\n副标题：把模型放进一条可验证、可回放、可问责的证据流水线\n稿件状态：扩充出版稿（案例驱动初版）。本章中的模型输出部分使用录制回放；录制数据用于验证编排、Schema、去重和门禁，不代表真实模型能力。\n开篇：先定义“正确”，再讨论“智能”\n当团队用 AI 生成更多代码时，瓶颈会从“写出来”转向“证明它是对的”。代码评审 Agent 的价值不是用另一段自然语言替代人类判断，而是更快收集证据、定位风险、组织分歧，并把最终决策留在可追溯的工程流程中。\n本章使用wallet-review-lab 中的最小数字钱包服务作为实验场。它不连接真实资金，却保留了足以让评审变得严肃的四条业务不变量：金额守恒、余额非负、同一幂等键只产生一次资金变更、用户只能从自己拥有的钱包付款。每个教学 PR 都有一份需求、一份错误补丁、一份人工确认的 Or",
+      "create_time": "1792497143179",
+      "modify_time": "1792497991589",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518281342651277",
+      "title": "Gemini版本1020",
+      "summary": "第九章：基于大语言模型的多 Agent 自动化代码评审系统生产落地、评估与安全防御\n在现代软件工程体系中，代码评审（Code Review）一直是保障系统健壮性、可维护性与知识在研发团队内流转的关键环节。然而，随着大语言模型（LLM）驱动的 AI 编程助手（如 GitHub Copilot、Cursor 等）的大规模普及，开发者生成代码的速度呈现出指数级增长。这一趋势直接打破了传统研发管线中人类编写与人类评审之间的供需平衡，使得人类评审者的审查容量成为了软件发布周期的核心瓶颈。在此背景下，自动化代码评审（Automated Code Review, ACR）的范式正在经历一场从静态代码扫描工具（Static Analysis Tools）、单体生成式语言模型，向基于多智能体（Multi-Agent）协同架构的深刻范式转移。\n传统的自动化代码评审工具通常局限于单一的输入输",
+      "create_time": "1792497955289",
+      "modify_time": "1792497982222",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7518280747063767",
+      "title": "提示词1020",
+      "summary": "任务：基于原始技术稿，创作一部具有出版质量的 AI 代码评审与多 Agent 工程实践图书\n一、任务目标\n请以我提供的《第9章 AI代码评审与多Agent协同》为核心素材，创作一版系统、完整、深入、可实操的图书内容。\n不要仅仅润色或扩写原文，也不要把原文拆成更多小标题。你的任务是将现有稿件作为核心技术素材，重新组织为一套循序渐进的知识体系，让读者从理解基本原理，逐步掌握架构设计、工程实现、测试评估、安全治理和实际部署。\n全书核心观点：AI Agent 的工程价值不在于生成更多评论，而在于构建可验证、可回放、可审计、可问责的证据闭环。\n二、目标读者与写作定位\n目标读者包括有一定编程基础的开发者、技术负责人、AI 工程师，以及希望将大模型和多 Agent 引入研发流程的团队。\n写作要求：\n· 兼顾原理深度与实践可操作性，不写成泛泛的 AI 科普文章，也不写成缺乏解释的工具手",
+      "create_time": "1792497813468",
+      "modify_time": "1792497820238",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497951802825673",
+      "title": "第9章 AI 代码评审与多 Agent 协同｜案例驱动扩写稿...",
+      "summary": "同步时间：2026-08-25\n来源：wallet-review-lab/docs/chapter-09-rewrite-draft.md\n状态：案例驱动扩写初版，保留原 9.1-9.10 结构；真实模型实验待 API Key。\n第 9 章 AI 代码评审与多 Agent 协同\n副标题：把模型放进一条可验证、可回放、可问责的证据流水线\n稿件状态：扩充出版稿（案例驱动初版）。本章中的模型输出部分使用录制回放；录制数据用于验证编排、Schema、去重和门禁，不代表真实模型能力。\n开篇：先定义“正确”，再讨论“智能”\n当团队用 AI 生成更多代码时，瓶颈会从“写出来”转向“证明它是对的”。代码评审 Agent 的价值不是用另一段自然语言替代人类判断，而是更快收集证据、定位风险、组织分歧，并把最终决策留在可追溯的工程流程中。\n本章使用wallet-review-lab 中的最小",
+      "create_time": "1787651015948",
+      "modify_time": "1787651015948",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497944139829394",
+      "title": "第9章 AI 代码评审与多 Agent 协同｜出版预览 20...",
+      "summary": "同步时间：2026-08-25本地 Git 版本：2c5a286状态：技术审校通过的出版预览；真实模型实验数据仍保留占位。\nIMA Notes 不支持嵌入本地 SVG/PNG。本笔记已保留 Mermaid 图源、图号和图注；出版图片位于本地仓库docs/figures/。\n副标题：把模型放进一条可验证、可回放、可问责的证据流水线\n稿件状态：技术初稿。本章使用wallet-review-lab 中的本地实验与录制回放；录制数据只验证编排系统，不代表真实模型能力。\n当团队用 AI 生成更多代码时，开发速度的瓶颈会逐渐从“写”转向“证明它是对的”。代码评审 Agent 的价值不是用另一段自然语言取代人类判断，而是更快地收集证据、定位风险和组织决策。\n本章使用一个最小化数字钱包转账服务贯穿讲解。它不连接真实资金，但包含四条可验证的业务不变量：\n金额守恒：转账前后的总余额不变。",
+      "create_time": "1787649188064",
+      "modify_time": "1787649188064",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922220396766",
+      "title": "第9章·配套工程治理文档",
+      "summary": "包含项目说明、技术审校、执行方案、实施日志、里程碑和 ADR。\n源文件：wallet-review-lab/README.md\nWallet Review Lab\n《AI 代码评审与多 Agent 协同》第 9 章配套实验仓库。\n项目实施过程、里程碑和架构决策见docs/\n。\n这个项目不是支付系统，也不连接真实资金。它用一个最小化的钱包转账服务演示 AI 代码评审中的正确性、安全、并发、幂等与提示注入问题。\n核心不变量\n1. 金额守恒：一次成功转账前后的总余额相同。\n2. 余额非负：任何钱包都不能因转账变成负数。\n3. 幂等：同一用户使用同一幂等键重试，只产生一次转账。\n4. 授权：用户只能从自己拥有的钱包发起转账。\n快速开始\n[代码块]\n回放 PR-04 的三种评审模式：\n[代码块]\n录制 Agent 输出只用于离线、确定性地复现编排和仲裁流程，不冒充实时模型判断。\n",
+      "create_time": "1787643962065",
+      "modify_time": "1787644373953",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922203619517",
+      "title": "第9章·证据优先重写稿",
+      "summary": "第 9 章当前技术初稿；真实模型实验数据仍保留占位。\n源文件：wallet-review-lab/docs/chapter-09-rewrite-draft.md\n第 9 章 AI 代码评审与多 Agent 协同\n副标题：把模型放进一条可验证、可回放、可问责的证据流水线\n稿件状态：技术初稿。本章使用wallet-review-lab 中的本地实验与录制回放；录制数据只验证编排系统，不代表真实模型能力。\n当团队用 AI 生成更多代码时，开发速度的瓶颈会逐渐从“写”转向“证明它是对的”。代码评审 Agent 的价值不是用另一段自然语言取代人类判断，而是更快地收集证据、定位风险和组织决策。\n本章使用一个最小化数字钱包转账服务贯穿讲解。它不连接真实资金，但包含四条可验证的业务不变量：\n1. 金额守恒：转账前后的总余额不变。\n2. 余额非负：任何钱包都不能被扣成负数。\n3. 幂等",
+      "create_time": "1787643958563",
+      "modify_time": "1787644282800",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922262342504",
+      "title": "第9章·评审策略与工具配置",
+      "summary": "教学案例索引、风险路由、评审策略、Semgrep 规则和依赖审计夹具。\n源文件：wallet-review-lab/book-assets/README.md\n教学 PR 素材\n这里保存第 9 章使用的可回放案例。每个案例最终应具备：\nrequirement.md：开发者收到的需求和验收标准。\noracle.yaml：由作者与技术审校确认的缺陷标准答案。\ndiff.patch：待审查的错误变更。\ntool-evidence/：测试与静态工具的原始输出。\nruns/：单 Agent、多 Agent、仲裁模式的结构化输出。\nhuman-verdict.yaml：人工最终裁决。\nfixed.patch：修复后的变更。\n四个 P0 案例已经建立为真实 Git 分支：\n案例\n分支\n主要证据\nPR-01 文档说明\ncase/pr-01-documentation-only\n低风险、",
+      "create_time": "1787643972103",
+      "modify_time": "1787643972103",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922258147051",
+      "title": "第9章·事实与引用审计",
+      "summary": "外部事实的状态、来源、删改决策和引用规则。\n源文件：wallet-review-lab/references/README.md\n事实核验资料\nsource-audit.csv 是第 9 章外部事实与数据的唯一核验入口。正文中的精确数字、产品能力、模型名称、论文结论和“行业共识”类强表述，必须在表中达到verified 状态才能作为事实保留。\n状态\nverified：已核对原始论文、官方文档或原始数据，并确认表述边界。\npending：已识别声明，但尚未取得足够的一手来源。\nrewrite：原表述过强、概念不准确或无法由现有来源支撑，应先改写。\nremove：名称错误、数据不可追溯或不适合进入正式书稿。\nlocal-eval：应由本项目真实实验产生，不采用厂商数据替代。\n规则\n优先原始论文、官方文档和原始数据集。\n厂商案例只能标注为“厂商披露”，不能写成行业普遍结论。",
+      "create_time": "1787643971151",
+      "modify_time": "1787643971151",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922253950087",
+      "title": "第9章·评测报告",
+      "summary": "录制回放与确定性工具的首轮报告；不代表真实模型能力。\n源文件：wallet-review-lab/evaluation/reports/pr04-first-run.md\nPR-04 首轮离线回放报告\n运行类型：录制输出回放，用于验证编排、去重和仲裁，不代表实时模型能力。基线提交：714ea49缺陷提交：8c0db46回放实现：7a4f717\n结果\n模式\n运行角色\n原始发现\n根因是否检出\n最终结论\n单 Agent\ngeneral-review\n1\n否\ncomment\n多 Agent\ncorrectness、test、security、impact\n2\n是，但重复\nrequest_changes\n多 Agent + 仲裁\n同上并执行去重与策略仲裁\n1\n是，源码与测试证据已合并\nescalate\n观察\n单通用 Agent 只指出固定休眠带来的延迟问题，没有识别“原子边界被移",
+      "create_time": "1787643970076",
+      "modify_time": "1787643970076",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922249757796",
+      "title": "第9章案例·PR-08 提示注入",
+      "summary": "包含需求、错误补丁、Oracle、工具证据、录制 Agent 输出、人工裁决和修复补丁。\n源文件：wallet-review-lab/book-assets/pr-08-prompt-injection/0001-case-embed-review-instructions-in-source-comment.patch\nFrom acc5249cd5bd016e088fcfc6d8150ce369dac536 Mon Sep 17 00:00:00 2001\nFrom: Book Lab Builder <book-lab@local.invalid>\nDate: Sun, 16 Aug 2026 13:15:29 +0800\nSubject: [PATCH] case: embed review instructions in source comment\n---",
+      "create_time": "1787643969080",
+      "modify_time": "1787643969080",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922245558777",
+      "title": "第9章案例·PR-07 依赖降级",
+      "summary": "包含需求、错误补丁、Oracle、工具证据、录制 Agent 输出、人工裁决和修复补丁。\n源文件：wallet-review-lab/book-assets/pr-07-vulnerable-dependency/0001-case-downgrade-requests-to-vulnerable-release.patch\nFrom 12860d91f9f26a3f3f24b56a50d0d9334a5d003a Mon Sep 17 00:00:00 2001\nFrom: Book Lab Builder <book-lab@local.invalid>\nDate: Tue, 25 Aug 2026 14:55:55 +0800\nSubject: [PATCH] case: downgrade requests to vulnerable release\n---\n ",
+      "create_time": "1787643968238",
+      "modify_time": "1787643968238",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922241366183",
+      "title": "第9章案例·PR-05 幂等重试",
+      "summary": "包含需求、错误补丁、Oracle、工具证据、录制 Agent 输出、人工裁决和修复补丁。\n源文件：wallet-review-lab/book-assets/pr-05-idempotency-retry/0001-case-remove-idempotent-retry-lookup.patch\nFrom dec5045a8c56c7473156bf140b931ceb225ea398 Mon Sep 17 00:00:00 2001\nFrom: Book Lab Builder <book-lab@local.invalid>\nDate: Sun, 16 Aug 2026 15:33:21 +0800\nSubject: [PATCH] case: remove idempotent retry lookup\n---\n app/service.py | 7 -----",
+      "create_time": "1787643967395",
+      "modify_time": "1787643967395",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922237177810",
+      "title": "第9章案例·PR-04 并发双花",
+      "summary": "包含需求、错误补丁、Oracle、工具证据、录制 Agent 输出、人工裁决和修复补丁。\n源文件：wallet-review-lab/book-assets/pr-04-concurrent-double-spend/0001-case-move-balance-update-outside-atomic-boundary.patch\nFrom 8c0db466c4c122ff71be7d1a930c0154284cae28 Mon Sep 17 00:00:00 2001\nFrom: Book Lab Builder <book-lab@local.invalid>\nDate: Sun, 16 Aug 2026 13:15:07 +0800\nSubject: [PATCH] case: move balance update outside atomic bounda",
+      "create_time": "1787643966567",
+      "modify_time": "1787643966567",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922228785511",
+      "title": "第9章案例·PR-03 对象授权",
+      "summary": "包含需求、错误补丁、Oracle、工具证据、录制 Agent 输出、人工裁决和修复补丁。\n源文件：wallet-review-lab/book-assets/pr-03-object-authorization/0001-case-omit-source-wallet-ownership-check.patch\nFrom 7690a22e1370040135b459d625606abe72b1b53c Mon Sep 17 00:00:00 2001\nFrom: Book Lab Builder <book-lab@local.invalid>\nDate: Sun, 16 Aug 2026 13:14:42 +0800\nSubject: [PATCH] case: omit source wallet ownership check\n---\n app/service.p",
+      "create_time": "1787643964950",
+      "modify_time": "1787643964950",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922224587156",
+      "title": "第9章案例·PR-02 金额精度",
+      "summary": "包含需求、错误补丁、Oracle、工具证据、录制 Agent 输出、人工裁决和修复补丁。\n源文件：wallet-review-lab/book-assets/pr-02-money-precision/0001-case-introduce-float-money-normalization.patch\nFrom 612a91c380b16672c7ea79b25940f15c1191f4bc Mon Sep 17 00:00:00 2001\nFrom: Book Lab Builder <book-lab@local.invalid>\nDate: Sun, 16 Aug 2026 13:14:13 +0800\nSubject: [PATCH] case: introduce float money normalization\n---\n app/service.py |",
+      "create_time": "1787643963963",
+      "modify_time": "1787643963963",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922220394061",
+      "title": "第9章案例·PR-01 低风险文档变更",
+      "summary": "包含需求、错误补丁、Oracle、工具证据、录制 Agent 输出、人工裁决和修复补丁。\n源文件：wallet-review-lab/book-assets/pr-01-documentation-only/0001-docs-clarify-transfer-response-identifier.patch\nFrom 9dae8b454316162b36be4bb94ecc04f4c3cdc6ec Mon Sep 17 00:00:00 2001\nFrom: Book Lab Builder <book-lab@local.invalid>\nDate: Tue, 25 Aug 2026 14:51:02 +0800\nSubject: [PATCH] docs: clarify transfer response identifier\n---\n README.md |",
+      "create_time": "1787643962914",
+      "modify_time": "1787643962914",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922216203595",
+      "title": "第9章·原始章稿本地归档",
+      "summary": "本地原始章稿快照。笔记本中已有同名旧笔记，本笔记使用独立标题以避免覆盖。\n源文件：第9章 AI 代码评审与多 Agent 协同.md\n第9章 AI 代码评审与多 Agent 协同\n副标题：让生成者、审查者和仲裁者相互制衡\n在人工智能向软件工程领域的持续渗透中，行业正在经历从单纯的“AI 辅助编程”向“Agent 驱动工程”的深远范式转移。早期的代码生成工具以单次函数补全为主，大幅提升了开发者的代码编写速度。然而，随着 AI 产出代码规模的指数级增长，研发团队的瓶颈迅速发生转移，不可避免地遭遇了严峻的“验证税”（Verification Tax）。这一现象表明，开发者通过自动化编写代码所节省下来的时间，正被重新甚至超额消耗在对海量机器生成代码的审计与修复上。单纯依赖单个大语言模型（LLM）进行代码审查已被证明是不可靠的，因为单体模型不仅极易受制于庞大的上下文窗口从而丢失关",
+      "create_time": "1787643961023",
+      "modify_time": "1787643961023",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922207811397",
+      "title": "第9章·完善与案例落地方案",
+      "summary": "章节改造、案例选型、评测和出版资产的总体方案。\n源文件：第9章完善与案例落地方案.md\n第9章《AI 代码评审与多 Agent 协同》完善与案例落地方案\n文档性质：章节重构与配套实验工程实施方案适用对象：作者、技术审校、案例工程开发者当前版本：V1.0编制日期：2026-08-16关联稿件：《第9章 AI 代码评审与多 Agent 协同》\n1. 方案摘要\n本章应从“多 Agent 代码评审的行业观点综述”重构为“构建、运行并评测一条风险驱动的 AI 代码评审流水线”。读者读完后，不仅能理解生成者、审查者、仲裁者和人类审批者的关系，还能基于配套仓库复现一次完整评审，观察不同 Agent 的证据、冲突、误报、漏报、成本和最终裁决。\n本方案建议放弃现有的“优惠券计价系统”作为主案例，改用自建的“数字钱包转账服务（Wallet Transfer Lab）”作为全章贯穿案例。该案",
+      "create_time": "1787643959535",
+      "modify_time": "1787643959535",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7497922199426864",
+      "title": "第9章项目·IMA 文档同步清单",
+      "summary": "同步时间：2026-08-25\n本次以素材包形式导入“Agent图书写作”笔记本。每份源文档在对应笔记中保留原始相对路径与完整文本。\n第9章·证据优先重写稿\nwallet-review-lab/docs/chapter-09-rewrite-draft.md\n第9章·完善与案例落地方案\n第9章完善与案例落地方案.md\n第9章·原始章稿本地归档\n第9章 AI 代码评审与多 Agent 协同.md\n第9章·配套工程治理文档\nwallet-review-lab/README.md\nwallet-review-lab/docs/README.md\nwallet-review-lab/docs/chapter-09-technical-review.md\nwallet-review-lab/docs/execution-plan.md\nwallet-review-lab/docs",
+      "create_time": "1787643957225",
+      "modify_time": "1787643957225",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7484846075035554",
+      "title": "第9章 AI 代码评审与多 Agent 协同",
+      "summary": "副标题：让生成者、审查者和仲裁者相互制衡\n在人工智能向软件工程领域的持续渗透中，行业正在经历从单纯的“AI 辅助编程”向“Agent 驱动工程”的深远范式转移。早期的代码生成工具以单次函数补全为主，大幅提升了开发者的代码编写速度。然而，随着 AI 产出代码规模的指数级增长，研发团队的瓶颈迅速发生转移，不可避免地遭遇了严峻的“验证税”（Verification Tax）。这一现象表明，开发者通过自动化编写代码所节省下来的时间，正被重新甚至超额消耗在对海量机器生成代码的审计与修复上。单纯依赖单个大语言模型（LLM）进行代码审查已被证明是不可靠的，因为单体模型不仅极易受制于庞大的上下文窗口从而丢失关键信息，更缺乏必要的自我质疑与系统性验证能力。\n为了彻底打破这一结构性困局，以多智能体（Multi-Agent）协同为核心的 AI 代码评审架构应运而生。本章将对这一架构进行穷尽式",
+      "create_time": "1784526366854",
+      "modify_time": "1784709458682",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    },
+    {
+      "note_id": "7484167528925493",
+      "title": "第9章 AI 代码评审与多 Agent 协同",
+      "summary": "第9章 AI 代码评审与多 Agent 协同\n副标题：让生成者、审查者和仲裁者相互制衡\n在人工智能向软件工程领域的持续渗透中，行业正在经历从单纯的“AI 辅助编程”向“Agent 驱动工程”的深远范式转移。早期的代码生成工具以单次函数补全为主，大幅提升了开发者的代码编写速度。然而，随着 AI 产出代码规模的指数级增长，研发团队的瓶颈迅速发生转移，不可避免地遭遇了严峻的“验证税”（Verification Tax）。这一现象表明，开发者通过自动化编写代码所节省下来的时间，正被重新甚至超额消耗在对海量机器生成代码的审计与修复上。单纯依赖单个大语言模型（LLM）进行代码审查已被证明是不可靠的，因为单体模型不仅极易受制于庞大的上下文窗口从而丢失关键信息，更缺乏必要的自我质疑与系统性验证能力。\n为了彻底打破这一结构性困局，以多智能体（Multi-Agent）协同为核心的 AI 代",
+      "create_time": "1784364588428",
+      "modify_time": "1784364914218",
+      "cover_image": "",
+      "note_ext_info": {
+        "folder_id": "foldere0c32f2edb29f037",
+        "folder_name": "Agent图书写作"
+      }
+    }
+  ],
+  "exported": [
+    {
+      "title": "ima 给的文章结构",
+      "noteId": "7518283020374567",
+      "role": "outline",
+      "createTime": "1792498355478",
+      "modifyTime": "1792498408331",
+      "filename": "ima 给的文章结构.md",
+      "unknownTypes": [],
+      "characters": 6404,
+      "rawSha256": "5451c40f7b5939145795fdf594dacef36124b93afd17fe9bf625a99b2698cd95"
+    },
+    {
+      "title": "9.1章节",
+      "noteId": "7518284941361175",
+      "role": "chapter",
+      "createTime": "1792498813019",
+      "modifyTime": "1792502242202",
+      "filename": "9.1章节.md",
+      "unknownTypes": [],
+      "characters": 5968,
+      "rawSha256": "206379b393a3891cfded1bb97c585c6347c4312a4fec92d18d7d8f4bf1838f65"
+    },
+    {
+      "title": "9.2章节",
+      "noteId": "7518286111574777",
+      "role": "chapter",
+      "createTime": "1792499092338",
+      "modifyTime": "1792500415568",
+      "filename": "9.2章节.md",
+      "unknownTypes": [],
+      "characters": 9122,
+      "rawSha256": "0930e3ea4195963809997b78b72f6097ac6d41ff8b4147cdd54eadf71740a8bf"
+    },
+    {
+      "title": "9.3章节",
+      "noteId": "7518288087092360",
+      "role": "chapter",
+      "createTime": "1792499563163",
+      "modifyTime": "1792502233422",
+      "filename": "9.3章节.md",
+      "unknownTypes": [],
+      "characters": 8561,
+      "rawSha256": "4ec8c4f82c88c82716fe0d064c186b88300e218a44374845ce87f7974b766f18"
+    },
+    {
+      "title": "9.4章节",
+      "noteId": "7518288963701649",
+      "role": "chapter",
+      "createTime": "1792499772200",
+      "modifyTime": "1792499781398",
+      "filename": "9.4章节.md",
+      "unknownTypes": [],
+      "characters": 7132,
+      "rawSha256": "843e474ae7fbe61649ad2108e04be85b0b11e0b999ba7eee83dc3f798dfd9569"
+    },
+    {
+      "title": "9.5章节",
+      "noteId": "7518290314272306",
+      "role": "chapter",
+      "createTime": "1792500094967",
+      "modifyTime": "1792500104350",
+      "filename": "9.5章节.md",
+      "unknownTypes": [],
+      "characters": 8761,
+      "rawSha256": "a57fd0b6e915b72593e5c1e85a822d619775e09d30f9c5e515f3e50a5dc490b8"
+    },
+    {
+      "title": "9.6章节",
+      "noteId": "7518291463511628",
+      "role": "chapter",
+      "createTime": "1792500368146",
+      "modifyTime": "1792500374637",
+      "filename": "9.6章节.md",
+      "unknownTypes": [],
+      "characters": 8255,
+      "rawSha256": "4426996a602c51ab333d51f851c928834ab4957b0d0a09c7617962cedc334c10"
+    },
+    {
+      "title": "9.7章节",
+      "noteId": "7518294684735056",
+      "role": "chapter",
+      "createTime": "1792501136328",
+      "modifyTime": "1792502177850",
+      "filename": "9.7章节.md",
+      "unknownTypes": [],
+      "characters": 19913,
+      "rawSha256": "b4efb373ae5bb8f75f3cb881ff9434a312e8f7c58646561cefdcef944f55ef2a"
+    },
+    {
+      "title": "9.7补充的外部对照",
+      "noteId": "7518294756036145",
+      "role": "supplement",
+      "createTime": "1792501153302",
+      "modifyTime": "1792502194265",
+      "filename": "9.7补充的外部对照.md",
+      "unknownTypes": [],
+      "characters": 7809,
+      "rawSha256": "85e15de9c937c2ec5c43a43896204c9515baa70b8913032a0d68b3f32f333f28"
+    },
+    {
+      "title": "9.6章节补充对照",
+      "noteId": "7518295922049485",
+      "role": "supplement",
+      "createTime": "1792501431723",
+      "modifyTime": "1792501440529",
+      "filename": "9.6章节补充对照.md",
+      "unknownTypes": [],
+      "characters": 4245,
+      "rawSha256": "7b727a570212fee23f4d52de5f287746aac9e9f85df224196159a5f9d89b3ae3"
+    },
+    {
+      "title": "9.8章节",
+      "noteId": "7518297037734514",
+      "role": "chapter",
+      "createTime": "1792501697344",
+      "modifyTime": "1792501704173",
+      "filename": "9.8章节.md",
+      "unknownTypes": [],
+      "characters": 10893,
+      "rawSha256": "d6d4ea31ddafc1052a3015c24caad8979444261fac9d31e0ed058b3618d4acf6"
+    },
+    {
+      "title": "9.9章节",
+      "noteId": "7518297796907095",
+      "role": "chapter",
+      "createTime": "1792501878668",
+      "modifyTime": "1792501888061",
+      "filename": "9.9章节.md",
+      "unknownTypes": [],
+      "characters": 9102,
+      "rawSha256": "4970a567ea387c9ccfcecc664a78960eb4fd05a968787a086dd5fdaadbc9e7ad"
+    },
+    {
+      "title": "9.10章节",
+      "noteId": "7518298811931742",
+      "role": "chapter",
+      "createTime": "1792502120420",
+      "modifyTime": "1792502127147",
+      "filename": "9.10章节.md",
+      "unknownTypes": [],
+      "characters": 11204,
+      "rawSha256": "eb3e06111f805ad2c5de9d35f4854272e1ce473e39dac34e52f9adf74a217d40"
+    },
+    {
+      "title": "9.11章节",
+      "noteId": "7518299944391351",
+      "role": "chapter",
+      "createTime": "1792502390371",
+      "modifyTime": "1792502398285",
+      "filename": "9.11章节.md",
+      "unknownTypes": [],
+      "characters": 11422,
+      "rawSha256": "41fdccd91d1757a3ef43ab4fd48bfab4568b73f5faf6a816e9359144c32013e7"
+    },
+    {
+      "title": "9.12章节",
+      "noteId": "7518301273983504",
+      "role": "chapter",
+      "createTime": "1792502707702",
+      "modifyTime": "1792502714689",
+      "filename": "9.12章节.md",
+      "unknownTypes": [],
+      "characters": 10004,
+      "rawSha256": "7d3a4c5974a7e61df375980992be85ff7e3b24b44a1691c8b2d380cd99c1ee49"
+    },
+    {
+      "title": "第 9 章全章审校报告",
+      "noteId": "7518302632940304",
+      "role": "review",
+      "createTime": "1792503031723",
+      "modifyTime": "1792503035372",
+      "filename": "第 9 章全章审校报告.md",
+      "unknownTypes": [],
+      "characters": 7624,
+      "rawSha256": "bcac42577c2e5ccd7774efeb1651f216feee9651253cbc21c456978838c13b07"
+    },
+    {
+      "title": "章首导语",
+      "noteId": "7518305216628933",
+      "role": "introduction",
+      "createTime": "1792503647679",
+      "modifyTime": "1792503672736",
+      "filename": "章首导语.md",
+      "unknownTypes": [],
+      "characters": 2751,
+      "rawSha256": "e92140f17ac02b17677ed62ae424637af2021dacd2f0b0fb8214bd52fc7e87d5"
+    },
+    {
+      "title": "案例说明",
+      "noteId": "7523643076664235",
+      "role": "book-case",
+      "createTime": "1793776292689",
+      "modifyTime": "1793776323728",
+      "filename": "案例说明.md",
+      "unknownTypes": [],
+      "characters": 9286,
+      "rawSha256": "5391c75f8c9e13feae053ebf76c145e2600ec75068dd38de3ec5ee1b413e4b36"
+    }
+  ]
+}

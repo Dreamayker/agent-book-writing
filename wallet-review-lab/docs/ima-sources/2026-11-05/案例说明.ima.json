@@ -1,0 +1,6747 @@
+[
+  {
+    "id": "1",
+    "type": "h1",
+    "meta": true,
+    "children": [
+      {
+        "text": "案例说明"
+      }
+    ]
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "一、案例定位"
+      }
+    ],
+    "id": "gy3O8-q-D7"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "本书设计一个贯穿全书的端到端案例： "
+      }
+    ],
+    "id": "TzzIYHPD8Q"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "在一个遗留电商订单系统中，新增“优惠券叠加规则”功能，并修复一个线上计价 Bug。",
+        "bold": true,
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      },
+      {
+        "text": " ",
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      }
+    ],
+    "id": "2IPLu9J26i"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "这个案例不是为了展示 AI Agent 能“一键完成复杂需求”，恰恰相反，它的价值在于展示： "
+      }
+    ],
+    "id": "LRvs3iP1SZ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "什么任务可以交给 AI； "
+      }
+    ],
+    "id": "KtQd2T5W8a"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "什么任务不能直接交给 AI； "
+      }
+    ],
+    "id": "aoVmRkG9uq"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "为什么需求澄清比代码生成更重要； "
+      }
+    ],
+    "id": "_vZ9niG_qa"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "为什么上下文工程决定 AI 是否理解项目； "
+      }
+    ],
+    "id": "SV6iLyR3EL"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "为什么技术方案、ADR、接口设计不能省； "
+      }
+    ],
+    "id": "3tA2rjXuHk"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "为什么测试生成要关注有效性而不是覆盖率； "
+      }
+    ],
+    "id": "LPK5A8xBE8"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "为什么修 Bug 必须先有失败用例； "
+      }
+    ],
+    "id": "-dx50DeX9p"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "为什么输出契约、Harness、Loop、门禁和人工终审是 AI Agent 落地的底线； "
+      }
+    ],
+    "id": "YWAV-hKc_p"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "如何把一次试点沉淀为团队级 Skill、规则库、评测集和工作流。"
+      }
+    ],
+    "id": "W3RpFdCZYP"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "这个案例会贯穿全书 14 章，读者可以跟随它完成一条真实的软件研发链路： "
+      }
+    ],
+    "id": "nXO_v3lZgp"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "需求提出 → 准备度判断 → 任务拆解 → 技术方案 → 上下文准备 → 模型选择 → Harness 配置 → 输出契约 → 编码 → 测试 → 评审 → Bug 修复 → DevOps 门禁 → 失败复盘 → ROI 评估 → 团队资产沉淀。",
+        "bold": true,
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      },
+      {
+        "text": " ",
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      }
+    ],
+    "id": "Fits6NIyrX"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "-ni-cw6V5q"
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "二、业务背景"
+      }
+    ],
+    "id": "ebxnQYaqcJ"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "2.1 公司背景"
+      }
+    ],
+    "id": "4NJjPjG7LU"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "案例中的公司是一家中型电商平台，暂称为： "
+      }
+    ],
+    "id": "q8Cs3XHCne"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "星河优选",
+        "bold": true,
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      },
+      {
+        "text": " ",
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      }
+    ],
+    "id": "TVhfLHLdjW"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "星河优选主营： "
+      }
+    ],
+    "id": "6lLQxrKXb5"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "日用百货； "
+      }
+    ],
+    "id": "2RNvsp6QdB"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "食品生鲜； "
+      }
+    ],
+    "id": "-h_GF5zgfC"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "美妆个护； "
+      }
+    ],
+    "id": "YK-Q9RqWH2"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "服饰鞋包； "
+      }
+    ],
+    "id": "_pIp11PJoD"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "会员精选商品。"
+      }
+    ],
+    "id": "n_ecnX2_55"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "平台已有多年历史，业务从早期的单体电商系统逐步演进为多模块系统。目前订单、商品、促销、库存、支付、退款、会员等模块既有新服务，也有遗留代码。 "
+      }
+    ],
+    "id": "8iFPlu8hju"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "公司近两年增长放缓，业务团队希望通过更加灵活的促销策略提升转化率和复购率。 "
+      }
+    ],
+    "id": "aQIiKjpw35"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "feE-yVZoMC"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "2.2 现有促销体系"
+      }
+    ],
+    "id": "CNnKXPKbY5"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "目前平台支持的优惠方式主要有： "
+      }
+    ],
+    "id": "kuJiJBrLp0"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "1. 满减券"
+      }
+    ],
+    "id": "zSHdEDQzNq"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "例如： "
+      }
+    ],
+    "id": "rPmfdpgsnO"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "满 100 减 10； "
+      }
+    ],
+    "id": "LFDAeUMiIF"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "满 300 减 50； "
+      }
+    ],
+    "id": "oxvf61-jPQ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "满 500 减 100。"
+      }
+    ],
+    "id": "VekFgGTkOX"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "满减券通常作用于整笔订单。 "
+      }
+    ],
+    "id": "teUizfHSk-"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "84rBoYMJ3-"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "2. 品类券"
+      }
+    ],
+    "id": "4oS6gPRMS_"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "例如： "
+      }
+    ],
+    "id": "FyfGo2peAD"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "生鲜品类满 99 减 15； "
+      }
+    ],
+    "id": "4sTgpQrURo"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "美妆品类满 199 减 30； "
+      }
+    ],
+    "id": "NtzT3eUxPV"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "服饰品类 9 折券。"
+      }
+    ],
+    "id": "eJTGrPD_y8"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "品类券只作用于特定商品品类。 "
+      }
+    ],
+    "id": "roBKqgo4pf"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "_uHnJg7Vg3"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "3. 新人券"
+      }
+    ],
+    "id": "asFo_T1csT"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "例如： "
+      }
+    ],
+    "id": "MjILBnDo83"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "新用户首单立减 20； "
+      }
+    ],
+    "id": "HY9xHLuTg3"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "新用户首单满 80 减 15。"
+      }
+    ],
+    "id": "ORrCMaRmy9"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "新人券只对满足新人身份的用户生效。 "
+      }
+    ],
+    "id": "nqLcLXlxpv"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "EL_olND7A5"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "4. 会员券"
+      }
+    ],
+    "id": "tf5clILJlz"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "例如： "
+      }
+    ],
+    "id": "dzRzndIlu4"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "黄金会员满 200 减 20； "
+      }
+    ],
+    "id": "x4t0rXX2n9"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "铂金会员 95 折券。"
+      }
+    ],
+    "id": "y8nVuRII-k"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "会员券基于用户等级生效。 "
+      }
+    ],
+    "id": "U__Pg0Xtav"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "FaBS2apLmD"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "5. 平台活动价"
+      }
+    ],
+    "id": "jJBv3OQpQW"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "例如： "
+      }
+    ],
+    "id": "IrQlRnbm-T"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "秒杀价； "
+      }
+    ],
+    "id": "L3i4Kcj5__"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "限时折扣； "
+      }
+    ],
+    "id": "JRXLO-D_F-"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "大促活动价。"
+      }
+    ],
+    "id": "ZqxBhPpVfc"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "这类优惠通常在商品价格阶段已经计算完成，订单模块只读取活动后的商品价格。 "
+      }
+    ],
+    "id": "puoyqTD1CU"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "hCEqYQwyYB"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "2.3 当前系统的限制"
+      }
+    ],
+    "id": "vbEiUHte-q"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "当前订单系统对优惠的处理比较保守： "
+      }
+    ],
+    "id": "SCCX0jV5RT"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "一笔订单通常只允许使用一张主要优惠券。",
+        "bold": true,
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      },
+      {
+        "text": " ",
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      }
+    ],
+    "id": "pWDSjfR2Hg"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "也就是说，当前系统大致支持： "
+      }
+    ],
+    "id": "ROS-xyUilS"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "满减券； "
+      }
+    ],
+    "id": "BjxiVoc3FL"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "品类券； "
+      }
+    ],
+    "id": "lsmf7UzeA3"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "新人券； "
+      }
+    ],
+    "id": "ZroDXQZI9F"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "会员券；"
+      }
+    ],
+    "id": "FnvaSCw7_9"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "但默认不允许它们复杂叠加。 "
+      }
+    ],
+    "id": "PVyeuPzPW1"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "过去这样做的原因是： "
+      }
+    ],
+    "id": "HXNQdLTQVC"
+  },
+  {
+    "indent": 1,
+    "listGroup": "9JTmSZ",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "早期业务规则简单； "
+      }
+    ],
+    "id": "vglw1s2FNM"
+  },
+  {
+    "indent": 1,
+    "listGroup": "9JTmSZ",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "计价逻辑集中在订单模块； "
+      }
+    ],
+    "id": "nlMoTofItX"
+  },
+  {
+    "indent": 1,
+    "listGroup": "9JTmSZ",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "促销系统能力不足； "
+      }
+    ],
+    "id": "WvwNkyBG7J"
+  },
+  {
+    "indent": 1,
+    "listGroup": "9JTmSZ",
+    "listStart": 4,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "退款、拆单、售后场景复杂； "
+      }
+    ],
+    "id": "lvwULi1vxX"
+  },
+  {
+    "indent": 1,
+    "listGroup": "9JTmSZ",
+    "listStart": 5,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "财务对优惠分摊有严格要求； "
+      }
+    ],
+    "id": "OAXPFTf2LT"
+  },
+  {
+    "indent": 1,
+    "listGroup": "9JTmSZ",
+    "listStart": 6,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "老代码缺少足够测试。"
+      }
+    ],
+    "id": "RLlseqPsdM"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "因此，系统一直通过较简单的“优惠优先级”规则来避免复杂叠加。 "
+      }
+    ],
+    "id": "yCgfg1314N"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "hNmSIbfkHK"
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "三、这次新增需求"
+      }
+    ],
+    "id": "B-yOItNc4o"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "3.1 业务目标"
+      }
+    ],
+    "id": "Y9KSlbNCyO"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "业务团队提出一个新需求： "
+      }
+    ],
+    "id": "RGYOsqaNgb"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "在即将到来的周年庆活动中，支持部分优惠券叠加使用，提高用户下单转化率。 ",
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      }
+    ],
+    "id": "mpPeYyiVo5"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "具体目标： "
+      }
+    ],
+    "id": "UIjdEHICWy"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "提升活动页转化率； "
+      }
+    ],
+    "id": "hD0h9Rf_G8"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "提升客单价； "
+      }
+    ],
+    "id": "jTmmieUxkQ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "提升新人首单转化； "
+      }
+    ],
+    "id": "QUMf37gN7d"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "提升会员复购； "
+      }
+    ],
+    "id": "FR6pTlVYTa"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "支持更灵活的运营配置； "
+      }
+    ],
+    "id": "ZyvONObEzg"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "减少客服对“为什么券不能一起用”的投诉。"
+      }
+    ],
+    "id": "JjEaQ8cJV3"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "eRO_EhvGOM"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "3.2 核心需求描述"
+      }
+    ],
+    "id": "KPd4TKzZux"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "业务方最初给出的需求非常简单： "
+      }
+    ],
+    "id": "BAVfmZ1myz"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "支持优惠券叠加使用。",
+        "bold": true,
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      },
+      {
+        "text": " ",
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      }
+    ],
+    "id": "YLq8kTtgQ1"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "但这句话非常模糊。 "
+      }
+    ],
+    "id": "_sw2BVn6MB"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "它没有说明： "
+      }
+    ],
+    "id": "HFcPxnrlbI"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "哪些券可以叠加； "
+      }
+    ],
+    "id": "ktc85EuTv6"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "哪些券不能叠加； "
+      }
+    ],
+    "id": "Yz5bzJuYG8"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "叠加顺序是什么； "
+      }
+    ],
+    "id": "Oj3eD7oY0B"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "折扣券和满减券如何同时计算； "
+      }
+    ],
+    "id": "2RktMHtEDq"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "优惠金额如何分摊到商品； "
+      }
+    ],
+    "id": "1uMIbPUjQf"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "退款时如何回滚优惠； "
+      }
+    ],
+    "id": "La8bUI8YtB"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "拆单时如何分配优惠； "
+      }
+    ],
+    "id": "UiKogY12MA"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "一张券是否可与活动价叠加； "
+      }
+    ],
+    "id": "R_L0hrKoeU"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "用户手动选券和系统自动选券如何处理； "
+      }
+    ],
+    "id": "hwhAk4C34K"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "异常情况下如何提示用户。"
+      }
+    ],
+    "id": "d-CAK0VMYn"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "如果直接让 AI Agent 根据这句话改代码，很容易生成看似合理但业务错误的实现。 "
+      }
+    ],
+    "id": "nHMKIXowVM"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "9iwe2boOi-"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "3.3 经过澄清后的业务规则"
+      }
+    ],
+    "id": "e_5Cfy01kf"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "经过产品、研发、测试和财务讨论后，需求被澄清为以下规则。 "
+      }
+    ],
+    "id": "qXBylSz-MB"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "hu1NIZ0Vch"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "规则一：本期只支持三类券叠加"
+      }
+    ],
+    "id": "BDGxiRPkkW"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "本次周年庆只支持： "
+      }
+    ],
+    "id": "gC4RcEACFr"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jRF9V6",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "满减券",
+        "bold": true
+      },
+      {
+        "text": " "
+      }
+    ],
+    "id": "pruzJuoD89"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jRF9V6",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "品类券",
+        "bold": true
+      },
+      {
+        "text": " "
+      }
+    ],
+    "id": "VNU-eQxsrQ"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jRF9V6",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "新人券",
+        "bold": true
+      }
+    ],
+    "id": "Slnf4mRezP"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "暂不支持： "
+      }
+    ],
+    "id": "Woaj0AdAzH"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "会员券叠加； "
+      }
+    ],
+    "id": "wXP36cqQ6N"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "商家券叠加； "
+      }
+    ],
+    "id": "Agf8hr9ePN"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "支付券叠加； "
+      }
+    ],
+    "id": "SimMukDedy"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "跨店铺复杂叠加。"
+      }
+    ],
+    "id": "-JhXjX9Cy3"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "dnBHXdimFX"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "规则二：优惠计算顺序固定"
+      }
+    ],
+    "id": "Cdtn9GjrgO"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "优惠计算顺序为： "
+      }
+    ],
+    "id": "pAZ7mDOUc7"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "活动价 → 品类券 → 满减券 → 新人券",
+        "bold": true,
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      },
+      {
+        "text": " ",
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      }
+    ],
+    "id": "-1UmD3RRQt"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "解释： "
+      }
+    ],
+    "id": "sb2MArrQmm"
+  },
+  {
+    "indent": 1,
+    "listGroup": "wOu9Dn",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "商品先使用活动价； "
+      }
+    ],
+    "id": "n5kb76pR-n"
+  },
+  {
+    "indent": 1,
+    "listGroup": "wOu9Dn",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "品类券只作用于对应品类商品； "
+      }
+    ],
+    "id": "Ix44iL1cfT"
+  },
+  {
+    "indent": 1,
+    "listGroup": "wOu9Dn",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "满减券基于品类券之后的订单金额判断门槛； "
+      }
+    ],
+    "id": "x95St4Mh4I"
+  },
+  {
+    "indent": 1,
+    "listGroup": "wOu9Dn",
+    "listStart": 4,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "新人券最后作用于整单。"
+      }
+    ],
+    "id": "qNqMKW6J-e"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "jQGJ7nEhHV"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "规则三：新人券与部分满减券互斥"
+      }
+    ],
+    "id": "eu0USQHYr1"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "不是所有新人券都能和满减券叠加。 "
+      }
+    ],
+    "id": "of8CcgMait"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "业务配置中需要增加字段： "
+      }
+    ],
+    "id": "r6lTC7BLUe"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "stackable_with_order_coupon "
+      }
+    ],
+    "id": "lyfPZMdzSd"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "含义： "
+      }
+    ],
+    "id": "iel9euoHdY"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "true：新人券可以和满减券叠加； "
+      }
+    ],
+    "id": "FkFpy8JrwU"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "false：新人券不能和满减券叠加。"
+      }
+    ],
+    "id": "qQKN4huATD"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "如果新人券不允许和满减券叠加，则系统需要自动选择优惠金额更大的方案。 "
+      }
+    ],
+    "id": "qJxiTBN5ZK"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "6y0-k-rEjW"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "规则四：品类券只作用于可用商品"
+      }
+    ],
+    "id": "xON0vOp4iD"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "品类券只对指定品类商品生效。 "
+      }
+    ],
+    "id": "Qed7xI59xm"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "例如： "
+      }
+    ],
+    "id": "FerXYmY1YE"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "生鲜券只能作用于生鲜商品； "
+      }
+    ],
+    "id": "eh-_i6d1xc"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "美妆券只能作用于美妆商品。"
+      }
+    ],
+    "id": "3uA7yXlEIV"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "如果订单中部分商品不属于该品类，则这些商品不能参与品类券门槛，也不能分摊品类券优惠。 "
+      }
+    ],
+    "id": "yTl6lEbgCO"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "4L09Oyx4DB"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "规则五：满减券基于品类券后的金额判断门槛"
+      }
+    ],
+    "id": "ubQySGAUri"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "例如： "
+      }
+    ],
+    "id": "nQB9QuL44n"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "订单原始金额为 320 元。 "
+      }
+    ],
+    "id": "2m73_UXha9"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "其中： "
+      }
+    ],
+    "id": "XhQdUN8LyC"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "生鲜商品 120 元； "
+      }
+    ],
+    "id": "VKMrRHbDpu"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "美妆商品 200 元； "
+      }
+    ],
+    "id": "DPFTaj0Prj"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "使用生鲜品类券满 100 减 20。"
+      }
+    ],
+    "id": "fPMcyMh0cB"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "品类券后订单金额变为 300 元。 "
+      }
+    ],
+    "id": "u9Uj1o64pA"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "如果用户还有一张满 300 减 50 的满减券，则可以继续使用。 "
+      }
+    ],
+    "id": "EAr6P01a0W"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "如果品类券后订单金额变为 299 元，则不能使用满 300 减 50 的满减券。 "
+      }
+    ],
+    "id": "2JWSWBQfyO"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "ZFIpkMGFaA"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "规则六：优惠金额不能超过应付金额"
+      }
+    ],
+    "id": "yDIIem28OT"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "无论叠加多少优惠，总优惠金额不得超过订单应付金额。 "
+      }
+    ],
+    "id": "yI8GrB3wIx"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "最低支付金额不能小于 0。 "
+      }
+    ],
+    "id": "HFQcOOsAnF"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "如果计算后出现负数，应截断为 0，并记录异常监控。 "
+      }
+    ],
+    "id": "og80AfFgS7"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "w6eZaUSu-q"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "规则七：优惠金额必须能分摊到商品行"
+      }
+    ],
+    "id": "_oGU2nkB1Z"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "为了支持退款和财务对账，每一类优惠金额都必须分摊到商品行。 "
+      }
+    ],
+    "id": "lNXalzTxGf"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "商品行需要记录： "
+      }
+    ],
+    "id": "_uXs4WLX5O"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "品类券分摊金额； "
+      }
+    ],
+    "id": "aNelFy50eb"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "满减券分摊金额； "
+      }
+    ],
+    "id": "fpUshTwDjo"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "新人券分摊金额； "
+      }
+    ],
+    "id": "upqSoqgTc2"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "总优惠分摊金额； "
+      }
+    ],
+    "id": "ASL0cU8c0t"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "分摊后的实付金额。"
+      }
+    ],
+    "id": "N1knt8o88l"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "saon4DCNI_"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "规则八：退款时按原始分摊金额回滚"
+      }
+    ],
+    "id": "dCHJqgLpEk"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "退款时不能重新计算优惠规则，而是必须基于下单时已经保存的优惠分摊结果进行回滚。 "
+      }
+    ],
+    "id": "bvyY-RQQ2J"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "原因是： "
+      }
+    ],
+    "id": "LTAX7XSLcY"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "下单后的优惠配置可能已经变化； "
+      }
+    ],
+    "id": "gof4cZ_3Ly"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "用户身份可能变化； "
+      }
+    ],
+    "id": "HbMUtVWUZa"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "活动可能结束； "
+      }
+    ],
+    "id": "XZl4Ipvb1a"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "商品价格可能变化； "
+      }
+    ],
+    "id": "J7Gk98Pyim"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "重新计算会导致退款金额不一致。"
+      }
+    ],
+    "id": "uP0j9uJFDa"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "FYqXTDZFSM"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "规则九：拆单时保持优惠分摊一致"
+      }
+    ],
+    "id": "MifcliSgpX"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "如果订单拆成多个子单，每个子单必须携带对应商品行上的优惠分摊结果。 "
+      }
+    ],
+    "id": "ky_VK8f0Lc"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "不能在拆单后重新计算优惠。 "
+      }
+    ],
+    "id": "G4jVlHAov8"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "2MtmQSmK-2"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "规则十：所有金额按分为单位计算"
+      }
+    ],
+    "id": "qqwFJwmV9o"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "系统内部所有金额均按“分”为单位，避免浮点误差。 "
+      }
+    ],
+    "id": "S2-GlrCZ4i"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "例如： "
+      }
+    ],
+    "id": "x7yefkdHS4"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "100 元表示为 10000； "
+      }
+    ],
+    "id": "tq3w4Kud-1"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "19.9 元表示为 1990。"
+      }
+    ],
+    "id": "Ezv4N6_AhE"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "rU2-v1h8dZ"
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "四、遗留系统背景"
+      }
+    ],
+    "id": "pzS22yQA52"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "4.1 系统历史"
+      }
+    ],
+    "id": "AUOU9_wDQi"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "订单系统最早建设于 6 年前，经历过多次大促、重构和需求堆叠。 "
+      }
+    ],
+    "id": "sXvxsKlSMU"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "它的特点是： "
+      }
+    ],
+    "id": "F659JSS-ZG"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "早期是单体应用； "
+      }
+    ],
+    "id": "pkVbmQu9Om"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "后来拆分出部分服务； "
+      }
+    ],
+    "id": "XGAJHFtvSg"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "订单核心计价逻辑仍保留在老模块中； "
+      }
+    ],
+    "id": "PQS92a1vIa"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "促销规则部分由促销服务提供； "
+      }
+    ],
+    "id": "QtlUw_PfdH"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "退款逻辑在售后服务中； "
+      }
+    ],
+    "id": "olsy4F-ZKf"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "财务对账逻辑在独立任务中； "
+      }
+    ],
+    "id": "Fw3QM7LIdt"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "测试覆盖率不高； "
+      }
+    ],
+    "id": "r8ZjCigfo-"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "文档不完整； "
+      }
+    ],
+    "id": "jz-BCRcTKz"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "历史 Bug 较多。"
+      }
+    ],
+    "id": "wA8WogsTq1"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "oTo-37nDqI"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "4.2 技术栈"
+      }
+    ],
+    "id": "M6VBqjw5xi"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "案例可以设定为常见企业技术栈，便于读者代入。 "
+      }
+    ],
+    "id": "oUadxsEjUT"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "后端"
+      }
+    ],
+    "id": "9jN1Pe1wNb"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Java 17 "
+      }
+    ],
+    "id": "j2hekluwJ-"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Spring Boot "
+      }
+    ],
+    "id": "t3hNt9pUwo"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Maven "
+      }
+    ],
+    "id": "hS2IMtnzox"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "MyBatis "
+      }
+    ],
+    "id": "oEydzzT5ik"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "MySQL "
+      }
+    ],
+    "id": "RI1W9YAPnF"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Redis"
+      }
+    ],
+    "id": "n-sswTxAD9"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "测试"
+      }
+    ],
+    "id": "WbR-_q5XVM"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "JUnit 5 "
+      }
+    ],
+    "id": "rHoGqLTJ7k"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Mockito "
+      }
+    ],
+    "id": "nP56JTBFVB"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Testcontainers，部分使用 "
+      }
+    ],
+    "id": "ldBE9oOlFc"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "JaCoCo "
+      }
+    ],
+    "id": "9Z3j9E0BXG"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "PIT，作为变异测试工具可选"
+      }
+    ],
+    "id": "WMjOfegdZe"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "DevOps"
+      }
+    ],
+    "id": "_kig4MxkCh"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "GitLab / GitHub "
+      }
+    ],
+    "id": "gzJ2T5HtUp"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "GitLab CI / GitHub Actions "
+      }
+    ],
+    "id": "RdQnltwGzS"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Docker "
+      }
+    ],
+    "id": "kSkcDjEXD6"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "SonarQube "
+      }
+    ],
+    "id": "iruUNr2MnZ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Jira / TAPD "
+      }
+    ],
+    "id": "mTm292MNHh"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "企业内部发布平台"
+      }
+    ],
+    "id": "-SiZksjyFm"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "AI Agent 工具"
+      }
+    ],
+    "id": "abbLSJn_0f"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "示例中不绑定具体工具，但会模拟以下能力： "
+      }
+    ],
+    "id": "6KdKlkwlQR"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "IDE 类 AI 编码助手； "
+      }
+    ],
+    "id": "98IRVgWV9V"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "命令行编码 Agent； "
+      }
+    ],
+    "id": "RzAKtn4vU9"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "PR 评审 Agent； "
+      }
+    ],
+    "id": "ClHBZ90QTj"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "测试生成 Agent； "
+      }
+    ],
+    "id": "fTLQoHTJkS"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "安全审查 Agent； "
+      }
+    ],
+    "id": "Rpi7AKYFqi"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Agent Harness； "
+      }
+    ],
+    "id": "DEgz3UPKTW"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "编排器，例如 OpenClaw 类工具。"
+      }
+    ],
+    "id": "o00NChvraW"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "yXCk8H_r0p"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "4.3 模块划分"
+      }
+    ],
+    "id": "q63y-gmqHi"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "系统中和本案例相关的模块包括： "
+      }
+    ],
+    "id": "jsrgOjKrZd"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "order"
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": "service "
+      }
+    ],
+    "id": "8FpQxjW0os"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "├── order"
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": "core "
+      }
+    ],
+    "id": "2LGwSp8Vx6"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "│ ├── pricing "
+      }
+    ],
+    "id": "Ulxau6N73g"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "│ ├── discount "
+      }
+    ],
+    "id": "v8ahPjKn53"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "│ ├── settlement "
+      }
+    ],
+    "id": "-EPTLN_nGS"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "│ └── split "
+      }
+    ],
+    "id": "uBr8vvp43M"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "├── order"
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": "api "
+      }
+    ],
+    "id": "LoumHpXTee"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "├── order"
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": "infra "
+      }
+    ],
+    "id": "VIg95GXUAy"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "└── order"
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": "test "
+      }
+    ],
+    "id": "ManKtnGCHI"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "以及外部相关服务： "
+      }
+    ],
+    "id": "-znN53Xjrf"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "promotion"
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": "service "
+      }
+    ],
+    "id": "G7y84sgu6I"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "coupon"
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": "service "
+      }
+    ],
+    "id": "wgxTmr2wZB"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "member"
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": "service "
+      }
+    ],
+    "id": "4k6RY832BK"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "payment"
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": "service "
+      }
+    ],
+    "id": "TFYPwhevYv"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "refund"
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": "service "
+      }
+    ],
+    "id": "5kQQfJJyat"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "finance"
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": "service "
+      }
+    ],
+    "id": "zq3GGDehqt"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "inventory"
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": "service "
+      }
+    ],
+    "id": "jgUFBFlBLa"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "S8unhAMxHS"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "4.4 关键领域对象"
+      }
+    ],
+    "id": "FfEKNfoB2H"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "为了让案例贯穿全书，可以设计以下领域对象。 "
+      }
+    ],
+    "id": "cQ3gVQ7vO_"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "Order"
+      }
+    ],
+    "id": "CiNbLZzm9f"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "订单对象，包含： "
+      }
+    ],
+    "id": "ktDedR5JSz"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "orderId "
+      }
+    ],
+    "id": "66qza3ToZ5"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "userId "
+      }
+    ],
+    "id": "ruAhPvP3VQ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "orderItems "
+      }
+    ],
+    "id": "FzMfW1bCXn"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "totalAmount "
+      }
+    ],
+    "id": "CBbHSnA5BZ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "discountAmount "
+      }
+    ],
+    "id": "DzYXvVnTr5"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "payableAmount "
+      }
+    ],
+    "id": "i40TChOG6B"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "couponDetails "
+      }
+    ],
+    "id": "aeXPEpjLoJ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "orderStatus"
+      }
+    ],
+    "id": "bb2YtG8zlW"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "RKoqDXQfkq"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "OrderItem"
+      }
+    ],
+    "id": "qred9iTkoR"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "订单商品行，包含： "
+      }
+    ],
+    "id": "cFdQaEJhFz"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "itemId "
+      }
+    ],
+    "id": "Di0HexIzN9"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "skuId "
+      }
+    ],
+    "id": "2EyaaOfdBf"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "categoryId "
+      }
+    ],
+    "id": "ytMxPWrTJB"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "quantity "
+      }
+    ],
+    "id": "5D9nS-aL2J"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "originPrice "
+      }
+    ],
+    "id": "-f3EDQsVYg"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "activityPrice "
+      }
+    ],
+    "id": "AQneblL7nh"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "itemAmount "
+      }
+    ],
+    "id": "MorB0hWy0V"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "discountShareAmount "
+      }
+    ],
+    "id": "p3HO9WVtf7"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "payableAmount"
+      }
+    ],
+    "id": "XISgfhFpYw"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "_ATX7Hcerq"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "Coupon"
+      }
+    ],
+    "id": "C87GG10Dni"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "优惠券对象，包含： "
+      }
+    ],
+    "id": "V0n7CDIJV6"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "couponId "
+      }
+    ],
+    "id": "R1-z3gzqfN"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "couponType "
+      }
+    ],
+    "id": "mgyPdYKQmF"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "thresholdAmount "
+      }
+    ],
+    "id": "-PZ7zbTB_y"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "discountAmount "
+      }
+    ],
+    "id": "uqB84G2NDp"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "discountRate "
+      }
+    ],
+    "id": "fbX1sNQ9ra"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "categoryScope "
+      }
+    ],
+    "id": "gieKBEF6iZ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "stackable "
+      }
+    ],
+    "id": "H5_hpEHkZc"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "stackableWithOrderCoupon "
+      }
+    ],
+    "id": "A0Lr25lbXX"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "validTimeRange"
+      }
+    ],
+    "id": "ZaINfiEkTE"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "ISoOOZScp2"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "PricingContext"
+      }
+    ],
+    "id": "dRMcIj6Su_"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "计价上下文，包含： "
+      }
+    ],
+    "id": "k1SBf4FfJl"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "userId "
+      }
+    ],
+    "id": "NqTRx5aWYZ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "userType "
+      }
+    ],
+    "id": "Mem7xnEDVx"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "orderItems "
+      }
+    ],
+    "id": "_Vm4dbUMQh"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "selectedCoupons "
+      }
+    ],
+    "id": "VN_GGBxZ7m"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "activityPrices "
+      }
+    ],
+    "id": "muBydGcC5Z"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "promotionSnapshot "
+      }
+    ],
+    "id": "bGbGYZLA8f"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "pricingTime"
+      }
+    ],
+    "id": "bwtP45QRi2"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "TPWD5A6rNi"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "PricingResult"
+      }
+    ],
+    "id": "vROs1Kekvb"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "计价结果，包含： "
+      }
+    ],
+    "id": "ooIwq1rKdc"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "originalAmount "
+      }
+    ],
+    "id": "c6SMV97ZAU"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "activityDiscountAmount "
+      }
+    ],
+    "id": "VQR0kRiEdj"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "categoryCouponDiscountAmount "
+      }
+    ],
+    "id": "NvQpLXUa5r"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "orderCouponDiscountAmount "
+      }
+    ],
+    "id": "4EttkkxY6s"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "newUserCouponDiscountAmount "
+      }
+    ],
+    "id": "AxYpFDR0_Z"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "totalDiscountAmount "
+      }
+    ],
+    "id": "WXX2ktPTsC"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "payableAmount "
+      }
+    ],
+    "id": "U8UpTy9Yg2"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "itemAllocations "
+      }
+    ],
+    "id": "FtnUE276uA"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "couponSnapshots"
+      }
+    ],
+    "id": "d1LRDjjCX-"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "ziHsRuAuSq"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "DiscountAllocation"
+      }
+    ],
+    "id": "0fXzDxg6Ol"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "优惠分摊结果，包含： "
+      }
+    ],
+    "id": "_hh3DaDiT1"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "itemId "
+      }
+    ],
+    "id": "6dp2dxheh4"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "couponId "
+      }
+    ],
+    "id": "xjUeCXeeO5"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "couponType "
+      }
+    ],
+    "id": "X9ng1mLXUy"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "allocatedAmount "
+      }
+    ],
+    "id": "kIj-O5pv85"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "allocationRule "
+      }
+    ],
+    "id": "FDSX13wDAd"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "createdAt"
+      }
+    ],
+    "id": "rUEQljE9MW"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "4K-6qBTvAq"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "4.5 典型代码结构"
+      }
+    ],
+    "id": "dvjvOw4Jud"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "案例中的计价逻辑可以集中在如下类中： "
+      }
+    ],
+    "id": "TMLjKGpvKM"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "PricingService "
+      }
+    ],
+    "id": "fWTDJ94HRr"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "CouponStackingPolicy "
+      }
+    ],
+    "id": "TPGQVoV6In"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "CategoryCouponCalculator "
+      }
+    ],
+    "id": "m7WBifAAgr"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "OrderCouponCalculator "
+      }
+    ],
+    "id": "MuGAOIPHGp"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "NewUserCouponCalculator "
+      }
+    ],
+    "id": "hNMJlELIJZ"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "DiscountAllocator "
+      }
+    ],
+    "id": "Vw_2rJsgl6"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "RefundAmountCalculator "
+      }
+    ],
+    "id": "YrV5sg9Lcw"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "OrderSplitService "
+      }
+    ],
+    "id": "p6hsIImI5N"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "PricingSnapshotRepository "
+      }
+    ],
+    "id": "oY8DakYkOt"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "原有系统中可能存在的问题： "
+      }
+    ],
+    "id": "-SdgdAW7sL"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "PricingService 过大； "
+      }
+    ],
+    "id": "_6Jg1JXX0Z"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "优惠计算逻辑散落； "
+      }
+    ],
+    "id": "srax4fLSQD"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "部分规则写死； "
+      }
+    ],
+    "id": "JB3H7D2tNC"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "RefundAmountCalculator 会重新计算优惠； "
+      }
+    ],
+    "id": "L_JdIvwr-h"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "缺少 DiscountAllocation 明确模型； "
+      }
+    ],
+    "id": "ZZK2Zdnhst"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "测试主要覆盖正常路径； "
+      }
+    ],
+    "id": "KMdwqR1MnS"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "历史 Bug 修复没有沉淀回归用例。"
+      }
+    ],
+    "id": "5gwzkG-TXO"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "7Vse4WiiXW"
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "五、当前线上 Bug 背景"
+      }
+    ],
+    "id": "qPm9MxASll"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "除了新增优惠券叠加需求，本案例还包含一个线上 Bug。 "
+      }
+    ],
+    "id": "d3ak4sIk_s"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "5.1 Bug 描述"
+      }
+    ],
+    "id": "bEK2BVgUZI"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "线上出现部分用户投诉： "
+      }
+    ],
+    "id": "7W2pQZS-v5"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "用户购买多件商品后使用优惠券，下单金额正确，但部分退款时，退款金额比预期少。 ",
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      }
+    ],
+    "id": "QUUk5elsoF"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "客服反馈： "
+      }
+    ],
+    "id": "bZ3fSNQANM"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "用户下单时使用了优惠券； "
+      }
+    ],
+    "id": "z3qa4p8h75"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "后续只退了其中一件商品； "
+      }
+    ],
+    "id": "1lA2Z36QTC"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "系统计算退款金额时重新分摊优惠； "
+      }
+    ],
+    "id": "YJ3JoNXGuT"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "导致该商品可退金额被低估； "
+      }
+    ],
+    "id": "PAw9UCXOie"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "用户认为平台少退钱。"
+      }
+    ],
+    "id": "1zdDSBQmCo"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "HBK3C3iHXt"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "5.2 Bug 触发场景"
+      }
+    ],
+    "id": "E9jLv2Qz-w"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "一个典型场景如下： "
+      }
+    ],
+    "id": "lkUM8OUHdD"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "订单包含三件商品： "
+      }
+    ],
+    "id": "tbzn1ewQ0g"
+  },
+  {
+    "type": "table",
+    "children": [
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "商品",
+                    "bold": true
+                  }
+                ],
+                "id": "1MSf48YJ8Q"
+              }
+            ],
+            "id": "TUtcdcdaa4"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "品类",
+                    "bold": true
+                  }
+                ],
+                "id": "gOB7G6uTFA"
+              }
+            ],
+            "id": "2yY5XXV86S"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "活动价",
+                    "bold": true
+                  }
+                ],
+                "id": "PIYzeSpm2J"
+              }
+            ],
+            "id": "EfvEb834Gc"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "数量",
+                    "bold": true
+                  }
+                ],
+                "id": "N3F8i87tV6"
+              }
+            ],
+            "id": "YT7l01MwEb"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "小计",
+                    "bold": true
+                  }
+                ],
+                "id": "OY2sjt1w6U"
+              }
+            ],
+            "id": "AHaJ-o68IA"
+          }
+        ],
+        "id": "wIWdEEHIH3"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "A"
+                  }
+                ],
+                "id": "jpvYp_rSm5"
+              }
+            ],
+            "id": "ONWha6OdDz"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "生鲜"
+                  }
+                ],
+                "id": "aCCz90begO"
+              }
+            ],
+            "id": "lZtJdKPnwA"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "120 元"
+                  }
+                ],
+                "id": "G5vrqHHNMu"
+              }
+            ],
+            "id": "jrOavGYc_C"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "1"
+                  }
+                ],
+                "id": "m1Dum7cDmT"
+              }
+            ],
+            "id": "_aea8Bgefb"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "120 元"
+                  }
+                ],
+                "id": "9DZ462eUqB"
+              }
+            ],
+            "id": "8XpcgQtghW"
+          }
+        ],
+        "id": "d-M6aYAUD-"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "B"
+                  }
+                ],
+                "id": "KVw4hmSvzF"
+              }
+            ],
+            "id": "Swzv-AigsN"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "美妆"
+                  }
+                ],
+                "id": "lTYeasYFAM"
+              }
+            ],
+            "id": "mXi3YTEUUs"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "200 元"
+                  }
+                ],
+                "id": "zaS95jLZjK"
+              }
+            ],
+            "id": "9QiBBJxVnc"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "1"
+                  }
+                ],
+                "id": "SUTyS2dRDo"
+              }
+            ],
+            "id": "-h5pZ30upA"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "200 元"
+                  }
+                ],
+                "id": "hwxdOoHw0n"
+              }
+            ],
+            "id": "QhJ2oP2gc7"
+          }
+        ],
+        "id": "ikHDE4dQR4"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "C"
+                  }
+                ],
+                "id": "Md58F-Tyxk"
+              }
+            ],
+            "id": "a5HDb9jMA5"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "家居"
+                  }
+                ],
+                "id": "P3TNEcQeW-"
+              }
+            ],
+            "id": "pLFfJGIgp7"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "80 元"
+                  }
+                ],
+                "id": "lRQiQXHT77"
+              }
+            ],
+            "id": "dtBW4TlDuJ"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "1"
+                  }
+                ],
+                "id": "g3T7oAGixa"
+              }
+            ],
+            "id": "Nx6IpHlq7G"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "80 元"
+                  }
+                ],
+                "id": "1K6-9a8v3n"
+              }
+            ],
+            "id": "KFLuMYPutx"
+          }
+        ],
+        "id": "f5gworv0dN"
+      }
+    ],
+    "id": "seAZMWMGKE",
+    "colSizes": [
+      170.8,
+      170.8,
+      170.8,
+      170.8,
+      170.8
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "订单原始活动价合计： "
+      }
+    ],
+    "id": "Cfg9fQyGqT"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "400",
+        "color": "rgba(118, 50, 255, 1"
+      },
+      {
+        "text": " 元 "
+      }
+    ],
+    "id": "_26r7eADS9"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "用户使用： "
+      }
+    ],
+    "id": "MAtPmpsxtx"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "满 300 减 50 的满减券； "
+      }
+    ],
+    "id": "rJCc1O9xgP"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "新人券减 20。"
+      }
+    ],
+    "id": "R1UfeO4R37"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "订单应付： "
+      }
+    ],
+    "id": "m71FaZeefd"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "400",
+        "color": "rgba(118, 50, 255, 1"
+      },
+      {
+        "text": " "
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": " "
+      },
+      {
+        "text": "50",
+        "color": "rgba(118, 50, 255, 1"
+      },
+      {
+        "text": " "
+      },
+      {
+        "text": "-",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": " "
+      },
+      {
+        "text": "20",
+        "color": "rgba(118, 50, 255, 1"
+      },
+      {
+        "text": " "
+      },
+      {
+        "text": "=",
+        "color": "rgba(143, 143, 143, 1"
+      },
+      {
+        "text": " "
+      },
+      {
+        "text": "330",
+        "color": "rgba(118, 50, 255, 1"
+      },
+      {
+        "text": " 元 "
+      }
+    ],
+    "id": "O7WPT5P68w"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "假设下单时系统按比例将 70 元优惠分摊到三件商品。 "
+      }
+    ],
+    "id": "ssjLceR-sB"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "但退款时，系统没有读取下单时保存的分摊结果，而是根据当前订单剩余商品重新计算优惠。 "
+      }
+    ],
+    "id": "lojPVMo48V"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "如果用户只退商品 C，退款逻辑可能重新判断： "
+      }
+    ],
+    "id": "WiFrH1V-A6"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "剩余商品金额变化； "
+      }
+    ],
+    "id": "mjR2ELdCU6"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "满减门槛变化； "
+      }
+    ],
+    "id": "LXAYt8slX2"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "新人券状态变化； "
+      }
+    ],
+    "id": "rqEHwUDe9T"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "当前优惠配置变化；"
+      }
+    ],
+    "id": "OaKxmzySaV"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "最终导致商品 C 的可退金额和下单时分摊结果不一致。 "
+      }
+    ],
+    "id": "-7pPchjFYQ"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "ueGLRUOTmG"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "5.3 Bug 根因初步怀疑"
+      }
+    ],
+    "id": "qOciqRyGLr"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "初步怀疑有几个可能原因： "
+      }
+    ],
+    "id": "SlY6ZrDORx"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jGCg-s",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "退款逻辑重新计算优惠，而不是使用下单时的分摊快照； "
+      }
+    ],
+    "id": "844AlVFL_y"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jGCg-s",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "部分商品行没有记录完整优惠分摊明细； "
+      }
+    ],
+    "id": "vFqlOcOE9h"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jGCg-s",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "历史订单和新订单的分摊字段不一致； "
+      }
+    ],
+    "id": "tFT10Gk7fw"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jGCg-s",
+    "listStart": 4,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "拆单后子单没有保留原始分摊信息； "
+      }
+    ],
+    "id": "Ea3OepiIBH"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jGCg-s",
+    "listStart": 5,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "金额按比例分摊时四舍五入残差处理不一致； "
+      }
+    ],
+    "id": "gb-OmQPYeu"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jGCg-s",
+    "listStart": 6,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "促销配置变更后，退款阶段读取到了新的规则。"
+      }
+    ],
+    "id": "Oag4_NlTfC"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "2AWVrYEV9Q"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "5.4 为什么这个 Bug 适合用于 AI Agent 案例"
+      }
+    ],
+    "id": "IobcPIplkl"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "因为它非常适合展示： "
+      }
+    ],
+    "id": "sir-HbowxV"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "不能让 AI 直接改代码； "
+      }
+    ],
+    "id": "IAJQl8I3yl"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "必须先分析日志和调用链； "
+      }
+    ],
+    "id": "BmLL9K5BQ1"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "必须让 AI 生成多个根因假设； "
+      }
+    ],
+    "id": "dQ1wA12hy2"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "必须构造失败用例； "
+      }
+    ],
+    "id": "Xm_mQxKpSL"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "必须基于失败用例做最小修复； "
+      }
+    ],
+    "id": "SM-nDS7R8b"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "必须补回归测试； "
+      }
+    ],
+    "id": "RI1PJfrI61"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "必须引入输出契约； "
+      }
+    ],
+    "id": "yk0-T2TOYF"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "必须通过门禁； "
+      }
+    ],
+    "id": "sabk9msSvR"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "必须将失败案例进入评测集。"
+      }
+    ],
+    "id": "dZu02KxNSE"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "这个 Bug 会在第10章作为 AI 缺陷修复工作流的主要示例。 "
+      }
+    ],
+    "id": "iyADto3u_y"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "hxIAuldsSd"
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "六、研发团队背景"
+      }
+    ],
+    "id": "AL2TGlg2wF"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "6.1 团队构成"
+      }
+    ],
+    "id": "67-6C_YrBd"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "订单团队约 12 人： "
+      }
+    ],
+    "id": "Mvo9AgkUZd"
+  },
+  {
+    "type": "table",
+    "children": [
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "角色",
+                    "bold": true
+                  }
+                ],
+                "id": "Yk1GQZO2KP"
+              }
+            ],
+            "id": "xPf8yK5-sq"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "人数",
+                    "bold": true
+                  }
+                ],
+                "id": "H2ADi8ACcZ"
+              }
+            ],
+            "id": "BerNWEw-ur"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "说明",
+                    "bold": true
+                  }
+                ],
+                "id": "ueaiwIOAzW"
+              }
+            ],
+            "id": "XHxctPkJor"
+          }
+        ],
+        "id": "XLJg3oMaex"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "研发经理"
+                  }
+                ],
+                "id": "RR32EwfZXk"
+              }
+            ],
+            "id": "po6es6bHYW"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "1"
+                  }
+                ],
+                "id": "J6jyX4QRuu"
+              }
+            ],
+            "id": "yn6KlpWotd"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "负责交付节奏、资源协调和风险把控"
+                  }
+                ],
+                "id": "f_i_TRH9BA"
+              }
+            ],
+            "id": "RjVkNJD1lY"
+          }
+        ],
+        "id": "7jDvRw7LgI"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Tech Lead"
+                  }
+                ],
+                "id": "OhiCVLQirx"
+              }
+            ],
+            "id": "KmrBUIREd7"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "1"
+                  }
+                ],
+                "id": "L1YDzpK3-r"
+              }
+            ],
+            "id": "azuPh52GxS"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "熟悉订单领域，负责技术方案和关键评审"
+                  }
+                ],
+                "id": "AVky1VSrc-"
+              }
+            ],
+            "id": "otYxzaFEmU"
+          }
+        ],
+        "id": "__DtHT1ZnK"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "后端工程师"
+                  }
+                ],
+                "id": "GMuwM7Bqli"
+              }
+            ],
+            "id": "LU7yPSeSCr"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "5"
+                  }
+                ],
+                "id": "wfGrGyYAls"
+              }
+            ],
+            "id": "Dx_M2KlDVE"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "负责订单、促销、退款相关开发"
+                  }
+                ],
+                "id": "kXK2S47CFU"
+              }
+            ],
+            "id": "wa5kU1rZ9b"
+          }
+        ],
+        "id": "y0LubX384A"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "测试工程师"
+                  }
+                ],
+                "id": "V6XsynzETS"
+              }
+            ],
+            "id": "X1GXs0xflq"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "2"
+                  }
+                ],
+                "id": "u-Iu6O0Rfk"
+              }
+            ],
+            "id": "ayXnjdGxFt"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "负责测试方案、自动化测试和回归"
+                  }
+                ],
+                "id": "l71sPXXVlC"
+              }
+            ],
+            "id": "KtBabbppGY"
+          }
+        ],
+        "id": "dk-otft6Vz"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "DevOps / 平台工程师"
+                  }
+                ],
+                "id": "3DJ6y4-rmJ"
+              }
+            ],
+            "id": "m7k1sx0RFY"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "1"
+                  }
+                ],
+                "id": "3K-MM24gol"
+              }
+            ],
+            "id": "j5C0zftA8r"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "负责 CI、发布、门禁和工具链"
+                  }
+                ],
+                "id": "x_N2lDWGBB"
+              }
+            ],
+            "id": "PHu4_W3bl-"
+          }
+        ],
+        "id": "WeSiwKAeen"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "产品经理"
+                  }
+                ],
+                "id": "mKCOYp8E7A"
+              }
+            ],
+            "id": "CEF1oOludl"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "1"
+                  }
+                ],
+                "id": "pj_Z9FiA-b"
+              }
+            ],
+            "id": "aDG_-dbBJ-"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "负责促销需求和规则澄清"
+                  }
+                ],
+                "id": "nb9FU0oasm"
+              }
+            ],
+            "id": "BqgVV-QmMG"
+          }
+        ],
+        "id": "5Ax8JmJpId"
+      },
+      {
+        "type": "tr",
+        "children": [
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "数据/运营接口人"
+                  }
+                ],
+                "id": "UJ78G2Kf9e"
+              }
+            ],
+            "id": "T4lw5-8KyE"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "1"
+                  }
+                ],
+                "id": "eSIzcy4KlE"
+              }
+            ],
+            "id": "t8dk6ub8Pp"
+          },
+          {
+            "type": "td",
+            "attributes": {
+              "colspan": "1",
+              "rowspan": "1"
+            },
+            "children": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "负责活动指标和运营配置"
+                  }
+                ],
+                "id": "CodUqKRnbS"
+              }
+            ],
+            "id": "hrw8fsQCkX"
+          }
+        ],
+        "id": "iV3OLBLEmB"
+      }
+    ],
+    "id": "UR44-p4lyr",
+    "colSizes": [
+      284.6666666666667,
+      284.6666666666667,
+      284.6666666666667
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "ruX9Mm5dov"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "6.2 团队当前 AI 使用情况"
+      }
+    ],
+    "id": "iQ3l-mqeXv"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "团队中已有部分工程师使用 AI 编码工具： "
+      }
+    ],
+    "id": "vPTSE9bxUr"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "有人用 AI 生成单元测试； "
+      }
+    ],
+    "id": "3ADSfOrKJv"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "有人用 AI 总结代码； "
+      }
+    ],
+    "id": "RR97CsV0qo"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "有人用 AI 写简单工具脚本； "
+      }
+    ],
+    "id": "bt6kn5sUCT"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "有人尝试让 AI 修 Bug； "
+      }
+    ],
+    "id": "bg59zw-HjU"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "也有人完全不用，担心代码质量和安全问题。"
+      }
+    ],
+    "id": "YX2y_b4g2w"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "当前使用方式存在几个问题： "
+      }
+    ],
+    "id": "ArC_VB_hkB"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jDWLZn",
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "Prompt 分散在个人电脑里； "
+      }
+    ],
+    "id": "aXy3ny38FM"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jDWLZn",
+    "listStart": 2,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "没有统一输出格式； "
+      }
+    ],
+    "id": "1osvP6hxC5"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jDWLZn",
+    "listStart": 3,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "AI 生成代码没有标记； "
+      }
+    ],
+    "id": "aACCsGQCih"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jDWLZn",
+    "listStart": 4,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "没有 Agent 操作日志； "
+      }
+    ],
+    "id": "uVIZn90MHT"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jDWLZn",
+    "listStart": 5,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "没有统一评测标准； "
+      }
+    ],
+    "id": "ldS4Ebf1cY"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jDWLZn",
+    "listStart": 6,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "AI 生成测试质量参差不齐； "
+      }
+    ],
+    "id": "aklTkpZ6DS"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jDWLZn",
+    "listStart": 7,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "评审人员不知道哪些代码是 AI 生成的； "
+      }
+    ],
+    "id": "xXI7prYLCw"
+  },
+  {
+    "indent": 1,
+    "listGroup": "jDWLZn",
+    "listStart": 8,
+    "listStyleType": "decimal",
+    "type": "p",
+    "children": [
+      {
+        "text": "没有明确哪些任务禁止交给 AI。"
+      }
+    ],
+    "id": "O2MCn_FUJe"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "6-pmw2kTyt"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "6.3 团队工程基础"
+      }
+    ],
+    "id": "GEUUEWMxD4"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "团队已有一定工程基础，但不完美。 "
+      }
+    ],
+    "id": "D7VEY3ACBu"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "已具备"
+      }
+    ],
+    "id": "GOvTbHJ-ov"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Git 分支管理； "
+      }
+    ],
+    "id": "EXwbebB6Tc"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Merge Request / Pull Request 流程； "
+      }
+    ],
+    "id": "wBhSOknYrK"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "基础 CI； "
+      }
+    ],
+    "id": "y1fSaGY-L4"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "单元测试框架； "
+      }
+    ],
+    "id": "WqqeaDZoP5"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "SonarQube； "
+      }
+    ],
+    "id": "1IS9RrffpF"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "发布审批； "
+      }
+    ],
+    "id": "SqqJPGTKkA"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "线上监控； "
+      }
+    ],
+    "id": "QsQUCJtqF3"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Jira / TAPD 需求管理。"
+      }
+    ],
+    "id": "h_NdVX1qhM"
+  },
+  {
+    "type": "h3",
+    "children": [
+      {
+        "text": "不足之处"
+      }
+    ],
+    "id": "etEhReBvF0"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "核心计价模块测试覆盖不足； "
+      }
+    ],
+    "id": "WmY-kcgL88"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "边界测试较少； "
+      }
+    ],
+    "id": "brrq-LxHIL"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "历史 Bug 没有系统沉淀； "
+      }
+    ],
+    "id": "f2iuE4zotl"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "ADR 不完整； "
+      }
+    ],
+    "id": "4Rlg6UmNT_"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "接口文档有过期风险； "
+      }
+    ],
+    "id": "F7Aikukpfx"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "退款逻辑文档缺失； "
+      }
+    ],
+    "id": "-RuE2Vhuao"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "代码评审标准不统一； "
+      }
+    ],
+    "id": "UHbrLWZzMN"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "AI 使用没有团队规范； "
+      }
+    ],
+    "id": "pp-8xBxiWW"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "缺少 Agent 评测集； "
+      }
+    ],
+    "id": "5C9j1Cp-jK"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "没有 Token 成本统计。"
+      }
+    ],
+    "id": "YMGTKeAJ50"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "4tc51kCBG6"
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "七、为什么选择这个案例"
+      }
+    ],
+    "id": "aimUri9xb3"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "7.1 它足够真实"
+      }
+    ],
+    "id": "hUX_BbgM_g"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "真实软件研发不是让 AI 写一个简单 Todo App，而是面对： "
+      }
+    ],
+    "id": "Zg3BsotuEV"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "模糊需求； "
+      }
+    ],
+    "id": "DZFzvDkCT5"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "遗留代码； "
+      }
+    ],
+    "id": "H4L_ePcpxI"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "业务规则； "
+      }
+    ],
+    "id": "as7Clt-KBX"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "历史债务； "
+      }
+    ],
+    "id": "2iiCeJClMf"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "测试缺口； "
+      }
+    ],
+    "id": "rOPiAgWEEH"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "线上 Bug； "
+      }
+    ],
+    "id": "l2sjWpdLNz"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "风险审批； "
+      }
+    ],
+    "id": "i99YR5PdhF"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "DevOps 流程； "
+      }
+    ],
+    "id": "lG-FgXLtB6"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "组织协作。"
+      }
+    ],
+    "id": "yiUvv_axL5"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "这个案例覆盖了真实企业落地的大部分问题。 "
+      }
+    ],
+    "id": "dyIGh5VUgJ"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "UsTebFOwpd"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "7.2 它足够高风险"
+      }
+    ],
+    "id": "ABOZh4cU0T"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "优惠券和订单计价涉及金额，一旦出错会影响： "
+      }
+    ],
+    "id": "emHZ30F0Za"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "用户权益； "
+      }
+    ],
+    "id": "GVyM42kxJ0"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "客服投诉； "
+      }
+    ],
+    "id": "Q8ofiZu8gO"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "财务对账； "
+      }
+    ],
+    "id": "A4AIG4nbGP"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "活动成本； "
+      }
+    ],
+    "id": "ylHpYmTH1k"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "平台信誉； "
+      }
+    ],
+    "id": "kdCh_px6cA"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "法务风险。"
+      }
+    ],
+    "id": "igpciCdRRz"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "因此它天然适合展示： "
+      }
+    ],
+    "id": "NKC7AOfUak"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "AI Agent 不能无约束自动修改核心逻辑。 ",
+        "color": "rgba(143, 143, 143, 1",
+        "italic": true
+      }
+    ],
+    "id": "0eGUmydLGl"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "m029mw42EH"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "7.3 它足够可拆解"
+      }
+    ],
+    "id": "QwKgQaGyZl"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "虽然案例复杂，但可以拆成多个小任务： "
+      }
+    ],
+    "id": "adlgy5NnZW"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "澄清优惠叠加规则； "
+      }
+    ],
+    "id": "OO1FmElvby"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "分析现有计价逻辑； "
+      }
+    ],
+    "id": "GFWKqTJshr"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "生成技术方案； "
+      }
+    ],
+    "id": "fGiR2QMvZM"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "设计 DiscountAllocation 模型； "
+      }
+    ],
+    "id": "O9CbmwgPD9"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "补充测试； "
+      }
+    ],
+    "id": "DWMk7PKXcH"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "修改局部计算器； "
+      }
+    ],
+    "id": "7wsYxD-Y3E"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "修复退款逻辑； "
+      }
+    ],
+    "id": "gEWm_IO519"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "生成 PR 摘要； "
+      }
+    ],
+    "id": "ZLWQYtnNZa"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "做 AI 评审； "
+      }
+    ],
+    "id": "UpO8BCE63n"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "接入 CI 门禁； "
+      }
+    ],
+    "id": "aIbwH1v2Y-"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "复盘和沉淀规则。"
+      }
+    ],
+    "id": "rCMTjocnjC"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "这非常适合展示小步提交和 Skill 化复用。 "
+      }
+    ],
+    "id": "VX-wuaRtyi"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "yIWL0vZhv8"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "7.4 它能贯穿所有章节"
+      }
+    ],
+    "id": "SAGzPE4SKS"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "这个案例可以自然连接： "
+      }
+    ],
+    "id": "bCtfjnkjxm"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "需求澄清； "
+      }
+    ],
+    "id": "i7gYYEYJ3w"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "上下文工程； "
+      }
+    ],
+    "id": "p5A_fRkimJ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "模型选择； "
+      }
+    ],
+    "id": "i9UzyFqart"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Harness； "
+      }
+    ],
+    "id": "r_oa45QaGg"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "输出契约； "
+      }
+    ],
+    "id": "nyASFNVHfi"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "编码； "
+      }
+    ],
+    "id": "HuNIXW4Avh"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "测试； "
+      }
+    ],
+    "id": "_ElAjs7MMU"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "评审； "
+      }
+    ],
+    "id": "0YXBB8SeTf"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "Bug 修复； "
+      }
+    ],
+    "id": "GIw6mIy7kN"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "门禁； "
+      }
+    ],
+    "id": "k0faT8jndl"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "ROI； "
+      }
+    ],
+    "id": "TdOWisoXF1"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "团队治理。"
+      }
+    ],
+    "id": "EqN27KXoLB"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "每一章都能复用同一个案例，避免读者觉得方法论割裂。 "
+      }
+    ],
+    "id": "myHUenDdgp"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "_Yhmomz9PM"
+  },
+  {
+    "type": "h1",
+    "children": [
+      {
+        "text": "八、案例中的 AI Agent 角色设计"
+      }
+    ],
+    "id": "j6f4oo0ZdV"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "为了支持全书内容，可以在案例中设计多个 Agent。 "
+      }
+    ],
+    "id": "ItL1NPFIFJ"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "8.1 Requirement Clarifier Agent"
+      }
+    ],
+    "id": "3XPgC4ASRP"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "需求澄清 Agent。 "
+      }
+    ],
+    "id": "FFAzqZzSqx"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "职责： "
+      }
+    ],
+    "id": "tRLodpyMJN"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "根据模糊需求生成澄清问题； "
+      }
+    ],
+    "id": "lDhKufs5gW"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "区分确认、推断、待确认； "
+      }
+    ],
+    "id": "ZZPG4ujbrX"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "输出需求澄清清单； "
+      }
+    ],
+    "id": "XxgqakhG94"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "生成用户故事和验收标准。"
+      }
+    ],
+    "id": "gAAqa1bEyW"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "适用章节： "
+      }
+    ],
+    "id": "fpkICBkUUe"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "第2章； "
+      }
+    ],
+    "id": "woV0afANE-"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "第14章 Skill 化复用。"
+      }
+    ],
+    "id": "2xWogExz-C"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "-kr67w18B2"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "8.2 Solution Designer Agent"
+      }
+    ],
+    "id": "Lpn0xO97ty"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "技术方案 Agent。 "
+      }
+    ],
+    "id": "Vz1dUzmN7G"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "职责： "
+      }
+    ],
+    "id": "SlzneAOvaD"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "分析现有模块； "
+      }
+    ],
+    "id": "kQ_7zOzXWw"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "输出 2–3 个技术方案； "
+      }
+    ],
+    "id": "6MuQwkH2fb"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "比较复杂度、风险和成本； "
+      }
+    ],
+    "id": "LOHMDA7g1X"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "生成 ADR 草案； "
+      }
+    ],
+    "id": "__s_Y41Kge"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "识别模块边界和接口影响。"
+      }
+    ],
+    "id": "gvBnINTqZO"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "适用章节： "
+      }
+    ],
+    "id": "DA_OZVbj89"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "第2章； "
+      }
+    ],
+    "id": "W1Z8N5qDte"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "第3章； "
+      }
+    ],
+    "id": "LyaelhgZP9"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "第9章。"
+      }
+    ],
+    "id": "zv6eZxk0s-"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "rZbZtmB9sU"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "8.3 Context Curator Agent"
+      }
+    ],
+    "id": "MKRSN04oVy"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "上下文整理 Agent。 "
+      }
+    ],
+    "id": "Z4qd--pk4w"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "职责： "
+      }
+    ],
+    "id": "ZHb6hKZKGm"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "整理项目结构； "
+      }
+    ],
+    "id": "lird7y6SBp"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "找出相关文件； "
+      }
+    ],
+    "id": "ftA1YAw-nC"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "生成调用链摘要； "
+      }
+    ],
+    "id": "GhLSQltK27"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "标记历史 Bug； "
+      }
+    ],
+    "id": "Q-6uAqXeGy"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "识别过期文档； "
+      }
+    ],
+    "id": "5pen_9nX90"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "输出最小充分上下文包。"
+      }
+    ],
+    "id": "EDhoqMDKnP"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "适用章节： "
+      }
+    ],
+    "id": "gIlqVKfXEh"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "第3章； "
+      }
+    ],
+    "id": "fHkiF5p5H9"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "第5章； "
+      }
+    ],
+    "id": "YXVvOvLOsQ"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "第14章。"
+      }
+    ],
+    "id": "wxblSE2pxs"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": ""
+      }
+    ],
+    "id": "5012wFbEmw"
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "8.4 Coding Agent"
+      }
+    ],
+    "id": "_rfdIeFgDL"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "编码 Agent。 "
+      }
+    ],
+    "id": "E5Edh6zrQc"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "职责： "
+      }
+    ],
+    "id": "54DzEkiMcU"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "根据已确认方案执行局部代码修改； "
+      }
+    ],
+    "id": "TldJo9HfWi"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "输出修改计划； "
+      }
+    ],
+    "id": "HMljFJt8Nd"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "小步提交； "
+      }
+    ],
+    "id": "lFHfmRUNfj"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "运行测试； "
+      }
+    ],
+    "id": "UFEHoj-HAS"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "失败后在限定范围内修正； "
+      }
+    ],
+    "id": "m6eLgewCKB"
+  },
+  {
+    "indent": 1,
+    "listStyleType": "disc",
+    "type": "p",
+    "children": [
+      {
+        "text": "输出变更契约。"
+      }
+    ],
+    "id": "0olLtwhQvv"
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "适用章节： "
+      }
+    ],
+    "id": "iINv4fDSt0"
+  }
+]

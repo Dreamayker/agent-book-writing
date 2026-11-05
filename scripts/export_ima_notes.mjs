@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
@@ -10,11 +11,12 @@ const IMA_CLI = process.env.IMA_CLI_PATH || path.join(os.homedir(), ".agents/ski
 const NOTEBOOK = "Agent图书写作";
 const OUTPUT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../wallet-review-lab/docs/ima-sources");
 const requestedDate = process.argv[2];
-const timeZone = process.argv[3] || "Europe/Istanbul";
+const latest = process.argv.includes("--latest");
+const timeZone = (process.argv[3]?.startsWith("--") ? undefined : process.argv[3]) || "Asia/Shanghai";
 const dryRun = process.argv.includes("--dry-run");
 
 if (!/^\d{4}-\d{2}-\d{2}$/.test(requestedDate || "")) {
-  throw new Error("Usage: export_ima_notes.mjs YYYY-MM-DD [TIME_ZONE] [--dry-run]");
+  throw new Error("Usage: export_ima_notes.mjs YYYY-MM-DD [TIME_ZONE] [--latest] [--dry-run]");
 }
 
 function api(endpoint, body) {
@@ -36,7 +38,9 @@ function page(endpoint, initialBody, itemsKey, cursorStart) {
     if (seen.has(cursor)) throw new Error(`Repeated pagination cursor: ${cursor}`);
     seen.add(cursor);
     const data = api(endpoint, { ...initialBody, cursor });
-    items.push(...(data[itemsKey] || []));
+    const batch = data[itemsKey] || [];
+    if (!batch.length) break;
+    items.push(...batch);
     if (data.is_end) break;
     cursor = data.next_cursor || String(Number(cursor || 0) + (data[itemsKey] || []).length);
   } while (true);
@@ -186,12 +190,35 @@ const folders = page(
 const folder = folders.find((item) => item.name === NOTEBOOK);
 if (!folder) throw new Error(`Notebook not found: ${NOTEBOOK}`);
 
-const notes = page(
+const allNotes = page(
   "openapi/note/v1/list_note",
-  { folder_id: folder.folder_id, sort_type: 1, limit: 20 },
+  { folder_id: folder.folder_id, sort_type: latest ? 0 : 1, limit: 20 },
   "note_book_list",
   "",
-).filter((note) => localDate(note.create_time) === requestedDate)
+);
+if (new Set(allNotes.map((note) => note.note_id)).size !== allNotes.length) {
+  throw new Error("IMA pagination returned duplicate notes");
+}
+const latestTitles = new Map();
+for (const note of allNotes) {
+  const previous = latestTitles.get(note.title);
+  if (!previous || Number(note.modify_time) > Number(previous.modify_time)) latestTitles.set(note.title, note);
+}
+function role(note) {
+  if (/^9\.\d+章节$/.test(note.title)) return "chapter";
+  if (/^9\.\d+.*补充.*对照/.test(note.title)) return "supplement";
+  if (note.title === "章首导语") return "introduction";
+  if (note.title === "案例说明") return "book-case";
+  if (/全章审校报告/.test(note.title)) return "review";
+  if (note.title === "ima 给的文章结构") return "outline";
+  return "reference";
+}
+const latestChapters = [...latestTitles.values()].filter((note) => role(note) === "chapter");
+if (latest && (latestChapters.length !== 12 || !Array.from({ length: 12 }, (_, i) => `9.${i + 1}章节`).every((title) => latestTitles.has(title)))) {
+  throw new Error("Expected all 12 current IMA chapters; inspect notebook before exporting");
+}
+const notes = (latest ? [...latestTitles.values()].filter((note) => role(note) !== "reference")
+  : allNotes.filter((note) => localDate(note.create_time) === requestedDate))
   .sort((left, right) => Number(left.create_time) - Number(right.create_time));
 
 if (!notes.length) throw new Error(`No notes created on ${requestedDate} in ${NOTEBOOK}`);
@@ -205,8 +232,13 @@ const exported = notes.map((note) => {
   return {
     richText: JSON.parse(data.content),
     title: note.title,
+    noteId: note.note_id,
+    role: role(note),
     createTime: note.create_time,
-    filename: `${localTime(note.create_time)}-${safeName(note.title)}.md`,
+    modifyTime: note.modify_time,
+    filename: latest ? `${safeName(note.title)}.md` : `${localTime(note.create_time)}-${safeName(note.title)}.md`,
+    rawContent: data.content,
+    rawSha256: createHash("sha256").update(data.content, "utf8").digest("hex"),
     ...rendered,
   };
 });
@@ -221,18 +253,32 @@ if (!dryRun) {
   const outputDirectory = path.join(OUTPUT_ROOT, requestedDate);
   fs.mkdirSync(outputDirectory, { recursive: true });
   for (const note of exported) {
+    if (latest) fs.writeFileSync(path.join(outputDirectory, note.filename.replace(/\.md$/, ".ima.raw.json")), note.rawContent, "utf8");
     fs.writeFileSync(path.join(outputDirectory, note.filename), note.markdown, "utf8");
     fs.writeFileSync(path.join(outputDirectory, note.filename.replace(/\.md$/, ".ima.json")), JSON.stringify(note.richText, null, 2) + "\n", "utf8");
   }
+  const chapterOrder = (left, right) => Number(left.title.match(/^9\.(\d+)/)?.[1] || 0) - Number(right.title.match(/^9\.(\d+)/)?.[1] || 0);
+  const ordered = latest ? [
+    ...exported.filter((note) => note.role === "introduction"),
+    ...exported.filter((note) => note.role === "chapter").sort(chapterOrder),
+    ...exported.filter((note) => note.role === "supplement").sort(chapterOrder),
+    ...exported.filter((note) => ["outline", "review", "book-case"].includes(note.role)),
+  ] : exported;
   const index = [
-    `# IMA「${NOTEBOOK}」${requestedDate} 新建文章`,
+    `# IMA「${NOTEBOOK}」${requestedDate} ${latest ? "最新书稿快照" : "新建文章"}`,
     "",
-    `共 ${exported.length} 篇，按创建时间排序。正文由 IMA JSON 富文本导出为 Markdown，保留标题、列表、表格、代码和行内样式。同名 .ima.json 保存原始富文本结构、单元格和布局属性，便于完整回溯。`,
+    `共 ${exported.length} 篇。正文由 IMA JSON 富文本导出为 Markdown，保留标题、列表、表格、代码和行内样式。同名 .ima.json 保存原始富文本结构、单元格和布局属性，便于完整回溯。`,
+    ...(latest ? ["", "本快照依据用户 2026-11-05 的指示，作为当前最新书稿来源；GitHub 原 draft 和旧拆分稿作为历史版本保留。", "", "`.ima.raw.json` 逐字保存 API 返回的富文本内容，保留 Markdown 无法表达的布局和格式；`.ima.json` 是方便检查的缩进版本。", "", "补充材料归属：`9.6章节补充对照` 对应 9.6.8；`9.7补充的外部对照` 暂标 9.7.8，与现有正文编号有冲突，整稿时需协调。两篇均为当前书稿的组成材料。`章首导语` 含对 9.1.6 的替换修订。`案例说明` 是全书案例定位资料。", "", "以下保存 IMA 原文，包括写作过程说明和待审校内容；取回时不改写正文。修订关系详见仓库根目录 `docs/manuscript-source.md`。"] : []),
     "",
-    ...exported.map((note) => `- [${note.title}](${encodeURI(note.filename)})`),
+    ...ordered.map((note) => `- [${note.title}](${encodeURI(note.filename)})${latest ? ` · 更新于 ${new Date(Number(note.modifyTime)).toLocaleString("sv-SE", { timeZone })}` : ""}`),
     "",
   ].join("\n");
   fs.writeFileSync(path.join(outputDirectory, "README.md"), index, "utf8");
+  if (latest) fs.writeFileSync(path.join(outputDirectory, "manifest.json"), JSON.stringify({
+    notebook: NOTEBOOK, folderId: folder.folder_id, fetchedAt: new Date().toISOString(), timeZone,
+    authority: "User designated IMA notebook as latest manuscript source on 2026-11-05",
+    allNotes, exported: exported.map(({ markdown, richText, rawContent, ...metadata }) => ({ ...metadata, characters: markdown.length })),
+  }, null, 2) + "\n", "utf8");
 }
 
 console.log(JSON.stringify({

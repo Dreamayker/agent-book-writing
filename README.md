@@ -2,12 +2,26 @@
 
 本仓库保存《AI 代码评审与多 Agent 协同》第 9 章的书稿、案例资产和可复现实验工程。
 
+## 当前书稿版本
+
+根据作者 2026-11-05 的指示，**以 IMA 笔记本“Agent图书写作”中的最新内容为书稿基准**。本地入口为 [IMA 最新书稿快照](wallet-review-lab/docs/ima-sources/2026-11-05/README.md)，包含章首导语、9.1～9.12 正文、9.6 与 9.7 的补充对照、结构方案、审校报告和全书案例说明。
+
+每篇同时保存 Markdown、便于检查的富文本 JSON 和逐字保存的原始富文本 JSON。原始 JSON 保留布局、表格单元格和格式属性，Markdown 用于阅读。笔记 ID、修改时间和读取时间见快照内 `manifest.json`。
+
+章节清单、两篇补充对照的归属，以及导语中对 9.1.6 的替换关系，见 [当前书稿来源与修订关系](docs/manuscript-source.md)。
+
+`wallet-review-lab/docs/chapter-09-rewrite-draft.md` 与旧 `chapter-09/` 拆分稿是此前的仓库版本，尚未按 IMA 的 12 节结构整合。后续编辑、整稿和审校应以 IMA 最新正文及补充对照为依据。刷新快照：
+
+```bash
+node scripts/export_ima_notes.mjs YYYY-MM-DD Asia/Shanghai --latest
+```
+
 ## 内容结构
 
 - `第9章 AI 代码评审与多 Agent 协同.md`：原始章节稿。
 - `第9章完善与案例落地方案.md`：章节重构与案例实施方案。
 - `wallet-review-lab/`：可安装、可测试、可回放的实验工程。
-- `wallet-review-lab/docs/chapter-09/`：第 9 章按概述、9.1～9.10 和项目案例拆分后的文档目录。
+- `wallet-review-lab/docs/chapter-09/`：此前仓库稿按概述、9.1～9.10 和项目案例拆分后的历史文档目录。
 - [IMA 今日文章归档](wallet-review-lab/docs/ima-sources/2026-10-20/README.md)：2026-10-20 新建的 20 篇写作材料，含 Markdown 和原始富文本 JSON。
 - `docs/chapter-09-expansion-plan.md`：按分子章节拆解的扩写蓝图。
 - `docs/project-readiness-audit.md`：项目覆盖范围、出版缺口和整改记录。
