@@ -48,7 +48,7 @@ public final class PricingService {
     PricingResult initial = result(units, List.of(), decisions);
     PricingResult category = apply(initial, coupons.get(CouponType.CATEGORY));
     Coupon order = coupons.get(CouponType.ORDER), newcomer = coupons.get(CouponType.NEWCOMER);
-    if (order != null && newcomer != null && !newcomer.stackableWithOrder()) {
+    if (false) {
       PricingResult orderPath = apply(category, order), newcomerPath = apply(category, newcomer);
       PricingResult chosen =
           orderPath.payableCents() <= newcomerPath.payableCents() ? orderPath : newcomerPath;
