@@ -1,8 +1,8 @@
 # Wallet Review Lab
 
-《AI 代码评审与多 Agent 协同》第 9 章配套实验仓库。
+《AI 代码评审与多 Agent 协同》第 9 章现有钱包实验工程。最新正文见 [IMA 书稿目录](docs/ima-sources/2026-11-05/README.md)；后续工程与章节调整见 [订单案例迁移规划](../docs/order-case-migration-plan.md)，目前尚未实施 Java 订单工程。
 
-项目实施过程、里程碑和架构决策见 [`docs/`](docs/README.md)。
+项目实施过程、实验记录和架构决策见 [`docs/`](docs/README.md)。
 
 这个项目不是支付系统，也不连接真实资金。它用一个最小化的钱包转账服务演示 AI 代码评审中的正确性、安全、并发、幂等与提示注入问题。
 
@@ -16,10 +16,10 @@
 ## 快速开始
 
 ```bash
-uv sync --extra dev
+uv sync --extra dev --locked
 uv run pytest
 uv run ruff check .
-uv run mypy app
+uv run mypy app review_system evaluation
 ```
 
 回放 PR-04 的三种评审模式：
@@ -50,7 +50,7 @@ uv run uvicorn app.api:app --reload
 - `tests/`：领域不变量、授权、幂等和并发测试。
 - `book-assets/`：各教学 PR 的需求、缺陷标准答案与讲解素材。
 - `policies/`：风险路由和评审门禁规则。
-- `review_system/`：后续多 Agent 评审实现。
+- `review_system/`：已有的 Agent 适配、风险路由、Finding 校验、去重与规则仲裁。
 
 ## 教学分支
 

@@ -12,7 +12,7 @@
 
 依据最新全书案例说明制定的 [电商订单工程与章节迁移规划](docs/order-case-migration-plan.md)，列出了 Java 订单工程、现有评审能力复用、十二节书稿调整和分阶段验收方案。当前为规划草案，工程与正文尚未迁移。
 
-`wallet-review-lab/docs/chapter-09-rewrite-draft.md` 与旧 `chapter-09/` 拆分稿是此前的仓库版本，尚未按 IMA 的 12 节结构整合。后续编辑和审校以最新书稿目录中的主章节为依据。再次从 IMA 取稿时使用新的日期目录，避免覆盖已经编辑的正文：
+再次从 IMA 取稿时使用新的日期目录，避免覆盖已经编辑的正文：
 
 ```bash
 node scripts/export_ima_notes.mjs YYYY-MM-DD Asia/Shanghai --latest
@@ -20,13 +20,14 @@ node scripts/export_ima_notes.mjs YYYY-MM-DD Asia/Shanghai --latest
 
 ## 内容结构
 
-- `第9章 AI 代码评审与多 Agent 协同.md`：原始章节稿。
-- `第9章完善与案例落地方案.md`：章节重构与案例实施方案。
-- `wallet-review-lab/`：可安装、可测试、可回放的实验工程。
-- `wallet-review-lab/docs/chapter-09/`：此前仓库稿按概述、9.1～9.10 和项目案例拆分后的历史文档目录。
-- [IMA 今日文章归档](wallet-review-lab/docs/ima-sources/2026-10-20/README.md)：2026-10-20 新建的 20 篇写作材料，含 Markdown 和原始富文本 JSON。
-- `docs/chapter-09-expansion-plan.md`：按分子章节拆解的扩写蓝图。
-- `docs/project-readiness-audit.md`：项目覆盖范围、出版缺口和整改记录。
+- [最新书稿](wallet-review-lab/docs/ima-sources/2026-11-05/README.md)：章首导语、十二节正文及配套材料。
+- [订单案例迁移规划](docs/order-case-migration-plan.md)：Java 工程与章节调整的实施顺序、证据要求和验收标准。
+- [书稿来源与修订记录](docs/manuscript-source.md)：格式、合并状态与来源追溯。
+- [实验工程](wallet-review-lab/README.md)：当前可运行的钱包业务及 Python 评审流程，后续按规划迁移订单案例。
+- [案例与证据](wallet-review-lab/book-assets/README.md)：需求、补丁、Oracle、工具输出及人工裁决。
+- [工程记录](wallet-review-lab/docs/README.md)：架构决策、实施日志、图片与实验报告。
+
+2026-11-05 已移除 63 个旧稿、重复归档、过时规划和旧稿拆分脚本。清理前版本为 Git 提交 `a705616`；历史内容通过 Git 查看，当前目录只提供新版书稿入口。最新书稿的富文本与原始来源文件继续保留，用于格式编辑和追溯。
 
 ## 快速开始
 
@@ -43,7 +44,7 @@ make replay-pr04
 
 ## 覆盖边界
 
-本项目聚焦代码评审 Agent 的证据流水线，覆盖低风险变更、金额精度、对象授权、并发双花、幂等重试、依赖漏洞和提示注入。它不等同于完整的软件安全或生产支付系统，也不覆盖所有数据库、网络、供应链和分布式系统场景。出版状态、真实模型实验和案例截图等未完成项见项目审查记录。
+现有实验工程聚焦代码评审 Agent 的证据流水线，覆盖低风险变更、金额精度、对象授权、并发双花、幂等重试、依赖漏洞和提示注入。当前业务仍为 Python 内存钱包；Java 订单工程、章节迁移和真实模型重复评测尚未完成，交付门槛见 [迁移规划](docs/order-case-migration-plan.md)。
 
 ## 安全与复现
 
