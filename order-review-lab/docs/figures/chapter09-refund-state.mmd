@@ -1,0 +1,8 @@
+flowchart TB
+  Start["校验主体、订单与请求指纹<br/>事务锁保护共享状态"] --> Replay{"已有同键同请求结果？"}
+  Replay -->|是| Original["返回原响应<br/>不再执行退款"]
+  Replay -->|合法的新请求| Gate{"原单位未退且额度允许？"}
+  Gate -->|否| Conflict["业务冲突<br/>回滚事务"]
+  Gate -->|是| Update["按原快照计算<br/>检查单位与额度条件更新"]
+  Update -->|条件更新失败| Conflict
+  Update -->|全部成功| Commit["保存退款与幂等响应后提交<br/>父子单共享已退单位状态"]

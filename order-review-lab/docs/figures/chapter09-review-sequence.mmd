@@ -1,0 +1,18 @@
+sequenceDiagram
+  participant C as 控制器
+  participant R as 风险路由
+  participant A as 角色适配器
+  participant E as 证据校验
+  participant J as 规则仲裁
+  C->>R: 路径与语义标签
+  R-->>C: 风险、角色集合、人工要求
+  loop 按角色顺序执行
+    C->>A: 同版本规则、Diff、允许证据
+    A-->>C: Finding 列表或异常
+  end
+  C->>E: 全部意见及本次 manifest
+  E-->>C: 通过或拒绝
+  Note over C,J: multi_arbitrated 模式先按根因去重
+  C->>J: 校验后的意见与风险
+  J-->>C: escalate / request_changes / comment / approve
+  Note over C,J: 生成报告；不直接合并 PR

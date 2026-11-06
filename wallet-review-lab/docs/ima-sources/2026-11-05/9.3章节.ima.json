@@ -11,7 +11,7 @@
     "type": "h2",
     "children": [
       {
-        "text": "9.3.1 从全书案例到可运行工程"
+        "text": "9.3.1 两种语言，各自负责什么"
       }
     ]
   },
@@ -19,7 +19,14 @@
     "type": "p",
     "children": [
       {
-        "text": "最新案例说明选定 Java 遗留电商系统的优惠叠加与退款问题。工程采用 Java 17、Spring Boot 3.5.16、Maven 3.9.14、MyBatis 3.0.5、MySQL 8.4.7、JUnit 5 和 Testcontainers 1.21.4。确切传递依赖以 POM 和构建报告为准。"
+        "text": "订单业务使用 Java 17、Spring Boot、MyBatis 和 MySQL；Python 保存共享评审流程。这是两个职责边界：业务系统负责订单行为，评审系统读取规则与证据后形成报告。后者保留在 "
+      },
+      {
+        "text": "wallet-review-lab",
+        "code": true
+      },
+      {
+        "text": " 目录，是历史工程命名，不表示订单业务仍使用钱包模型。"
       }
     ]
   },
@@ -27,35 +34,29 @@
     "type": "p",
     "children": [
       {
-        "text": "系统由四个 Maven 模块组成。"
+        "text": "业务工程由四个 Maven 模块组成。core 提供计价、分摊和退款计算；infra 实现持久化、事务及快照；api 提供 HTTP；test 使用真实 MySQL 验证事务与接口。固定适配器提供商品价格、品类、新人资格和优惠券。本章不实现外部支付、券库存或 Redis 协调。"
+      }
+    ]
+  },
+  {
+    "type": "image",
+    "alt": "订单业务与评审流程",
+    "url": "../../../../order-review-lab/docs/figures/chapter09-architecture.svg",
+    "children": [
+      {
+        "text": ""
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "图 9-1 业务执行与评审流程的职责边界。",
+        "bold": true
       },
       {
-        "text": "order-core",
-        "code": true
-      },
-      {
-        "text": " 包含纯业务计算和用例接口；"
-      },
-      {
-        "text": "order-infra",
-        "code": true
-      },
-      {
-        "text": " 包含数据库及事务编排；"
-      },
-      {
-        "text": "order-api",
-        "code": true
-      },
-      {
-        "text": " 提供 HTTP 与启动入口；"
-      },
-      {
-        "text": "order-test",
-        "code": true
-      },
-      {
-        "text": " 在独立 MySQL 容器中验证真实事务和 API。固定适配器提供商品活动价、新人资格及券规则；首版没有真实支付或退款出站调用。"
+        "text": " Oracle 在报告生成后参与评分，修复补丁在验收阶段使用，两者不进入普通评审上下文。"
       }
     ]
   },
@@ -63,7 +64,86 @@
     "type": "h2",
     "children": [
       {
-        "text": "9.3.2 十条规则如何成为验收契约"
+        "text": "9.3.2 先理解订单单位，再理解退款"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "商品行表示“一种商品买了几件”，购买单位表示其中可独立退款的一件。C 买一件时，单位 ID 为 "
+      },
+      {
+        "text": "C#001",
+        "code": true
+      },
+      {
+        "text": "；买两件时还有 "
+      },
+      {
+        "text": "C#002",
+        "code": true
+      },
+      {
+        "text": "。分摊落到单位，退款提交单位 ID，才能明确处理部分数量。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "以下是教学摘录，字段用于解释关系，不是数据库表结构或完整 API 返回："
+      }
+    ]
+  },
+  {
+    "type": "code_block",
+    "language": "json",
+    "children": [
+      {
+        "text": "{\n  \"root_order\": \"O-100\",\n  \"unit\": \"C#001\",\n  \"activity_cents\": 8000,\n  \"order_coupon_share\": 1000,\n  \"new_user_share\": 400,\n  \"paid_cents\": 6600,\n  \"refunded\": false\n}"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "快照保存下单时的分摊；单位账本保存是否已退；根订单保存共享的累计退款约束。快照不应随退款改写，单位状态则必须随成功退款改变。把“不可变”误解为所有订单数据都不能更新，会无法表达后续状态。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "拆成 A/B 与 C 两个子单后，C 子单仍引用根订单和 "
+      },
+      {
+        "text": "C#001",
+        "code": true
+      },
+      {
+        "text": "，金额仍为 6600 分。子单不是新的退款额度来源；从子单退过该单位，父单也不能再退。9.7 的状态案例将利用这一关系检查实现。"
+      }
+    ]
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.3.3 十条规则怎样进入代码"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "表 9-3 业务规则到验收测试的映射",
+        "bold": true
       }
     ]
   },
@@ -80,7 +160,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "规则"
+                    "text": "业务规则"
                   }
                 ]
               }
@@ -93,7 +173,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "实现与测试"
+                    "text": "关键实现/测试"
                   }
                 ]
               }
@@ -111,7 +191,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "三类券，活动价→品类→满减→新人"
+                    "text": "三类券与固定顺序"
                   }
                 ]
               }
@@ -124,7 +204,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "CouponType、PricingService"
+                    "text": "PricingService，活动价→品类→满减→新人"
                   }
                 ]
               }
@@ -142,7 +222,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "新人券互斥时比较合法最终实付"
+                    "text": "互斥方案比较最终实付"
                   }
                 ]
               }
@@ -173,7 +253,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "品类门槛与分摊只看合格集合"
+                    "text": "品类资格控制门槛与分摊"
                   }
                 ]
               }
@@ -204,7 +284,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "满减门槛看品类优惠后金额"
+                    "text": "满减采用品类优惠后金额"
                   }
                 ]
               }
@@ -266,7 +346,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "优惠分摊守恒"
+                    "text": "整数分与分摊守恒"
                   }
                 ]
               }
@@ -279,7 +359,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "largestRemainderNeverLosesCents"
+                    "text": "largestRemainderNeverLosesCents、输入约束测试"
                   }
                 ]
               }
@@ -297,7 +377,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "退款冻结到下单快照"
+                    "text": "退款使用原始分摊"
                   }
                 ]
               }
@@ -328,7 +408,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "拆单保留原单位分摊"
+                    "text": "拆单保留分摊与共享账本"
                   }
                 ]
               }
@@ -348,37 +428,6 @@
             ]
           }
         ]
-      },
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "内部整数分及输入约束"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "invalidCouponMoneyAndInputAreRejected"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
       }
     ]
   },
@@ -386,7 +435,7 @@
     "type": "p",
     "children": [
       {
-        "text": "单价与整单均限制在 10^12 分以内；每行最多 100 件，整单最多 1000 件。比例优惠用整数基点，券阶段只舍入一次；之后按最大余数法分至购买单位。接口拒绝客户端传入价格和未定义金额项。"
+        "text": "首版每类最多使用一张候选券。互斥时比较合法路径的最终实付，同额优先满减路径；单价与整单上限为 10^12 分，每行最多 100 件，整单最多 1000 件。比例用整数基点，券阶段向下取整一次，再按最大余数法分至单位。详细取舍以业务契约为准。"
       }
     ]
   },
@@ -394,16 +443,7 @@
     "type": "h2",
     "children": [
       {
-        "text": "9.3.3 项目目录与权限边界"
-      }
-    ]
-  },
-  {
-    "type": "code_block",
-    "language": "text",
-    "children": [
-      {
-        "text": "order-review-lab/\n├── order-core/src/main/java/com/xinghe/order/core/\n├── order-infra/src/main/java/com/xinghe/order/infra/\n├── order-infra/src/main/resources/db/migration/V1__orders.sql\n├── order-api/src/main/java/com/xinghe/order/api/\n├── order-test/src/test/java/com/xinghe/order/OrderIT.java\n├── fixtures/refund-stacking.json\n├── book-assets/ORD-01 ... ORD-12/\n├── evaluation/cases.yaml\n├── policies/risk-rules.yaml\n└── scripts/replay_cases.py"
+        "text": "9.3.4 事务为什么同时保护结果与重试"
       }
     ]
   },
@@ -411,14 +451,23 @@
     "type": "p",
     "children": [
       {
-        "text": "Python 评审流程仍在 "
-      },
+        "text": "订单提交在同一事务写入订单、单位、券消费、快照和幂等响应。退款先通过用户行锁串行化同用户写入，再锁根订单，检查所有权、单位状态及额度。单位条件更新和唯一约束提供额外保护。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
       {
-        "text": "wallet-review-lab/review_system",
-        "code": true
-      },
+        "text": "用户行锁牺牲同用户吞吐量，换取可解释的教学实现。锁保护访问次序，状态判断保护业务资格，条件更新确认实际改动，两者作用不同。仅有锁而没有已退检查，仍可能串行地退两次。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
       {
-        "text": "；这是共享评审能力的位置，不意味着订单业务仍是 Python 钱包。业务工程、评审策略、测试证据和 Oracle 分开存放。评审输入包含规则、待审 Diff 和经过校验的工具输出，不包含 Oracle 或 fixed.patch。"
+        "text": "幂等键按用户与操作隔离，退款还绑定订单。相同键和相同请求应返回首次响应，不同请求应冲突。失败事务回滚，不写成功结果。无可信快照的历史订单进入人工核对，不使用实时规则补猜金额。"
       }
     ]
   },
@@ -426,7 +475,7 @@
     "type": "h2",
     "children": [
       {
-        "text": "9.3.4 正确基线与数据库事务"
+        "text": "9.3.5 从干净环境运行"
       }
     ]
   },
@@ -434,31 +483,7 @@
     "type": "p",
     "children": [
       {
-        "text": "订单提交在一个事务中写入订单、单位、券使用、快照与幂等结果。首版用数据库用户行锁串行化同用户写入；退款再锁根订单，检查单位可退状态和累计额度，条件更新单位状态后记录退款。数据库唯一约束和条件更新补充事务保护。"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "这种实现选择了可解释性，同用户吞吐量受限。它证明的是已执行 MySQL 场景的性质，不能外推为分布式支付安全。拆单子单共享根订单和原单位身份，因此从子单退款后，父单不能再退同一单位。缺失或损坏快照的历史订单进入人工核对。"
-      }
-    ]
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "9.3.5 首次运行"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "从仓库根目录执行："
+        "text": "需要 JDK 17、Docker、Python 3.12 及 uv，并能访问 Maven 与容器镜像仓库。从仓库根目录执行以下代码块；括号创建子 shell，结束后仍留在仓库根目录。"
       }
     ]
   },
@@ -467,7 +492,7 @@
     "language": "bash",
     "children": [
       {
-        "text": "cd order-review-lab\n./mvnw -B -ntp clean verify\npython3 scripts/check_coverage.py"
+        "text": "(\n  cd order-review-lab\n  ./mvnw -B -ntp clean verify\n  python3 scripts/check_coverage.py\n)"
       }
     ]
   },
@@ -475,7 +500,7 @@
     "type": "p",
     "children": [
       {
-        "text": "需要 JDK 17 和正常运行的 Docker。非默认 socket 通过 DOCKER_HOST 配置；集成测试缺少 Docker 时直接失败。Maven Wrapper 固定发行包与 SHA-256，MySQL 测试不使用 H2 替代。启动本地服务及 HTTP 示例见工程 README。"
+        "text": "Maven Wrapper 固定 Maven 3.9.14 和发行包 SHA-256。非默认 Docker socket 可通过 DOCKER_HOST 设置，JDK 可通过 JAVA_HOME 选择；缺少 Docker 会使集成测试失败，不会换成 H2 后继续报告成功。"
       }
     ]
   },
@@ -483,7 +508,7 @@
     "type": "p",
     "children": [
       {
-        "text": "冻结案例基线执行了 8 项计价单元测试和 10 项 MySQL/API 集成测试；主线另增加 1 项历史快照格式漂移测试，共 19 项。主线 JaCoCo 核心行覆盖率为 90%，聚合覆盖率为 96.45%；覆盖率说明被执行的范围，不保证测试断言完整，更不代表模型能力。"
+        "text": "执行记录：冻结教学基线有 8 项核心测试和 10 项集成测试；维护主线另加历史快照格式漂移回归，共 19 项。主线核心行覆盖率 90%，聚合为 96.45%。读者应先核对版本，再比较测试数量；覆盖率不说明每条断言都足够强。"
       }
     ]
   },
@@ -491,7 +516,7 @@
     "type": "h2",
     "children": [
       {
-        "text": "9.3.6 案例版本与练习"
+        "text": "9.3.6 版本入口与首次阅读任务"
       }
     ]
   },
@@ -503,7 +528,14 @@
         "code": true
       },
       {
-        "text": " 标记可运行业务；"
+        "text": " 与 "
+      },
+      {
+        "text": "order-stacking-v1",
+        "code": true
+      },
+      {
+        "text": " 指向同一冻结正确基线；各案例在 "
       },
       {
         "text": "case/order/ORD-*",
@@ -517,7 +549,7 @@
         "code": true
       },
       {
-        "text": " 保存独立错误与修复版本。具体 SHA、命令及测试名称保存在各案例 case.yaml 和 observed.yaml。遗留现场是教学构造，不能当作真实公司的事故代码。"
+        "text": " 分支中。主线继续维护依赖补丁，历史证据仍绑定当时版本。"
       }
     ]
   },
@@ -525,7 +557,14 @@
     "type": "p",
     "children": [
       {
-        "text": "先运行正确基线，再阅读 ORD-01 文档变更和 ORD-09 退款变更。解释为什么两个案例使用不同风险路径，以及为何即使 ORD-09 没有产生 Finding，策略仍须要求人工复核。"
+        "text": "先读 "
+      },
+      {
+        "text": "fixtures/refund-stacking.json",
+        "code": true
+      },
+      {
+        "text": "、业务契约及 ORD-09 的补丁，画出 quote、snapshot 和 refund 的关系。暂不运行修改案例资产的 verify。完成标志是能说明退款金额来自哪里、哪一项数据随规则配置变化、哪一项应保持不变。路径与首次运行故障处理见 9.12。"
       }
     ]
   }

@@ -1,0 +1,14 @@
+flowchart TB
+  subgraph Business["Java 订单业务：执行与状态"]
+    API["order-api<br/>HTTP 与教学身份"] --> Infra["order-infra<br/>事务、快照、持久化"]
+    Infra --> Core["order-core<br/>计价、分摊、退款计算"]
+    Infra --> DB["MySQL<br/>订单、单位、退款账本"]
+    IT["JUnit / Testcontainers"] --> API
+  end
+  IT --> Evidence["版本绑定的源码与日志"]
+  Evidence --> Review["Python 评审流程<br/>规则、Diff、角色意见、校验"]
+  Rules["业务契约与路径策略"] --> Review
+  Review --> Report["Finding 与评审报告"]
+  Report --> Human["人工复核"]
+  Report --> Score["报告生成后评分"]
+  Oracle["Oracle：参照根因"] --> Score

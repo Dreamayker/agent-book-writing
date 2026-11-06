@@ -1,0 +1,122 @@
+{
+  "review_date": "2026-11-06",
+  "revision": "6db018976b6b43716075b1a63395554dbe008e45",
+  "scope": "Chapter introduction and sections 9.1–9.12 only; supporting source notes excluded.",
+  "counting": "characters = Python len(text), including markup, code and whitespace; han_characters = U+4E00–U+9FFF occurrences; external spans selected by section headings, approximate editorial allocation.",
+  "documents": [
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/章首导语.md",
+      "sha256": "8ab17f07d7e4f47d501a12de726439bc41f100f11b9d993a465d0770cbdbcc2c",
+      "characters": 663,
+      "han_characters": 394,
+      "code_blocks": 0,
+      "code_lines": 0
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.1章节.md",
+      "sha256": "9134eeb5c0287679121eed0c0db2017c3ad2a23c113da39875575cea3f8d5305",
+      "characters": 1734,
+      "han_characters": 1043,
+      "code_blocks": 1,
+      "code_lines": 4
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.2章节.md",
+      "sha256": "d567525a06ba21ed7dc9a60d45fd6d0153b8b751f6d1f56b2e6180db646e262c",
+      "characters": 7614,
+      "han_characters": 3898,
+      "code_blocks": 3,
+      "code_lines": 28
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.3章节.md",
+      "sha256": "912fd6acddb588f4787e92da44da33ae24c4eddf536c2c48fa8a6a3289e3f644",
+      "characters": 2615,
+      "han_characters": 878,
+      "code_blocks": 2,
+      "code_lines": 14
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.4章节.md",
+      "sha256": "3d3982505e683d571d640ef8902f19261db8749412e5e01f43bfc7e3b8a9b07a",
+      "characters": 1948,
+      "han_characters": 621,
+      "code_blocks": 1,
+      "code_lines": 22
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.5章节.md",
+      "sha256": "ff69beed4c98c903409719e727493d679332e74a737f7964eedb96b56e903fb4",
+      "characters": 1295,
+      "han_characters": 727,
+      "code_blocks": 0,
+      "code_lines": 0
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.6章节.md",
+      "sha256": "957dddc4361b8979eb89861a02a0b5bd722b549da8341fae9b3ac37dfbdd0178",
+      "characters": 7002,
+      "han_characters": 3722,
+      "code_blocks": 2,
+      "code_lines": 14
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.7章节.md",
+      "sha256": "b7abae4079322ab9a55cef1dd718daed67dcb3310c40924bf0d5880260addd35",
+      "characters": 10203,
+      "han_characters": 5998,
+      "code_blocks": 2,
+      "code_lines": 2
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.8章节.md",
+      "sha256": "c926fc7bc98c984acbf7286f84b9ec941d879cb110cce54aa990b108396a227b",
+      "characters": 3020,
+      "han_characters": 1747,
+      "code_blocks": 0,
+      "code_lines": 0
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.9章节.md",
+      "sha256": "73dc5a4b617ab064792573f4c6dd8a3ab5acd8378c6a0f2e6451866d17dd76eb",
+      "characters": 4097,
+      "han_characters": 2101,
+      "code_blocks": 1,
+      "code_lines": 2
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.10章节.md",
+      "sha256": "5816fb29736981f4a408805d943872ff1b711e11da1b4425bf14f3879d013dbb",
+      "characters": 1150,
+      "han_characters": 747,
+      "code_blocks": 1,
+      "code_lines": 4
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.11章节.md",
+      "sha256": "35230cc2fdbbbfa013adcc89a8bf53e6b6471bd52a74f993b471f005ec613550",
+      "characters": 2892,
+      "han_characters": 1410,
+      "code_blocks": 0,
+      "code_lines": 0
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.12章节.md",
+      "sha256": "be46e86d6bb802dfc45607b5ea77f99c6f32fee36a39a15597cb5f6425dbc051",
+      "characters": 2071,
+      "han_characters": 747,
+      "code_blocks": 3,
+      "code_lines": 14
+    }
+  ],
+  "totals": {
+    "characters": 46304,
+    "han_characters": 24033,
+    "code_blocks": 16,
+    "code_lines": 104
+  },
+  "external_comparison_characters_approx": 24213,
+  "distinct_unresolved_web_ids": 47,
+  "inline_image_references": 1,
+  "mermaid_blocks": 3
+}

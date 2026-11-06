@@ -3,7 +3,7 @@
     "type": "h1",
     "children": [
       {
-        "text": "9.9 评测与行业基准：让修对了可被判定"
+        "text": "9.9 评测与行业基准：让发现问题可被判定"
       }
     ]
   },
@@ -11,7 +11,7 @@
     "type": "h2",
     "children": [
       {
-        "text": "9.9.1 两种正确性需要不同参照"
+        "text": "9.9.1 业务正确与评审正确分别判断"
       }
     ]
   },
@@ -19,7 +19,7 @@
     "type": "p",
     "children": [
       {
-        "text": "业务测试判定给定输入下订单行为是否满足规则；根因 Oracle 判定评审意见是否识别了正确问题。ORD-09 退款 6400 分构成业务失败，但模型若把它解释成“使用 double 导致精度损失”，根因仍不正确。业务失败不能自动记为 Agent 命中。"
+        "text": "ORD-09 实际退了 6400 分，这是业务执行的失败；模型说“因为 double 精度损失”，则是错误的根因解释。不能因为它提到退款错误，就自动计作发现了预设问题。"
       }
     ]
   },
@@ -27,7 +27,15 @@
     "type": "p",
     "children": [
       {
-        "text": "订单 Oracle 每条记录包含 root_cause_id、文件、允许行区间、严重性与可接受修复。评分器在每个案例内匹配根因和位置，要求有证据且严重性一致，再汇总 TP/FP/FN。不同案例即使使用相同 Finding 类型 ID，也不会在全局集合中坍缩成一个样本。"
+        "text": "业务测试检查输入到行为，根因 Oracle 检查意见是否命中参照问题。订单 Oracle 包含根因 ID、文件、允许行区间、严重性与可接受修复方向。评分器在每案内匹配，再汇总统计，不把不同案例的相同类型压成一个样本。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "Oracle 也会遗漏。模型提出一个新问题时，应先验证、补充标注或保留争议，不能仅因未出现在预设答案中便认定为误报。当前自动评分器不会完成这一步人工分诊。"
       }
     ]
   },
@@ -35,16 +43,24 @@
     "type": "h2",
     "children": [
       {
-        "text": "9.9.2 清单驱动与逐案例结果"
+        "text": "9.9.2 用一个小例子手算指标"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "教学假设：三个案例共标注四个独立根因，模型报告三个。其中两条命中根因，另一条确认是误报；还有两个标注根因没有被发现。于是 TP=2、FP=1、FN=2。"
       }
     ]
   },
   {
     "type": "code_block",
-    "language": "bash",
+    "language": "text",
     "children": [
       {
-        "text": "cd wallet-review-lab\nuv run python -m evaluation.projects ../order-review-lab/evaluation/cases.yaml --mode multi_arbitrated"
+        "text": "Precision = TP / (TP + FP) = 2 / 3 ≈ 66.7%\nRecall    = TP / (TP + FN) = 2 / 4 = 50.0%"
       }
     ]
   },
@@ -52,7 +68,7 @@
     "type": "p",
     "children": [
       {
-        "text": "清单指定项目根、策略、案例目录、变更路径、标签和代码版本。同一 ReviewPipeline 读取订单配置，不再依赖钱包专属硬编码。旧钱包套件仍保留历史接口，不能把旧评分结果与新评分口径直接拼接。"
+        "text": "这不是本项目模型实测。它演示为什么“报告了三条”没有明确价值含义，以及去重为何必须先于缺陷计数。同一根因被两个角色重复报告，应合并为一次命中，同时另报重复负担。"
       }
     ]
   },
@@ -60,7 +76,15 @@
     "type": "p",
     "children": [
       {
-        "text": "报告明确标识 recorded-control-fixture，逐项列出 case_id、verdict、Finding 数和 TP/FP/FN。ORD-01 的 Oracle 为空；它用于观察误报和错误阻断。其余 11 个案例有预设根因。夹具按设计命中，只能证明加载、证据校验、路由、去重和评分链路一致。"
+        "text": "如果没有预测，Precision 分母为零，应记录 N/A；若有标注缺陷但没有预测，Recall 为零。零缺陷案例没有可计算的缺陷召回，应报告无缺陷样本中的误报和错误阻断。高风险被策略升级人工，并不意味着算法错误报告了业务缺陷。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "当前只有 ORD-01 一个零缺陷样本，其结果只能用于流程检查，无法稳定估计一般误报率。要研究误报，应加入无缺陷重构、合法边界修订和普通注释等更丰富的保留样本。"
       }
     ]
   },
@@ -68,7 +92,7 @@
     "type": "h2",
     "children": [
       {
-        "text": "9.9.3 指标与匹配边界"
+        "text": "9.9.3 当前评分器实际检查哪些字段"
       }
     ]
   },
@@ -76,7 +100,7 @@
     "type": "p",
     "children": [
       {
-        "text": "Precision 衡量报告的问题中有多少被参照答案接受；Recall 衡量参照问题中找到了多少。零预测的 Precision 应记为 N/A 或事先约定，不能默认为百分之百。零缺陷样本还应单独报告误报率与错误阻断率；高风险人工升级不是错误阻断。"
+        "text": "评分器 match_roots 要求根因 ID、文件、允许起始行范围、严重性及证据非空相符。证据引用另由门禁校验。它不自动判断建议修复是否等价、自然语言因果是否完整、任意跨文件根因是否相同。"
       }
     ]
   },
@@ -84,91 +108,10 @@
     "type": "p",
     "children": [
       {
-        "text": "当前实现验证根因、文件、行区间、严重性及证据非空；证据文件另由门禁绑定本次代码和哈希。它尚不自动判定修复建议语义、跨文件任意等价根因或测试质量。模型提出 Oracle 之外的新问题时，需要人工补充标注，不能简单断言模型错了。"
+        "text": "表 9-13 自动匹配与人工分诊的边界",
+        "bold": true
       }
     ]
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "9.9.4 避免泄漏答案"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "评审完成后才读取 oracle.yaml 评分。评审上下文不含 fixed.patch、人工标准答案或保留测试答案。录制夹具本来就是预设输出，不能拿它做“盲评成功”的宣传。"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "真实实验分两轨：源码评审轨道只提供规则和待审源码；证据解释轨道提供相同的可信工具输出，观察解释与治理。看过“expected 6600 actual 6400”的模型，任务是解释证据，不能据此宣称独立发现退款缺陷。"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "调试案例与保留变体分开。可改变商品组合、金额、规则更新时间、请求键、数量和注入载体。同一根因的金额变体不能当作完全独立的业务泛化样本。"
-      }
-    ]
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "9.9.5 真实模型实验协议"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "比较确定性工具、单 Agent、多角色和多角色加规则仲裁。两个模型分别运行相同角色配置，每案例重复 3～5 次，保留失败和拒答。12 案例×3 种 Agent 配置×2 个模型×3 次为 216 次案例运行，实际调用数还需乘角色数和重试。"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "先以 ORD-01/09 做小规模试跑，再据真实延迟与用量估算预算。模型仲裁尚未实现，不能把规则函数记作模型 B。模型名称、兼容端点、输出格式和预算需明确配置；没有真实实验时，只发布工程与控制夹具验证结果。"
-      }
-    ]
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "以下行业基准对照保留既有来源边界，所述规模和指标属于外部资料，不是订单工程的测量结果。"
-      }
-    ]
-  },
-  {
-    "type": "h2",
-    "children": [
-      {
-        "text": "9.9.6 与行业基准的对照"
-      }
-    ],
-    "id": "wR3cRXJoIB"
-  },
-  {
-    "type": "p",
-    "children": [
-      {
-        "text": "下表把本章评测层与外部的基准和方法学对照（外部资料访问日期 2026-10-20）："
-      }
-    ],
-    "id": "ims_iw4Wmq"
   },
   {
     "type": "table",
@@ -180,68 +123,42 @@
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "本章机制",
-                    "bold": true
+                    "text": "意见情形"
                   }
-                ],
-                "type": "p",
-                "id": "NHwUozsimY"
+                ]
               }
-            ],
-            "id": "OGBmq2oKyS"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "外部基准/方法",
-                    "bold": true
+                    "text": "当前自动评分"
                   }
-                ],
-                "type": "p",
-                "id": "e0Y7pppTSr"
+                ]
               }
-            ],
-            "id": "mOf5n_hwk3"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "对照要点",
-                    "bold": true
+                    "text": "还需检查什么"
                   }
-                ],
-                "type": "p",
-                "id": "NXl66w1ljz"
+                ]
               }
-            ],
-            "id": "M5yxT-suP_"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "来源",
-                    "bold": true
-                  }
-                ],
-                "type": "p",
-                "id": "tMFjU6n69-"
-              }
-            ],
-            "id": "2Z2Wph0iXX"
+            ]
           }
-        ],
-        "id": "7TA8CR1JVC"
+        ]
       },
       {
         "type": "tr",
@@ -250,64 +167,42 @@
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "注入缺陷 + 测试 Oracle"
+                    "text": "根因、位置、严重性及证据都相符"
                   }
-                ],
-                "type": "p",
-                "id": "dZEmfb9zoK"
+                ]
               }
-            ],
-            "id": "6Xn2TTq_uB"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "Defects4J（Java 程序修复基准）"
+                    "text": "可记 TP"
                   }
-                ],
-                "type": "p",
-                "id": "pag2NxnvBB"
+                ]
               }
-            ],
-            "id": "jpFf6aDR-j"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "提供带触发测试与 ground-truth 补丁的真实缺陷：早期 1.0.x 收录约 395 个可复现缺陷、来自 6 个真实 Java 项目；1.2 版为 357 个缺陷、5 个大型程序（22,000 LOC 以上），并给出按控制流/数据流分类的 488 个缺陷；数据库后续扩展至 15 个项目、597 个缺陷，另有讲义转述为 17 个系统、854 个缺陷"
+                    "text": "语义解释与修复建议质量"
                   }
-                ],
-                "type": "p",
-                "id": "5a4L0letJC"
+                ]
               }
-            ],
-            "id": "8mA0EhEzVY"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "web_486, web_487, web_489, web_490, web_491, web_500"
-                  }
-                ],
-                "type": "p",
-                "id": "cQVi-8uS0Z"
-              }
-            ],
-            "id": "6M5PxnxrnN"
+            ]
           }
-        ],
-        "id": "SkHD_maPb-"
+        ]
       },
       {
         "type": "tr",
@@ -316,64 +211,42 @@
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "版本化基准 = 分数不可跨版本比较"
+                    "text": "原因相同但模型自造了另一个根因 ID"
                   }
-                ],
-                "type": "p",
-                "id": "OQHj2c1fyp"
+                ]
               }
-            ],
-            "id": "eGow1lYcwq"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "同上（Defects4J 版本演进）"
+                    "text": "可能记 FP 并留下 FN"
                   }
-                ],
-                "type": "p",
-                "id": "N7ydHzqswD"
+                ]
               }
-            ],
-            "id": "8HibVK2fDT"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "同一基准的不同版本（1.0.x/1.2/扩展版）缺陷数与项目数均不同，分数因此不可直接横向比较——印证本节\"报告必须绑定基准版本\"的纪律"
+                    "text": "人工等价映射与标注一致性"
                   }
-                ],
-                "type": "p",
-                "id": "o6g5LJD7Ws"
+                ]
               }
-            ],
-            "id": "L7p8pdbeXg"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "web_487, web_489, web_490, web_491"
-                  }
-                ],
-                "type": "p",
-                "id": "VBv9OpefK7"
-              }
-            ],
-            "id": "Os-9-yVHxH"
+            ]
           }
-        ],
-        "id": "4rufSQ4uLV"
+        ]
       },
       {
         "type": "tr",
@@ -382,64 +255,42 @@
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "根因 Oracle 与去重"
+                    "text": "行号来自正确主线，而非错误提交"
                   }
-                ],
-                "type": "p",
-                "id": "NJ15ZRKA3A"
+                ]
               }
-            ],
-            "id": "8wmMrIDPjf"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "SWE-bench 家族（issue→补丁→测试判定）"
+                    "text": "位置不匹配"
                   }
-                ],
-                "type": "p",
-                "id": "7qX-7rbFo_"
+                ]
               }
-            ],
-            "id": "BHP4alPAL6"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "原始 SWE-bench 含 2,294 个任务、来自 12 个 Python 项目；通过 patch 应用后跑测试判定 resolved；位于 Docker 沙箱中执行，属执行型（execution-based）评测"
+                    "text": "固定待审版本，重新定位"
                   }
-                ],
-                "type": "p",
-                "id": "lAH3xhfhkO"
+                ]
               }
-            ],
-            "id": "UHWe6CVUck"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "web_503, web_504, web_511"
-                  }
-                ],
-                "type": "p",
-                "id": "r43JTQWGca"
-              }
-            ],
-            "id": "hEa6sYiHQO"
+            ]
           }
-        ],
-        "id": "D0hxbJ1BH8"
+        ]
       },
       {
         "type": "tr",
@@ -448,64 +299,42 @@
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "人工验证子集"
+                    "text": "找到 Oracle 外的新问题"
                   }
-                ],
-                "type": "p",
-                "id": "q_5Vic7cCf"
+                ]
               }
-            ],
-            "id": "Qy8bPv8hGI"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "SWE-bench Verified"
+                    "text": "无法自动接受"
                   }
-                ],
-                "type": "p",
-                "id": "dWiKmakfHa"
+                ]
               }
-            ],
-            "id": "3zC4LZoV26"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "500 个经人工核查的实例，来自热门 Python 仓库，每例含真实 bug report 与判定补丁的单元测试（FAIL_TO_PASS/PASS_TO_PASS）；OpenAI o3-mini 系统卡记录为 N=477，并说明该子集修正了\"正确解被错误评分、问题陈述欠明确、单元测试过度特定\"三类缺陷"
+                    "text": "复现、分诊并修订标注"
                   }
-                ],
-                "type": "p",
-                "id": "lJZFAeKEsI"
+                ]
               }
-            ],
-            "id": "jP1YF8IWqi"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "web_458, web_465, web_470"
-                  }
-                ],
-                "type": "p",
-                "id": "d0ymv4DSPL"
-              }
-            ],
-            "id": "lJRUI-AaU8"
+            ]
           }
-        ],
-        "id": "j27uKCnBtn"
+        ]
       },
       {
         "type": "tr",
@@ -514,338 +343,195 @@
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "通过率 ≠ 正确率"
+                    "text": "引用其他运行或修复日志"
                   }
-                ],
-                "type": "p",
-                "id": "pSCoBiMmI4"
+                ]
               }
-            ],
-            "id": "LPW9uUxn6q"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "SWE-bench 审计"
+                    "text": "证据门禁拒绝"
                   }
-                ],
-                "type": "p",
-                "id": "4d9LU73tBR"
+                ]
               }
-            ],
-            "id": "HBNp_zD1R9"
+            ]
           },
           {
             "type": "td",
             "children": [
               {
+                "type": "p",
                 "children": [
                   {
-                    "text": "测试是程序化 Oracle 而非唯一正确性证明：隐藏测试可拒绝正确的替代实现，覆盖薄弱可放过不完整补丁，环境配置会改变结果；有审计指出部分通过补丁行为与开发者修复不同甚至明显错误，建议抽样人工核对并报告调整后比率与区间"
+                    "text": "重新取证，不能计能力命中"
                   }
-                ],
-                "type": "p",
-                "id": "fX9jsylW8y"
+                ]
               }
-            ],
-            "id": "ApgzCB7l2y"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "web_509, web_510"
-                  }
-                ],
-                "type": "p",
-                "id": "wbVl3NRosZ"
-              }
-            ],
-            "id": "mJDXF1cphm"
+            ]
           }
-        ],
-        "id": "ZWuFGWWV0p"
-      },
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "门禁与抗 game"
-                  }
-                ],
-                "type": "p",
-                "id": "divjcqAvp2"
-              }
-            ],
-            "id": "98pfRPr7qu"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "在线/离线互检、迭代加难度"
-                  }
-                ],
-                "type": "p",
-                "id": "JHRyKkgwAr"
-              }
-            ],
-            "id": "33C0FrQQmt"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "开源的 Code Review Bench 让在线与离线基准互相检查以防刷分，并公开数据、golden 评论、判官提示词与流水线；基准持续加难（如 SWE-bench-Pro 公开集 731 例、Terminal-Bench-2 n=89，pass@1/pass@2 报告，补丁在独立 evaluator 容器中重放）"
-                  }
-                ],
-                "type": "p",
-                "id": "QkN8O3o0hJ"
-              }
-            ],
-            "id": "602SNOig_f"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "web_472, web_512"
-                  }
-                ],
-                "type": "p",
-                "id": "cjPkqvqCdB"
-              }
-            ],
-            "id": "73kyn9rB9Q"
-          }
-        ],
-        "id": "G3e7tOOviK"
-      },
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "评审质量的判定"
-                  }
-                ],
-                "type": "p",
-                "id": "avLhGk9UKt"
-              }
-            ],
-            "id": "uYHaW7dppb"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "代码评审基准"
-                  }
-                ],
-                "type": "p",
-                "id": "O1nd7qLMIq"
-              }
-            ],
-            "id": "6SqOuX6I5t"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "面向 AI 代码评审的基准正在成形：Turing 的 Code Review Bench 从 6,296 个任务中取 1,200 个，报告成功率与 Bug Catching Rate；GitHub ReviewBench 基于 219 个真实 PR、187 个开源仓库、19 种语言；综述指出该领域数据集分散、设计差异大，对\"究竟评估了哪些评审能力\"洞察有限"
-                  }
-                ],
-                "type": "p",
-                "id": "N0pECqGFLE"
-              }
-            ],
-            "id": "zLgoj4GDzU"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "web_473, web_475, web_480, web_485"
-                  }
-                ],
-                "type": "p",
-                "id": "uWm4NG4Hgb"
-              }
-            ],
-            "id": "AI5RaabtzX"
-          }
-        ],
-        "id": "bPNUpIA5dM"
-      },
-      {
-        "type": "tr",
-        "children": [
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "评论质量不能靠文本相似度"
-                  }
-                ],
-                "type": "p",
-                "id": "vN9_lEZbvT"
-              }
-            ],
-            "id": "8UE5iK-cqM"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "DeepCRCEval 等"
-                  }
-                ],
-                "type": "p",
-                "id": "KpUpCtkuAW"
-              }
-            ],
-            "id": "Fe0dY2mSnd"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "有研究指出现有文本相似度指标不足以评估代码评审评论质量（DeepCRCEval 主张人评+LLM 评结合）；偏好排序研究显示人类审查真正采取行动的类别集中在正确性与可靠性、安全、性能与效率，而当前 AI 评审过度关注风格与最佳实践小问题"
-                  }
-                ],
-                "type": "p",
-                "id": "TM9XEWghzh"
-              }
-            ],
-            "id": "SjGv1pprqh"
-          },
-          {
-            "type": "td",
-            "children": [
-              {
-                "children": [
-                  {
-                    "text": "web_476, web_479"
-                  }
-                ],
-                "type": "p",
-                "id": "ZLYqtBoDmN"
-              }
-            ],
-            "id": "Cz_8qBqh4N"
-          }
-        ],
-        "id": "piUSc8IY1Z"
+        ]
       }
-    ],
-    "id": "9DgcJJvfjk",
-    "colSizes": [
-      213.5,
-      213.5,
-      213.5,
-      213.5
     ]
   },
   {
     "type": "p",
     "children": [
       {
-        "text": "三条判断。",
-        "bold": true
-      },
-      {
-        "text": " 第一，"
-      },
-      {
-        "text": "基准的演进史就是\"判定器不够用\"的证据史",
-        "bold": true
-      },
-      {
-        "text": "：Defects4J 从 6 个项目 395 个缺陷扩到 15 个项目 597 个缺陷，SWE-bench 从原始全集细分出 500 例人工验证子集以适应三类评分缺陷，说明\"有测试\"远不等于\"判得准\"；本章因此坚持双层 Oracle（测试 + 根因）。第二，"
-      },
-      {
-        "text": "分数是口径的函数",
-        "bold": true
-      },
-      {
-        "text": "：同一基准不同版本不可比、通过率与正确率有实测差距、评审基准之间设计差异巨大，这三条合起来指向同一结论——本章要求\"评测报告绑定基准版本与评分器哈希\"，不是形式主义。第三，"
-      },
-      {
-        "text": "AI 代码评审的评测仍在形成期",
-        "bold": true
-      },
-      {
-        "text": "：与缺陷修复相比，评审质量更依赖\"评论是否值得人类采取行动\"这类主观判据，因此该领域的基准要么正在从零建立，要么仍在争论指标本身是否有效——本章的 "
-      },
-      {
-        "text": "evaluation/",
-        "code": true
-      },
-      {
-        "text": " 因此把自己定位为"
-      },
-      {
-        "text": "可复现的内部判准",
-        "bold": true
-      },
-      {
-        "text": "，而非对外可比的能力排名。"
+        "text": "录制夹具的根因 ID 由作者预先对齐，所以能验证评分逻辑；真实模型不会天然知道这套内部 ID。正式评测要说明规范化规则，盲评时不可把根因答案给模型只为方便精确匹配。"
       }
-    ],
-    "id": "fgX_GYf5JE"
+    ]
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.9.4 两条实验轨道，避免看过答案再宣称发现"
+      }
+    ]
   },
   {
     "type": "p",
     "children": [
       {
-        "text": "事实边界声明",
-        "bold": true
-      },
-      {
-        "text": "：本节外部资料访问日期为 2026-10-20。Defects4J 各版本缺陷数与项目数在不同来源与不同版本中口径不一（395/357/488/597/854 等），正文按来源分别标注、不合并为单一数字，此差异本身即正文论点的一部分。SWE-bench Verified 相关数字以 OpenAI 系统卡与论文/综述为据，其中\"OpenAI 因测试缺陷停用该基准、约 60% 样本存在测试缺陷\"的说法来自百科词条转述，"
-      },
-      {
-        "text": "未获一手来源确认，正文不采信该具体比例",
-        "bold": true
-      },
-      {
-        "text": "。Turing Code Review Bench 的成功率与 Bug Catching Rate 数值、GitHub ReviewBench 的规模均为机构公开发布口径，未独立复现。本节所有外部数字仅用于机制对照，不用于推导 wallet-review-lab 的实验结论。"
+        "text": "源码发现轨道提供业务规则、待审 Diff 和选定源码，让模型自行提出问题。证据解释轨道额外提供相同工具结果，检查能否准确说明和治理已观察到的失败。看过 expected 6600、actual 6400 后输出少退，不等于独立发现。"
       }
-    ],
-    "id": "t6SiUqe8tV"
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "固定错误补丁与工具输入可以让各配置公平比较，但也限制泛化结论。开发集可用于调整提示与规范化规则；保留集应改变商品组合、数量、更新时间或载荷表达，测试规则是否能迁移。同根因的十个金额变体不能当作十种独立缺陷类别。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "Oracle、fixed.patch 和人工标准答案只在报告生成后读取。已有目录同时保存它们，控制器必须显式选择材料；“模型只读目录”并不等于“没有泄漏答案”。"
+      }
+    ]
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.9.5 怎样报告已有录制结果"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "从仓库根目录执行："
+      }
+    ]
+  },
+  {
+    "type": "code_block",
+    "language": "bash",
+    "children": [
+      {
+        "text": "(\n  cd wallet-review-lab\n  uv run python -m evaluation.projects ../order-review-lab/evaluation/cases.yaml --mode multi_arbitrated\n)"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "执行记录：报告标识 "
+      },
+      {
+        "text": "kind=recorded-control-fixture",
+        "code": true
+      },
+      {
+        "text": "，十二案例中 ORD-01 无 Finding，其余各有一个去重根因，合计 TP=11、FP=0、FN=0。它说明加载、路由、校验、去重与评分在预设数据上保持一致。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "single 的 general-review 预设为空，多角色输出则预设标注根因。这种差异由夹具设计产生；不得画成“单模型落后、多 Agent 完美召回”的能力图。即使真实模型获得相同计数，也需说明样本来源、规模和不确定性。"
+      }
+    ]
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.9.6 真实实验怎样逐步开展"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "先选择 ORD-01 与 ORD-09 试跑，固定模型、角色指令、输入哈希和输出格式，记录每次失败、拒答、用量与延迟。确认协议可执行后，再扩充样本和重复次数。拒答率和非法输出率应独立报告；不能从分母中静默删除困难运行。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "规划中的两个模型、三配置、十二案例、三次重复，共 216 次案例运行，实际调用数还受角色和重试影响。这是可选研究规模，不是出版统一门槛。若只做小规模演示，应把主张限制在演示范围，不发布普遍优劣结论。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "可比较的维度包括独立根因召回、无缺陷误报、重复评论、证据无效率、人工确认时间和费用。比较时报告分母及原始计数，小样本不只给一个精确到小数点后的百分比。重复运行只能衡量该样本上的稳定性，不能代替业务场景多样性。"
+      }
+    ]
+  },
+  {
+    "type": "h2",
+    "children": [
+      {
+        "text": "9.9.7 与公开基准的联系"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "SWE-bench 以真实仓库任务和执行测试评估修复，Verified 提供人工筛选子集。[R9] 它提醒我们重视环境、任务定义和判定器；本章评审任务却不等同于生成可通过测试的补丁。评论是否正确、定位是否有效和人是否愿意采取行动，都需要额外判断。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "不宜把不同版本、不同子集、不同工具权限的分数直接排在一起。正文引用基准时固定版本与任务类型，将规模和榜单留给可更新的来源，而不是并列多个无法消解的数字。"
+      }
+    ]
+  },
+  {
+    "type": "p",
+    "children": [
+      {
+        "text": "练习：设计一个无缺陷样本和一个同根因保留变体，写出自动评分可能误判之处。参考要点是保留真实因果、定义允许位置及人工等价映射，并区分能力失败、证据无效与基础设施失败。"
+      }
+    ]
   }
 ]

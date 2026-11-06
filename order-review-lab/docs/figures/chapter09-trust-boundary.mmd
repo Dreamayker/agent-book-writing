@@ -1,0 +1,11 @@
+flowchart TB
+  Repo["低信任数据<br/>PR、源码、注释、工具文本"] --> Control["可信控制器<br/>选择材料、校验版本、执行策略"]
+  Secret["模型 API 凭据<br/>可信任务环境"] --> Adapter["评审适配器<br/>请求与解析"]
+  Control --> Adapter
+  Adapter --> Model["模型服务"]
+  Model -. "结构化意见：无执行权限" .-> Control
+  Control --> Exec["预定义命令执行器<br/>子进程环境白名单"]
+  Exec --> Work["教学 worktree<br/>共享宿主权限，非安全沙箱"]
+  Work --> Output["版本绑定的执行证据"]
+  Output --> Control
+  Control --> Decision["规则报告与人工复核<br/>不自动合并"]
