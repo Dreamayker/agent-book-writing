@@ -1,0 +1,234 @@
+{
+  "date": "2026-11-06",
+  "version": "v2",
+  "basis_revision": "15184a7",
+  "scope": "Introduction and 9.1–9.12; original IMA sources and executable artifacts excluded",
+  "counting": "characters = Python len(text), including markup/code/whitespace; han_characters = U+4E00–U+9FFF; not a publisher word/page count",
+  "documents": [
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/章首导语.md",
+      "sha256": "eaad5af298dae61c85e9e7bd2390b7fedb2874125db75508988bde65f817cb97",
+      "before": {
+        "characters": 797,
+        "han_characters": 571,
+        "code_blocks": 0,
+        "code_lines": 0
+      },
+      "after": {
+        "characters": 1241,
+        "han_characters": 965,
+        "code_blocks": 0,
+        "code_lines": 0
+      }
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.1章节.md",
+      "sha256": "93c75628b5bfcada1e4d0ec14b95ec14cfb02beb772e14fa2689d83673e2b8e2",
+      "before": {
+        "characters": 2177,
+        "han_characters": 1504,
+        "code_blocks": 1,
+        "code_lines": 3
+      },
+      "after": {
+        "characters": 3771,
+        "han_characters": 2812,
+        "code_blocks": 1,
+        "code_lines": 3
+      }
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.2章节.md",
+      "sha256": "1a568c6a88d049a319d3275f2aa0fef23242a39b34c2f693908157b147a7db6c",
+      "before": {
+        "characters": 1986,
+        "han_characters": 1386,
+        "code_blocks": 0,
+        "code_lines": 0
+      },
+      "after": {
+        "characters": 3351,
+        "han_characters": 2567,
+        "code_blocks": 0,
+        "code_lines": 0
+      }
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.3章节.md",
+      "sha256": "d400796e2b0bef9715112ffa723536fdfdc13bdd6675bd39fe830a107bbfe417",
+      "before": {
+        "characters": 2775,
+        "han_characters": 1242,
+        "code_blocks": 2,
+        "code_lines": 14
+      },
+      "after": {
+        "characters": 4116,
+        "han_characters": 2305,
+        "code_blocks": 2,
+        "code_lines": 14
+      }
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.4章节.md",
+      "sha256": "f8818cfdc14005545b12e11129d13dbf3cab33be53d58d424b67e0c6e2dc0bf8",
+      "before": {
+        "characters": 4913,
+        "han_characters": 1584,
+        "code_blocks": 4,
+        "code_lines": 65
+      },
+      "after": {
+        "characters": 8109,
+        "han_characters": 3956,
+        "code_blocks": 4,
+        "code_lines": 65
+      }
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.5章节.md",
+      "sha256": "2dce3c0cfb05cb39528e1aa91931286f8944604da50267338a7a038164d65d29",
+      "before": {
+        "characters": 3329,
+        "han_characters": 1767,
+        "code_blocks": 2,
+        "code_lines": 15
+      },
+      "after": {
+        "characters": 5805,
+        "han_characters": 3828,
+        "code_blocks": 2,
+        "code_lines": 15
+      }
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.6章节.md",
+      "sha256": "14083a9e900b2f393a3d7b74a1b280df9d91bf7f6bf391ca64c09d9a47c20621",
+      "before": {
+        "characters": 3663,
+        "han_characters": 1838,
+        "code_blocks": 3,
+        "code_lines": 18
+      },
+      "after": {
+        "characters": 5798,
+        "han_characters": 3621,
+        "code_blocks": 3,
+        "code_lines": 18
+      }
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.7章节.md",
+      "sha256": "7e6709501461587a38cc4963f8f0b31f17d20e910aced515e1a6c59ff1862299",
+      "before": {
+        "characters": 5631,
+        "han_characters": 2741,
+        "code_blocks": 8,
+        "code_lines": 17
+      },
+      "after": {
+        "characters": 8825,
+        "han_characters": 5469,
+        "code_blocks": 8,
+        "code_lines": 17
+      }
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.8章节.md",
+      "sha256": "acc880edc38001f4a8dbaad2e05b42328da380348916254002f1b3df8c4bd832",
+      "before": {
+        "characters": 2300,
+        "han_characters": 1242,
+        "code_blocks": 2,
+        "code_lines": 17
+      },
+      "after": {
+        "characters": 3889,
+        "han_characters": 2534,
+        "code_blocks": 2,
+        "code_lines": 17
+      }
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.9章节.md",
+      "sha256": "fd4a7101a423f7f79c29902a95245c18f1228d5a28a613448ce9e26f36499a02",
+      "before": {
+        "characters": 2697,
+        "han_characters": 1733,
+        "code_blocks": 2,
+        "code_lines": 6
+      },
+      "after": {
+        "characters": 4645,
+        "han_characters": 3358,
+        "code_blocks": 2,
+        "code_lines": 6
+      }
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.10章节.md",
+      "sha256": "a518ecbdd888168770a88acc5455c7558412822311c2ca8641f211b545f03cb9",
+      "before": {
+        "characters": 2596,
+        "han_characters": 1424,
+        "code_blocks": 2,
+        "code_lines": 15
+      },
+      "after": {
+        "characters": 4163,
+        "han_characters": 2740,
+        "code_blocks": 2,
+        "code_lines": 15
+      }
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.11章节.md",
+      "sha256": "db51365eee47c1562bcaea36280b0deb96f7f158c9259120de003d90bccac869",
+      "before": {
+        "characters": 2324,
+        "han_characters": 1587,
+        "code_blocks": 0,
+        "code_lines": 0
+      },
+      "after": {
+        "characters": 3889,
+        "han_characters": 2905,
+        "code_blocks": 0,
+        "code_lines": 0
+      }
+    },
+    {
+      "file": "wallet-review-lab/docs/ima-sources/2026-11-05/9.12章节.md",
+      "sha256": "376bb88fe62847f9345d7e139a93451779944f8ba3c214ab782f8b69a60ec1c2",
+      "before": {
+        "characters": 3626,
+        "han_characters": 1499,
+        "code_blocks": 7,
+        "code_lines": 29
+      },
+      "after": {
+        "characters": 5435,
+        "han_characters": 3032,
+        "code_blocks": 7,
+        "code_lines": 29
+      }
+    }
+  ],
+  "totals": {
+    "before": {
+      "characters": 38814,
+      "han_characters": 20118,
+      "code_blocks": 33,
+      "code_lines": 199
+    },
+    "after": {
+      "characters": 63037,
+      "han_characters": 40092,
+      "code_blocks": 33,
+      "code_lines": 199
+    }
+  },
+  "figure_count": 4,
+  "table_count": 18,
+  "code_blocks_unchanged": true
+}
