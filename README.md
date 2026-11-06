@@ -4,7 +4,7 @@
 
 ## 当前书稿版本
 
-根据作者 2026-11-05 的指示，**以 IMA 笔记本“Agent图书写作”为来源基准，并按订单迁移规划更新正文**。阅读 [当前书稿目录](wallet-review-lab/docs/ima-sources/2026-11-05/README.md)：导语与 9.1～9.12 已改为优惠叠加、快照退款和 ORD 案例主线；工业与标准机制按教学需要精简融入正文，2026-11-06 已完成出版扩写第二版，增加场景引入、概念解释和连续阅读路径。原始 IMA 富文本作为来源记录保留。
+根据作者 2026-11-05 的指示，**以 IMA 笔记本“Agent图书写作”为来源基准，并按订单迁移规划更新正文**。阅读 [当前书稿目录](wallet-review-lab/docs/ima-sources/2026-11-05/README.md)：导语与 9.1～9.12 已改为优惠叠加、快照退款和 ORD 案例主线；工业与标准机制按教学需要精简融入正文，2026-11-06 已完成出版扩写第二版，并完成[第 9 章标题与逻辑一致性审校](docs/chapter09-consistency-review-2026-11-06.md)，增加场景引入、概念解释和连续阅读路径。原始 IMA 富文本作为来源记录保留。
 
 每篇同时保存可阅读的 Markdown、与正文同步的富文本 JSON，以及供追溯的原始富文本。9.6、9.7 的原始富文本文件内合并保存主稿和补充材料的来源内容。表格、代码和格式属性随正文保留；笔记 ID、来源修改时间和编辑记录见 `manifest.json`。
 
@@ -26,6 +26,7 @@ node scripts/export_ima_notes.mjs YYYY-MM-DD Asia/Shanghai --latest
 - [出版视角审阅](docs/publication-review-2026-11-06.md)：改写前的篇幅、深度与问题清单。
 - [订单案例迁移规划](docs/order-case-migration-plan.md)：Java 工程与章节调整的实施顺序、证据要求和验收标准。
 - [书稿来源与修订记录](docs/manuscript-source.md)：格式、合并状态与来源追溯。
+- [第 9 章标题与逻辑一致性审校](docs/chapter09-consistency-review-2026-11-06.md)：逐节核对标题承诺、阅读路线、编号和交叉引用。
 - [订单工程](order-review-lab/README.md)：Java/Spring Boot/MyBatis/MySQL 业务与真实集成测试。
 - [订单案例与证据](order-review-lab/book-assets/README.md)：12 个独立变更、失败日志、修复与录制评审。
 - [共享评审与历史钱包](wallet-review-lab/README.md)：Python 评审流程及钱包兼容实验。

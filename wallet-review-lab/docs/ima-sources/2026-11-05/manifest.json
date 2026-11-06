@@ -509,16 +509,17 @@
       "modifyTime": "1792502242202",
       "filename": "9.1章节.md",
       "unknownTypes": [],
-      "characters": 3771,
+      "characters": 3830,
       "rawSha256": "206379b393a3891cfded1bb97c585c6347c4312a4fec92d18d7d8f4bf1838f65",
       "sourceCharacters": 5968,
-      "markdownSha256": "93c75628b5bfcada1e4d0ec14b95ec14cfb02beb772e14fa2689d83673e2b8e2",
-      "richTextSha256": "2fa17c2cdc0f4866f4da18d8a1a4f6b52c7d410ec90d331b5342036f0cffeef6",
+      "markdownSha256": "dbdace9946f490bd1370ef92de0543ceabfbe9be10567caa994e74a10729c762",
+      "richTextSha256": "d33f83c8702d46bc75a13c9e2efc05d376dce368b646b4e913f35c8cc64b6b32",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "9.2章节",
@@ -528,16 +529,17 @@
       "modifyTime": "1792500415568",
       "filename": "9.2章节.md",
       "unknownTypes": [],
-      "characters": 3351,
+      "characters": 3489,
       "rawSha256": "0930e3ea4195963809997b78b72f6097ac6d41ff8b4147cdd54eadf71740a8bf",
       "sourceCharacters": 9122,
-      "markdownSha256": "1a568c6a88d049a319d3275f2aa0fef23242a39b34c2f693908157b147a7db6c",
-      "richTextSha256": "b7550446e7f0e365b06a23106ca43ee4f712f50a5511632882e1b3127cc53a52",
+      "markdownSha256": "2e6a1576bb4153b042371119857a9aa39c9ecf9f5fd144c9ad9ce93cb4626cb4",
+      "richTextSha256": "be4f84bde92fd2e530345fa42cebb18e720295d1ab3d6b1d60957cc5518519af",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "9.3章节",
@@ -547,16 +549,17 @@
       "modifyTime": "1792502233422",
       "filename": "9.3章节.md",
       "unknownTypes": [],
-      "characters": 4116,
+      "characters": 4442,
       "rawSha256": "4ec8c4f82c88c82716fe0d064c186b88300e218a44374845ce87f7974b766f18",
       "sourceCharacters": 8561,
-      "markdownSha256": "d400796e2b0bef9715112ffa723536fdfdc13bdd6675bd39fe830a107bbfe417",
-      "richTextSha256": "e99e2979faa3a4f301949a66af46ce52715893781753c3df20c0a2fca2680c53",
+      "markdownSha256": "1579156c2f3f30f705d36a9aeb9282f7461b432d7e22db879657d298e38bb51e",
+      "richTextSha256": "b6c70a5744b054a54c9a248e14a00c728bb217d054a1b6c43b215533722e7504",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "9.4章节",
@@ -566,16 +569,17 @@
       "modifyTime": "1792499781398",
       "filename": "9.4章节.md",
       "unknownTypes": [],
-      "characters": 8109,
+      "characters": 8369,
       "rawSha256": "843e474ae7fbe61649ad2108e04be85b0b11e0b999ba7eee83dc3f798dfd9569",
       "sourceCharacters": 7132,
-      "markdownSha256": "f8818cfdc14005545b12e11129d13dbf3cab33be53d58d424b67e0c6e2dc0bf8",
-      "richTextSha256": "fb4452f17fd6b681017c7d1261609d74e359760e575a8d3cf61615bd6fcda6b3",
+      "markdownSha256": "c15d7680423a39809e33e97d7bb95c2402e0f2045d74aebfa64d3aeb1538291e",
+      "richTextSha256": "dbea8575ae315e52e9d7403980c6472c4f0cf3ba1918e3d1f369e5a45522f57f",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "9.5章节",
@@ -585,16 +589,17 @@
       "modifyTime": "1792500104350",
       "filename": "9.5章节.md",
       "unknownTypes": [],
-      "characters": 5805,
+      "characters": 6045,
       "rawSha256": "a57fd0b6e915b72593e5c1e85a822d619775e09d30f9c5e515f3e50a5dc490b8",
       "sourceCharacters": 8761,
-      "markdownSha256": "2dce3c0cfb05cb39528e1aa91931286f8944604da50267338a7a038164d65d29",
-      "richTextSha256": "00184ab93f00b6fcf585a210e1fd0461372c364dd73abda5ac77ca35685872a4",
+      "markdownSha256": "6b1e7e0580d6e938d598385d7ed15212efb56b59abc93a8d0ce21396ce77666a",
+      "richTextSha256": "608b10defa546af7d7256bf6f2e5829765d2d2ee97a1e92543ca25d5482c65ed",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "9.6章节",
@@ -604,7 +609,7 @@
       "modifyTime": "1792500374637",
       "filename": "9.6章节.md",
       "unknownTypes": [],
-      "characters": 5798,
+      "characters": 6017,
       "rawSha256": "eec6a6c6db9cdcc3ff9aa2b15e7fca9e1af3447ce5f76da32525ffe41afae7d4",
       "mergedFrom": [
         {
@@ -624,13 +629,14 @@
       ],
       "rawFormat": "ima-source-bundle-v1",
       "sourceCharacters": 8255,
-      "markdownSha256": "14083a9e900b2f393a3d7b74a1b280df9d91bf7f6bf391ca64c09d9a47c20621",
-      "richTextSha256": "e46a2ed2387e9a6fc2f302b91fe8088caa4ae515ef6747cb989211f403a18065",
+      "markdownSha256": "088403bbf3994f22dfbcf4676f25c9015f241cb240878c809136fdd2cb3e82a7",
+      "richTextSha256": "ef3f59e0248306ea234fc6d57c5837a7914e376f4ce05bd8125c9813e1f3ae77",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "9.7章节",
@@ -640,7 +646,7 @@
       "modifyTime": "1792502177850",
       "filename": "9.7章节.md",
       "unknownTypes": [],
-      "characters": 8825,
+      "characters": 9088,
       "rawSha256": "b522c99a53db0a1136115b424d35ea007603a52c3d5bcd418ff069809c1acf26",
       "mergedFrom": [
         {
@@ -660,13 +666,14 @@
       ],
       "rawFormat": "ima-source-bundle-v1",
       "sourceCharacters": 19913,
-      "markdownSha256": "7e6709501461587a38cc4963f8f0b31f17d20e910aced515e1a6c59ff1862299",
-      "richTextSha256": "0fc63d6afef02fdbf38bfcfc40f4b728c4c981e9a93f33193d8af91d27e36165",
+      "markdownSha256": "b0b0c30a7ee6bc975f49c5f3f506ebaa065d8ee2b731d1a79495a0510b947de1",
+      "richTextSha256": "e59e2e0129cc11c773ccdbd3008b2a2ae803e6995cd1220a28cd31fe6e439ed9",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "9.8章节",
@@ -676,16 +683,17 @@
       "modifyTime": "1792501704173",
       "filename": "9.8章节.md",
       "unknownTypes": [],
-      "characters": 3889,
+      "characters": 4014,
       "rawSha256": "d6d4ea31ddafc1052a3015c24caad8979444261fac9d31e0ed058b3618d4acf6",
       "sourceCharacters": 10893,
-      "markdownSha256": "acc880edc38001f4a8dbaad2e05b42328da380348916254002f1b3df8c4bd832",
-      "richTextSha256": "47df968d7ab5d3ea982b92f5d74ce1e581d5e0a2f70c7fedfbb74f263cd87fc2",
+      "markdownSha256": "5d85b4ed1ee8f2b12b0ceedf154fdc75cafbc215ee99f3635d8a55ed369e0736",
+      "richTextSha256": "2c31282995886ac7f0700249b0683c467833c3e6f7c41f764ca900819ea967f9",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "9.9章节",
@@ -695,16 +703,17 @@
       "modifyTime": "1792501888061",
       "filename": "9.9章节.md",
       "unknownTypes": [],
-      "characters": 4645,
+      "characters": 4871,
       "rawSha256": "4970a567ea387c9ccfcecc664a78960eb4fd05a968787a086dd5fdaadbc9e7ad",
       "sourceCharacters": 9102,
-      "markdownSha256": "fd4a7101a423f7f79c29902a95245c18f1228d5a28a613448ce9e26f36499a02",
-      "richTextSha256": "230ee98eff652a4953eebf8476e9176b7cc7dc34bd355204f5c2bda82a2f3ef9",
+      "markdownSha256": "954e715282c520b3390c075774592273e5721da9594f6420800b78fa5591c1df",
+      "richTextSha256": "18caea83fa30d57a36c4a771438ee2c6e630da0bbdfe258f7faa33874b2da804",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "9.10章节",
@@ -714,16 +723,17 @@
       "modifyTime": "1792502127147",
       "filename": "9.10章节.md",
       "unknownTypes": [],
-      "characters": 4163,
+      "characters": 4303,
       "rawSha256": "eb3e06111f805ad2c5de9d35f4854272e1ce473e39dac34e52f9adf74a217d40",
       "sourceCharacters": 11204,
-      "markdownSha256": "a518ecbdd888168770a88acc5455c7558412822311c2ca8641f211b545f03cb9",
-      "richTextSha256": "27297e8c28a0721efd9c519be5abe6c87b5b656af4fde725a851159e7ecf8670",
+      "markdownSha256": "7c588d7301e18c62c34a0b61e2ede35b7a342c37180eceb520f624da80925125",
+      "richTextSha256": "ad009d886dd40b3e2a51a92055c6989d7661e9d2e301f0fcdae4b0bccdf6ab2b",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "9.11章节",
@@ -733,16 +743,17 @@
       "modifyTime": "1792502398285",
       "filename": "9.11章节.md",
       "unknownTypes": [],
-      "characters": 3889,
+      "characters": 3995,
       "rawSha256": "41fdccd91d1757a3ef43ab4fd48bfab4568b73f5faf6a816e9359144c32013e7",
       "sourceCharacters": 11422,
-      "markdownSha256": "db51365eee47c1562bcaea36280b0deb96f7f158c9259120de003d90bccac869",
-      "richTextSha256": "5875ef4d81069baac6801fcb359059b529df4461128172b991b032829fcd4cab",
+      "markdownSha256": "639b35822412cf6f7dcfc2ff734467072d26fe0b83522375d8baeded3f54784f",
+      "richTextSha256": "e12c553060651b0684da1b7dbbbef9be1a5ea7e752263d14f2d50a3a255363c9",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "9.12章节",
@@ -752,16 +763,17 @@
       "modifyTime": "1792502714689",
       "filename": "9.12章节.md",
       "unknownTypes": [],
-      "characters": 5435,
+      "characters": 5682,
       "rawSha256": "7d3a4c5974a7e61df375980992be85ff7e3b24b44a1691c8b2d380cd99c1ee49",
       "sourceCharacters": 10004,
-      "markdownSha256": "376bb88fe62847f9345d7e139a93451779944f8ba3c214ab782f8b69a60ec1c2",
-      "richTextSha256": "4a0d7bfec008c1fab54eb86beac00e86bbceebfd53bc86fcd5553ff66b1dc6ad",
+      "markdownSha256": "067dc29f6efa3b4d404e8a4a139e94bddbc303b00ac65624d3c90aeb1df0b327",
+      "richTextSha256": "247ae0f634bf8f74f4e2d6226a15763dd5661bc805719230ac57172bae971ff7",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "第 9 章全章审校报告",
@@ -785,16 +797,17 @@
       "modifyTime": "1792503672736",
       "filename": "章首导语.md",
       "unknownTypes": [],
-      "characters": 1241,
+      "characters": 1423,
       "rawSha256": "e92140f17ac02b17677ed62ae424637af2021dacd2f0b0fb8214bd52fc7e87d5",
       "sourceCharacters": 2751,
-      "markdownSha256": "eaad5af298dae61c85e9e7bd2390b7fedb2874125db75508988bde65f817cb97",
-      "richTextSha256": "873695929f2c9630703d094804698e43a53529adf017132bbad87c5e1afe59ea",
+      "markdownSha256": "b459e927771e82eccfdf857fc4981068b5941b1d1d07aa5791bf0789b6c05bdc",
+      "richTextSha256": "488c1d6ff006656ea531db62a85653fa52ccfe688b30333b9e8615ed51318def",
       "edited": true,
       "engineeringRevision": "7a61a4f",
-      "editorialStatus": "publication-expansion-v2; live-model-evaluation-pending",
+      "editorialStatus": "publication-expansion-v2; consistency-reviewed-2026-11-06; live-model-evaluation-pending",
       "publicationRewriteDate": "2026-11-06",
-      "publicationExpansionDate": "2026-11-06"
+      "publicationExpansionDate": "2026-11-06",
+      "consistencyReviewDate": "2026-11-06"
     },
     {
       "title": "案例说明",
@@ -824,7 +837,7 @@
     "sourceCount": 18,
     "documentCount": 16,
     "sourceCommit": "9da263ffe63f3d637987f6eade69d60a108539be",
-    "editedAt": "2026-11-06T06:22:24.329994+00:00",
+    "editedAt": "2026-11-06T07:14:55.326318+00:00",
     "orderMigration": {
       "date": "2026-11-05",
       "businessBaseline": "7a61a4f",
@@ -865,6 +878,14 @@
       "rawSourcesPreserved": true,
       "liveModelEvaluation": "pending-models-and-budget",
       "revisionNotes": "docs/publication-expansion-2026-11-06.md"
+    },
+    "consistencyReview": {
+      "date": "2026-11-06",
+      "basis": "fb3bbed25a03f542188215817865a4c9b23d63a3",
+      "scope": "introduction and 9.1–9.12 headings, hierarchy, cross-references and implementation claims",
+      "report": "docs/chapter09-consistency-review-2026-11-06.md",
+      "result": "no heading or section-number contradictions found; terminology and teaching/evaluation boundaries aligned",
+      "rawSourcesPreserved": true
     }
   }
 }
