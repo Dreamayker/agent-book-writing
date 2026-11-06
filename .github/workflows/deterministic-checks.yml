@@ -10,7 +10,7 @@ permissions:
 
 defaults:
   run:
-    working-directory: wallet-review-lab
+    working-directory: review-harness
 
 jobs:
   check:
@@ -22,12 +22,12 @@ jobs:
           enable-cache: true
       - run: uv sync --extra dev --locked
       - run: uv run ruff check .
-      - run: uv run mypy app review_system evaluation
+      - run: uv run mypy review_system evaluation
       - run: uv run pytest --cov-report=term-missing
       - name: Validate Semgrep rules
         run: uvx semgrep --validate --config semgrep.yml
       - name: Scan application and review control plane
-        run: uvx semgrep --config semgrep.yml app review_system
+        run: uvx semgrep --config semgrep.yml review_system
       - name: Verify review policy gates
         run: >-
           uv run pytest

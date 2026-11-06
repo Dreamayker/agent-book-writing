@@ -31,7 +31,7 @@ jobs:
       - run: uvx semgrep --validate --config policies/semgrep.yml
       - run: uvx semgrep --error --config policies/semgrep.yml order-core/src/main order-infra/src/main order-api/src/main
       - name: Replay recorded order review fixtures
-        working-directory: wallet-review-lab
+        working-directory: review-harness
         run: |
           uv sync --extra dev --locked
           uv run python -m evaluation.projects ../order-review-lab/evaluation/cases.yaml

@@ -1,6 +1,6 @@
 # Order Review Lab
 
-“星河优选”优惠券叠加与退款案例的可运行教学工程。业务契约见 [ADR-001](docs/ADR-001-business-contract.md)，总体迁移方案见 [规划](../docs/order-case-migration-plan.md)。
+“星河优选”优惠券叠加与退款案例的可运行教学工程。业务契约见 [ADR-001](../docs/decision-records/ADR-001-business-contract.md)，总体迁移方案见 [规划](../docs/order-case-migration-plan.md)。
 
 ## 运行
 
@@ -37,4 +37,4 @@ curl -s http://127.0.0.1:8081/orders \
 
 本工程是基于案例说明构建的教学系统，遗留版本和故障均为构造样本。正确基线不调用真实支付、退款或外部会员系统。
 
-业务与缺陷已执行的结果见 [迁移状态](../docs/migration-status.md)；[案例重放入口](book-assets/README.md) 提供各案例原始日志与命令。共享评审可从 `wallet-review-lab` 运行 `uv run python -m evaluation.projects ../order-review-lab/evaluation/cases.yaml`。
+业务与缺陷已执行的结果见 [迁移状态](../docs/migration-status.md)；[案例重放入口](book-assets/README.md) 提供各案例原始日志与命令。共享评审可从 `review-harness` 运行 `uv run python -m evaluation.projects ../order-review-lab/evaluation/cases.yaml`。

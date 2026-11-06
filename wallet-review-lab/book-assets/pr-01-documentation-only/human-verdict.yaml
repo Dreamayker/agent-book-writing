@@ -1,7 +1,0 @@
-case_id: PR-01
-verdict: approve
-severity: none
-reason: The change only adds accurate documentation and does not alter runtime behavior or policy.
-evidence:
-  - documentation-only risk route
-human_review_required: false

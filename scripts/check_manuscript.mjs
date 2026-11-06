@@ -5,7 +5,7 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const directory = path.join(root, "wallet-review-lab/docs/ima-sources/2026-11-05");
+const directory = path.join(root, "docs/manuscript/2026-11-05");
 const manifest = JSON.parse(fs.readFileSync(path.join(directory, "manifest.json"), "utf8"));
 let count = 0;
 for (const entry of manifest.exported) {

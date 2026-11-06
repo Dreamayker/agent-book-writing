@@ -1,0 +1,6 @@
+rules:
+  - id: review-instruction-in-source
+    message: Source contains language that may be attempting to instruct a review agent.
+    severity: WARNING
+    languages: [python]
+    pattern-regex: "(?i)(ignore|bypass|skip).{0,40}(review|security|instruction|policy)"

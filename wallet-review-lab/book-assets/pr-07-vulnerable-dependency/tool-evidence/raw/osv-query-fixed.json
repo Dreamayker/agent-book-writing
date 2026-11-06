@@ -1,8 +1,0 @@
-{
-  "query": {
-    "package": {"name": "requests", "ecosystem": "PyPI"},
-    "version": "2.33.0",
-    "queried_at": "2026-08-25"
-  },
-  "response": {}
-}

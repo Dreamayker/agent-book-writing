@@ -4,7 +4,7 @@
 
 ## 当前书稿版本
 
-根据作者 2026-11-05 的指示，**以 IMA 笔记本“Agent图书写作”为来源基准，并按订单迁移规划更新正文**。阅读 [当前书稿目录](wallet-review-lab/docs/ima-sources/2026-11-05/README.md)：导语与 9.1～9.12 已改为优惠叠加、快照退款和 ORD 案例主线；工业与标准机制按教学需要精简融入正文，2026-11-06 已完成出版扩写第二版，并完成[第 9 章标题与逻辑一致性审校](docs/chapter09-consistency-review-2026-11-06.md)，增加场景引入、概念解释和连续阅读路径。原始 IMA 富文本作为来源记录保留。
+根据作者 2026-11-05 的指示，**以 IMA 笔记本“Agent图书写作”为来源基准，并按订单迁移规划更新正文**。阅读 [当前书稿目录](docs/manuscript/2026-11-05/README.md)：导语与 9.1～9.12 已改为优惠叠加、快照退款和 ORD 案例主线；工业与标准机制按教学需要精简融入正文，2026-11-06 已完成出版扩写第二版，并完成[第 9 章标题与逻辑一致性审校](docs/chapter09-consistency-review-2026-11-06.md)，增加场景引入、概念解释和连续阅读路径。原始 IMA 富文本作为来源记录保留。
 
 每篇同时保存可阅读的 Markdown、与正文同步的富文本 JSON，以及供追溯的原始富文本。9.6、9.7 的原始富文本文件内合并保存主稿和补充材料的来源内容。表格、代码和格式属性随正文保留；笔记 ID、来源修改时间和编辑记录见 `manifest.json`。
 
@@ -20,7 +20,7 @@ node scripts/export_ima_notes.mjs YYYY-MM-DD Asia/Shanghai --latest
 
 ## 内容结构
 
-- [最新书稿](wallet-review-lab/docs/ima-sources/2026-11-05/README.md)：章首导语、十二节正文及配套材料。
+- [最新书稿](docs/manuscript/2026-11-05/README.md)：章首导语、十二节正文及配套材料。
 - [出版扩写第二版](docs/publication-expansion-2026-11-06.md)：面向图书阅读补足场景、概念、设计取舍和迁移说明。
 - [出版改写第一版](docs/publication-rewrite-2026-11-06.md)：改写范围、逐节变化、示例与格式验收。
 - [出版视角审阅](docs/publication-review-2026-11-06.md)：改写前的篇幅、深度与问题清单。
@@ -29,8 +29,8 @@ node scripts/export_ima_notes.mjs YYYY-MM-DD Asia/Shanghai --latest
 - [第 9 章标题与逻辑一致性审校](docs/chapter09-consistency-review-2026-11-06.md)：逐节核对标题承诺、阅读路线、编号和交叉引用。
 - [订单工程](order-review-lab/README.md)：Java/Spring Boot/MyBatis/MySQL 业务与真实集成测试。
 - [订单案例与证据](order-review-lab/book-assets/README.md)：12 个独立变更、失败日志、修复与录制评审。
-- [共享评审与历史钱包](wallet-review-lab/README.md)：Python 评审流程及钱包兼容实验。
-- [工程记录](wallet-review-lab/docs/README.md)：架构决策、实施日志、图片与实验报告。
+- [评审控制面](review-harness/README.md)：独立于业务工程的 Python 评审流程、证据门禁和录制回放。
+- [工程记录](docs/README.md)：架构决策、实施日志、图片与实验报告。
 
 2026-11-05 已移除 63 个旧稿、重复归档、过时规划和旧稿拆分脚本。清理前版本为 Git 提交 `a705616`；历史内容通过 Git 查看，当前目录只提供新版书稿入口。最新书稿的富文本与原始来源文件继续保留，用于格式编辑和追溯。
 
@@ -40,15 +40,15 @@ node scripts/export_ima_notes.mjs YYYY-MM-DD Asia/Shanghai --latest
 cd order-review-lab
 ./mvnw -B -ntp clean verify
 python3 scripts/check_coverage.py
-cd ../wallet-review-lab
+cd ../review-harness
 uv sync --extra dev --locked
 uv run pytest
 uv run ruff check .
-uv run mypy app review_system evaluation
+uv run mypy review_system evaluation
 uv run python -m evaluation.projects ../order-review-lab/evaluation/cases.yaml
 ```
 
-订单案例按 `case/order/ORD-*` 与 `fix/order/ORD-*` 分支保存，`order-baseline-v1` / `order-stacking-v1` 指向正确基线。推荐按案例目录中的脚本在独立 worktree 重放；钱包 `case/pr-*` 分支保留历史含义。
+订单案例按 `case/order/ORD-*` 与 `fix/order/ORD-*` 分支保存，`order-baseline-v1` / `order-stacking-v1` 指向正确基线。推荐按案例目录中的脚本在独立 worktree 重放。
 
 ## 覆盖边界
 

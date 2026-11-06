@@ -1,0 +1,26 @@
+version: 1
+thresholds:
+  low_max: 2
+  medium_max: 6
+rules:
+  - id: sensitive-path
+    patterns: ["order-api/src/**", "order-infra/src/**"]
+    score: 4
+  - id: public-api
+    patterns: ["order-api/src/**"]
+    score: 3
+  - id: production-dependency
+    patterns: ["pom.xml", "**/pom.xml", "mvnw"]
+    score: 3
+  - id: tests-changed
+    patterns: ["order-test/src/**"]
+    score: -1
+  - id: documentation-only
+    patterns: ["**/*.md"]
+    score: -3
+mandatory_human_review:
+  - money
+  - authorization
+  - credentials
+  - database-transaction
+  - audit-deletion

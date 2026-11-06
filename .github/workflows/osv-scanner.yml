@@ -29,8 +29,8 @@ jobs:
           scan-args: |-
             --output-file=osv-results.json
             --format=json
-            --lockfile=wallet-review-lab/uv.lock
-            --lockfile=wallet-review-lab/dependency-audit/requirements.txt
+            --lockfile=review-harness/uv.lock
+            --lockfile=review-harness/dependency-audit/requirements.txt
             --sbom=order-review-lab/target/bom.json
       - name: Cross-check Java advisories through OSV API with vulnerable control
         if: always()

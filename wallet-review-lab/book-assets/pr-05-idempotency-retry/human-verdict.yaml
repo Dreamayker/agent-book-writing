@@ -1,8 +1,0 @@
-case_id: PR-05
-verdict: request_changes
-severity: must_fix
-reason: Retrying the same request creates a second transfer and repeats the balance mutation.
-evidence:
-  - failing idempotency regression test
-  - deleted get_transfer lookup and early return
-human_review_required: true

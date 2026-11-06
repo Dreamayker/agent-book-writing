@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const IMA_CLI = process.env.IMA_CLI_PATH || path.join(os.homedir(), ".agents/skills/ima-skill/ima_api.cjs");
 const NOTEBOOK = "Agent图书写作";
-const OUTPUT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../wallet-review-lab/docs/ima-sources");
+const OUTPUT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../docs/manuscript");
 const requestedDate = process.argv[2];
 const latest = process.argv.includes("--latest");
 const timeZone = (process.argv[3]?.startsWith("--") ? undefined : process.argv[3]) || "Asia/Shanghai";
@@ -274,7 +274,7 @@ if (!dryRun) {
     `# IMA「${NOTEBOOK}」${requestedDate} ${latest ? "最新书稿快照" : "新建文章"}`,
     "",
     `共 ${exported.length} 篇。正文由 IMA JSON 富文本导出为 Markdown，保留标题、列表、表格、代码和行内样式。同名 .ima.json 保存原始富文本结构、单元格和布局属性，便于完整回溯。`,
-    ...(latest ? ["", "本快照依据用户 2026-11-05 的指示，作为当前最新书稿来源；GitHub 原 draft 和旧拆分稿作为历史版本保留。", "", "`.ima.raw.json` 逐字保存 API 返回的富文本内容，保留 Markdown 无法表达的布局和格式；`.ima.json` 是方便检查的缩进版本。", "", "补充材料归属：`9.6章节补充对照` 对应 9.6.8；`9.7补充的外部对照` 暂标 9.7.8，与现有正文编号有冲突，整稿时需协调。两篇均为当前书稿的组成材料。`章首导语` 含对 9.1.6 的替换修订。`案例说明` 是全书案例定位资料。", "", "以下保存 IMA 原文，包括写作过程说明和待审校内容；取回时不改写正文。修订关系详见仓库根目录 `docs/manuscript-source.md`。"] : []),
+    ...(latest ? ["", "本快照依据用户 2026-11-05 的指示，作为当前最新书稿来源；GitHub draft 和旧拆分稿作为历史版本保留。", "", "`.ima.raw.json` 逐字保存 API 返回的富文本内容，保留 Markdown 无法表达的布局和格式；`.ima.json` 是方便检查的缩进版本。", "", "补充对照已合并到 9.6、9.7 主章节；当前目录不再保留独立补充文档。`章首导语` 含对 9.1.6 的修订。`案例说明` 是全书案例定位资料。", "", "以下保存 IMA 原文，包括写作过程说明和待审校内容；取回时不改写正文。修订关系详见仓库根目录 `docs/manuscript-source.md`。"] : []),
     "",
     ...ordered.map((note) => `- [${note.title}](${encodeURI(note.filename)})${latest ? ` · 更新于 ${new Date(Number(note.modifyTime)).toLocaleString("sv-SE", { timeZone })}` : ""}`),
     "",

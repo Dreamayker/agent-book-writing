@@ -1,6 +1,6 @@
 # 第 9 章出版扩写第二版
 
-日期：2026-11-06。基线：`15184a7` 的[第一版](publication-rewrite-2026-11-06.md)。当前阅读入口：[导语与十二节](../wallet-review-lab/docs/ima-sources/2026-11-05/README.md)。
+日期：2026-11-06。基线：`15184a7` 的[第一版](publication-rewrite-2026-11-06.md)。当前阅读入口：[导语与十二节](manuscript/2026-11-05/README.md)。
 
 ## 本轮调整的依据
 

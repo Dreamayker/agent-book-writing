@@ -16,6 +16,6 @@
 
 ## 本地执行记录
 
-业务规则见 [订单契约](../order-review-lab/docs/ADR-001-business-contract.md)；错误、修复与测试版本见 [十二个案例](../order-review-lab/book-assets/README.md)；维护期间的工具分歧及适用性记录见 [依赖审阅记录](../order-review-lab/docs/dependency-advisories.md)。它们是本章本地结论的来源，与上表外部机制区分。
+业务规则见 [订单契约](decision-records/ADR-001-business-contract.md)；错误、修复与测试版本见 [十二个案例](../order-review-lab/book-assets/README.md)；维护期间的工具分歧及适用性记录见 [依赖审阅记录](dependency-advisories.md)。它们是本章本地结论的来源，与上表外部机制区分。
 
 正文中的假设费用、教学分析记录、空白人工复核单及展示性数据摘录均就近标明，不是执行记录。实时模型效果尚未测得。

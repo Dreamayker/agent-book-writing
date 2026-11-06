@@ -6,31 +6,31 @@
 
 | 范围 | 实际交付 | 验证 |
 | --- | --- | --- |
-| 规则契约 | [ADR-001](../order-review-lab/docs/ADR-001-business-contract.md) | 十规则、金额、选券、数量退款、旧订单及事务口径 |
+| 规则契约 | [ADR-001](decision-records/ADR-001-business-contract.md) | 十规则、金额、选券、数量退款、旧订单及事务口径 |
 | Java 工程 | core/infra/api/test 四模块 | JDK 17、真实 MySQL Testcontainers、Flyway/MyBatis |
 | 计价 | 三类券、顺序、互斥择优、资格、封顶、整分分摊 | 8 项核心测试，含 1000 组确定种子分摊样例 |
 | 订单状态 | 不可变快照、幂等、授权、退款、拆单与共享单位账本 | 11 项 MySQL/HTTP 集成测试，均不跳过 |
 | 反例及修复 | [ORD-01～12](../order-review-lab/book-assets/README.md) | 每案错误/修复版本、原始日志、命令与哈希 |
 | 评审适配 | Finding v2、项目清单、版本证据门禁、Java 风险路由、逐案例评分 | Python 46 项测试通过，覆盖率 90.23% |
-| 书稿 | [导语与 9.1～9.12](../wallet-review-lab/docs/ima-sources/2026-11-05/README.md) | Markdown/富文本同步，原始来源保持不变 |
+| 书稿 | [导语与 9.1～9.12](manuscript/2026-11-05/README.md) | Markdown/富文本同步，原始来源保持不变 |
 | CI | Java 构建、格式、覆盖率、静态规则、录制回放与报告 artifact | 独立 order-checks；原 Python 检查继续保留 |
 
 ## 运行证据
 
 - Java：冻结案例基线 18 项测试通过，见 [基线构建日志](../order-review-lab/evaluation/reports/baseline-java.txt)；主线补充历史快照格式漂移回归后共 19 项通过，核心行覆盖率 180/200 = 90%，聚合行覆盖率 380/394 = 96.45%，见 [主线构建日志](../order-review-lab/evaluation/reports/main-java.txt)。
-- Python：46 项测试通过、90.23% 覆盖率；Ruff 和 mypy 通过。见 [测试日志](../order-review-lab/evaluation/reports/baseline-python.txt)。
+- Python 控制面：16 项测试通过、90.62% 覆盖率；Ruff 和 mypy 通过。运行入口为 [`review-harness`](../review-harness/README.md)，不再保留旧钱包测试报告。
 - ORD-09：错误版本实际 6400 分，预期 6600 分；修复版本实际 6600 分，退款期间实时计价调用为 0。见 [失败输出](../order-review-lab/book-assets/ORD-09/tool-evidence/raw/buggy.txt)、[修复输出](../order-review-lab/book-assets/ORD-09/tool-evidence/raw/fixed.txt)。
 - 12 个案例全部完成验证。ORD-01 无缺陷，其余为 11 个独立根因；依赖与静态案例分别核验依赖树/公告及扫描结果。
 - 录制多角色加规则仲裁得到 11 TP、0 FP、0 FN；这是夹具一致性结果，不能解释为模型准确率。见 [控制夹具报告](../order-review-lab/evaluation/reports/recorded-multi-arbitrated.json)。
 - 可执行 JAR 通过真实 HTTP 连接本地 MySQL 完成试算、下单、退款与同键重放：实付 33000 分、退 C 为 6600 分。见 [HTTP 验证记录](../order-review-lab/evaluation/reports/http-smoke.json)。临时服务与数据库已在验证后停止。
 - 运行器的独立测试确认业务子进程不继承 API 凭据；书稿校验检查 16 篇文档的 48 个正文/富文本/来源哈希，Markdown 与富文本重渲染一致。本地文档链接检查通过。
-- [退款证据流程图](../order-review-lab/docs/figures/refund-evidence.svg) 同时提供 Mermaid 源码与 PNG，图示对应已执行的 ORD-09 流程。
+- [退款证据流程图](figures/refund-evidence.svg) 同时提供 Mermaid 源码与 PNG，图示对应已执行的 ORD-09 流程。
 
 ## 依赖与扫描维护
 
 修复历史 OSV 检查指出的 certifi、idna 和 pytest 版本问题：开发锁文件更新到 certifi 2026.10.23、pytest 9.2.0，隔离教学清单固定 certifi 2026.10.23、idna 3.18。旧 PR-07 补丁已适配新增约束并验证错误/修复补丁可依次应用，历史证据版本保持不变。OSV 检查通过 Python 锁文件、固定版本教学清单及 Maven 聚合 CycloneDX SBOM 覆盖两个工程，包含 Java 传递依赖；直接解析单个模块 POM 无法解析 reactor 内部依赖，因此改为先解析工程再扫描 SBOM。报告保存为 artifact；漏洞仍使检查失败，报告上传不再依赖仓库的 Code Scanning 开关。
 
-主线另升级 Jackson 2.21.8、Log4j 2.25.5、Tomcat 10.1.61、Commons Compress 1.28.0 与 Commons Lang 3.18.0。发现扫描器空报告与 API 公告不一致后，增加带已知漏洞控制样本的直接 API 门禁；两个未使用 Spring 视图功能的公告按准确版本、生产源码哈希和期限记录适用性。依据与报告见 [依赖记录](../order-review-lab/docs/dependency-advisories.md)。冻结教学分支仍保留原版本。
+主线另升级 Jackson 2.21.8、Log4j 2.25.5、Tomcat 10.1.61、Commons Compress 1.28.0 与 Commons Lang 3.18.0。发现扫描器空报告与 API 公告不一致后，增加带已知漏洞控制样本的直接 API 门禁；两个未使用 Spring 视图功能的公告按准确版本、生产源码哈希和期限记录适用性。依据与报告见 [依赖记录](dependency-advisories.md)。冻结教学分支仍保留原版本。
 
 ## 相对规划的明确取舍
 

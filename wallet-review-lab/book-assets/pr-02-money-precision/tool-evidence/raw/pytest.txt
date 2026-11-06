@@ -1,8 +1,0 @@
-Command: uv run pytest -q
-Branch: case/pr-02-money-precision
-Commit: 612a91c
-
-............                                                             [100%]
-12 passed
-
-Interpretation: the available tests did not reject the float conversion.

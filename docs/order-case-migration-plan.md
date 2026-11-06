@@ -2,7 +2,7 @@
 
 日期：2026-11-05。状态：已按作者指示实施业务工程、12 个案例和第 9 章正文迁移；本文件保留设计依据与原验收要求，实际结果见 [迁移状态](migration-status.md)。真实模型实验、外部引用复核与出版审校仍待完成。
 
-依据：[IMA 案例说明](../wallet-review-lab/docs/ima-sources/2026-11-05/案例说明.md)、[最新十二节书稿](../wallet-review-lab/docs/ima-sources/2026-11-05/README.md)、现有 `wallet-review-lab` 实现。代码核对基线为 `4f26d9c`；架构变更记录见 [ADR-004](../wallet-review-lab/docs/decision-records/ADR-004-order-case-migration.md)。
+依据：[IMA 案例说明](manuscript/2026-11-05/案例说明.md)、[最新十二节书稿](manuscript/2026-11-05/README.md)、现有 `review-harness` 实现。代码核对基线为 `4f26d9c`；架构变更记录见 [ADR-004](decision-records/ADR-004-order-case-migration.md)。
 
 ## 1. 建议与交付目标
 
@@ -30,9 +30,9 @@
 
 | 已核对对象 | 当前实现 | 迁移处理 |
 | --- | --- | --- |
-| 业务对象 | `app/domain.py` 为 Wallet / Transfer | 新建 Order、OrderItem、Coupon、PricingSnapshot、Refund 等 Java 对象 |
-| 金额 | `app/service.py` 使用 Python Decimal，两位小数 | Java 内部统一整数分；保留输入校验、范围和溢出约束 |
-| 原子性 | `app/repository.py` 使用单进程 RLock | 用 MySQL 事务、订单行锁、唯一约束验证跨连接一致性 |
+| 业务对象 | 历史 Python 钱包工程为 Wallet / Transfer | 新建 Order、OrderItem、Coupon、PricingSnapshot、Refund 等 Java 对象 |
+| 金额 | 历史 Python 工程使用 Decimal，两位小数 | Java 内部统一整数分；保留输入校验、范围和溢出约束 |
+| 原子性 | 历史 Python 工程使用单进程锁 | 用 MySQL 事务、订单行锁、唯一约束验证跨连接一致性 |
 | 幂等 | 内存表按用户与幂等键查询 | 新增持久化幂等记录及请求指纹，覆盖提交和退款 |
 | Finding | `schemas.py` 已有类型、位置、证据、阻断约束 | 先沿用真实接口，增加版本与根因、证据解析能力 |
 | 风险路由 | `risk-rules.yaml` 绑定 Python 路径 | 增加 Java、MyBatis SQL、数据库迁移、退款和分摊路径策略 |
@@ -41,8 +41,8 @@
 | 模型输入 | `ResponsesReviewAgent` 主要发送 Diff、路径和标签 | 增加业务规则、上下文包和可信工具证据；Oracle 单独保存在评测侧 |
 | 评分 | `evaluation/suite.py` 写死钱包案例；`scoring.py` 按 Finding ID 集合计分 | 改为案例清单驱动，逐案例匹配根因，增加位置、证据、严重性和修复验证 |
 | 静态规则 | `semgrep.yml` 为两条 Python 教学规则 | 新增 Java 金额与注入线索规则，结合编译、测试和数据库证据 |
-| CI | 根工作流默认在 `wallet-review-lab` 运行 | 增加独立 Java job 和跨语言回放 job，调整扫描范围 |
-| 书稿 | 十二节仍以钱包、PR-04 和 Python 路径为主 | 分批替换业务事实、代码、命令、案例表与图片；概念性论证保留 |
+| CI | Python 控制面与 Java 业务工程分开运行 | 保持独立 Java job 和跨语言回放 job，扫描范围覆盖两个现行工程 |
+| 书稿 | 早期版本以钱包、PR-04 和 Python 路径为主 | 已迁移为订单、ORD 案例和 Java 路径；概念性论证保留 |
 
 特别需要纠正书稿与代码的接口差异：实际严重性是 `must_fix / concern / nitpick`，证据是 `evidence: [{type, ref}]`；当前代码没有 `evidence_ref`、业务 `root_cause` 字段，也没有真实模型仲裁。书稿中的“允许工具执行某操作”和 PR 的 `approve/comment/request_changes/escalate` 需要分为两类决策。
 
@@ -60,7 +60,7 @@ Redis 先作为可选缓存，SQL 数据是订单、快照、退款和幂等记�
 
 ```text
 agent-book-writing/
-├── wallet-review-lab/              # 保留历史钱包与现有 Python 评审能力
+├── review-harness/              # 独立的 Python 评审控制面
 │   ├── review_system/              # 首批适配在现有包内完成
 │   └── evaluation/
 ├── order-review-lab/
