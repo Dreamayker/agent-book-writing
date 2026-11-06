@@ -5,6 +5,7 @@
 ## 入口
 
 - [第 9 章当前书稿](manuscript/2026-11-05/README.md)：章首导语、9.1～9.12、IMA 富文本和原始来源。
+- [出版扩写第三版](publication-enrichment-v3-2026-11-06.md)：逐节新增教学内容、篇幅与本轮检查记录。
 - [书稿来源与修订记录](manuscript-source.md)：来源、补充章节合并和版本追溯。
 - [章节标题与逻辑一致性审校](chapter09-consistency-review-2026-11-06.md)：逐节标题、层级、交叉引用和教学边界。
 - [订单案例迁移规划](order-case-migration-plan.md)：业务工程、案例和书稿的迁移依据。

@@ -9,11 +9,10 @@
 | 图 9-3 | chapter09-refund-state | 9.7：单位状态、幂等与账本 |
 | 图 9-4 | chapter09-trust-boundary | 9.11：仓库数据与执行权限 |
 
-图形主题使用本目录 chapter09-theme.json；复用历史工程的 Chrome 配置，从仓库根目录运行（需安装 Mermaid CLI 与 Chrome）：
+图形主题使用本目录 chapter09-theme.json。从仓库根目录运行（需安装 Mermaid CLI 与其可用的 Chrome/Chromium，默认由 Puppeteer 查找浏览器）：
 
 ```bash
 npx --yes @mermaid-js/mermaid-cli \
-  -p docs/figures/puppeteer-config.json \
   -c docs/figures/chapter09-theme.json \
   -i docs/figures/chapter09-architecture.mmd \
   -o docs/figures/chapter09-architecture.svg -b white
