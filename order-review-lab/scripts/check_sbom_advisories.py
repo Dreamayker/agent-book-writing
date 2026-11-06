@@ -8,6 +8,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = ROOT.parent
 SENTINEL = "pkg:maven/org.apache.commons/commons-compress@1.24.0"
 SENTINEL_ADVISORY = "GHSA-4265-ccf5-phj5"
 
@@ -41,7 +42,7 @@ def main():
     ]
     if not components:
         raise ValueError("SBOM contains no external Maven dependencies")
-    assessments = json.loads((ROOT / "docs/dependency-assessments.json").read_text())
+    assessments = json.loads((REPO_ROOT / "docs/dependency-assessments.json").read_text())
     source_hash = hashlib.sha256()
     for path in sorted(ROOT.glob("order-*/src/main/**/*")):
         if path.is_file():
